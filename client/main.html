@@ -1,0 +1,418 @@
+<head>
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+</head>
+<body>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+
+    <div class = "container">
+        <form class="dish_descriptions" id="dish_descriptions">
+
+            <h5>Upload dish image</h5>
+
+            {{> uploadForm }}
+
+            <h5>Dish descriptions</h5>
+                <div class = "input-field col l12 m12 s12">
+                    <input placeholder="Type your dish name" name="dish_name" id="dish_name" type="text" class="validate">
+                </div>
+                <div class = "input-field col l12 m12 s12">
+                    <input placeholder="Type something about your dish - description" name="dish_description" id="dish_description" type="text" class="validate">
+                </div>
+
+              <div class="row">
+                  <div class="input-field col l6 m6 s6">
+                    <h5>Serving Options</h5>
+                    <select class="icons" name="serving_option">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="Delivery" data-icon='/delivery.svg' class="left">Delivery</option>
+                      <option value="Pick_up" data-icon='/Pickup.svg' class="left">Pick up</option>
+                      <option value="Dine_in" data-icon='/Dine_in.svg' class="left">Dine in</option>
+                    </select>
+                  </div>
+
+                <div class="input-field col l6 m6 s6">
+                      <h5>Cooking Time (mins)</h5>
+                      <i class="material-icons prefix">av_timer</i>
+                      <input id="icon_prefix" name="cooking_time" type="number" min="0" class="validate">
+                </div>
+              </div>
+
+              <div class="add_ingredient">
+                  <h5>Ingredients</h5>
+                  {{> ingredient_input}}
+              </div>
+
+              <div class="add_price">
+                <h5>Price</h5>
+                {{> price}}
+              </div>
+
+              <div class="food_allergies">
+                <h5>Major food allergies</h5>
+                {{> food_allergies}}
+              </div>
+
+              <div class="dietary_preferences">
+                <h5>Dietary preferences</h5>
+                {{> dietary_preferences}}
+              </div>
+
+              <div class="food_tags">
+                <h5>Tags</h5>
+                {{> food_tags}}
+              </div>
+
+            <input class="waves-effect waves-teal btn-flat" type="submit" value="Submit">
+        </form>
+    </div>
+
+</body>
+
+
+<!------------------------------ TEMPLATES SESSION ----------------------------------------->
+
+<template name="uploadForm">
+
+     <div class = "circle_base" >
+      {{#with currentUpload}}
+              <div class="preloader-wrapper big active img_preloader center">
+                <div class="spinner-layer spinner-red-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+      {{else}}
+            {{#if checkUpload}}
+                <img src= "dishes_upload/{{imageFile}}" />
+            {{else}}
+                <div class = "image_upload">
+                    <label for = "file_input">
+                        <img class="icon_img_upload" src="img_upload_icon.svg" />
+                    </label>
+                    <div class="file-field input-field">
+                        <input id="file_input" type="file">
+                      <div class="file-path-wrapper">
+                      </div>
+                    </div>
+                </div>
+            {{/if}}
+
+      {{/with}}
+
+     </div>
+</template>
+
+<template name="ingredient_input">
+      <table>
+        <thead>
+          <tr>
+              <th class="col l8 m8 s8">Ingredient</th>
+              <th class="col l2 m2 s2">Quantity</th>
+              <th class="col l2 m2 s2">Unit</th>
+          </tr>
+        </thead>
+            {{#each ingredient_list}}
+                {{> display_ingredients}}
+            {{/each}}
+        <tr>
+        <td>
+            <input id="ingredient_name" name="ingredient_name" type="text" class="validate">
+        </td>
+        <td>
+            <input id="ingredient_quantity" name="ingredient_quantity" type="number" min="0" class="validate">
+        </td>
+        <td>
+            <select id="ingredient_unit" name="ingredient_unit" type="text">
+            <!-- https://en.wikibooks.org/wiki/Cookbook:Units_of_measurement -->
+              <option value="">Choose an unit</option>
+              {{#each units}}
+                {{> unit_list}}
+              {{/each}}
+            </select>
+        </td>
+        </tr>
+        <tbody>
+        <tr>
+        </tr>
+        </tbody>
+    </table>
+
+  <div class="right-align">
+        <a class="ingredient_input btn-floating btn-medium waves-effect waves-red-300" type="submit" value="Submit"><i class="material-icons right">add</i></a>
+  </div>
+</template>
+
+<template name="display_ingredients">
+            <tr>
+                <td>{{ingredient_name}}</td>
+                <td>{{ingredient_quantity}}</td>
+                <td>{{ingredient_unit}}</td>
+            </tr>
+</template>
+
+
+<template name="unit_list">
+    <option value={{shortform}}>{{name}}</option>
+</template>
+
+<template name="price">
+  <table>
+    <thead>
+      <tr>
+          <th class="col l8 m8 s8">Cost</th>
+          <th class="col l2 m2 s2">Expected selling price</th>
+          <th class="col l2 m2 s2">Expected profit</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+            <input id="dish_cost" name="dish_cost" type="number" min="0" class="validate">
+        </td>
+        <td>
+            <input id="dish_selling_price" name="dish_selling_price" type="number" min="0" class="validate">
+        </td>
+        <td>
+            <div name="profit">{{profit}}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
+<template name="food_allergies">
+    <br>
+    <div class="row">
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="milk_allergy" />
+            <label for="milk_allergy">Milk<div class="right icon icon_milk"></div></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="tree_nuts_allergy" />
+            <label for="tree_nuts_allergy">Tree Nuts<span class="icon icon_nuts"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="fish_allergy" />
+            <label for="fish_allergy">Fish<span class="icon icon_fish"></span></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="egg_allergy" />
+            <label for="egg_allergy">Egg<span class="right-align icon icon_egg"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="wheat_allergy" />
+            <label for="wheat_allergy">Wheat<span class="icon icon_wheat"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="shellfish_allergy" />
+            <label for="shellfish_allergy">Shellflish<span class="icon icon_shellfish"></span></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="peanuts_allergy" />
+            <label for="peanuts_allergy">Peanuts<span class="icon icon_peanuts"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="soy_allergy" />
+            <label for="soy_allergy">Soy<span class="icon icon_soy"></span></label>
+        </div>
+    </div>
+    <br>
+</template>
+
+<template name="dietary_preferences">
+    <br>
+    <div class="row">
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="diabetic" />
+            <label for="diabetic">Diabetic<div class="icon icon_diabetic"></div></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="low_sodium" />
+            <label for="low_sodium">Low Sodium<span class="icon low_sodium"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="pescetartrian" />
+            <label for="pescetartrian">Pescetartrian<span class="icon icon_pescetartrian"></span></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="gluten_free" />
+            <label for="gluten_free">Gluten free<span class="right-align icon icon_gluten_free"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="low_carb" />
+            <label for="low_carb">Wheat<span class="icon icon_low_carb"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="vegan" />
+            <label for="vegan">Vegan<span class="icon icon_vegan"></span></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="high_protein" />
+            <label for="high_protein">High protein<span class="icon icon_high_protein"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="nuts_free" />
+            <label for="nuts_free">Nuts free<span class="icon icon_nuts_free"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="vegetarian" />
+            <label for="vegetarian">Vegetarian<span class="icon icon_vegetarian"></span></label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="lactose_free" />
+            <label for="lactose_free">Lactose free<span class="icon icon_lactose_free"></span></label>
+        </div>
+        <div class="col l4 m4 s4">
+            <input type="checkbox" class="filled-in" id="paleo" />
+            <label for="paleo">Paleo<span class="icon icon_paleo"></span></label>
+        </div>
+    </div>
+    <br>
+</template>
+
+<template name="food_tags">
+  <br>
+  <ul class="collapsible" data-collapsible="expandable">
+    <li>
+      <div class="collapsible-header">By cuisine:</div>
+      <div class="collapsible-body">
+        <div class="row">
+        {{# each cuisines_list}}
+            <div class="col l4 m4 s4 food_tags_list">
+                <input type="checkbox" class="filled-in" id={{id}} />
+                <label for={{id}}>{{name}}</label>
+            </div>
+        {{/each}}
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header proteins">By proteins:</div>
+      <div class="collapsible-body">
+        <div class="row">
+        {{# each proteins_list}}
+            <div class="col l4 m4 s4 food_tags_list">
+                <input type="checkbox" class="filled-in" id={{id}} />
+                <label for={{id}}>{{name}}</label>
+            </div>
+        {{/each}}
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">By categories:</div>
+      <div class="collapsible-body">
+        <div class="row">
+        {{# each categories_list}}
+            <div class="col l4 m4 s4 food_tags_list">
+                <input type="checkbox" class="filled-in" id={{id}} />
+                <label for={{id}}>{{name}}</label>
+            </div>
+        {{/each}}
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">By cooking methods:</div>
+      <div class="collapsible-body">
+        <div class="row">
+        {{# each cooking_method_list}}
+            <div class="col l4 m4 s4 food_tags_list">
+                <input type="checkbox" class="filled-in" id={{id}} />
+                <label for={{id}}>{{name}}</label>
+            </div>
+        {{/each}}
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">By taste:</div>
+      <div class="collapsible-body">
+            <div class="row">
+            {{# each tastes_list}}
+                <div class="col l4 m4 s4 food_tags_list">
+                    <input type="checkbox" class="filled-in" id={{id}} />
+                    <label for={{id}}>{{name}}</label>
+                </div>
+            {{/each}}
+          </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">By textures:</div>
+      <div class="collapsible-body">
+        <div class="row">
+            {{# each textures_list}}
+                <div class="col l4 m4 s4 food_tags_list">
+                    <input type="checkbox" class="filled-in" id={{id}} />
+                    <label for={{id}}>{{name}}</label>
+                </div>
+            {{/each}}
+          </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">By vegetables:</div>
+      <div class="collapsible-body">
+        <div class="row">
+            {{# each vegetables_list}}
+                <div class="col l4 m4 s4 food_tags_list">
+                    <input type="checkbox" class="filled-in" id={{id}} />
+                    <label for={{id}}>{{name}}</label>
+                </div>
+            {{/each}}
+          </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">By condiments:</div>
+      <div class="collapsible-body">
+        <div class="row">
+            {{# each condiments_list}}
+                <div class="col l4 m4 s4 food_tags_list">
+                    <input type="checkbox" class="filled-in" id={{id}} />
+                    <label for={{id}}>{{name}}</label>
+                </div>
+            {{/each}}
+          </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">By serving temperature:</div>
+      <div class="collapsible-body">
+        <div class="row">
+            {{# each serving_temperature_list}}
+                <div class="col l4 m4 s4 food_tags_list">
+                    <input type="checkbox" class="filled-in" id={{id}} />
+                    <label for={{id}}>{{name}}</label>
+                </div>
+            {{/each}}
+          </div>
+      </div>
+    </li>
+  </ul>
+</template>
