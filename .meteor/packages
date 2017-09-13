@@ -23,3 +23,6 @@ materialize:materialize@=0.99.0
 cfs:ejson-file
 session
 ostrio:files
+ostrio:flow-router-extra
+kadira:blaze-layout
+jquery
