@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&subset=vietnamese');
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.page-footer {
+  padding-top: 0px;
+}

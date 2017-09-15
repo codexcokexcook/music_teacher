@@ -1,24 +1,88 @@
 #dish_card_large {
-  padding: 10px 0px 20px 20px;
+  padding: 10px 0px 0px 20px;
+  height: 420px;
 }
+
 .card-title {
-  padding-left: 35px;
+  padding-left: 24px;
   padding-right: 24px;
   margin: 0px;
+  line-height:50%;
+  height: 40px;
 }
+
+.card-stacked {
+  width: 285px;
+}
+
+.card-content {
+  margin-bottom: 0px;
+}
+
 .card-title p,h5 {
   margin-top: 0px;
 }
-.card-title p {
-  font-size: 13px;
+
+.card-tabs {
+  margin-top:5px;
+  height: 150px;
+  overflow: auto;
 }
+
+.indicator {
+  right:0;
+}
+
+.card-title {
+  font-size: 13px;
+  padding-top: 15px;
+}
+
 .card-content {
+  height: 30%;
+  margin-top: 0px;
   font-size: 13px;
   color: rgba(0,0,0,0.54);
 }
-.card-image {
-  padding-top: 40px;
-}
+
 .card-content {
   padding: 0px 24px 0px 24px;
+}
+
+.info_wrapper {
+  margin: 0px 12px 12px 12px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.54);
+}
+
+#location_time_info p {
+  margin-top: 0px;
+  margin-bottom: 12px;
+}
+
+#service_info img {
+  position: relative;
+  top: 5px;
+  left: 3px;
+}
+
+#rating_price_info {
+  margin-top: 10px;
+}
+
+#rating img {
+  margin-top: 20px;
+  margin-right: 3px;
+  width: 91px;
+  float: left;
+}
+
+
+#rating h6 {
+  margin-top: 20px;
+  position: relative;
+}
+
+#price h5 {
+  margin-top: 15px;
 }

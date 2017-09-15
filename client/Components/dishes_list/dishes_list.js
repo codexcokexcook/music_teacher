@@ -6,6 +6,13 @@ Template.dishes_list.helpers ({
       return Dishes.find();
   }
 });
+Template.dishes_card.onRendered(function(){
+  this.$('ul.tabs').tabs();
+});
+
+Template.dishes_card.onRendered(function(){
+  this.$('ul.tabs').tabs();
+});
 
 Template.dishes_card.helpers ({
   'get_image_extension': function () {
@@ -25,18 +32,10 @@ Template.ingredients_loop.helpers ({
   }
 });
 
-/*Template.allergy_tags.helpers ({
-  'extract_allergy_tags': function() {
-    var extract_dish = Dishes.find({"dish_name":this.dish_name});
-    var extract_allergy_tags = extract_dish.allergy_tags
-    /* .map(function(item){
-      return item.value;
-    });
-  }
+Template.service_info.onRendered(function(){
+var serving_option = this.serving_option;
+console.log(serving_option);
+/**  if this.serving_option.value = "Delivery" {
+    document.getSVGDocument().getElementById("pick_up_option").style.color=rgba(0,0,0,0.18);
+  } **/
 });
-
-Template.allergy_tags.onRendered(function(){
-  $('.chips-initial').material_chip({
-    data:[{tag: this.extract_allergy_tags}]
-  });
-}); */
