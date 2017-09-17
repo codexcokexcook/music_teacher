@@ -184,7 +184,7 @@ Template.price.events({
     Session.set('dish_profit',profit_calculation);
   }
 });
- 
+
 Template.food_allergies.helpers ({
   allergy_list: [
     { name: 'Milk', file_name: 'milk'},
