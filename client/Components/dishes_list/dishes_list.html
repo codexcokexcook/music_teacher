@@ -1,48 +1,68 @@
 <template name="dishes_list">
   <div class = "row">
-    {{#each dishes_item}}
-      {{> dishes_card}}
-    {{/each}}
-  </div>
-</template>
-
-<template name="dishes_card">
-  <div class="col s12 m12 l8">
-    <div class="card horizontal" id = "dish_card_large">
-
-      <div class="card-image" id = "dish_card_image">
-        <img src="user_avatar.svg" alt="user_avatar" id="user_avartar" class = "circle responsive-img"/>
-        <img src="dishes_upload/{{image_id}}{{get_image_extension}}" id="dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
+    <div class="col s12 m12 l8">
+      <div>
+      {{#with dish_details}}
+        {{> dishes_card}}
+      {{/with}}
       </div>
-
-      <div class="card-stacked">
-        <div class = "card-title">
-          <h5>{{dish_name}}</h5>
-        </div>
-        <div class = "card-content">
-          {{> info_tabs}}
-        </div>
-        <div class =  "info_wrapper">
-          {{> location_time_info}}
-          {{> service_info}}
-          {{> rating_price_info}}
-        </div>
+      <div class = "row">
+        {{#each dishes_item}}
+          {{> dishes_rotation}}
+        {{/each}}
       </div>
     </div>
   </div>
 </template>
 
+<template name="dishes_card">
+  <div class="card horizontal" id = "dish_card_large">
+    <div class="card-image circle responsive-img" id = "dish_card_image">
+      <!-- Required to convert to dynamic component when user accounts component is ready -->
+      <img src="user_avatar.svg" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
+      {{> get_dish_image}}
+    </div>
+
+    <div class="card-stacked">
+      <div class = "card-content">
+        <h5>{{dish_name}}</h5>
+        {{> info_tabs}}
+        {{> location_time_info}}
+        {{> service_info}}
+      </div>
+      <div class =  "info_wrapper">
+        {{> rating_price_info}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name = "dishes_rotation">
+  <div class = "dishes_rotation_wrapper">
+    <row>
+      <div class = "dish_thumbnail col s6 m3 l2" id="{{_id}}">
+        {{> get_dish_image}}
+        <div class = "center-align">{{dish_name}}</div>
+      </div>
+    </row>
+  </div>
+</template>
+
+<template name="get_dish_image">
+  <img src="dishes_upload/{{image_id}}{{get_image_extension}}" id="dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
+</template>
+
 <template name="ingredients_loop">
-    {{#each get_ingredients}}
-      <row>
-        <div class = "col s3 m3 l3">
-          <p>{{ingredient_quantity}}{{ingredient_unit}}</p>
-        </div>
-        <div class = "col s9 m9 l9">
-          <p>{{ingredient_name}}</p>
-        </div>
-      </row>
-    {{/each}}
+  {{#each get_ingredients}}
+    <row>
+      <div class = "col s3 m3 l3">
+        <p>{{ingredient_quantity}}{{ingredient_unit}}</p>
+      </div>
+      <div class = "col s9 m9 l9">
+        <p>{{ingredient_name}}</p>
+      </div>
+    </row>
+  {{/each}}
 </template>
 
 <template name="info_tabs">
@@ -55,46 +75,40 @@
   </div>
 
   <div class="card-tabs">
-      <div id="description_{{_id}}">
-        <p>{{dish_description}}</p>
-      </div>
-      <div id="ingredients_{{_id}}">
-        {{> ingredients_loop}}
-      </div>
-      <div id="dietary_info_{{_id}}">
+    <div id="description_{{_id}}">
+      <p>{{dish_description}}</p>
+    </div>
+    <div id="ingredients_{{_id}}">
+      {{> ingredients_loop}}
+    </div>
+    <div id="dietary_info_{{_id}}">
+      <div class = "valign-wrapper">
         {{#each allergy_tags}}
-          <div class= chip>{{this}}</div>
+          <div class= "chip">{{this}}</div>
         {{/each}}
       </div>
     </div>
-</template>
-
-<template name="location_time_info">
-  <div class = "location_time_info_wrapper" id="location_time_info">
-    <row>
-      <div class = "col s12 m6 l6" id="location_info">
-        <p class = "left-align">Chef location: 3km</p>
-      </div>
-
-      <div class = "col s6 m6 l6" id="time_info">
-        <p class="right-align">Ready in {{cooking_time}} mins</p>
-      </div>
-    </row>
   </div>
 </template>
 
+<template name="location_time_info">
+  <p>Chef location: <strong>3 km</strong> |  Ready in: <strong>{{cooking_time}} mins</strong></p>
+</template>
+
 <template name="service_info">
-  <div class = "service_info_wrapper col s12 m12 l12 left-align" id="service_info">
-      {{#with serving_option}}
-        <span class="left-align" id="{{this}}_option">Available for: {{this}} <img src="dish_cards/services_icons/{{this}}.svg" alt="{{this}}" id="{{this}}_icon"></span>
-      {{/with}}
+  <div class = "service_info_wrapper" id="service_info">
+    {{#with serving_option}}
+      <div id="{{this}}_option">
+        <p>Available for: <strong>{{this}}</strong><img src="dish_cards/services_icons/{{this}}.svg" alt="{{this}}" id="{{this}}_icon"></p>
+      </div>
+    {{/with}}
   </div>
 </template>
 
 <template name = "rating_price_info">
   <div class = "rating_price_wrapper" id="rating_price_info">
     <row>
-      <div class = "col s12 m8 l8" id="rating">
+      <div class = "left-align col s12 m8 l8" id="rating">
     <!-- rating and review numbers has to be adjust to dynamic in the furture-->
         <img src=dish_cards/rating/0_of_5_hearts.svg alt="heart"><h6>4</h6>
       </div>

@@ -184,11 +184,11 @@ Template.price.events({
     Session.set('dish_profit',profit_calculation);
   }
 });
-
+ 
 Template.food_allergies.helpers ({
   allergy_list: [
     { name: 'Milk', file_name: 'milk'},
-    { name: 'Tree Nuts', file_name: 'tree_nuts'},
+    { name: 'Tree-nuts', file_name: 'tree_nuts'},
     { name: 'Fish', file_name: 'fish'},
     { name: 'Egg', file_name: 'egg'},
     { name: 'Wheat', file_name: 'wheat'},
