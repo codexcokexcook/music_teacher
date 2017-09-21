@@ -1,13 +1,21 @@
+<template name="msgDialog">
 
-<head>
-  <title>Blueplate</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-</head>
+<header>
+  {{>msgDialog_navbar}}
+</header>
 
-<body>
+<main>
+  {{>msgDialog_content}}
+</main>
+
+<footer>
+  {{>msgDialog_footer}}
+</footer>
+</template>
+
+
   <!--Instead of Header, use materializecss-NavBar-->
-  <header>
+<template name="msgDialog_navbar">
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper grey lighten-5">
@@ -25,35 +33,36 @@
             </li>
           </ul>
       </div>
-      </nav>
+    </nav>
       </div>
-  </header>
+  </template>
 
 
-<main>
+<template name = "msgDialog_content">
   <!--Show Conversation Screen-->
 
     <div class="conversation-screen">
 
     <div class="left24px top16px">
     {{#each messages}}
-    {{> message}}
+    {{> message}}{{ceratedAt}}
     {{/each}}
     </div>
 
 </div>
   <!--Show Card Screen-->
-  <div class="col l8 m6 s6 card-screen">
+  <div class="card-screen">
 
     <div class="left24px top16px">
-    Hello
+      {{>show_card_content}}
     </div>
 
 </div>
-</main>
+</template>
+
 
     <!--Footer-->
-    <footer>
+    <template name="msgDialog_footer">
 
       <div class="footer-left">
         <div class ="left24px">
@@ -74,11 +83,13 @@
           <div class ="right24px">|  2017 &#169; Copyright to Blueplate.co  |  Terms & Privacy  |  Help  |</div>
           </div>
         </div>
+  </template>
 
-
-    </footer>
-
-  </body>
+  <template name="show_card_content">
+  <div class = "valign wrapper">
+    {{>create_dishes_form}}
+  </div>
+  </template>
 
 
 <!--Message Chips-->

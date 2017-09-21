@@ -6,8 +6,9 @@ import { Mongo } from 'meteor/mongo';
 
 Messages = new Mongo.Collection('messages');
 
-Template.body.helpers({
-  messages(){
+
+Template.msgDialog_content.helpers({
+  'messages':function(){
     return Messages.find()
   }
 });
@@ -19,6 +20,7 @@ Template.add.events({
     // Get input value
     const target = event.target;
     const text = target.new_message.value;
+    
 
     // Insert note into collection
     /*
