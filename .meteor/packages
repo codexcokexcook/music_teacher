@@ -26,3 +26,10 @@ ostrio:files
 ostrio:flow-router-extra
 kadira:blaze-layout
 jquery
+dburles:google-maps
+aldeed:geocoder
+
+accounts-password
+accounts-facebook
+accounts-google
+meteortoys:allthings

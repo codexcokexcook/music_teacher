@@ -22,7 +22,7 @@ Template.dishes_rotation.onRendered(function(){
   var first_dish_display = Dishes.findOne({});
   var first_dish_id = first_dish_display._id;
   Session.set('dish_id',first_dish_id);
-})
+});
 
 Template.dishes_rotation.events({
   'click .dish_thumbnail': function () {

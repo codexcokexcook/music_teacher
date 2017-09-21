@@ -1,0 +1,46 @@
+<Template name = "location">
+    <div class = "card">
+      <div class = "card-content">
+        <div class = "row">
+          {{# each location}}
+            {{> selection}}
+          {{/each}}
+        </div>
+        <div class = "card-action">
+          <div class = "center">
+            <a class="waves-effect waves-light red lighten-2 btn modal-trigger" href="#mapping" id=edit_details>edit details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{> map_container}}
+</template>
+
+<template name = "map_container">
+  <div id="mapping" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4>Modal Header</h4>
+      </div>
+      <div class="modal-footer">
+        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
+    </div>
+</template>
+
+<template name = "selection">
+  <div class = "selection">
+    <div class = "col s12 m4 l4">
+      <div style = "height:350px;" class = "card hoverable {{selection_elements}}">
+        <div class = "container">
+          <div class = "card-image">
+          </div>
+        </div>
+        <div class = "card-content">
+          <div class = "center-align"><img style = "height:125px;" src = "location/icons/{{id}}.svg" alt="{{name}}"></div>
+          <div class = "center-align"><h5 class = "{{selection_text}}">{{name}}</h5></div>
+          <div class = "center-align"><p class = "{{selection_text}}">{{address}}</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

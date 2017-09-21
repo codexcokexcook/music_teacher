@@ -1,0 +1,142 @@
+
+html{
+  height:100%;
+  width: 100%;
+}
+
+
+body{
+width:100%;
+height:100%;
+margin:0
+padding:0
+}
+
+header {
+    width:  100%;
+    height: 68px;
+    margin:0
+    padding:0
+}
+
+main {
+  height: 85%;
+  width:100%;
+  margin:0
+  padding:0
+}
+
+footer {
+  height:56px;
+  width:100%;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #d0d0d0;
+  margin:0;
+  padding:0;
+}
+
+/* Blueplate Logo */
+.logo-blueplate img {
+    width: 82px;
+    height: 28px;
+    margin-top: 20px;
+    margin-left: 24px;
+}
+
+/* User-pic to chop as circle*/
+.user-pic img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.conversation-screen {
+    float:left;
+    width: 33.33%;
+    height: 100%;
+    margin:0;
+    padding:0;
+    background-color: #ffffff;
+
+    overflow:scroll;
+}
+
+.card-screen {
+  float: none;
+  width: auto;
+  height: 100%;
+    left: 0;
+    background-color: #ffffff;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #d0d0d0;
+    overflow:scroll;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: rgba(160,160,160,0.4)
+}
+
+
+#new_message_text {
+
+  margin-bottom: 0px;
+  width: 80%;
+
+}
+
+.footer-left{
+  float: left;
+  width: 33.33%;
+  height: 100%;
+  margin:0;
+  padding:0;
+}
+
+.top16px{
+  margin-top:16px;
+}
+
+.left24px{
+  margin-left: 24px;
+}
+
+.right24px{
+  margin-right: 24px;
+}
+
+.footer-right {
+  float:right;
+  width: 66.67%;
+  height:100%;
+  font-size: 10px;
+  padding:0;
+  left: 0;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-left-color: #d0d0d0;
+}
+
+.float-right{
+  float:right;
+  margin-top: 16px;
+  margin-right: 24px;
+}
+.float-left{
+  float: left;
+  margin-top: 16px;
+  margin-left: 24px;
+}
+.social_media img{
+  height: 15px;
+  margin-right: 15px;
+  ;
+}

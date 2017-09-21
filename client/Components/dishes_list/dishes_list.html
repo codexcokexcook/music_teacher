@@ -19,7 +19,7 @@
   <div class="card horizontal" id = "dish_card_large">
     <div class="card-image circle responsive-img" id = "dish_card_image">
       <!-- Required to convert to dynamic component when user accounts component is ready -->
-      <img src="user_avatar.svg" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
+      <img src="/user_avatar.svg" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
       {{> get_dish_image}}
     </div>
 
@@ -49,7 +49,7 @@
 </template>
 
 <template name="get_dish_image">
-  <img src="dishes_upload/{{image_id}}{{get_image_extension}}" id="dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
+  <img src="/dishes_upload/{{image_id}}{{get_image_extension}}" id="dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
 </template>
 
 <template name="ingredients_loop">
@@ -99,7 +99,7 @@
   <div class = "service_info_wrapper" id="service_info">
     {{#with serving_option}}
       <div id="{{this}}_option">
-        <p>Available for: <strong>{{this}}</strong><img src="dish_cards/services_icons/{{this}}.svg" alt="{{this}}" id="{{this}}_icon"></p>
+        <p>Available for: <strong>{{this}}</strong><img src="/dish_cards/services_icons/{{this}}.svg" alt="{{this}}" id="{{this}}_icon"></p>
       </div>
     {{/with}}
   </div>
@@ -110,7 +110,7 @@
     <row>
       <div class = "left-align col s12 m8 l8" id="rating">
     <!-- rating and review numbers has to be adjust to dynamic in the furture-->
-        <img src=dish_cards/rating/0_of_5_hearts.svg alt="heart"><h6>4</h6>
+        <img src="/dish_cards/rating/0_of_5_hearts.svg" alt="heart"><h6>4</h6>
       </div>
       <div class = "col s12 m4 l4" id="price">
         <h5 class = "right-align">${{dish_selling_price}}</h5>

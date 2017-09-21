@@ -1,12 +1,5 @@
 /* CSS declarations go here */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto Slab', serif;
-    color: #E57373;
-}
-
 .circle_base {
     border-radius: 50%;
     width: 250px;

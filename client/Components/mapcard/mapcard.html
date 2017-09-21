@@ -1,0 +1,20 @@
+<template name = "mapcard">
+  <div class = "container">
+    <div class = "card" id = "location_search_card">
+      <div class= "center">
+        <form class = "address_search">
+          <div class = "card col s6 m6 l6">
+            <input type="search" required>
+            <i class="material-icons search_icon">search</i>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name = "mapping">
+    <div class="map-container">
+      {{> googleMap name="exampleMap" options=exampleMapOptions}}
+    </div>
+</template>

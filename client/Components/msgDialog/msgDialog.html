@@ -1,0 +1,100 @@
+
+<head>
+  <title>Blueplate</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+  <!--Instead of Header, use materializecss-NavBar-->
+  <header>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper grey lighten-5">
+          <div class="logo-blueplate">
+          <a href="#" class="brand-logo"><img src="/msgDialog/Logo_BK_Skatch82x28.svg"/></a>
+          </div>
+  <!--The User picture that float half way on the navbar-->
+          <ul class="right hide-on-med-and-down">
+            <li>
+            <a class="btn-floating btn-large halfway-fab N/A">
+            <div class="user-pic" >
+            <img src="/msgDialog/user.jpg"/>
+            </div>
+            </a>
+            </li>
+          </ul>
+      </div>
+      </nav>
+      </div>
+  </header>
+
+
+<main>
+  <!--Show Conversation Screen-->
+
+    <div class="conversation-screen">
+
+    <div class="left24px top16px">
+    {{#each messages}}
+    {{> message}}
+    {{/each}}
+    </div>
+
+</div>
+  <!--Show Card Screen-->
+  <div class="col l8 m6 s6 card-screen">
+
+    <div class="left24px top16px">
+    Hello
+    </div>
+
+</div>
+</main>
+
+    <!--Footer-->
+    <footer>
+
+      <div class="footer-left">
+        <div class ="left24px">
+        {{> add}}
+        </div>
+      </div>
+      <div class = "footer-right">
+          <div class="float-left">
+          <div class="social_media">
+          <a href="http://www.youtube.com" target="_blank"><img src="/msgDialog/youtube_16px_h_BK.svg" class="social_media"/></a>
+          <a href="http://www.pinterest.com" target="_blank"><img src="/msgDialog/pinterest_16px_h_BK.svg" class="social_media"/></a>
+          <a href="http://www.linkedin.com" target="_blank"><img src="/msgDialog/linkedin_16px_h_BK.svg" class="social_media"/></a>
+          <a href="http://www.instagram.com" target="_blank"><img src="/msgDialog/instagram_16px_h_BK.svg" class="social_media"/></a>
+          <a href="http://www.facebook.com" target="_blank"><img src="/msgDialog/faceBook_16px_h_BK.svg" class="social_media"/></a>
+        </div>
+      </div>
+        <div class="float-right">
+          <div class ="right24px">|  2017 &#169; Copyright to Blueplate.co  |  Terms & Privacy  |  Help  |</div>
+          </div>
+        </div>
+
+
+    </footer>
+
+  </body>
+
+
+<!--Message Chips-->
+<template name="message">
+    <div class="chip content">{{text}}</div>
+    <p></p>
+</template>
+
+<template name="add">
+      <form class="send-message" autocomplete="off">
+            <input id="new_message_text" type="text" name="new_message" placeholder="Send a message" >
+      </form>
+</template>
+
+
+<!-- Voice -->
+<template name="voice">
+    <i class="material-icons mic">mic</i>
+</template>
