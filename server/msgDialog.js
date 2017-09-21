@@ -4,6 +4,7 @@ import { check } from 'meteor/check';
 
 Messages = new Mongo.Collection('messages');
 
+
 Meteor.methods({
   'messages.insert'(text){
     check(text, String);
@@ -11,9 +12,13 @@ Meteor.methods({
 //    if(!Meteor.userId()){
 //      throw new Meteor.Error('not-authorized');
 //    }
+
+var message_tsmp = new Date();
+
+
     Messages.insert({
       text,
-      ceratedAt: new Date(),
+      ceratedAt: message_tsmp.toTimeString(),
  //     owner: Meteor.userId(),
  //     username: Meteor.user().username,
     });

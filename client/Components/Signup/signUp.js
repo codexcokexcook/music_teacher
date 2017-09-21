@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Accounts } from 'meteor/accounts-base';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import './signUp.html';
 
@@ -56,6 +57,8 @@ Template.signup.onRendered(function(){
 Template.signup_content.events({
   'submit form': function(events, template){
        event.preventDefault();
+       FlowRouter.go('emailVerification');
+
 
        let user = {
       email: template.find( '[name="email"]' ).value,
@@ -76,5 +79,7 @@ Template.signup_content.events({
         });
       }
     });
+
   }
+
 });
