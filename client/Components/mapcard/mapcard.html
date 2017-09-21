@@ -1,20 +1,28 @@
 <template name = "mapcard">
-  <div class = "container">
-    <div class = "card" id = "location_search_card">
-      <div class= "center">
-        <form class = "address_search">
-          <div class = "card col s6 m6 l6">
-            <input type="search" required>
-            <i class="material-icons search_icon">search</i>
-          </div>
-        </form>
-      </div>
+<div class = "container">
+  <div class = "card" id="location_search_card">
+      {{> mapping}}
+    <div class = "row">
+      {{> location_search_card}}
     </div>
   </div>
+</div>
 </template>
 
 <template name = "mapping">
     <div class="map-container">
       {{> googleMap name="exampleMap" options=exampleMapOptions}}
     </div>
+</template>
+
+<template name = "location_search_card">
+  <div class = "col l6 offset-l3">
+    <div class = "card" id="location_search_input_card">
+      <div class = "row">
+        <div class = "input-field col l12">
+          <input id="location_search_input" placeholder = "search your location here" type="search"><i class = "material-icons">search</i>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
