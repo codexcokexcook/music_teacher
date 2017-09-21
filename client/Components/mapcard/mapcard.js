@@ -10,10 +10,33 @@ Template.mapping.helpers({
   'exampleMapOptions': function() {
     if (GoogleMaps.loaded()) {
       return {
-        center: new google.maps.LatLng(-37.8136, 144.9631),
-        zoom: 12
+        center: new google.maps.LatLng(22.286394, 114.149139),
+        zoom: 11
       };
     }
+  }
+});
+
+Template.location_search_card.events({
+  'click .material-icons': function () {
+    var geocoder = new google.maps.Geocoder();
+    var address = document.getElementById('location_search_input').value;
+
+    GoogleMaps.ready('exampleMap', function(map) {
+      geocoder.geocode({'address': address}, function(results,status) {
+        if(status == 'OK') {
+          alert('OK!');
+          map.instance.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map.instance,
+            position: results[0].geometry.location,
+            zoom: 5
+          });
+        } else {
+          alert('not working');
+        }
+      });
+    });
   }
 });
 
@@ -65,6 +88,6 @@ Template.mapping.onCreated(function(){
         // Remove the reference to this marker instance
         delete markers[oldDocument._id];
       }
-    });    
+    });
   });
 });
