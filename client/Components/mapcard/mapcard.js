@@ -7,47 +7,121 @@ Template.mapping.helpers({
     {name: 'Map', id:'map', address:'Tung Fat Building, Yuen Long'},
   ],
 
-  'exampleMapOptions': function() {
+  'map_options': function() {
+  // initial setting of when google map is loaded, set center and zoom range
     if (GoogleMaps.loaded()) {
       return {
         center: new google.maps.LatLng(22.286394, 114.149139),
-        zoom: 18
+        zoom: 15
       };
+    }
+  }
+});
+
+Template.location_search_card.helpers({
+  'address':function() {
+    var address = Session.get('address');
+    if (typeof address === "undefined") {
+      return "Search your location here";
+    } else {
+      return address;
     }
   }
 });
 
 Template.location_search_card.events({
   'click .material-icons': function () {
-    var geocoder = new google.maps.Geocoder();
+    // collect address from search panel and pass to geocoder using Session
     var address = document.getElementById('location_search_input').value;
-
-    GoogleMaps.ready('exampleMap', function(map) {
-      geocoder.geocode({'address': address}, function(results,status) {
-        if(status == 'OK') {
-          alert('OK!');
-          map.instance.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
-            map: map.instance,
-            position: results[0].geometry.location,
-            zoom: 5
-          });
-        } else {
-          alert('not working');
-        }
-      });
-    });
+    Session.set('address', address);
   }
 });
 
 Template.mapping.onRendered(function(){
+  // initialize using google map package with api key provided by google
   GoogleMaps.load({key: 'AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac' });
-  // We can use the `ready` callback to interact with the map API once the map is ready.
 });
 
 Template.mapping.onCreated(function(){
-  GoogleMaps.ready('exampleMap', function(map) {
-    google.maps.event.addListener(map.instance, 'click', function(event) {
+  GoogleMaps.ready('Map_location', function(map) {
+  // Define markers properties when google map is created. pointer didn't specify
+  // as we will obtain current location later on
+  marker = new google.maps.Marker({
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    map: map.instance,
+    zoom: 15
+  });
+
+  var geocoder = new google.maps.Geocoder(); //Define new geocoder of the map
+  if (navigator.geolocation) {
+    //obtain current location of user
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      // set center and marker position based on current location colleccted
+      map.instance.setCenter(pos);
+      this.marker.setPosition(pos);
+      geocoder.geocode({'location': pos}, function(results, status){
+        if (status === 'OK') {
+          if (results[0]) {
+            console.log(results[0].formatted_address);
+            var address = results[0].formatted_address;
+            Session.set('address', address);
+          } else {
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
+    }, function() {
+      handleLocationError(true, infoWindow, map.instance.getCenter());
+    });
+  } else {
+  // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.instance.getCenter());
+  }
+  // Add event listener to get marker info after drag finish, using "event.latlng"
+  google.maps.event.addListener(this.marker, 'dragend', function(event) {
+    marker_position = event.latLng;
+    // User geocoder to reverse geocoding to obtain aaddress, with error checking
+    geocoder.geocode({'location': marker_position}, function(results, status){
+      if (status === 'OK') {
+        if (results[0]) {
+          console.log(results[0].formatted_address);
+          var address = results[0].formatted_address;
+          Session.set('address', address);
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  });
+});
+  // Set autorun of the code after template is created
+  // get address from Session above to look for the location using geo code
+  // set map center and marker on position found
+  var self = this;
+  GoogleMaps.ready('Map_location', function(map) {
+    var geocoder = new google.maps.Geocoder();
+    self.autorun(function(){
+      geocoder.geocode({'address': Session.get('address')}, function(results,status) {
+        if(status == 'OK') {
+          map.instance.setCenter(results[0].geometry.location);
+          marker.setPosition(results[0].geometry.location);
+        }
+      });
+    });
+  });
+
+/*** Multiple marker function on click, with drag function, a good refernce
+  GoogleMaps.ready('Map_location', function(map) {
+   google.maps.event.addListener(map.instance, 'click', function(event) {
         Markers.insert({lat:event.latLng.lat(),lng:event.latLng.lng() });
         console.log(Markers.find());
     });
@@ -90,4 +164,5 @@ Template.mapping.onCreated(function(){
       }
     });
   });
+******* End here ********/
 });
