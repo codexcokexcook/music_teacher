@@ -1,0 +1,55 @@
+
+<!-- login navbar-->
+<template name="login_navbar">
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper grey lighten-3">
+        <div class="left24px">
+        <a href="/" class="brand-logo black-text"><i class="material-icons black-text">arrow_back</i>Member Login</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</template>
+
+
+<!-- login content-->
+<template name="login_content">
+  <form class="login_form col l12 m6 s6">
+    <!-- Row No.1 - API Signin button -->
+    <div class="top24px center">
+      <a href="http://www.facebook.com" target="_blank"><img src ="/Login/Facebook_button.svg"></a>
+      <a href="http://www.google.com" target="_blank"><img src ="/Login/G_button.svg"></a>
+    </div>
+    <div class="top24px">
+  <!-- Row No.2 - Email Address -->
+      <div class="container">
+        <div class="row valign-wrapper">
+          <div class="input-field col l6 m4 s4 offset-l3 -m1 -s1 valign">
+          <input id="email" name="email" type="email" class="validate">
+          <label for="email">Email</label>
+          </div>
+        </div>
+<!-- Row No.3 - Password -->
+        <div class="row">
+          <div class="input-field col l6 m4 s6 offset-l3 -m1 -s1 valign">
+          <input id="password" name="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+<!-- Row No.4 - Buttons -->
+      <div class="row">
+        <div class="col l6 m4 s6 offset-l3 -m1 -s1 valign">
+      {{>login}}
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</template>
+
+<!-- Buttons-->
+<template name="login">
+  <a class="waves-effect waves-teal btn-flat right login" type="login" name="login">Log in</a>
+  <a class="waves-effect waves-teal btn-flat right signup" href="/signup">Signup</a>
+</template>

@@ -28,8 +28,9 @@ kadira:blaze-layout
 jquery
 dburles:google-maps
 aldeed:geocoder
-
+accounts-base
 accounts-password
 accounts-facebook
 accounts-google
 meteortoys:allthings
+themeteorchef:bert
