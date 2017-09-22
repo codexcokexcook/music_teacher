@@ -1,14 +1,16 @@
 #location_search_card {
-  height: 500px;
+  height: 600px;
+  width: 100%;
 }
 
 #location_search_input_card {
   top: 14px;
-  height: 58.5px;
+  height: 60px;
   z-index: 2;
 }
 
 #location_search_input {
+  margin-top: 0px;
   margin-bottom: 0px;
   padding-left:14px;
   width: 85%;

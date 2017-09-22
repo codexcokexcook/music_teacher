@@ -1,12 +1,13 @@
 <template name = "mapcard">
-<div class = "container">
-  <div class = "card" id="location_search_card">
-      {{> mapping}}
-    <div class = "row">
-      {{> location_search_card}}
+
+  <div class = "col s12 m12 l12 valign-wrapper">
+    <div class = "card valign" id="location_search_card">
+        {{> mapping}}
+      <div class = "row">
+        {{> location_search_card}}
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <template name = "mapping">
@@ -16,11 +17,13 @@
 </template>
 
 <template name = "location_search_card">
-  <div class = "col l6 offset-l3">
-    <div class = "card" id="location_search_input_card">
-      <div class = "row">
-        <div class = "input-field col l12">
-          <input id="location_search_input" placeholder = "search your location here" type="search"><i class = "material-icons">search</i>
+  <div class = "row">
+    <div class = "col l10 offset-l1">
+      <div class = "card" id="location_search_input_card">
+        <div class = "row">
+          <div class = "input-field col l12">
+            <input id="location_search_input" placeholder = "search your location here" type="search"><i class = "material-icons">search</i>
+          </div>
         </div>
       </div>
     </div>
