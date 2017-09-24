@@ -18,7 +18,7 @@ var message_tsmp = new Date();
 
     Messages.insert({
       text,
-      ceratedAt: message_tsmp.toTimeString(),
+      createdAt: message_tsmp.toTimeString(),
  //     owner: Meteor.userId(),
  //     username: Meteor.user().username,
     });

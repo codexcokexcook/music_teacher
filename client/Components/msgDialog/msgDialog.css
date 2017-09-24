@@ -61,6 +61,16 @@
     background: rgba(160,160,160,0.4)
 }
 
+.message_wrapper {
+  border-radius: 14px;
+  background: #c7c7c7;
+  padding: 5px 14px 5px 14px;
+  height: auto;
+  max-width: 70%;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
 
 #new_message_text {
 
