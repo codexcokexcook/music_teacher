@@ -30,10 +30,12 @@ Template.location_search_card.helpers({
 });
 
 Template.location_search_card.events({
-  'click .material-icons': function () {
+  'keypress .input-field': function (event) {
     // collect address from search panel and pass to geocoder using Session
-    var address = document.getElementById('location_search_input').value;
-    Session.set('address', address);
+    if (event.which === 13) {
+      var address = document.getElementById('location_search_input').value;
+      Session.set('address', address);
+    }
   }
 });
 
