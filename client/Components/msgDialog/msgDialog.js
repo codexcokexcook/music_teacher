@@ -6,17 +6,25 @@ import { Mongo } from 'meteor/mongo';
 
 Messages = new Mongo.Collection('messages');
 
+Template.msgDialog_content.onRendered(function () {
+  Meteor.setTimeout(function() {
+    var message_window = $("#messages_wrap").height();
+    $(".conversation-screen").animate({scrollTop:message_window},0);
+  }, 800);
+});
 
 Template.msgDialog_content.helpers({
-  'messages':function(){
-    return Messages.find()
+  'messages':function() {
+    return Messages.find();
   }
 });
 
-Template.message.onRendered(function(){
-  this.$('.chips').material_chip();
-  var address = Meteor.userId().address;
-  console.log(address);
+Template.message.helpers({
+    'message_owner':function() {
+      if (this.owner == Meteor.userId()) {
+        return true;
+      };
+    }
 });
 
 Template.add.events({
@@ -43,7 +51,7 @@ Template.add.events({
 				success: function(data) {
 					console.log(JSON.stringify(data, undefined, 2));
           var response = data.result.fulfillment.speech;
-          Meteor.call('messages.insert',response);
+          Meteor.call('messages.insert',response, "Cameron Stevenson");
 				},
 				error: function() {
 					console.log("Internal Server Error");
@@ -58,56 +66,13 @@ Template.add.events({
       username: Meteor.user().username,
     });
     */
-    Meteor.call('messages.insert', text);
+    Meteor.call('messages.insert', text, Meteor.userId());
 
     // Clear form
     target.new_message.value = '';
+    // Get message dialog to move to the bottom after message submitted
+    var message_window = $("#messages_wrap").height();
+    $(".conversation-screen").animate({scrollTop:message_window},500);
 
-    return false;
   }
 });
-
-/*
-Template.voice.events({
-  'click .mic': function(){
-    event.preventDefault();
-
-    var accessToken = "9e87a112bbe247b480bdb5f6906afca6";
-	var baseUrl = "https://api.api.ai/v1/";
-
-	var recognition;
-	if (recognition) {
-		//stopRecognition
-		recognition.stop();
-	    recognition = null;
-	   $("#rec").text(recognition ? "Stop" : "Speak");
-	} else {
-		//startRecognition
-	   recognition = new webkitSpeechRecognition();
-	   recognition.onstart = function(event) {
-	      $("#rec").text(recognition ? "Stop" : "Speak");
-	   };
-	   recognition.onresult = function(event) {
-	       var text = "";
-	       for (var i = event.resultIndex; i < event.results.length; ++i) {
-	           text += event.results[i][0].transcript;
-	       }
-		   $("#input").val(text);
-		   //stopRecognition
-		   recognition.stop();
-	       recognition = null;
-	   };
-	   recognition.onend = function() {
-		   //stopRecognition
-		   recognition.stop();
-	       recognition = null;
-       };
-       recognition.lang = "yue-Hant-HK";
-       recognition.start();
-	}
-
-    return false;
-  }
-});
-
-*/
