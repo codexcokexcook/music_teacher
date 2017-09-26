@@ -12,3 +12,9 @@
 .button{
 float:right;
 }
+
+.left{
+float: left;
+margin-left: 0px;
+padding: 0px;
+}

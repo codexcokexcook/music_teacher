@@ -63,17 +63,53 @@ this.$('.modal').modal();
 
 Template.signup_content.events({
 
-  'submit form': function(events, template){
+  'submit form': function(event){
+    console.log("1");
+    var email = trimInput(event.target.email.value);
+    var password = trimInput(event.target.password.value);
+    var cpassword = trimInput(event.target.cpassword.value);
+
+    if(isNotEmpty(email) && isNotEmpty(password) && isEmail(email) && areValidPassword(password, cpassword)) {
+
+      console.log("2");
+      Accounts.createUser({
+          email: email,
+          password: password,
+          profile:{
+
+          }
+
+      }, function(err){
+        if(err){
+          Bert.alert(err.reason,"danger", "growl-top-right");
+        }else{
+          Bert.alert("Accounts Created! You are NOW logged in", "success", 'growl-top-right');
+          Router.go("/msgDialog");
+        }
+
+
+      });
+
+
+      }
+
+      return false;
+
+    }
+  });
+
+
+/**
 
        event.preventDefault();
-       let user = {
-      email: template.find( '[name="email"]' ).value,
-      password: template.find( '[name="password"]' ).value
-    };
+
+      var email = event.target.email.value;
+      var password = event.target.password.value;
+
 
     FlowRouter.go("/sent_verification")
 
-    Accounts.createUser( user, ( error ) => {
+    Accounts.createUser(email, password, (error) => {
       if ( error ) {
         Bert.alert( error.reason, 'danger' );
       } else {
@@ -82,6 +118,7 @@ Template.signup_content.events({
             Bert.alert( error.reason, 'danger' );
           } else {
             Bert.alert( 'Welcome!', 'success' );
+            FlowRouter.go("/sent_verification");
           }
         });
       }
@@ -90,6 +127,8 @@ Template.signup_content.events({
   }
 
 });
+
+**/
 
 /*
 Template.signup_content.rendered = function(){
@@ -134,6 +173,8 @@ Accounts.createUser({
 
 }
 });
+*/
+
 
 //Validation rules
 
@@ -150,13 +191,13 @@ var isNotEmpty = function(value){
   return false;
 }
 //Email Validation
-isEMail = function(value){
+isEmail = function(value){
   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if(filter.test(value)){
     return true;
   }
   Bert.alert("Please use a valid email address","danger","growl-top-right")
-  return false
+  return false;
 }
 
 //Check Password fields
@@ -183,4 +224,3 @@ return false;
   }
     return true;
 }
-*/

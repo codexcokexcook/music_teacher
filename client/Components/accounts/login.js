@@ -54,27 +54,27 @@ Template.signup.onRendered(function(){
 });
 */
 Template.login_content.events({
+
   'submit form': function(events, template){
        event.preventDefault();
 
-       let user = {
-      email: template.find( '[name="email"]' ).value,
-      password: template.find( '[name="password"]' ).value
-    };
+       var email = event.target.email.value;
+       var password = event.target.password.value;
 
+    console.log("2");
+    Meteor.loginWithPassword(email, password, function(error){
+      if (error) {
+        Bert.alert( error.reason, 'danger','growl-top-right');
 
-    Accounts.loggingIn( user, ( error ) => {
-      if ( error ) {
-        Bert.alert( error.reason, 'danger' );
+        console.log("3");
+        return false;
       } else {
-        Meteor.call( 'sendVerificationLink', ( error, response ) => {
-          if ( error ) {
-            Bert.alert( error.reason, 'danger' );
-          } else {
             Bert.alert( 'Welcome!', 'success' );
+            Flowrouter.go("/msgDialog");
+            console.log("4");
           }
         });
+        console.log("5");
+        return false;
       }
     });
-  }
-});
