@@ -12,7 +12,7 @@
 
 <template name = "mapping">
     <div class="map-container">
-      {{> googleMap name="exampleMap" options=exampleMapOptions}}
+      {{> googleMap name="Map_location" options=map_options}}
     </div>
 </template>
 
@@ -22,7 +22,7 @@
       <div class = "card" id="location_search_input_card">
         <div class = "row">
           <div class = "input-field col l12">
-            <input id="location_search_input" placeholder = "search your location here" type="search"><i class = "material-icons">search</i>
+            <input onClick="this.select();" id="location_search_input" placeholder="{{address}}" value = "{{address}}" type="search"><i class = "material-icons">search</i>
           </div>
         </div>
       </div>

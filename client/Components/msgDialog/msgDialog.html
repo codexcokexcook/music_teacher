@@ -1,21 +1,16 @@
 <template name="msgDialog">
-
-<header>
-  {{>msgDialog_navbar}}
-</header>
-
-<main>
-  {{>msgDialog_content}}
-</main>
-
-<footer>
-  {{>msgDialog_footer}}
-</footer>
-
+  <header>
+    {{>msgDialog_navbar}}
+  </header>
+  <main>
+      {{>msgDialog_content}}
+  </main>
+  <footer>
+    {{>msgDialog_footer}}
+  </footer>
 </template>
 
-
-<!--Instead of Header, use materializecss-NavBar-->
+  <!--Instead of Header, use materializecss-NavBar-->
 <template name="msgDialog_navbar">
   <div class="navbar-fixed">
     <nav>
@@ -41,16 +36,13 @@
 
 <template name = "msgDialog_content">
   <!--Show Conversation Screen-->
-
-    <div class="conversation-screen">
-
-    <div class="left24px top16px">
+  <div class="conversation-screen">
+    <div class="left24px top16px" id="messages_wrap">
     {{#each messages}}
-    {{> message}}{{ceratedAt}}
+      {{> message}}
     {{/each}}
     </div>
-
-</div>
+  </div>
   <!--Show Card Screen-->
   <div class="card-screen">
 
@@ -92,11 +84,21 @@
   </div>
   </template>
 
-
 <!--Message Chips-->
 <template name="message">
-    <div class="chip content">{{text}}</div>
-    <p></p>
+  {{#if message_owner}}
+    <div class = "right-align">
+      <div class="time_wrapper">{{current_time}}</div>
+      <div class="message_wrapper" style="background-color: #e57373; color: #ffffff;"><strong>{{owner}}</strong><br>{{text}}</div>
+      <br>
+    </div>
+  {{else}}
+    <div class = "left-align">
+      <div class="message_wrapper" style="background-color: #c7c7c7; color: #000000;"><strong>{{owner}}</strong><br>{{text}}</div>
+      <div class="time_wrapper">{{current_time}}</div>
+      <br>
+    </div>
+  {{/if}}
 </template>
 
 <template name="add">

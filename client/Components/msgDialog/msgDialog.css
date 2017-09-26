@@ -61,10 +61,25 @@
     background: rgba(160,160,160,0.4)
 }
 
+.message_wrapper {
+  border-radius: 14px;
+  background: #c7c7c7;
+  padding: 5px 14px 5px 14px;
+  height: auto;
+  max-width: 70%;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.time_wrapper {
+  display: inline;
+  font-size: 10px;
+  margin-left: 5px;
+}
 
 #new_message_text {
 
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   width: 80%;
 
 }

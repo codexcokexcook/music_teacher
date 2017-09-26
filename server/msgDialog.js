@@ -6,20 +6,23 @@ Messages = new Mongo.Collection('messages');
 
 
 Meteor.methods({
-  'messages.insert'(text){
+  'messages.insert'(text, owner){
     check(text, String);
     // Check if user is logged in
 //    if(!Meteor.userId()){
 //      throw new Meteor.Error('not-authorized');
 //    }
 
-var message_tsmp = new Date();
+var set_time = new Date();
+// Convert machine time to human readable time
+var message_timestamp = ("0" + set_time.getHours()).slice(-2) + ":" + ("0" + set_time.getMinutes()).slice(-2)
 
 
     Messages.insert({
       text,
-      ceratedAt: message_tsmp.toTimeString(),
- //     owner: Meteor.userId(),
+      current_time: message_timestamp,
+      createdAt: new Date(),
+      owner: owner,
  //     username: Meteor.user().username,
     });
   },
@@ -27,5 +30,5 @@ var message_tsmp = new Date();
   'messages.clear'(text){
       check(text, String);
       Messages.remove({});
-  }
+  },
 });
