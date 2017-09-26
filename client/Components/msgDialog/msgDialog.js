@@ -52,6 +52,8 @@ Template.add.events({
 					console.log(JSON.stringify(data, undefined, 2));
           var response = data.result.fulfillment.speech;
           Meteor.call('messages.insert',response, "Cameron Stevenson");
+          var message_window = $("#messages_wrap").height();
+          $(".conversation-screen").animate({scrollTop:message_window},500);
 				},
 				error: function() {
 					console.log("Internal Server Error");

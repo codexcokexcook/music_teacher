@@ -88,14 +88,13 @@
 <template name="message">
   {{#if message_owner}}
     <div class = "right-align">
-      <div class="time_wrapper">{{current_time}}</div>
-      <div class="message_wrapper" style="background-color: #e57373; color: #ffffff;"><strong>{{owner}}</strong><br>{{text}}</div>
+      <div class="message_wrapper grey lighten-5 black-text"><strong>{{owner}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
       <br>
     </div>
   {{else}}
     <div class = "left-align">
-      <div class="message_wrapper" style="background-color: #c7c7c7; color: #000000;"><strong>{{owner}}</strong><br>{{text}}</div>
-      <div class="time_wrapper">{{current_time}}</div>
+      <div class="message_wrapper red lighten-2 white-text"><strong>{{owner}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
+
       <br>
     </div>
   {{/if}}
