@@ -1,9 +1,45 @@
 import { Template } from 'meteor/templating';
 import { Accounts } from 'meteor/accounts-base';
 import { Mongo } from 'meteor/mongo';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
+
+
+Template.msgDialog_content.onRendered(function(){
+
+if(Meteor.userId()){
+
+  FlowRouter.go('/msgDialog');
+
+} else {
+
+  FlowRouter.go('/login');
+}
+
+});
+
+
+
+Template.msgDialog_navbar.events({
+'click .brand-logo': function(){
+
+  console.log("Logout");
+  Meteor.logout(function(err){
+
+    if(err) {
+      Bert.alert(err.reason, "danger", "growl-top-right");
+
+    }else {
+      FlowRouter.go('/');
+      Bert.alert("you are now logged out", "success", "growl-top-right");
+    }
+  });
+}
+});
+
+
 
 // Accounts config
-
 Messages = new Mongo.Collection('messages');
 
 
@@ -20,7 +56,7 @@ Template.add.events({
     // Get input value
     const target = event.target;
     const text = target.new_message.value;
-    
+
 
     // Insert note into collection
     /*
