@@ -64,14 +64,14 @@ this.$('.modal').modal();
 Template.signup_content.events({
 
   'submit form': function(event){
-    console.log("1");
+    event.preventDefault();
+
     var email = trimInput(event.target.email.value);
     var password = trimInput(event.target.password.value);
     var cpassword = trimInput(event.target.cpassword.value);
 
     if(isNotEmpty(email) && isNotEmpty(password) && isEmail(email) && areValidPassword(password, cpassword)) {
 
-      console.log("2");
       Accounts.createUser({
           email: email,
           password: password,
@@ -84,7 +84,7 @@ Template.signup_content.events({
           Bert.alert(err.reason,"danger", "growl-top-right");
         }else{
           Bert.alert("Accounts Created! You are NOW logged in", "success", 'growl-top-right');
-          Router.go("/msgDialog");
+          Flowrouter.go("/msgDialog");
         }
 
 
@@ -180,7 +180,7 @@ Accounts.createUser({
 
 //Trim Helper
 var trimInput = function(value){
-  return cal.replace(/^\s*|\s*$/g,"");
+  return value.replace(/^\s*|\s*$/g,"");
 }
 
 var isNotEmpty = function(value){

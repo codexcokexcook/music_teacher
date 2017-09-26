@@ -1,5 +1,22 @@
 <template name="landing_page">
-
-<a href="http://localhost:3000/signup"><img src="/landing_page/Home.png"></a>
-
+<body class="background">
+<div class="row">
+  {{#if currentUser}}
+<a class ="waves-effect waves-red btn-flat white-text right" href="/msgDialog">LOGGED IN</a>
+  {{else}}
+<a class ="waves-effect waves-red btn-flat white-text right" href="/login">LOG IN</a>
+  {{/if}}
+</div>
+<div class="center">
+<div class="row valign-wrapper center">
+<div class="center">
+  <div class="valign">
+<div class="center">
+  <h5>GOD LOVES YOU</h5>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
 </template>

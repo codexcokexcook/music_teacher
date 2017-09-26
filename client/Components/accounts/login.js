@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Accounts } from 'meteor/accounts-base';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import './login.html';
 
@@ -61,20 +62,24 @@ Template.login_content.events({
        var email = event.target.email.value;
        var password = event.target.password.value;
 
-    console.log("2");
+
     Meteor.loginWithPassword(email, password, function(error){
       if (error) {
-        Bert.alert( error.reason, 'danger','growl-top-right');
 
+        Bert.alert( error.reason, 'danger','growl-top-right');
         console.log("3");
         return false;
+
       } else {
-            Bert.alert( 'Welcome!', 'success' );
-            Flowrouter.go("/msgDialog");
             console.log("4");
+            Bert.alert( 'Welcome!', 'success' );
+              Flowrouter.go("/msgDialog");
+
           }
         });
-        console.log("5");
         return false;
+        console.log("5");
+
       }
+
     });
