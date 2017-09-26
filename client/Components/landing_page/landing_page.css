@@ -1,0 +1,21 @@
+.background{
+  height:100vh;
+  width:max;
+background-image: url("/landing_page/Home.jpg");
+background-size:cover;
+background-repeat: no-repeat;
+}
+
+.right{
+  margin-top: 16px;
+  margin-right: 24px;
+}
+
+.center{
+  height:100%;
+  width:50%;
+  margin:auto;
+  border:0px;
+  height: inherit;
+
+}
