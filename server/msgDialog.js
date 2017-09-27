@@ -2,12 +2,11 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
-Meteor.methods({
-  'channel.create'(channel_name) {
-    Messages = new Mongo.Collection(channel_name);
-  },
 
-  'messages.insert'(text, owner){
+Messages = new Mongo.Collection('messages');
+
+Meteor.methods({
+  'messages.insert'(text, owner, channel) {
     check(text, String);
         // Check if user is logged in
     //    if(!Meteor.userId()){
@@ -22,12 +21,12 @@ Meteor.methods({
       current_time: message_timestamp,
       createdAt: new Date(),
       owner: owner,
+      channel: channel
  //     username: Meteor.user().username,
     });
   },
 
-  'messages.clear'(text){
-      check(text, String);
-      Messages.remove({});
+  'messages.clear'(channel){
+      Messages.remove({channel: {$eq:channel}});
   },
 });

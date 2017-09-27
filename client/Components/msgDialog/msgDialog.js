@@ -18,6 +18,8 @@ Template.msgDialog_navbar.events({
       if (err) {
         Bert.alert(err.reason, "danger", "growl-top-right");
       } else {
+        Session.clear();
+        Meteor.call('messages.clear', Meteor.userId());
         FlowRouter.go('/');
         Bert.alert("you are now logged out", "success", "growl-top-right");
       }
@@ -26,11 +28,9 @@ Template.msgDialog_navbar.events({
 });
 
 // Accounts config
-var channel_name = "bp-" + Meteor.userId();
-Messages = new Mongo.Collection(channel_name);
+Messages = new Mongo.Collection('messages');
 
 Template.msgDialog_content.onRendered(function () {
-  Meteor.call('channel.create', "bp-"+ Meteor.userId());
   Meteor.setTimeout(function() {
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},0);
@@ -39,7 +39,7 @@ Template.msgDialog_content.onRendered(function () {
 
 Template.msgDialog_content.helpers({
   'messages':function() {
-    return Messages.find();
+    return Messages.find({"channel": Meteor.userId()});
   }
 });
 
@@ -75,7 +75,7 @@ Template.add.events({
 					console.log(JSON.stringify(data, undefined, 2));
           var response = data.result.fulfillment.speech;
 
-          Meteor.call('messages.insert',response, "Cameron Stevenson");
+          Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId());
 
           var message_window = $("#messages_wrap").height();
           $(".conversation-screen").animate({scrollTop:message_window},500);
@@ -93,7 +93,7 @@ Template.add.events({
       username: Meteor.user().username,
     });
     */
-    Meteor.call('messages.insert', text, Meteor.userId());
+    Meteor.call('messages.insert', text, Meteor.userId(), Meteor.userId());
 
     // Clear form
     target.new_message.value = '';
