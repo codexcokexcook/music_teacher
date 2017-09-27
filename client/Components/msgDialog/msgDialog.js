@@ -3,46 +3,34 @@ import { Accounts } from 'meteor/accounts-base';
 import { Mongo } from 'meteor/mongo';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
-
-
 Template.msgDialog_content.onRendered(function(){
-
-if(Meteor.userId()){
-
-  FlowRouter.go('/msgDialog');
-
-} else {
-
-  FlowRouter.go('/login');
-}
-
+  if(Meteor.userId()){
+    FlowRouter.go('/msgDialog');
+  } else {
+    FlowRouter.go('/login');
+  }
 });
-
-
 
 Template.msgDialog_navbar.events({
-'click .brand-logo': function(){
-
-  console.log("Logout");
-  Meteor.logout(function(err){
-
-    if(err) {
-      Bert.alert(err.reason, "danger", "growl-top-right");
-
-    }else {
-      FlowRouter.go('/');
-      Bert.alert("you are now logged out", "success", "growl-top-right");
-    }
-  });
-}
+  'click .brand-logo': function(){
+    console.log("Logout");
+    Meteor.logout(function(err){
+      if (err) {
+        Bert.alert(err.reason, "danger", "growl-top-right");
+      } else {
+        FlowRouter.go('/');
+        Bert.alert("you are now logged out", "success", "growl-top-right");
+      }
+    });
+  }
 });
 
-
-
 // Accounts config
-Messages = new Mongo.Collection('messages');
+var channel_name = "bp-" + Meteor.userId();
+Messages = new Mongo.Collection(channel_name);
 
 Template.msgDialog_content.onRendered(function () {
+  Meteor.call('channel.create', "bp-"+ Meteor.userId());
   Meteor.setTimeout(function() {
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},0);
@@ -56,11 +44,11 @@ Template.msgDialog_content.helpers({
 });
 
 Template.message.helpers({
-    'message_owner':function() {
-      if (this.owner == Meteor.userId()) {
-        return true;
-      };
-    }
+  'message_owner':function() {
+    if (this.owner == Meteor.userId()) {
+      return true;
+    };
+  }
 });
 
 Template.add.events({
@@ -68,13 +56,11 @@ Template.add.events({
     event.preventDefault();
 
     // below should be arranged back to back-end using methods
-
     var accessToken = "31cd49742ab64d17815beb84ba78e585";
     var baseUrl = "https://api.api.ai/v1/";
     // Get input value
     const target = event.target;
     const text = target.new_message.value;
-
 
     $.ajax({
 				type: "POST",
@@ -88,7 +74,9 @@ Template.add.events({
 				success: function(data) {
 					console.log(JSON.stringify(data, undefined, 2));
           var response = data.result.fulfillment.speech;
+
           Meteor.call('messages.insert',response, "Cameron Stevenson");
+
           var message_window = $("#messages_wrap").height();
           $(".conversation-screen").animate({scrollTop:message_window},500);
 				},
@@ -112,6 +100,5 @@ Template.add.events({
     // Get message dialog to move to the bottom after message submitted
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
-
   }
 });
