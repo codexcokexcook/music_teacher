@@ -22,11 +22,10 @@ Meteor.methods({
       createdAt: new Date(),
       owner: owner,
       channel: channel
- //     username: Meteor.user().username,
     });
   },
 
   'messages.clear'(channel){
-      Messages.remove({channel: {$eq:channel}});
+      Messages.remove({channel: channel});
   },
 });

@@ -13,13 +13,13 @@ Template.msgDialog_content.onRendered(function(){
 
 Template.msgDialog_navbar.events({
   'click .brand-logo': function(){
+    Meteor.call('messages.clear', Meteor.userId());
     console.log("Logout");
     Meteor.logout(function(err){
       if (err) {
         Bert.alert(err.reason, "danger", "growl-top-right");
       } else {
         Session.clear();
-        Meteor.call('messages.clear', Meteor.userId());
         FlowRouter.go('/');
         Bert.alert("you are now logged out", "success", "growl-top-right");
       }
