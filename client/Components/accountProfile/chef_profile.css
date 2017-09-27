@@ -1,0 +1,37 @@
+.profile_banner-area {
+  height: 50vh;
+  background-color: #E57373;
+
+}
+
+.profile_circle_base {
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+  /**  border: 1px solid grey;**/
+    margin: auto;
+}
+
+.profile_circle_base img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+}
+
+.profile_icon_img_upload {
+    display: block;
+    height: 125px;
+    width: 125px;
+
+}
+
+.profile_img_preloader {
+    margin:36.5%;
+}
+
+.profile_icon {
+    height: 125px;
+    width: 125px;
+    display: inline-block;
+    float: right;
+}
