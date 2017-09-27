@@ -84,7 +84,8 @@ Template.signup_content.events({
           Bert.alert(err.reason,"danger", "growl-top-right");
         }else{
           Bert.alert("Accounts Created! You are NOW logged in", "success", 'growl-top-right');
-          Flowrouter.go("/msgDialog");
+          console.log("Hey");
+          FlowRouter.go("/msgDialog");
         }
 
 

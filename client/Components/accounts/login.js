@@ -73,7 +73,7 @@ Template.login_content.events({
       } else {
             console.log("4");
             Bert.alert( 'Welcome!', 'success' );
-              Flowrouter.go("/msgDialog");
+            FlowRouter.go("/msgDialog");
 
           }
         });
