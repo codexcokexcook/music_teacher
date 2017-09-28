@@ -41,6 +41,7 @@
     <div class="left24px top16px" id="messages_wrap">
     {{#each messages}}
       {{> message}}
+      {{> chips}}
     {{/each}}
     </div>
   </div>
@@ -51,7 +52,7 @@
       {{> chef_profile_form}}
     </div>
 
-    
+
   </div>
 </div>
 </template>
@@ -98,10 +99,13 @@
   {{else}}
     <div class = "left-align">
       <div class="message_wrapper red lighten-2 white-text"><strong>{{owner}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
-
       <br>
     </div>
   {{/if}}
+</template>
+
+<template name="chips">
+  <div class = "chip">{{chips}}</div>
 </template>
 
 <template name="add">

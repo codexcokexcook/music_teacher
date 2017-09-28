@@ -6,7 +6,7 @@ import { check } from 'meteor/check';
 Messages = new Mongo.Collection('messages');
 
 Meteor.methods({
-  'messages.insert'(text, owner, channel) {
+  'messages.insert'(text, owner, channel, chips) {
     check(text, String);
     // Check if user is logged in
     //    if(!Meteor.userId()){
@@ -21,7 +21,8 @@ Meteor.methods({
       current_time: message_timestamp,
       createdAt: new Date(),
       owner: owner,
-      channel: channel
+      channel: channel,
+      chips: chips
     });
   },
 
@@ -43,9 +44,10 @@ Meteor.methods({
           }
       }, (error, result) => {
         if(!error) {
-          var response = result.data.result.fulfillment.speech;
-          Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId());
-
+          console.log(result.data.result.fulfillment.messages[1].payload.chips);
+          var chips = result.data.result.fulfillment.messages[1].payload.chips;
+          var response = result.data.result.fulfillment.messages[0].speech;
+          Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId(),chips);
         } else {
           console.log(error);
         }
