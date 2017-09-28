@@ -54,45 +54,13 @@ Template.message.helpers({
 Template.add.events({
   'submit .send-message': function(){
     event.preventDefault();
-
-    // below should be arranged back to back-end using methods
-    var accessToken = "31cd49742ab64d17815beb84ba78e585";
-    var baseUrl = "https://api.api.ai/v1/";
-    // Get input value
     const target = event.target;
     const text = target.new_message.value;
 
-    $.ajax({
-				type: "POST",
-				url: baseUrl + "query?v=20150910",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				headers: {
-					"Authorization": "Bearer " + accessToken
-				},
-				data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
-				success: function(data) {
-					console.log(JSON.stringify(data, undefined, 2));
-          var response = data.result.fulfillment.speech;
+    Meteor.call('apiai.response',text);
+    var message_window = $("#messages_wrap").height();
+    $(".conversation-screen").animate({scrollTop:message_window},500);
 
-          Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId());
-
-          var message_window = $("#messages_wrap").height();
-          $(".conversation-screen").animate({scrollTop:message_window},500);
-				},
-				error: function() {
-					console.log("Internal Server Error");
-				}
-			});
-    // Insert note into collection
-    /*
-    Notes.insert({
-      text,
-      ceratedAt: new Date(),
-      owner: Meteor.userId(),
-      username: Meteor.user().username,
-    });
-    */
     Meteor.call('messages.insert', text, Meteor.userId(), Meteor.userId());
 
     // Clear form
