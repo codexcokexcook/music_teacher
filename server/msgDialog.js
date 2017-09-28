@@ -8,7 +8,7 @@ Messages = new Mongo.Collection('messages');
 Meteor.methods({
   'messages.insert'(text, owner, channel) {
     check(text, String);
-        // Check if user is logged in
+    // Check if user is logged in
     //    if(!Meteor.userId()){
     //      throw new Meteor.Error('not-authorized');
     //    }
@@ -25,7 +25,34 @@ Meteor.methods({
     });
   },
 
+  'apiai.response'(text) {
+    var accessToken = "31cd49742ab64d17815beb84ba78e585";
+    var baseUrl = "https://api.api.ai/v1/";
+
+    // This is a Ajax request, which should be move to webhooks
+    HTTP.call(
+      'POST', baseUrl + "query?v=20150910", {
+          headers: {
+            "Authorization": "Bearer " + accessToken,
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          data: {
+            query: text,
+            lang: "en",
+            sessionId: "somerandomthing"
+          }
+      }, (error, result) => {
+        if(!error) {
+          var response = result.data.result.fulfillment.speech;
+          Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId());
+
+        } else {
+          console.log(error);
+        }
+      });
+    },
+
   'messages.clear'(channel){
       Messages.remove({channel: channel});
-  },
+  }
 });
