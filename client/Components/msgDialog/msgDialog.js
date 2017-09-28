@@ -60,9 +60,7 @@ Template.add.events({
     Meteor.call('apiai.response',text);
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
-
-    Meteor.call('messages.insert', text, Meteor.userId(), Meteor.userId());
-
+    Meteor.call('messages.insert', text,Meteor.userId(), Meteor.userId());
     // Clear form
     target.new_message.value = '';
     // Get message dialog to move to the bottom after message submitted
