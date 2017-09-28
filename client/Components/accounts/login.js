@@ -67,18 +67,20 @@ Template.login_content.events({
       if (error) {
 
         Bert.alert( error.reason, 'danger','growl-top-right');
-        console.log("3");
+
         return false;
 
-      } else {
-            console.log("4");
+      }
+
+      else {
+
             Bert.alert( 'Welcome!', 'success' );
             FlowRouter.go("/msgDialog");
 
           }
         });
         return false;
-        console.log("5");
+
 
       }
 
