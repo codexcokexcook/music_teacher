@@ -3,6 +3,8 @@ accounts-facebook@1.2.1
 accounts-google@1.2.0
 accounts-oauth@1.1.15
 accounts-password@1.4.0
+accounts-ui@1.1.9
+accounts-ui-unstyled@1.2.1
 aldeed:geocoder@0.3.8
 allow-deny@1.0.6
 autopublish@1.0.7
@@ -56,6 +58,7 @@ insecure@1.0.7
 jquery@1.11.10
 kadira:blaze-layout@2.3.0
 launch-screen@1.1.1
+less@2.7.9
 livedata@1.0.18
 localstorage@1.1.1
 logging@1.1.17

@@ -29,6 +29,7 @@ jquery
 dburles:google-maps
 aldeed:geocoder
 accounts-base
+accounts-ui
 accounts-password
 accounts-facebook
 accounts-google
