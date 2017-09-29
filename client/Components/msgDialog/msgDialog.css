@@ -37,12 +37,27 @@
 .conversation-screen {
     float:left;
     width: 33.33%;
-    height: 82vh;
+    height: 80.5vh;
     margin:0;
     background-color: #ffffff;
     overflow:scroll;
 }
 
+.chips_wrapper {
+  float:left;
+  width: 33.33%;
+  min-height: 5%;
+  height: auto;
+  margin:0;
+  position:fixed;
+  bottom: 6.8%;
+  background-color: #e57373;
+  overflow: auto;
+}
+
+.chips_action{
+  padding: 5px;
+}
 .card-screen {
   float: none;
   width: auto;

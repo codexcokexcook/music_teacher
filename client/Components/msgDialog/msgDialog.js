@@ -51,6 +51,12 @@ Template.message.helpers({
   }
 });
 
+Template.chips.helpers({
+  'chips_content':function() {
+    return Messages.findOne({"channel":Meteor.userId()},{sort:{createdAt: -1, limit:1,}});
+  }
+});
+
 Template.add.events({
   'submit .send-message': function(){
     event.preventDefault();

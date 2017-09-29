@@ -32,7 +32,7 @@ Meteor.methods({
 
     // This is a Ajax request, which should be move to webhooks
     HTTP.call(
-      'POST', baseUrl + "query?v=20150910", {
+      'POST', baseUrl + "query?v=2017", {
           headers: {
             "Authorization": "Bearer " + accessToken,
             "Content-Type": "application/json; charset=utf-8"
@@ -44,7 +44,6 @@ Meteor.methods({
           }
       }, (error, result) => {
         if(!error) {
-          console.log(result.data.result.fulfillment.messages[1].payload.chips);
           var chips = result.data.result.fulfillment.messages[1].payload.chips;
           var response = result.data.result.fulfillment.messages[0].speech;
           Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId(),chips);
