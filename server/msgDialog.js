@@ -44,8 +44,9 @@ Meteor.methods({
           }
       }, (error, result) => {
         if(!error) {
-          var chips = result.data.result.fulfillment.messages[1].payload.chips;
           var response = result.data.result.fulfillment.messages[0].speech;
+          var chips = result.data.result.fulfillment.messages[1].payload.chips;
+          console.log(result.data.result.fulfillment.messages);
           Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId(),chips);
         } else {
           console.log(error);
