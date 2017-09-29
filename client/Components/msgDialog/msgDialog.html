@@ -29,46 +29,41 @@
           </li>
         </ul>
       </div>
-  </nav>
-    </div>
+    </nav>
+  </div>
 </template>
-
 
 <template name = "msgDialog_content">
   <div class = "content">
   <!--Show Conversation Screen-->
-  <div class="conversation-screen">
-    <div class="left24px top16px" id="messages_wrap">
-    {{#each messages}}
-      {{> message}}
-    {{/each}}
+    <div class="conversation-screen">
+      <div class="left24px top16px" id="messages_wrap">
+        {{#each messages}}
+          {{> message}}
+        {{/each}}
+      </div>
     </div>
-
-  </div>
-  {{>chips}}
-  <!--Show Card Screen-->
-  <div class="card-screen">
-    <div class="left24px top16px">
-      {{> chef_profile_form}}
+      {{>chips}}
+    <!--Show Card Screen-->
+    <div class="card-screen">
+      <div class="left24px top16px">
+        {{> chef_profile_form}}
+      </div>
     </div>
-
-
   </div>
-</div>
 </template>
 
-
     <!--Footer-->
-    <template name="msgDialog_footer">
-      <div class="footer">
-      <div class="footer-left">
-        <div class ="left24px">
+<template name="msgDialog_footer">
+  <div class="footer">
+    <div class="footer-left">
+      <div class ="left24px">
         {{> add}}
-        </div>
       </div>
-      <div class = "footer-right">
-          <div class="float-left">
-          <div class="social_media">
+    </div>
+    <div class = "footer-right">
+      <div class="float-left">
+        <div class="social_media">
           <a href="http://www.youtube.com" target="_blank"><img src="/msgDialog/youtube_16px_h_BK.svg" class="social_media"/></a>
           <a href="http://www.pinterest.com" target="_blank"><img src="/msgDialog/pinterest_16px_h_BK.svg" class="social_media"/></a>
           <a href="http://www.linkedin.com" target="_blank"><img src="/msgDialog/linkedin_16px_h_BK.svg" class="social_media"/></a>
@@ -76,18 +71,18 @@
           <a href="http://www.facebook.com" target="_blank"><img src="/msgDialog/faceBook_16px_h_BK.svg" class="social_media"/></a>
         </div>
       </div>
-        <div class="float-right">
-          <div class ="right24px">|  2017 &#169; Copyright to Blueplate.co  |  Terms & Privacy  |  Help  |</div>
-          </div>
-        </div>
+    <div class="float-right">
+      <div class ="right24px">|  2017 &#169; Copyright to Blueplate.co  |  Terms & Privacy  |  Help  |</div>
       </div>
-  </template>
+    </div>
+  </div>
+</template>
 
-  <template name="show_card_content">
+<template name="show_card_content">
   <div class = "valign wrapper">
     {{>dishes_list}}
   </div>
-  </template>
+</template>
 
 <!--Message Chips-->
 <template name="message">
@@ -110,7 +105,7 @@
       <ul class = "center">
         {{#with chips_content}}
           {{#each chips}}
-            <li class="waves-effect waves-light"><a class = "chips_action white-text center-aligned" href="#!">{{this}}</a></li>
+            <option class="chips_action waves-effect waves-light white-text" name="chips_action" value = "{{this}}"><a class = "chips_action white-text center-aligned">{{this}}</a></option>
           {{/each}}
         {{/with}}
       </ul>
@@ -119,13 +114,13 @@
 </template>
 
 <template name="add">
-      <form class="send-message" autocomplete="off">
-            <input id="new_message_text" type="text" name="new_message" placeholder="Send a message" >
-      </form>
+  <form class="send-message" autocomplete="off">
+    <input id="new_message_text" type="text" name="new_message" placeholder="Send a message" >
+  </form>
 </template>
 
 
 <!-- Voice -->
 <template name="voice">
-    <i class="material-icons mic">mic</i>
+  <i class="material-icons mic">mic</i>
 </template>
