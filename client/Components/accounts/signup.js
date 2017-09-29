@@ -41,8 +41,8 @@ Template.signup_content.events({
                   Bert.alert(err.reason,"danger", "growl-top-right");
                         }
                 else{
-                  Bert.alert("Accounts Created! You are NOW logged in", "success", 'growl-top-right');
-
+                  Bert.alert("Accounts Created!", "success", 'growl-top-right');
+                  
                   FlowRouter.go("/sent_verification");
                   }
             });

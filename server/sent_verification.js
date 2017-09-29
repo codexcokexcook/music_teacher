@@ -11,22 +11,15 @@ process.env.MAIL_URL = "smtps://ACCOUNT%2EADMIN%40BLUEPLATE%2ECO:ilqkgygkgeojntm
 
 Meteor.methods({
 
-'sendVerificationEmail'(userid){
+'sendVerificationEmail'(user){
 
-Accounts.sendVerificationEmail(userid);
+ Accounts.sendVerificationEmail(user);
 
-Meteor.logout(function(err){
-  if (err) {
-    Bert.alert(err.reason, "danger", "growl-top-right");
-  } else {
-    Session.clear();
-    FlowRouter.go('/');
-    Bert.alert("you are now logged out", "success", "growl-top-right");
-  }
-})
+
 }
 })
 
+/**
 Accounts.emailTemplates.siteName = 'Blueplate Technologies';
 Accounts.emailTemplates.from = 'Blueplate Accounts Admin <account.admin@blueplate.co>';
 Accounts.emailTemplates.enrollAccount.subject = (user) => {
@@ -45,3 +38,4 @@ Accounts.emailTemplates.verifyEmail = {
       return `Hey ${user}! Verify your e-mail by following this link: ${url}`;
    }
 };
+**/

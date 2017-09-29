@@ -72,11 +72,25 @@ Template.login_content.events({
 
       }
 
+      else if (Meteor.user().emails[0].verified === true){
+
+        Bert.alert( 'Welcome!', 'success' );
+        FlowRouter.go("/msgDialog");
+
+      }
+
       else {
 
-            Bert.alert( 'Welcome!', 'success' );
-            FlowRouter.go("/msgDialog");
+        Meteor.logout(function(err){
+         if (err) {
 
+           Bert.alert(err.reason, "danger", "growl-top-right");
+         } else {
+           Session.clear();
+           Bert.alert( 'Please verify your email before login!', 'danger','growl-top-right' );
+         }
+       })
+/**        FlowRouter.go("/"); **/
           }
         });
         return false;
