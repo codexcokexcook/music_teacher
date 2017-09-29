@@ -41,13 +41,13 @@
     <div class="left24px top16px" id="messages_wrap">
     {{#each messages}}
       {{> message}}
-      {{> chips}}
     {{/each}}
     </div>
+
   </div>
+  {{>chips}}
   <!--Show Card Screen-->
   <div class="card-screen">
-
     <div class="left24px top16px">
       {{> chef_profile_form}}
     </div>
@@ -105,7 +105,17 @@
 </template>
 
 <template name="chips">
-  <div class = "chip">{{chips}}</div>
+  <div class = "chips_wrapper">
+    <div class="toolbar-fixed">
+      <ul class = "center">
+        {{#with chips_content}}
+          {{#each chips}}
+            <li class="waves-effect waves-light"><a class = "chips_action white-text center-aligned" href="#!">{{this}}</a></li>
+          {{/each}}
+        {{/with}}
+      </ul>
+    </div>
+  </div>
 </template>
 
 <template name="add">
