@@ -10,7 +10,7 @@
   </footer>
 </template>
 
-  <!--Instead of Header, use materializecss-NavBar-->
+<!--Instead of Header, use materializecss-NavBar-->
 <template name="msgDialog_navbar">
   <div class="navbar-fixed">
     <nav>
@@ -18,7 +18,7 @@
         <div class="logo-blueplate">
         <a href="#" class="brand-logo"><img src="/msgDialog/Logo_BK_Skatch82x28.svg"/></a>
         </div>
-      <!--The User picture that float half way on the navbar-->
+        <!--The User picture that float half way on the navbar-->
         <ul class="right hide-on-med-and-down">
           <li>
           <div class="btn-floating btn-large halfway-fab N/A">
@@ -45,15 +45,13 @@
     </div>
       {{>chips}}
     <!--Show Card Screen-->
-    <div class="card-screen">
-      <div class="left24px top16px">
-        {{> chef_profile_form}}
-      </div>
+    <div class="card-screen center-align">
+      {{> Template.dynamic template = render_component}}
     </div>
   </div>
 </template>
 
-    <!--Footer-->
+<!--Footer-->
 <template name="msgDialog_footer">
   <div class="footer">
     <div class="footer-left">
@@ -78,24 +76,28 @@
   </div>
 </template>
 
-<template name="show_card_content">
+<!-- <template name="show_card_content">
   <div class = "valign wrapper">
     {{>dishes_list}}
   </div>
-</template>
+</template> -->
 
 <!--Message Chips-->
 <template name="message">
-  {{#if message_owner}}
-    <div class = "right-align">
-      <div class="message_wrapper grey lighten-5 black-text"><strong>{{owner}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
-      <br>
-    </div>
+  {{#if Template.subscriptionsReady}}
+    {{#if message_owner}}
+      <div class = "right-align">
+        <div class="message_wrapper grey lighten-5 black-text"><strong>{{currentUser.profile.first_name}} {{currentUser.profile.last_name}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
+        <br>
+      </div>
+    {{else}}
+      <div class = "left-align">
+        <div class="message_wrapper red lighten-2 white-text"><strong>{{owner}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
+        <br>
+      </div>
+    {{/if}}
   {{else}}
-    <div class = "left-align">
-      <div class="message_wrapper red lighten-2 white-text"><strong>{{owner}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
-      <br>
-    </div>
+      <div class = "black-text">loading...</div>
   {{/if}}
 </template>
 
@@ -117,10 +119,4 @@
   <form class="send-message" autocomplete="off">
     <input id="new_message_text" type="text" name="new_message" placeholder="Send a message" >
   </form>
-</template>
-
-
-<!-- Voice -->
-<template name="voice">
-  <i class="material-icons mic">mic</i>
 </template>

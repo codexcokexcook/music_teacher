@@ -1,6 +1,7 @@
 #location_search_card {
   height: 600px;
-  width: 100%;
+  width: 98%;
+  left: 1.5vh;
 }
 
 #location_search_input_card {

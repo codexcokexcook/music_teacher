@@ -46,11 +46,11 @@
 .chips_wrapper {
   float:left;
   width: 33.33%;
-  min-height: 5%;
+  min-height: 6.9%;
   height: auto;
   margin:0;
   position:fixed;
-  bottom: 6.8%;
+  bottom: 7.0%;
   background-color: #e57373;
   overflow: auto;
 }

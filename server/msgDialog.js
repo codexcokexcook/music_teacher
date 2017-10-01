@@ -6,7 +6,7 @@ import { check } from 'meteor/check';
 Messages = new Mongo.Collection('messages');
 
 Meteor.methods({
-  'messages.insert'(text, owner, channel, chips) {
+  'messages.insert'(text, owner, channel, chips, component) {
     check(text, String);
     // Check if user is logged in
     //    if(!Meteor.userId()){
@@ -22,15 +22,15 @@ Meteor.methods({
       createdAt: new Date(),
       owner: owner,
       channel: channel,
-      chips: chips
+      chips: chips,
+      component: component
     });
   },
 
   'apiai.response'(text) {
     var accessToken = "31cd49742ab64d17815beb84ba78e585";
     var baseUrl = "https://api.api.ai/v1/";
-
-    // This is a Ajax request, which should be move to webhooks
+    // HTTP POST request
     HTTP.call(
       'POST', baseUrl + "query?v=2017", {
           headers: {
@@ -45,9 +45,14 @@ Meteor.methods({
       }, (error, result) => {
         if(!error) {
           var response = result.data.result.fulfillment.messages[0].speech;
-          var chips = result.data.result.fulfillment.messages[1].payload.chips;
-          console.log(result.data.result.fulfillment.messages);
-          Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId(),chips);
+          var chips_check = result.data.result.fulfillment.messages[1];
+          var component = result.data.result.fulfillment.messages[1].payload.component;
+          if (typeof chips_check != 'undefined') {
+            var chips = result.data.result.fulfillment.messages[1].payload.chips;
+          } else {
+            var chips = "";
+          }
+          Meteor.call('messages.insert',response, "Cameron Stevenson", Meteor.userId(),chips,component);
         } else {
           console.log(error);
         }

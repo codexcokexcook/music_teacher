@@ -40,6 +40,10 @@ Template.msgDialog_content.onRendered(function () {
 Template.msgDialog_content.helpers({
   'messages':function() {
     return Messages.find({"channel": Meteor.userId()});
+  },
+  'render_component': function() {
+    var latest_message =  Messages.findOne({"channel": Meteor.userId()},{sort:{createdAt: -1, limit:1}});
+    return latest_message && String(latest_message.component);
   }
 });
 
