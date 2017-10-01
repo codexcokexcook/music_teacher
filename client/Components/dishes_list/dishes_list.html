@@ -2,9 +2,7 @@
   <div class = "row">
     <div class="col s12 m12 l12">
       <div>
-      {{#with dish_details}}
-        {{> dishes_card}}
-      {{/with}}
+        {{>dishes_card}}
       </div>
       <div class = "row">
         {{#each dishes_item}}
@@ -15,7 +13,13 @@
   </div>
 </template>
 
-<template name="dishes_card">
+<template name = "dishes_card">
+  {{#with dish_details}}
+    {{> dishes_card_layout}}
+  {{/with}}
+</template>
+
+<template name="dishes_card_layout">
   <div class="card horizontal" id = "dish_card_large">
     <div class="card-image circle responsive-img" id = "dish_card_image">
       <!-- Required to convert to dynamic component when user accounts component is ready -->

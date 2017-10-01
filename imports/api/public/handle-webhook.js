@@ -1,11 +1,11 @@
 
 /* eslint-disable consistent-return */
-import { stripeHandler } from './providers/stripe';
+import { apiai_handler } from './providers/apiai';
 
 let module;
 
 const providers = {
-  stripe: stripeHandler,
+  apiai: apiai_handler,
 };
 
 const handler = ({ provider, request }, promise) => {

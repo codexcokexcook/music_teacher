@@ -7,13 +7,17 @@ Template.dishes_list.helpers ({
   //  by retreiving dish based on search result with top 6 results
   'dishes_item': function () {
       return Dishes.find();
-  },
+  }
+});
+
+Template.dishes_card.helpers ({
   'dish_details': function () {
     var returned_dish_id = Session.get('dish_id');
     var get_dish_details = Dishes.findOne({"_id":returned_dish_id});
     return get_dish_details;
   }
 });
+
 Template.dishes_card.onRendered(function(){
   this.$('ul.tabs').tabs();
 });
