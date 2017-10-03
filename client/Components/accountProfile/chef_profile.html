@@ -47,59 +47,151 @@
    </div>
       </div>
       <div class = "container">
-
+        <br>
+        <div class="row valign">
         <div class="input-field col l12 m2 s4 valign">
           <input id="kitchen_name" name="kitchen_name" type="text" placeholder="Kitchen name">
         </div>
-        <div class="row">
-        <div class="col l6 m3 s3 valign">
+        </div>
+        <div class="row valign">
+        <div class="col l3 m2 s2 -l4 -m2 -s2 valign">
+          <input id="first_name" name="first_name" type="text" value={{currentUser.profile.first_name}}>
+        </div>
+          <div class="col l3 m2 s2 valign">
+          <input id="last_name" name="last_name" type="text" value={{currentUser.profile.last_name}}>
+        </div>
+        <div class="col l3 m1 s1 valign">
           <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="date" placeholder="Date of Birth">
         </div>
-
-        <input class ="with-gap left float" type="radio" name="gender" id="male"/>
-        <label for="male">Male</label>
-        <input class ="with-gap  right float" type="radio" name="gender" id="female"/>
-        <label for="female">Female</label>
+        <div class="col l2 m1 s1 valign">
+        <input class ="with-gap" type="radio" name="gender" id="male"/>
+        <label for="male">Male </label>
+        <input class ="with-gap" type="radio" name="gender" id="female"/>
+        <label for="female">Female </label>
+      </div>
       </div>
 
-      <h6>Address</h6>
+
+      <div class="col l12 m2 s4 valign">
+        <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" placeholder="write a paragraph about yourself" data-length="120"></textarea>
+      </div>
+      <br>
+
+      <br>
+      <h6 class="right-align>">Address</h6>
       <div class = "container">
-      <div class="input-field col l6 m3 s3 valign">
+      <div class="col l6 m3 s3 valign">
       <input id="address_name" name="address_name" type="text" placeholder="Address name">
       </div>
-      <div class="input-field col l6 m3 s3 valign">
+      <div class="col l6 m3 s3 valign">
       <input id="address" name="address" type="text" placeholder="Address">
       </div>
-      <div class="input-field col l6 m3 s3 valign">
+      <div class="col l6 m3 s3 valign">
       <input id="mobile_no" name="mobile_no" type="text" placeholder="Mobile no.">
       </div>
       </div>
+      <br>
 
-      <div class="input-field col l12 m2 s4 valign">
-        <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" placeholder="write a paragraph about yourself" data-length="120"></textarea>
-      </div>
 
+      <br>
       <h6>Major food allergies</h6>
-      <table>
-        <tbody>
-          <tr>
-            <td> <input type="checkbox" id="alllergies_milk" />
-      <label for="alllergies_milk">Milk</label></td>
-            <td>Tree buts</td>
-            <td>Fish</td>
-          </tr>
-          <tr>
-            <td>Egg</td>
-            <td>Wheat</td>
-            <td>Crustacean shellfish</td>
-          </tr>
-          <tr>
-            <td>Peanut</td>
-            <td>Soy</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-</div>
+      <br>
+      <div class="row">
+        {{#each allergy_list}}
+          <div class="col l4 m4 s4" id="checkbox">
+              <input type="checkbox" class="filled-in" id= "{{file_name}}" value = {{name}} >
+              <label for="{{file_name}}">{{name}}<div class="right icon icon_{{file_name}}"></div></label>
+          </div>
+        {{/each}}
+      </div>
+      <br>
+
+
+      <br>
+      <h6>Dietary preferences</h6>
+      <br>
+      <div class="row">
+        {{#each dietary_list}}
+          <div class="col l4 m4 s4" id="checkbox">
+              <input type="checkbox" class="filled-in" id="{{file_name}}" value= {{name}} >
+              <label for="{{file_name}}">{{name}}<div class="icon icon_{{file_name}}"></div></label>
+          </div>
+        {{/each}}
+      </div>
+      <br>
+
+      <br>
+      <h6>Payment details</h6>
+      <br>
+      <div class = "container">
+      <div class="input-field col l6 m2 s4 valign">
+        <input id="card_fullname" name="card_fullname" type="text" placeholder="Full Name on Card">
+      </div>
+      <div class="input-field col l6 m2 s4 valign">
+        <input id="card_number" name="card_number" type="text" placeholder="Card Number">
+      </div>
+      <div class="row">
+      <div class="input-field col l4 m2 s2 valign">
+        <select class="material_select">
+          <option value="" disabled selected>Month</option>
+          <option value="1">Jan</option>
+          <option value="2">Feb</option>
+          <option value="3">Mar</option>
+          <option value="4">Apr</option>
+          <option value="5">May</option>
+          <option value="6">Jun</option>
+          <option value="7">Jul</option>
+          <option value="8">Aug</option>
+          <option value="9">Sep</option>
+          <option value="10">Oct</option>
+          <option value="11">Nov</option>
+          <option value="12">Dec</option>
+        </select>
+        <label>Card Expires MM</label>
+        </div>
+        <div class="input-field col l4 m2 s2 valign">
+          <select class="material_select">
+            <option value="" disabled selected>Month</option>
+            <option value="1">2017</option>
+            <option value="2">2018</option>
+            <option value="3">2019</option>
+            <option value="4">2020</option>
+            <option value="5">2021</option>
+            <option value="6">2022</option>
+            <option value="7">2023</option>
+            <option value="8">2024</option>
+            <option value="9">2025</option>
+            <option value="10">2026</option>
+            <option value="11">2027</option>
+            <option value="12">2028</option>
+          </select>
+          <label>Card Expires YYYY</label>
+          </div>
+        </div>
+    </div>
+    <br>
+
+
+    <br>
+    <h6>Bank Details</h6>
+    <div class="container">
+      <div class="input-field col l6 m2 s3 valign">
+      <input id="bank_fullname" name="bank_fullname" type="text" placeholder="Full Name on Bank Record">
+    </div>
+    <div class="input-field col l6 m2 s3 valign">
+      <input id="bank_name" name="bank_name" type="text" placeholder="Bank Name">
+    </div>
+    <div class="input-field col l6 m2 s3 valign">
+      <input id="bank_account_no" name="bank_account_no" type="text" placeholder="Bank Account Number">
+    </div>
+  </div>
+
+  <br>
+<input class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">
+  <br>
+  </div>
+
+
+
     </form>
 </template>
