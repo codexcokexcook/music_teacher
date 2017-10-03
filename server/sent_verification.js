@@ -3,12 +3,12 @@ import { Email } from 'meteor/email';
 import { Mongo } from 'meteor/mongo';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
-
+//set up email envirnoment for sending out email
 Meteor.startup(() => {
 process.env.MAIL_URL = "smtps://ACCOUNT%2EADMIN%40BLUEPLATE%2ECO:ilqkgygkgeojntmu@smtp.gmail.com:465";
 });
 
-
+//method to be called to send verification email
 Meteor.methods({
 
 'sendVerificationEmail'(user){

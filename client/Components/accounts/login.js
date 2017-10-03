@@ -71,7 +71,7 @@ Template.login_content.events({
         return false;
 
       }
-
+//Check if user verified his email
       else if (Meteor.user().emails[0].verified === true){
 
         Bert.alert( 'Welcome!', 'success' );
@@ -80,7 +80,7 @@ Template.login_content.events({
       }
 
       else {
-
+//log out user when his email not verified
         Meteor.logout(function(err){
          if (err) {
 

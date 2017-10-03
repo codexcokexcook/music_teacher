@@ -1,5 +1,5 @@
 <template name = "chef_profile_form">
-    <form class ="profile_details" id="profile_details">
+    <form class ="chef_profile_form" id="profile_details">
       <div class = "profile_banner-area valign-wrapper">
 
         <div class = "container valign">
@@ -41,7 +41,65 @@
       <div class="input-field col l12 m2 s4 valign">
         <input id="profile_keywords" name="profile_keywords" type="text" placeholder="Write keywords about you">
       </div>
+      <div class="row upload_banner_image">
+        <h6 class = "white-text center-align">Upload Banner Image</h6>
+   </div>
    </div>
       </div>
+      <div class = "container">
+
+        <div class="input-field col l12 m2 s4 valign">
+          <input id="kitchen_name" name="kitchen_name" type="text" placeholder="Kitchen name">
+        </div>
+        <div class="row">
+        <div class="col l6 m3 s3 valign">
+          <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="date" placeholder="Date of Birth">
+        </div>
+
+        <input class ="with-gap left float" type="radio" name="gender" id="male"/>
+        <label for="male">Male</label>
+        <input class ="with-gap  right float" type="radio" name="gender" id="female"/>
+        <label for="female">Female</label>
+      </div>
+
+      <h6>Address</h6>
+      <div class = "container">
+      <div class="input-field col l6 m3 s3 valign">
+      <input id="address_name" name="address_name" type="text" placeholder="Address name">
+      </div>
+      <div class="input-field col l6 m3 s3 valign">
+      <input id="address" name="address" type="text" placeholder="Address">
+      </div>
+      <div class="input-field col l6 m3 s3 valign">
+      <input id="mobile_no" name="mobile_no" type="text" placeholder="Mobile no.">
+      </div>
+      </div>
+
+      <div class="input-field col l12 m2 s4 valign">
+        <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" placeholder="write a paragraph about yourself" data-length="120"></textarea>
+      </div>
+
+      <h6>Major food allergies</h6>
+      <table>
+        <tbody>
+          <tr>
+            <td> <input type="checkbox" id="alllergies_milk" />
+      <label for="alllergies_milk">Milk</label></td>
+            <td>Tree buts</td>
+            <td>Fish</td>
+          </tr>
+          <tr>
+            <td>Egg</td>
+            <td>Wheat</td>
+            <td>Crustacean shellfish</td>
+          </tr>
+          <tr>
+            <td>Peanut</td>
+            <td>Soy</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
     </form>
 </template>
