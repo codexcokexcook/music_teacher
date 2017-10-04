@@ -199,10 +199,10 @@ Template.food_allergies.helpers ({
 });
 
 Template.food_allergies.events({
-  'change .filled-in': function(event, template) {
-    var get_allergy = template.findAll("input[type=checkbox]:checked");
-      var selected_allergy = get_allergy.map(function(item){
-        return item.value;
+  'change .create_dish_fill_in': function(event, template) {
+    var get_allergy = this.template.findAll("input[type=checkbox]:checked");
+      var selected_allergy = get_allergy.map(function(selection){
+        return selection.value;
     });
     Session.set('allergy_tags',selected_allergy);
     }
@@ -235,7 +235,7 @@ Template.dietary_preferences.events({
 });
 
 Template.food_tags.onRendered(function(){
-    this.$('.collapsible').collapsible('close', 0);
+    this.$('.collapsible').collapsible('open', 0);
     this.$('.collapsible').collapsible('close', 1);
     this.$('.collapsible').collapsible('close', 2);
     this.$('.collapsible').collapsible('close', 3);
@@ -244,6 +244,9 @@ Template.food_tags.onRendered(function(){
     this.$('.collapsible').collapsible('close', 6);
     this.$('.collapsible').collapsible('close', 7);
     this.$('.collapsible').collapsible('close', 8);
+    this.$('.collapsible').collapsible({
+      accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
 });
 
 Template.food_tags.helpers({
@@ -501,8 +504,7 @@ Template.serving_temperature_list.events({
 Template.create_dishes_form.events({
     'submit form': function(event) {
          event.preventDefault();
-
-         /** var user_id = Meteor.userId(); this should be implemented after user account is available **/
+         var user_id = Meteor.userId();
          var dish_name = event.target.dish_name.value;
          var dish_description = event.target.dish_description.value;
          var serving_option = event.target.serving_option.value;
@@ -515,6 +517,7 @@ Template.create_dishes_form.events({
          Dishes.insert({
             /** user_id: user_id, this should be implemented after user account is available **/
             image_id: Session.get('image_id'),
+            user_id: user_id,
             dish_name: dish_name,
             dish_description: dish_description,
 

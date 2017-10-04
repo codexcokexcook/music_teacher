@@ -18,9 +18,10 @@ Template.dishes_card.helpers ({
   }
 });
 
-Template.dishes_card.onRendered(function(){
+Template.info_tabs.onRendered(function(){
   this.$('ul.tabs').tabs();
 });
+
 
 Template.dishes_rotation.onRendered(function(){
   var first_dish_display = Dishes.findOne({});

@@ -11,11 +11,19 @@ this.$('.modal').modal();
 });
 
 Template.signup_content.events({
+  'click .login-facebook':function(event){
+    event.preventDefault();
+    Meteor.loginWithFacebook({requestPermissions:['public_profile','email']}, function(err){
+      if (err) {
+        console.log('Handle errors here: ', err);
+      }
+    });
+  },
 
   'submit form': function(event){
     event.preventDefault();
 
-
+    
     var email = trimInput(event.target.email.value);
     var password = trimInput(event.target.password.value);
     var cpassword = trimInput(event.target.cpassword.value);

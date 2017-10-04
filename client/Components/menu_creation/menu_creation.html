@@ -1,0 +1,80 @@
+<template name = "menu_creation">
+  {{> menu_carousel}}
+</template>
+
+<template name = "menu_carousel">
+  <div class = "container" id="card_container">
+    {{> menu_details_input}}
+  </div>
+  <div id="dishes_selection">
+    {{> dishes_selection}}
+  </div>
+</template>
+
+<template name = "menu_details_input">
+  <div class="input-field col s6">
+    <input id="menu_name" type="text">
+    <label for="menu_name">Menu name</label>
+  </div>
+</template>
+
+<!-- <template name = "menu_creation_content">
+  <div class = "col l12 m12 s12 center">
+    <div class="card" id = "menu_creation_card">
+        <div class = "card-content center-block">
+          <div class="input-field col s6">
+            <input id="set_name" type="text">
+            <label for="set_name">Set name</label>
+            {{selected_dish_id}}
+          </div>
+        <div class = "card-action center-block" id = "menu_creation_button">
+          <a class="waves-effect waves-red btn-flat red-text">Preview</a>
+          <a class="waves-effect waves-red btn-flat red-text">Done</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name = "menu_initiation">
+  <div class = "col l12 m12 s12 center">
+    <div class="card valign-wrapper center" id = "menu_creation_card">
+      <div class = "card-content center-block" id = "menu_creation_init">
+        <div class = "valign center">
+          <a class="btn-floating btn-large waves-effect waves-light red lighten-2"><i class="material-icons">add</i></a>
+          <div class = "center-align">Click this '+' button to add your first menu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template> -->
+
+<template name = "dishes_selection">
+  <div class = "container">
+    <table class = "bordered" id="menu_dishes_table">
+      <thead>
+        <tr>
+          <th class = "col l2 s2 m2"></th>
+          <th class = "col l3 s2 m2">Dish Name</th>
+          <th class = "col l3 s2 m2">Cost</th>
+          <th class = "col l2 s2 m2">Selling price</th>
+          <th class = "col l2 s2 m2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each user_dishes}}
+          <tr>
+            <td>
+              <input class="dish_checkbox" type="checkbox" id="{{_id}}" value="{{_id}}" />
+              <label for="{{_id}}"></label>
+            </td>
+            <td>{{dish_name}}</td>
+            <td>{{dish_cost}}</td>
+            <td>{{dish_selling_price}}</td>
+            <td style="width: 15%;">{{> get_dish_image}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

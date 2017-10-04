@@ -64,11 +64,14 @@ Template.chips.helpers({
 Template.chips.events({
   'click .chips_action': function() {
     event.preventDefault();
+
     const target = event.target;
     const chips_input = target.value;
+
     Meteor.call('messages.insert', chips_input, Meteor.userId(), Meteor.userId());
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
+
     Meteor.call('apiai.response',chips_input);
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
@@ -84,6 +87,7 @@ Template.add.events({
     Meteor.call('apiai.response',text);
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
+    
     Meteor.call('messages.insert', text,Meteor.userId(), Meteor.userId());
     // Clear form
     target.new_message.value = '';
