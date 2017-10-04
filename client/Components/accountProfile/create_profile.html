@@ -1,0 +1,242 @@
+<template name = "create_profile">
+    <form class ="create_profile" id="profile_details">
+      <div class = "profile_banner-area valign-wrapper">
+
+        <div class = "container valign">
+        <div class = "profile_circle_base" >
+         {{#with currentUpload}}
+                 <div class="preloader-wrapper big active img_preloader center">
+                   <div class="spinner-layer spinner-red-only">
+                     <div class="circle-clipper left">
+                       <div class="circle"></div>
+                     </div><div class="gap-patch">
+                       <div class="circle"></div>
+                     </div><div class="circle-clipper right">
+                       <div class="circle"></div>
+                     </div>
+                   </div>
+                 </div>
+         {{else}}
+               {{#if checkUpload}}
+                   <img src= "profile_upload/{{imageFile}}" />
+               {{else}}
+                   <div class = "profile_image_upload">
+                       <label for = "profile_file_input">
+                           <img class="profile_icon_img_upload" src="/profile_upload/profile_img_upload_icon.svg" />
+                       </label>
+                       <div class="file-field input-field">
+                           <input id="profile_file_input" type="file">
+                         <div class="file-path-wrapper">
+                         </div>
+                       </div>
+                   </div>
+               {{/if}}
+         {{/with}}
+       </div>
+
+
+       <div class="col l12 m4 s4 valign">
+      <h5 class = "white-text center-align">{{currentUser.profile.first_name}} {{currentUser.profile.last_name}}</h5>
+    </div>
+
+      <div class="input-field col l6 m4 s4 valign">
+        <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
+      </div>
+
+      <div class="row upload_banner_image">
+        <h6 class = "white-text center-align">Upload Banner Image</h6>
+   </div>
+   </div>
+      </div>
+      <div class = "container">
+        <br>
+        <div class="row valign">
+        <div class="input-field col l12 m2 s4 valign">
+          <input id="kitchen_name" name="kitchen_name" type="text" value="{{currentUser.profile.first_name}} Kitchen">
+          <label class="active" for="kitchen_name">Kitchen name</label>
+        </div>
+        </div>
+        <div class="row valign">
+        <div class="input-field col l3 m2 s2 -l4 -m2 -s2 valign">
+          <input id="first_name" name="first_name" type="text" value={{currentUser.profile.first_name}}>
+          <label class="active" for="first_name">First Name</label>
+        </div>
+          <div class="input-field col l3 m2 s2 valign">
+          <input id="last_name" name="last_name" type="text" value={{currentUser.profile.last_name}}>
+          <label class="active" for="last_name">Last Name</label>
+        </div>
+        <div class="input-field col l3 m1 s1 valign">
+          <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="date">
+          <label for="first_name">Date of birth</label>
+        </div>
+        <div class="col l2 m1 s1 valign">
+        <input class ="with-gap" type="radio" name="gender" id="male"/>
+        <label for="male">Male </label>
+        <input class ="with-gap" type="radio" name="gender" id="female"/>
+        <label for="female">Female </label>
+      </div>
+      </div>
+
+
+      <div class="input-field col l12 m2 s4 valign">
+        <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="120"></textarea>
+        <label for="about_myself">Write a paragraph about yourself</label>
+      </div>
+      <br>
+
+      <br>
+      <h6 class="right-align>">Address</h6>
+
+      <div class = "container">
+        <div class="input-field col l2 m2 s2">
+          <select class="material_select" id="address_name">
+            <option value="" disabled selected>   Address name</option>
+            <option value="1">   Home</option>
+            <option value="2">   Office</option>
+          </select>
+          </div>
+
+      <div class="input-field col l6 m3 s3 valign">
+      <input id="address" name="address" type="text">
+      <label for="address">Address</label>
+      </div>
+      <div class="input-field col l6 m3 s3 valign">
+      <input id="mobile_no" name="mobile_no" type="text">
+      <label for="mobile_no">Mobile no.</label>
+      </div>
+      </div>
+      <br>
+
+
+      <br>
+      <h6>Major food allergies</h6>
+      <br>
+      {{> food_allergies}}
+      <br>
+
+
+      <br>
+      <h6>Dietary preferences</h6>
+      <br>
+      {{> dietary_preferences}}
+      <br>
+
+      <br>
+      <h6>Payment details</h6>
+      <br>
+      <div class = "container">
+
+        <div class="input-field col l3 m2 s4 valign">
+          <input id="card_number" name="card_number" type="text" >
+          <label for="card_number">Card Number</label>
+        </div>
+      <div class="input-field col l3 m2 s4 valign">
+        <input id="card_fullname" name="card_fullname" type="text" >
+        <label for="card_fullname">Full Name on Card</label>
+      </div>
+
+
+
+
+      <div class="row">
+      <div class="col l3 m3 s3" name="card_details" id="card_details">
+        <label for="card_details">Card Expires at</label>
+      </div>
+        <div class="input-field col l2 m2 s2 valign">
+        <select class="material_select" id="card_exp_month">
+          <option value="" disabled selected>MM</option>
+          <option value="1">01</option>
+          <option value="2">02</option>
+          <option value="3">03</option>
+          <option value="4">04</option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="input-field col l2 m2 s2 valign">
+          <select class="material_select" id="card_exp_year">
+            <option value="" disabled selected>YYYY</option>
+            <option value="1">2017</option>
+            <option value="2">2018</option>
+            <option value="3">2019</option>
+            <option value="4">2020</option>
+            <option value="5">2021</option>
+            <option value="6">2022</option>
+            <option value="7">2023</option>
+            <option value="8">2024</option>
+            <option value="9">2025</option>
+            <option value="10">2026</option>
+            <option value="11">2027</option>
+            <option value="12">2028</option>
+          </select>
+          </div>
+
+
+          <div class="input-field col l4 m2 s2 valign">
+          <input id="cvv_code" name="cvv_code" type="text" >
+          <label for="cvv_code">cvv2/cvc2 code</label>
+        </div>
+</div>
+    </div>
+    <br>
+
+
+    <br>
+    <h6>Bank Details</h6>
+    <div class="container">
+      <div class="input-field col l6 m2 s3 valign">
+      <input id="bank_fullname" name="bank_fullname" type="text" >
+      <label for="bank_fullname">Full Name on Bank Record</label>
+    </div>
+
+      <div class="col l6 m2 s2 valign">
+        <select class="material_select">
+          <option value="" disabled selected>   Bank Name</option>
+          <option value="1">   003 - Standard Chartered Bank(Hong Kong)</option>
+          <option value="2">   004 - Hongkong and Shanghai Banking Corporation</option>
+          <option value="3">   009 - China Construction Bank (Asia)</option>
+          <option value="4">   012 - Bank of CHina (Hong Kong)</option>
+          <option value="5">   015 - Bank of East Asia</option>
+          <option value="6">   018 - China CITIC Bank International</option>
+          <option value="7">   020 - Wing Lung Bank</option>
+          <option value="8">   022 - OCBC Wing Hang Bank</option>
+          <option value="9">   024 - Hang Seng Bank</option>
+          <option value="10">   025 - Shanghai Commercial Bank</option>
+          <option value="11">   027 - Bank of Communications</option>
+          <option value="12">   028 - Public Bank (Hong Kong)</option>
+          <option value="12">   038 - Tai Yau Bank</option>
+          <option value="13">   039 - Chiyu Banking Corporation</option>
+          <option value="14">   040 - Dah Sing Bank</option>
+          <option value="15">   041 - Chong Hing Bank</option>
+          <option value="16">   043 - Nanyang Commercial Bank</option>
+          <option value="17">   061 - Tai Sang Bank</option>
+          <option value="18">   072 - Industrial and Commercial Bank of China (Asia)</option>
+          <option value="19">   128 - Fubon Bank (Hong Kong)</option>
+          <option value="20">   250 - CitiBank (Hong Kong)</option>
+
+        </select>
+        </div>
+
+    <div class="input-field col l6 m2 s3 valign">
+      <input id="bank_account_no" name="bank_account_no" type="text">
+      <label for="bank_account_no">Bank Account Number</label>
+    </div>
+  </div>
+
+  <br>
+    <input class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">
+    <input class="waves-effect waves-teal btn-flat right" type="button" value="Preview">
+
+  </div>
+  <br>
+  <br>
+
+
+    </form>
+</template>

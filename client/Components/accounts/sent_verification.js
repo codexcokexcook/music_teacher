@@ -30,5 +30,5 @@ Meteor.logout(function(err){
 Accounts.onEmailVerificationLink(function(token,done) {
     Accounts.verifyEmail(token, done);
 
-    Bert.alert("You are logged in and Your email is verified. ", "successs", "growl-top-right");
+    Bert.alert("You are logged in and Your email is verified. ", "success", "growl-top-right");
 });

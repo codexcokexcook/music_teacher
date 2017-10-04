@@ -42,7 +42,7 @@ Template.signup_content.events({
                         }
                 else{
                   Bert.alert("Accounts Created!", "success", 'growl-top-right');
-                  
+
                   FlowRouter.go("/sent_verification");
                   }
             });
