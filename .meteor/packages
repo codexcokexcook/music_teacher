@@ -37,5 +37,6 @@ meteortoys:allthings
 themeteorchef:bert
 email
 http
-meteorhacks:picker
+meteorhacks:picker          #for webhook server side routing
 percolate:momentum
+service-configuration       #for facebook login

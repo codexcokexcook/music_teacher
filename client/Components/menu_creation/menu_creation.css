@@ -1,0 +1,13 @@
+#menu_creation_card {
+  min-height: 35vh;
+},
+
+
+#menu_dishes_table {
+  table-layout: fixed;
+  width: 100vh;
+},
+
+#menu_dishes_table > td {
+  min-height: 98px;
+}

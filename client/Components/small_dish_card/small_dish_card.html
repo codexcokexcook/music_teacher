@@ -1,0 +1,23 @@
+<template name="small_dish_card">
+  {{#each dishes_item}}
+  <div class="card" id = "small_dish_card">
+    <div class="card-image center" id = "small_dish_card_image">
+      <!-- Required to convert to dynamic component when user accounts component is ready -->
+      <img src="/user_avatar.svg" alt="user_avatar" id="small_user_avatar" class = "circle responsive-img center"/>
+      <div id="small_dish_img_wrapper">
+        {{#if image_id}}
+          <img src="/dishes_upload/{{image_id}}{{get_image_extension}}" id="small_dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
+        {{else}}
+          <div class = "center-align" style="height:100vh">no image to display</div>
+        {{/if}}
+      </div>
+    </div>
+      <div class = "info_wrapper">
+        <h5>{{dish_name}}</h5>
+        Chef location<br>
+        Read in {{cooking_time}}mins
+        <h6 class = "right-align">${{dish_selling_price}}</h6>
+      </div>
+    </div>
+  {{/each}}
+</template>
