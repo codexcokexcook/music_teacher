@@ -27,11 +27,7 @@
 
 
 .content{
-<<<<<<< HEAD:client/Components/msgDialog/msgDialog.css
-
-=======
 /*  position: absolute; - this setting is causing contents to jump when template render has checkboxes*/
->>>>>>> Michael_20171002:client/Components/msg_Dialog/msgDialog.css
   padding-top: : 68px;
   width:100%;
 
