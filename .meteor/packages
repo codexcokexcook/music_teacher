@@ -37,6 +37,8 @@ meteortoys:allthings
 themeteorchef:bert
 email
 http
-meteorhacks:picker          #for webhook server side routing
+meteorhacks:picker          # for webhook server side routing
 percolate:momentum
-service-configuration       #for facebook login
+service-configuration       # for facebook login
+meteorhacks:aggregate       # MongoDB aggregation for query and operation/grouping
+random                      # Random function

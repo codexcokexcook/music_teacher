@@ -1,80 +1,140 @@
 <template name = "menu_creation">
-  {{> menu_carousel}}
-</template>
-
-<template name = "menu_carousel">
-  <div class = "container" id="card_container">
-    {{> menu_details_input}}
-  </div>
-  <div id="dishes_selection">
-    {{> dishes_selection}}
+  <div class = "container" id = "card_container">
   </div>
 </template>
 
-<template name = "menu_details_input">
-  <div class="input-field col s6">
-    <input id="menu_name" type="text">
-    <label for="menu_name">Menu name</label>
-  </div>
-</template>
-
-<!-- <template name = "menu_creation_content">
-  <div class = "col l12 m12 s12 center">
-    <div class="card" id = "menu_creation_card">
-        <div class = "card-content center-block">
-          <div class="input-field col s6">
-            <input id="set_name" type="text">
-            <label for="set_name">Set name</label>
-            {{selected_dish_id}}
-          </div>
-        <div class = "card-action center-block" id = "menu_creation_button">
-          <a class="waves-effect waves-red btn-flat red-text">Preview</a>
-          <a class="waves-effect waves-red btn-flat red-text">Done</a>
+<template name = "menu_creation_content">
+  <div class = "col l12 m12 s12">
+    <h5>Create set menu card</h5>
+    <div class="input-field col l12 m12 s12">
+      <input placeholder = "Menu Name" id="menu_name" type="text">
+    </div>
+    <div class = "row">
+      <div class = "col l5 m5 s12">
+        HK$
+        <div class="input-field inline">
+          <input placeholder = "Selling Price" id="menu_selling_name" type="number">
         </div>
       </div>
+      <div class="col l7 m7 s12">
+        <div class = "right">
+          Suggested price:
+          <div class="input-field inline">
+            <input disabled placeholder = "Suggested Price" id="suggested_price">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class = "row">
+      <p class="range-field col l4 m12 s12">
+        Minimum order:<br>
+        <input type="range" id="min_order_range" min="1" max="20" />
+      </p>
+      <p class="range-field col l4 m12 s12">
+        Lead time (hours):
+        <input type="range" id="lead_time_hours_range" min="0" max="23" />
+      </p>
+      <p class="range-field col l4 m12 s12">
+        Lead time (days):
+        <input type="range" id="lead_time_days_range" min="0" max="15" />
+      </p>
+    </div>
+  </div>
+  <div class = "section">
+    {{> dishes_selection}}
+  </div>
+  <div class = "section">
+    <span>
+      <div class = "left">
+        <a class="waves-effect waves-red btn-flat red-text text-lighten-2 modal-trigger" id="add_dish" href="#create_dish_modal">Add dish</a>
+      </div>
+      <div class = "right">
+        <a class="waves-effect waves-red btn-flat red-text text-lighten-2" id="cancel">Cancel</a>
+        <button class="btn waves-effect waves-light red lighten-2" type="submit" name="action" id="create_menu">Create</button>
+      </div>
+    </span>
+  </div>
+  <div class="modal" id="create_dish_modal">
+    <div class="modal-content">
+      {{> create_dishes_form}}
     </div>
   </div>
 </template>
 
 <template name = "menu_initiation">
-  <div class = "col l12 m12 s12 center">
-    <div class="card valign-wrapper center" id = "menu_creation_card">
-      <div class = "card-content center-block" id = "menu_creation_init">
-        <div class = "valign center">
-          <a class="btn-floating btn-large waves-effect waves-light red lighten-2"><i class="material-icons">add</i></a>
-          <div class = "center-align">Click this '+' button to add your first menu</div>
-        </div>
-      </div>
+  <div class="valign-wrapper" id = "menu_creation_container">
+    <div class ="center" style="width: 100%">
+      <a class="btn-floating btn-large waves-effect waves-light red lighten-2 center" id="add_menu"><i class="material-icons">add</i></a>
+      <h6 class = "center-align">Click this '+' button to add your first menu</h6>
     </div>
   </div>
-</template> -->
+</template>
 
 <template name = "dishes_selection">
-  <div class = "container">
-    <table class = "bordered" id="menu_dishes_table">
-      <thead>
+  <table class = "bordered" id="menu_dishes_table">
+    <thead>
+      <tr>
+        <th class = "col l2 s2 m2"></th>
+        <th class = "col l3 s2 m2">Dish Name</th>
+        <th class = "col l3 s2 m2">Cost</th>
+        <th class = "col l2 s2 m2">Selling price</th>
+        <th class = "col l2 s2 m2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each user_dishes}}
         <tr>
-          <th class = "col l2 s2 m2"></th>
-          <th class = "col l3 s2 m2">Dish Name</th>
-          <th class = "col l3 s2 m2">Cost</th>
-          <th class = "col l2 s2 m2">Selling price</th>
-          <th class = "col l2 s2 m2"></th>
+          <td>
+            <input class="dish_checkbox" type="checkbox" id="{{_id}}" value="{{_id}}" />
+            <label for="{{_id}}"></label>
+          </td>
+          <td>{{dish_name}}</td>
+          <td>{{dish_cost}}</td>
+          <td>{{dish_selling_price}}</td>
+          <td style="width: 15%;">{{> get_dish_image}}</td>
         </tr>
-      </thead>
-      <tbody>
-        {{#each user_dishes}}
-          <tr>
-            <td>
-              <input class="dish_checkbox" type="checkbox" id="{{_id}}" value="{{_id}}" />
-              <label for="{{_id}}"></label>
-            </td>
-            <td>{{dish_name}}</td>
-            <td>{{dish_cost}}</td>
-            <td>{{dish_selling_price}}</td>
-            <td style="width: 15%;">{{> get_dish_image}}</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name = "view_menu">
+  <ul class="collapsible" data-collapsible="expandable">
+    {{#each menu_retreival}}
+      <li>
+        <div class="collapsible-header">{{menu_name}}</div>
+        <div class="collapsible-body">
+          <div class = "row">
+            <h6 class = "center-align">{{menu_name}}</h6>
+          </div>
+            {{#each dishes_id}}
+              {{#with dishes_retreival}}
+                <div class = "row">
+                  <div class = "center-align"><strong>{{dish_name}}</strong></div>
+                  <div class = "center-align">{{dish_description}}</div>
+                </div>
+              {{/with}}
+            {{/each}}
+          <h6 class = "center-align">
+            $ {{dish_selling_price}} with minimum order of {{min_order}}</h6>
+          <div class = "center-align">
+            {{#if lead_days}}
+              {{lead_days}} day(s)
+            {{/if}}
+            {{#if lead_hours}}
+              {{lead_hours}} hour(s) advance order
+            {{/if}}
+          </div>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+  <div class = "section">
+    <a class="btn-floating btn-large waves-effect waves-light red lighten-2 right modal-trigger" href="#create_menu_modal" id="add_menu"><i class="material-icons">add</i></a>
+    <div class="modal" id="create_menu_modal">
+      <div class="modal-content">
+        {{> create_dishes_form}}
+      </div>
+    </div>
   </div>
 </template>
