@@ -23,34 +23,32 @@ Template.signup_content.events({
   'submit form': function(event){
     event.preventDefault();
 
-    
+
     var email = trimInput(event.target.email.value);
     var password = trimInput(event.target.password.value);
     var cpassword = trimInput(event.target.cpassword.value);
-    var last_name = trimInput(event.target.last_name.value);
-    var first_name = trimInput(event.target.first_name.value);
+  //  var last_name = trimInput(event.target.last_name.value);
+  //  var first_name = trimInput(event.target.first_name.value);
+
 
       if( isNotEmpty(email)      &&
           isNotEmpty(password)   &&
-          isNotEmpty(last_name)  &&
-          isNotEmpty(first_name) &&
+    //      isNotEmpty(last_name)  &&
+    //      isNotEmpty(first_name) &&
           isEmail(email)         &&
           areValidPassword(password, cpassword)) {
+
 
             Accounts.createUser({
                 email: email,
                 password: password,
-                profile:{
-                first_name: first_name,
-                last_name: last_name,
-              }
+
               }, function(err){
                 if(err){
                   Bert.alert(err.reason,"danger", "growl-top-right");
                         }
                 else{
                   Bert.alert("Accounts Created!", "success", 'growl-top-right');
-
                   FlowRouter.go("/sent_verification");
                   }
             });
