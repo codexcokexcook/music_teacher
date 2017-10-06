@@ -199,8 +199,8 @@ Template.food_allergies.helpers ({
 });
 
 Template.food_allergies.events({
-  'change .create_dish_fill_in': function(event, template) {
-    var get_allergy = this.template.findAll("input[type=checkbox]:checked");
+  'change .filled-in': function(event, template) {
+    var get_allergy = template.findAll("input[type=checkbox]:checked");
       var selected_allergy = get_allergy.map(function(selection){
         return selection.value;
     });
@@ -540,6 +540,8 @@ Template.create_dishes_form.events({
             vegetables_tags: Session.get('vegetables_tags'),
             condiments_tags: Session.get('condiments_tags'),
             serving_temperature_tags: Session.get('serving_temperature_tags'),
+
+            random: Math.random(), //insert a random number for sampling random dish on surpise me / blueplate special
 
             createdAt: new Date()
          });

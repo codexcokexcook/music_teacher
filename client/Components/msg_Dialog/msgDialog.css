@@ -64,12 +64,13 @@
   float: none;
   width: auto;
   height: 86vh;
-    left: 0;
-    background-color: #ffffff;
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-left-color: #d0d0d0;
-    overflow:scroll;
+  left: 0;
+  background-color: #ffffff;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-left-color: #d0d0d0;
+  overflow:scroll;
+  padding-top: 48px;
 }
 
 ::-webkit-scrollbar {
