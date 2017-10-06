@@ -145,35 +145,17 @@
         <div class="input-field col l2 m2 s2 valign">
         <select class="material_select" id="card_exp_month">
           <option value="" disabled selected>MM</option>
-          <option value="1">01</option>
-          <option value="2">02</option>
-          <option value="3">03</option>
-          <option value="4">04</option>
-          <option value="5">05</option>
-          <option value="6">06</option>
-          <option value="7">07</option>
-          <option value="8">08</option>
-          <option value="9">09</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
+          {{#each month_list}}
+          <option value="{{option}}">{{month}}</option>
+          {{/each}}
         </select>
       </div>
       <div class="input-field col l2 m2 s2 valign">
           <select class="material_select" id="card_exp_year">
             <option value="" disabled selected>YYYY</option>
-            <option value="1">2017</option>
-            <option value="2">2018</option>
-            <option value="3">2019</option>
-            <option value="4">2020</option>
-            <option value="5">2021</option>
-            <option value="6">2022</option>
-            <option value="7">2023</option>
-            <option value="8">2024</option>
-            <option value="9">2025</option>
-            <option value="10">2026</option>
-            <option value="11">2027</option>
-            <option value="12">2028</option>
+            {{#each year_list}}
+            <option value="{{option}}">{{year}}</option>
+            {{/each}}
           </select>
           </div>
 
@@ -196,29 +178,11 @@
     </div>
 
       <div class="col l6 m2 s2 valign">
-        <select class="material_select">
+        <select class="material_select" id="bank_name">
           <option value="" disabled selected>   Bank Name</option>
-          <option value="1">   003 - Standard Chartered Bank(Hong Kong)</option>
-          <option value="2">   004 - Hongkong and Shanghai Banking Corporation</option>
-          <option value="3">   009 - China Construction Bank (Asia)</option>
-          <option value="4">   012 - Bank of CHina (Hong Kong)</option>
-          <option value="5">   015 - Bank of East Asia</option>
-          <option value="6">   018 - China CITIC Bank International</option>
-          <option value="7">   020 - Wing Lung Bank</option>
-          <option value="8">   022 - OCBC Wing Hang Bank</option>
-          <option value="9">   024 - Hang Seng Bank</option>
-          <option value="10">   025 - Shanghai Commercial Bank</option>
-          <option value="11">   027 - Bank of Communications</option>
-          <option value="12">   028 - Public Bank (Hong Kong)</option>
-          <option value="12">   038 - Tai Yau Bank</option>
-          <option value="13">   039 - Chiyu Banking Corporation</option>
-          <option value="14">   040 - Dah Sing Bank</option>
-          <option value="15">   041 - Chong Hing Bank</option>
-          <option value="16">   043 - Nanyang Commercial Bank</option>
-          <option value="17">   061 - Tai Sang Bank</option>
-          <option value="18">   072 - Industrial and Commercial Bank of China (Asia)</option>
-          <option value="19">   128 - Fubon Bank (Hong Kong)</option>
-          <option value="20">   250 - CitiBank (Hong Kong)</option>
+          {{#each bank_list}}
+          <option value="{{option}}">{{name}}</option>
+          {{/each}}
 
         </select>
         </div>
