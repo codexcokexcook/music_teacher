@@ -6,15 +6,14 @@ import { Tracker } from 'meteor/tracker';
 Menu = new Mongo.Collection('menu');
 
 Template.menu_creation.onRendered(function(){
-  if (Menu.find({})) {
+  //Check if menu has data instance
+  var data = Menu.find()
+  if (data.count()) {
     Blaze.render(Template.view_menu, document.getElementById('card_container'));
-    alert('have record');
   } else {
     Blaze.render(Template.menu_initiation, document.getElementById('card_container'));
-    alert('no records');
   }
 });
-
 
 Template.menu_initiation.events({
   'click #add_menu': function(template) {
@@ -30,10 +29,27 @@ Template.menu_creation_content.onRendered(function(){
 
 Template.menu_creation_content.events({
   'click #cancel': function(template) {
-    Blaze.remove(Template.instance().view);
-  },
-  'click #add_dish': function(template) {
-    Blaze.render(Template.create_dish_modal, document.getElementById('cancel'));
+    // this template is reused in a modal setting, the followig is the check
+    // whether this template render location is on a modal or not.
+    // if it is on a modal, view shoudln't be removed and view menu template
+    // shoudln't be rendered.
+    var current_instance = Template.instance().view;;
+    if (!current_instance.parentView) {
+      Blaze.remove(current_instance);
+    }
+    // reset the form after submission
+    $('#menu_name').val("");
+    $('#menu_selling_price').val("");
+    $('#min_order_range').val("");
+    $('#lead_time_hours_range').val("");
+    $('#lead_time_days_range').val("");
+
+    var checkboxes = document.getElementsByClassName("dish_checkbox");
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = false;
+    };
+    Session.keys = {};
+    $('div.modal').scrollTop(0);
   },
   'click #create_menu': function(event, template) {
     event.preventDefault;
@@ -47,8 +63,28 @@ Template.menu_creation_content.events({
 
     Meteor.call('menu.insert',menu_name, createdBy, menu_selling_price, min_order, lead_hours,lead_days,dishes_id);
 
-    Blaze.render(Template.view_menu, document.getElementById('card_container'));
-    Blaze.remove(Template.instance().view);
+    // this template is reused in a modal setting, the followig is the check
+    // whether this template render location is on a modal or not.
+    // if it is on a modal, view shoudln't be removed and view menu template
+    // shoudln't be rendered.
+    var current_instance = Template.instance().view;;
+    if (!current_instance.parentView) {
+      Blaze.render(Template.view_menu, document.getElementById('card_container'));
+      Blaze.remove(current_instance);
+    }
+    // reset the form after submission
+    $('#menu_name').val("");
+    $('#menu_selling_price').val("");
+    $('#min_order_range').val("");
+    $('#lead_time_hours_range').val("");
+    $('#lead_time_days_range').val("");
+
+    var checkboxes = document.getElementsByClassName("dish_checkbox");
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = false;
+    };
+    Session.keys = {};
+    $('div.modal').scrollTop(0);
   }
 });
 
@@ -71,16 +107,38 @@ Template.dishes_selection.helpers({
 });
 
 Template.view_menu.onRendered(function(){
-  this.$('.collapsible').collapsible();
+  this.$('.modal').modal();
 });
 
 Template.view_menu.helpers({
   'menu_retreival': function() {
     return Menu.find();
-  },
+  }
+});
+
+Template.view_menu.events({
+  'click #delete_menu': function () {
+    Menu.remove(this._id);
+  }
+})
+
+Template.menu_card.onRendered(function(){
+  this.$('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: false, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    });
+});
+
+Template.menu_card.helpers({
   'dishes_retreival': function() {
-        var dishes_id = String(this); //converted single object of dish id to string ***important***
-        var find_dishes = Dishes.findOne({"_id": dishes_id});
-        return find_dishes;
+    var dishes_id = String(this); //converted single object of dish id to string ***important***
+    var find_dishes = Dishes.findOne({"_id": dishes_id});
+    return find_dishes;
   }
 });
