@@ -13,7 +13,7 @@
       <div class = "col l5 m5 s12">
         HK$
         <div class="input-field inline">
-          <input placeholder = "Selling Price" id="menu_selling_name" type="number">
+          <input placeholder = "Selling Price" id="menu_selling_price" type="number">
         </div>
       </div>
       <div class="col l7 m7 s12">
@@ -49,8 +49,8 @@
         <a class="waves-effect waves-red btn-flat red-text text-lighten-2 modal-trigger" id="add_dish" href="#create_dish_modal">Add dish</a>
       </div>
       <div class = "right">
-        <a class="waves-effect waves-red btn-flat red-text text-lighten-2" id="cancel">Cancel</a>
-        <button class="btn waves-effect waves-light red lighten-2" type="submit" name="action" id="create_menu">Create</button>
+        <a class="modal-action modal-close waves-effect waves-red btn-flat red-text text-lighten-2" id="cancel">Cancel</a>
+        <button class="modal-action modal-close btn waves-effect waves-light red lighten-2" type="submit" name="action" id="create_menu">Create</button>
       </div>
     </span>
   </div>
@@ -99,41 +99,51 @@
 </template>
 
 <template name = "view_menu">
-  <ul class="collapsible" data-collapsible="expandable">
     {{#each menu_retreival}}
-      <li>
-        <div class="collapsible-header">{{menu_name}}</div>
-        <div class="collapsible-body">
-          <div class = "row">
-            <h6 class = "center-align">{{menu_name}}</h6>
-          </div>
-            {{#each dishes_id}}
-              {{#with dishes_retreival}}
-                <div class = "row">
-                  <div class = "center-align"><strong>{{dish_name}}</strong></div>
-                  <div class = "center-align">{{dish_description}}</div>
-                </div>
-              {{/with}}
-            {{/each}}
-          <h6 class = "center-align">
-            $ {{dish_selling_price}} with minimum order of {{min_order}}</h6>
-          <div class = "center-align">
-            {{#if lead_days}}
-              {{lead_days}} day(s)
-            {{/if}}
-            {{#if lead_hours}}
-              {{lead_hours}} hour(s) advance order
-            {{/if}}
-          </div>
-        </div>
-      </li>
+      {{> menu_card}}
     {{/each}}
-  </ul>
   <div class = "section">
     <a class="btn-floating btn-large waves-effect waves-light red lighten-2 right modal-trigger" href="#create_menu_modal" id="add_menu"><i class="material-icons">add</i></a>
     <div class="modal" id="create_menu_modal">
-      <div class="modal-content">
-        {{> create_dishes_form}}
+      <div class="modal-content" id="modal_content">
+        {{> menu_creation_content}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name = "menu_card">
+  <div class = "card">
+    <div class = "card-content">
+      <span class="card-title center">{{menu_name}}
+        <a class = "dropdown-button right" href="#!" data-activates="dropdown_{{_id}}">
+          <i class="material-icons grey-text text-darken-1">more_vert</i>
+        </a>
+      </span>
+      <ul id='dropdown_{{_id}}' class='dropdown-content'>
+        <li><a id="edit_menu">Edit</a></li>
+        <li><a id="delete_menu">Delete</a></li>
+      </ul>
+      <div class="section">
+        {{#each dishes_id}}
+          {{#with dishes_retreival}}
+            <div class = "row">
+              <div class = "center-align"><strong>{{dish_name}}</strong></div>
+              <div class = "center-align">{{dish_description}}</div>
+            </div>
+          {{/with}}
+        {{/each}}
+        <h6 class = "center-align">
+          $ {{menu_selling_price}} with minimum order of {{min_order}}
+        </h6>
+        <div class = "center-align">
+          {{#if lead_days}}
+            {{lead_days}} day(s)
+          {{/if}}
+          {{#if lead_hours}}
+            {{lead_hours}} hour(s) advance order
+          {{/if}}
+        </div>
       </div>
     </div>
   </div>
