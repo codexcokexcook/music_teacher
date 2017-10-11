@@ -4,9 +4,10 @@ import { Template } from 'meteor/templating';
 import './create_profile.html';
 
 
-Profile_Details = new Mongo.Collection('profile_details');
-Address_Details = new Mongo.Collection('address_details');
-
+Profile_details = new Mongo.Collection('profile_details');
+Address_details = new Mongo.Collection('address_details');
+Payment_details = new Mongo.Collection('payment_details');
+Bank_details = new Mongo.Collection('bank_details');
 
 
 Template.create_profile.events({
@@ -26,9 +27,19 @@ Template.create_profile.events({
     const address_name_2 = trimInput(event.target.address_name_2.value);
     const address_details_2 = trimInput(event.target.address_details_2.value);
     const mobile_no_2 = trimInput(event.target.mobile_no_2.value);
+    const allergy_tags = Session.get('allergy_tags');
+    const dietary_tags = Session.get('dietary_tags');
+    const card_number = trimInput(event.target.card_number.value);
+    const card_fullname = trimInput(event.target.card_fullname.value);
+    const card_exp_month = trimInput(event.target.card_exp_month.value);
+    const card_exp_year = trimInput(event.target.card_exp_year.value);
+    const cvv_code = trimInput(event.target.cvv_code.value);
+    const bank_fullname = trimInput(event.target.bank_fullname.value);
+    const bank_name = trimInput(event.target.mobile_no_2.value);
+    const bank_account_no = trimInput(event.target.bank_account_no.value);
 
 
-    const userId = Meteor.userId()
+    const user_id = Meteor.userId()
 
 
 
@@ -43,28 +54,57 @@ Template.create_profile.events({
           isNotEmpty(address_details_1)      &&
           isNotEmpty(mobile_no_1)            &&
           isNotEmpty(address_name_2)         &&
-          isNotEmpty(address_details_2)       &&
-          isNotEmpty(mobile_no_2))
+          isNotEmpty(address_details_2)      &&
+          isNotEmpty(mobile_no_2)            &&
+          isNotEmpty(card_number)            &&
+          isNotEmpty(card_fullname)          &&
+          isNotEmpty(card_exp_month)         &&
+          isNotEmpty(card_exp_year)          &&
+          isNotEmpty(cvv_code)               &&
+          isNotEmpty(bank_fullname)          &&
+          isNotEmpty(bank_name)              &&
+          isNotEmpty(bank_account_no)           )
 
           {
             Meteor.call('profile_details.insert',
-            userId,
+            user_id,
             first_name,
             last_name,
             kitchen_name,
             profile_keywords,
             date_of_birth,
             gender,
-            about_myself);
+            about_myself,
+            allergy_tags,
+            dietary_tags);
 
             Meteor.call('address_details.insert',
-            userId,
+            user_id,
             address_name_1,
             address_details_1,
             mobile_no_1,
             address_name_2,
             address_details_2,
             mobile_no_2);
+
+            Meteor.call('payment_details.insert',
+            user_id,
+            card_number,
+            card_fullname,
+            card_exp_month,
+            card_exp_year,
+            cvv_code);
+
+            Meteor.call('bank_details.insert',
+            user_id,
+            bank_fullname,
+            bank_name,
+            bank_account_no);
+
+
+    //divert to the profile page
+    //        FlowRouter.go('/msgDialog')
+
       }
       else{
       return false;
@@ -149,7 +189,7 @@ Template.create_profile.onRendered(function(){
 
 });
 
-Template.create_profile.helpers ({
+Template.profile_bank_details.helpers ({
   bank_list: [
     { name: '   003 - Standard Chartered Bank(Hong Kong)', option: '1'},
     { name: '   004 - Hongkong and Shanghai Banking Corporation', option: '2'},
@@ -176,7 +216,7 @@ Template.create_profile.helpers ({
 });
 
 
-Template.create_profile.helpers ({
+Template.profile_payment_details.helpers ({
   month_list:[
     { month: '01', option:'1'},
     { month: '02', option:'2'},

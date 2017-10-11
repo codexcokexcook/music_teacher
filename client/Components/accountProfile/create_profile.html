@@ -25,17 +25,7 @@
       {{>profile_bank_details}}
       <br>
       <br>
-      <input class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">
-      <button  class="waves-effect waves-teal btn-flat right modal-trigger" type="button" name="Preview" data-target="modal_profile_card">Preview</button>
-        <div id="modal_profile_card" class="modal modal-fixed-footer">
-          <div class="modal-content">
-            {{>profile_card}}
-          </div>
-
-          <div class="modal-footer">
-            <button href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</button>
-          </div>
-        </div>
+      <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
 
       </div>
       <br>
@@ -106,11 +96,11 @@
   </div>
   <div class="row valign">
   <div class="input-field col l3 m3 s3 -l4 -m2 -s2 valign">
-    <input id="first_name" name="first_name" type="text" value={{currentUser.profile.first_name}}>
+    <input id="first_name" name="first_name" type="text">
     <label class="active" for="first_name">First Name</label>
   </div>
     <div class="input-field col l3 m3 s3 valign">
-    <input id="last_name" name="last_name" type="text" value={{currentUser.profile.last_name}}>
+    <input id="last_name" name="last_name" type="text">
     <label class="active" for="last_name">Last Name</label>
   </div>
   <div class="input-field col l3 m3 s3 valign">
@@ -125,7 +115,7 @@
 </div>
 </div>
 <div class="input-field col l12 m2 s4 valign">
-  <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="120"></textarea>
+  <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500"></textarea>
   <label for="about_myself">Write a paragraph about yourself</label>
 </div>
 </template>
@@ -223,7 +213,7 @@
 </template>
 
 <template name="profile_bank_details">
-  <h6>Bank Details</h6>
+  <h6>Bank details</h6>
   <div class="container">
     <div class="input-field col l6 m6 s6 valign">
     <input id="bank_fullname" name="bank_fullname" type="text" >

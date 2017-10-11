@@ -18,11 +18,11 @@
         </div>
 
      <div class="col l12 m4 s4 valign">
-       <h5 class = "white-text center-align">{{currentUser.profile.first_name}} {{currentUser.profile.last_name}}</h5>
+       <h6 class = "white-text center-align">{{profile_details.first_name}} {{profile_details.last_name}}</h6>
     </div>
 
     <div class="col l6 m4 s4 valign">
-      <h5 class = "white-text center-align">{{currentUser.profile_keywords}}</h5>
+      <p class = "white-text center-align">{{profile_details.profile_keywords}}</p>
     </div>
 
 
@@ -31,19 +31,32 @@
     <br>
 
     <br>
-    {{>profile_content_details}}
+    <div class = "container">
+      <p class ="grey-text text-darken-2">{{profile_details.about_myself}}</p>
     <br>
+    </div>
+
+
+    <div class = "left80px">
+    <h6>Created dishes</h6>
+    <br>
+    <div class="row">
+    {{#each created_dishes}}
+    {{>dishes_rotation}}
+    {{/each}}
+  </div>
+</div>
 
     <br>
-    {{>profile_created_dishes}}
-    <br>
-
-    <br>
+    <div class = "left80px">
     {{>profile_created_menus}}
+    </div>
     <br>
 
     <br>
+    <div class = "left80px">
     {{>profile_recently_exploered}}
+    </div>
     <br>
 
 
@@ -51,17 +64,12 @@
 </template>
 
 
-<template name="profile_content_details">
-  <div class = "container">
-    <h6>{{currentUser.about_myself}}</h6>
-  </div>
-</template>
 
 
 
 <template name="profile_created_dishes">
 <h6>Created dishes</h6>
-
+<p class ="grey-text text-darken-2">{{dishes.dish_name}}</p>
 </template>
 
 
