@@ -1,8 +1,9 @@
 import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
+import { Blaze } from 'meteor/blaze';
 import './create_profile.html';
-
+import './profile_card.html';
 
 Profile_details = new Mongo.Collection('profile_details');
 Address_details = new Mongo.Collection('address_details');
@@ -12,7 +13,7 @@ Bank_details = new Mongo.Collection('bank_details');
 
 Template.create_profile.events({
 
-  'submit form': function(event){
+  'submit form': function(event, template){
     event.preventDefault();
     const kitchen_name = trimInput(event.target.kitchen_name.value);
     const profile_keywords = trimInput(event.target.profile_keywords.value);
@@ -103,7 +104,8 @@ Template.create_profile.events({
 
 
     //divert to the profile page
-    //        FlowRouter.go('/msgDialog')
+    Blaze.render(Template.profile_card, document.getElementById('profile_card_container'));
+    Blaze.remove(Template.instance().view);
 
       }
       else{
