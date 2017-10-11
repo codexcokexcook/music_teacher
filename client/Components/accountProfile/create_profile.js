@@ -2,6 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
+import { FilesCollection } from 'meteor/ostrio:files';
 import './create_profile.html';
 import './profile_card.html';
 
@@ -9,6 +10,84 @@ Profile_details = new Mongo.Collection('profile_details');
 Address_details = new Mongo.Collection('address_details');
 Payment_details = new Mongo.Collection('payment_details');
 Bank_details = new Mongo.Collection('bank_details');
+
+
+
+
+
+/** function from ostrio **/
+
+Template.profile_banner.onCreated(function () {
+  this.currentUpload = new ReactiveVar(false);
+});
+
+Template.profile_banner.helpers({
+  currentUpload() {
+    return Template.instance().currentUpload.get();
+  },
+
+  checkUpload() {
+     return Session.get('image_id');
+  },
+
+  imageFile() {
+      var image_id = Session.get('image_id');
+      var image_location = Images.findOne({"_id": image_id});
+      var image_extension = image_location && image_location.extensionWithDot;
+      /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
+      /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
+      var ul_location = image_id + image_extension;
+
+      return ul_location;
+  }
+});
+
+Template.profile_banner.events({
+  'change #file_input'(e, template) {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case
+      // multiple files were selected
+      const upload = Images.insert({
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
+
+      upload.on('start', function () {
+        template.currentUpload.set(this);
+      });
+
+      upload.on('end', function (error, Images) {
+        if (error) {
+          alert('Error during upload: ' + error);
+        } else {
+            Meteor.setTimeout(get_image_id,1000);
+            /** Setup a delay of 100msec to ensure image is in place
+            before session getting the image id and return to html
+            to ensure the image is ready to display when image_id is returned.
+            by doind this, I can stop meteor from reload the entire page to
+            retrieve the image file **/
+            /** There is a different time delay required for different browsers:
+            For Chrome, we were able to display image with 100ms delay,
+            for safari, it only worked with 2000ms delay. **/
+            function get_image_id() {
+              return Session.set('image_id', Images._id);
+            }
+        /** above is the line that prevents meteor from reloading **/
+        }
+        Meteor._reload.onMigrate(function () {
+          return [false];
+        });
+        template.currentUpload.set(false);
+      });
+
+      upload.start();
+    }
+  }
+});
+
+
+
 
 
 Template.create_profile.events({

@@ -41,7 +41,7 @@
     <div class = "container valign">
     <div class = "profile_circle_base" >
      {{#with currentUpload}}
-             <div class="preloader-wrapper big active img_preloader center">
+             <div class="preloader-wrapper big active profile_img_preloader center">
                <div class="spinner-layer spinner-red-only">
                  <div class="circle-clipper left">
                    <div class="circle"></div>
@@ -54,14 +54,14 @@
              </div>
      {{else}}
            {{#if checkUpload}}
-               <img src= "profile_upload/{{imageFile}}" />
+               <img src= "dishes_upload/{{imageFile}}" />
            {{else}}
                <div class = "profile_image_upload">
-                   <label for = "profile_file_input">
+                   <label for = "file_input">
                        <img class="profile_icon_img_upload" src="/profile_upload/profile_img_upload_icon.svg" />
                    </label>
                    <div class="file-field input-field">
-                       <input id="profile_file_input" type="file">
+                       <input id="file_input" type="file">
                      <div class="file-path-wrapper">
                      </div>
                    </div>
