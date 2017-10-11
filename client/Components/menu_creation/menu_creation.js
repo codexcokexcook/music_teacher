@@ -23,7 +23,6 @@ Template.menu_initiation.events({
 });
 
 Template.menu_creation_content.onRendered(function(){
-  this.$('select').material_select();
   this.$('.modal').modal();
 });
 
@@ -79,7 +78,7 @@ Template.menu_creation_content.events({
     $('#lead_time_hours_range').val("");
     $('#lead_time_days_range').val("");
 
-    var checkboxes = document.getElementsByClassName("dish_checkbox");
+    var checkboxes = document.getElementsByClassName("dishes_checkbox");
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = false;
     };
@@ -89,12 +88,12 @@ Template.menu_creation_content.events({
 });
 
 Template.dishes_selection.events({
-  'change .dish_checkbox': function(event, template) {
+  'change .dishes_checkbox': function(event, template) {
     var checked_dishes = template.findAll("input[type=checkbox]:checked");
     var checked_values = checked_dishes.map(function(selection){
-      return selection.value;
-    });
-    Session.set('selected_dishes_id', checked_values);
+    return selection.value;
+  });
+  Session.set('selected_dishes_id', checked_values);
   }
 });
 
@@ -107,6 +106,7 @@ Template.dishes_selection.helpers({
 });
 
 Template.view_menu.onRendered(function(){
+  this.$('select').material_select();
   this.$('.modal').modal();
 });
 
@@ -116,23 +116,27 @@ Template.view_menu.helpers({
   }
 });
 
-Template.view_menu.events({
+Template.menu_card.events({
   'click #delete_menu': function () {
     Menu.remove(this._id);
+  },
+  'click #edit_menu': function () {
+
   }
 })
 
 Template.menu_card.onRendered(function(){
+  this.$('.modal').modal();
   this.$('.dropdown-button').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: false, // Activate on hover
-      gutter: 0, // Spacing from edge
-      belowOrigin: false, // Displays dropdown below the button
-      alignment: 'left', // Displays dropdown with edge aligned to the left of button
-      stopPropagation: false // Stops event propagation
-    });
+    inDuration: 300,
+    outDuration: 225,
+    constrainWidth: true, // Does not change width of dropdown to that of the activator
+    hover: false, // Activate on hover
+    gutter: 0, // Spacing from edge
+    belowOrigin: false, // Displays dropdown below the button
+    alignment: 'left', // Displays dropdown with edge aligned to the left of button
+    stopPropagation: false // Stops event propagation
+  });
 });
 
 Template.menu_card.helpers({
