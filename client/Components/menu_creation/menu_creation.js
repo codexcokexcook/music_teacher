@@ -6,8 +6,9 @@ import { Tracker } from 'meteor/tracker';
 Menu = new Mongo.Collection('menu');
 
 Template.menu_creation.onRendered(function(){
+  this.$('modal').modal();
   //Check if menu has data instance
-  var data = Menu.find()
+  var data = Menu.find({"createdBy": Meteor.userId()})
   if (data.count()) {
     Blaze.render(Template.view_menu, document.getElementById('card_container'));
   } else {
@@ -61,8 +62,19 @@ Template.menu_creation_content.events({
     var lead_days = $('#lead_time_days_range').val();
     var dishes_id = Session.get('selected_dishes_id');
 
-    Meteor.call('menu.insert',menu_name, createdBy, menu_selling_price, min_order, lead_hours,lead_days,dishes_id);
-
+    if (menu_name && menu_selling_price && dishes_id) {
+      Meteor.call('menu.insert',
+        menu_name,
+        createdBy,
+        menu_selling_price,
+        min_order,
+        lead_hours,
+        lead_days,
+        dishes_id
+      );
+    } else {
+      Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
+    }
     // this template is reused in a modal setting, the followig is the check
     // whether this template render location is on a modal or not.
     // if it is on a modal, view shoudln't be removed and view menu template
@@ -116,7 +128,7 @@ Template.view_menu.onRendered(function(){
 
 Template.view_menu.helpers({
   'menu_retreival': function() {
-    return Menu.find();
+    return Menu.find({"createdBy": Meteor.userId()});
   }
 });
 
@@ -132,7 +144,7 @@ Template.menu_card.events({
     $('edit_menu_modal').modal('close');
   },
   'click #edit_menu': function () {
-    $('edit_menu_modal').modal('open')
+    $('edit_menu_modal_').modal('open')
     Session.set('menu_id', this._id);
     Session.set('dishes_id', this.dishes_id);
   }
@@ -213,10 +225,11 @@ Template.edit_content.events({
     for (var i = 0; i < dishes_id.length; i++) {
       document.getElementById(dishes_id[i]).checked = "checked";
     };
+    Session.set('menu_id', this._id);
   },
   'click #update_menu': function() {
     event.preventDefault;
-    var menu_id = this._id;
+    var menu_id = Session.get('menu_id');
     var menu_name = $('#edit_menu_name').val();
     var menu_selling_price = $('#edit_menu_selling_price').val();
     var min_order = $('#edit_min_order_range').val();
@@ -224,7 +237,12 @@ Template.edit_content.events({
     var lead_days = $('#edit_lead_time_days_range').val();
     var dishes_id = Session.get('edited_dishes_id');
 
-    Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id);
-    $('div.modal').scrollTop(0);
+    if (menu_name && menu_selling_price && dishes_id) {
+      Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id);
+      $('div.modal').scrollTop(0);
+    } else {
+      Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
+      $('div.modal').scrollTop(0);
+    }
   }
 });

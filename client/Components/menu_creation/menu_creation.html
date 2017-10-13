@@ -155,81 +155,81 @@
 </template>
 
 <template name = "edit_content">
-  <div class = "modal" id="edit_menu_modal">
-    {{#with menu_retreival_edit}}
+    <div class = "modal" id="edit_menu_modal">
       <div class = "modal-content" id="edit_menu_content">
-          <div class = "col l12 m12 s12">
-            <h5>Create set menu card</h5>
-            <div class="input-field col l12 m12 s12">
-              <input placeholder = "Menu Name" id="edit_menu_name" type="text" value="{{menu_name}}">
-            </div>
-            <div class = "row">
-              <div class = "col l5 m5 s12">
-                HK$
-                <div class="input-field inline">
-                  <input placeholder = "Selling Price" id="edit_menu_selling_price" type="number" value="{{menu_selling_price}}">
-                </div>
+        {{#with menu_retreival_edit}}
+            <div class = "col l12 m12 s12">
+              <h5>Create set menu card</h5>
+              <div class="input-field col l12 m12 s12">
+                <input placeholder = "Menu Name" id="edit_menu_name" type="text" value="{{menu_name}}">
               </div>
-              <div class="col l7 m7 s12">
-                <div class = "right">
-                  Suggested price:
+              <div class = "row">
+                <div class = "col l5 m5 s12">
+                  HK$
                   <div class="input-field inline">
-                    <input disabled placeholder = "Suggested Price" id="edit_suggested_price">
+                    <input placeholder = "Selling Price" id="edit_menu_selling_price" type="number" value="{{menu_selling_price}}">
+                  </div>
+                </div>
+                <div class="col l7 m7 s12">
+                  <div class = "right">
+                    Suggested price:
+                    <div class="input-field inline">
+                      <input disabled placeholder = "Suggested Price" id="edit_suggested_price">
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class = "row">
-              <p class="range-field col l4 m12 s12">
-                Minimum order:<br>
-                <input type="range" id="edit_min_order_range" min="1" max="20" value="{{min_order}}"/>
-              </p>
-              <p class="range-field col l4 m12 s12">
-                Lead time (hours):
-                <input type="range" id="edit_lead_time_hours_range" min="0" max="23" value="{{lead_hours}}"/>
-              </p>
-              <p class="range-field col l4 m12 s12">
-                Lead time (days):
-                <input type="range" id="edit_lead_time_days_range" min="0" max="15" value="{{lead_days}}"/>
-              </p>
-            </div>
-          </div>
-          <div class = "section">
-            <table class = "bordered" id="menu_dishes_table">
-              <thead>
-                <tr>
-                  <th class = "col l2 s2 m2"></th>
-                  <th class = "col l3 s2 m2">Dish Name</th>
-                  <th class = "col l3 s2 m2">Cost</th>
-                  <th class = "col l2 s2 m2">Selling price</th>
-                  <th class = "col l2 s2 m2"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each user_dishes}}
-                  <tr>
-                    <td>
-                      <input class="edit_dishes_checkbox" type="checkbox" id="{{_id}}" value="{{_id}}" {{is_checked}}/>
-                      <label for="{{_id}}"></label>
-                    </td>
-                    <td>{{dish_name}}</td>
-                    <td>{{dish_cost}}</td>
-                    <td>{{dish_selling_price}}</td>
-                    <td style="width: 15%;">{{> get_dish_image}}</td>
-                  </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-          <div class = "modal-footer section">
-            <span>
-              <div class = "right">
-                <a class="modal-action modal-close waves-effect waves-red btn-flat red-text text-lighten-2" id="edit_cancel">Cancel</a>
-                <a class="modal-action modal-close btn waves-effect waves-light red lighten-2" type="submit" name="action" id="update_menu">Update</a>
+              <div class = "row">
+                <p class="range-field col l4 m12 s12">
+                  Minimum order:<br>
+                  <input type="range" id="edit_min_order_range" min="1" max="20" value="{{min_order}}"/>
+                </p>
+                <p class="range-field col l4 m12 s12">
+                  Lead time (hours):
+                  <input type="range" id="edit_lead_time_hours_range" min="0" max="23" value="{{lead_hours}}"/>
+                </p>
+                <p class="range-field col l4 m12 s12">
+                  Lead time (days):
+                  <input type="range" id="edit_lead_time_days_range" min="0" max="15" value="{{lead_days}}"/>
+                </p>
               </div>
-            </span>
-          </div>
-      </div>
-    {{/with}}
-  </div>
+            </div>
+            <div class = "section">
+              <table class = "bordered" id="menu_dishes_table">
+                <thead>
+                  <tr>
+                    <th class = "col l2 s2 m2"></th>
+                    <th class = "col l3 s2 m2">Dish Name</th>
+                    <th class = "col l3 s2 m2">Cost</th>
+                    <th class = "col l2 s2 m2">Selling price</th>
+                    <th class = "col l2 s2 m2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each user_dishes}}
+                    <tr>
+                      <td>
+                        <input class="edit_dishes_checkbox" type="checkbox" id="{{_id}}" value="{{_id}}" {{is_checked}}/>
+                        <label for="{{_id}}"></label>
+                      </td>
+                      <td>{{dish_name}}</td>
+                      <td>{{dish_cost}}</td>
+                      <td>{{dish_selling_price}}</td>
+                      <td style="width: 15%;">{{> get_dish_image}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          {{/with}}
+            <div class = "modal-footer section">
+              <span>
+                <div class = "right">
+                  <a class="modal-action modal-close waves-effect waves-red btn-flat red-text text-lighten-2" id="edit_cancel">Cancel</a>
+                  <a class="modal-action modal-close btn waves-effect waves-light red lighten-2" type="submit" name="action" id="update_menu">Update</a>
+                </div>
+              </span>
+            </div>
+        </div>
+    </div>
 </template>
