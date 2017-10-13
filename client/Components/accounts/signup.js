@@ -16,6 +16,8 @@ Template.signup_content.events({
     Meteor.loginWithFacebook({requestPermissions:['public_profile','email']}, function(err){
       if (err) {
         console.log('Handle errors here: ', err);
+      } else {
+        FlowRouter.go("/msgDialog");
       }
     });
   },
@@ -109,82 +111,3 @@ Template.signup_content.events({
     }
       return true;
   }
-
-
-
-
-/**
-
-       event.preventDefault();
-
-      var email = event.target.email.value;
-      var password = event.target.password.value;
-
-
-    FlowRouter.go("/sent_verification")
-
-    Accounts.createUser(email, password, (error) => {
-      if ( error ) {
-        Bert.alert( error.reason, 'danger' );
-      } else {
-        Meteor.call( 'sendVerificationLink', ( error, response ) => {
-          if ( error ) {
-            Bert.alert( error.reason, 'danger' );
-          } else {
-            Bert.alert( 'Welcome!', 'success' );
-            FlowRouter.go("/sent_verification");
-          }
-        });
-      }
-    });
-
-  }
-
-});
-
-**/
-
-/*
-Template.signup_content.rendered = function(){
-
-
-}
-
-
-Template.signup_content.events({
-"submit .signup_form": function (event){
-
-  var first_name = trimInput(event.target.first_name.value);
-  var last_name = trimInput(event.target.last_name.value);
-  var email = trimInput(event.target.email.value);
-  var password = trimInput(event.target.password.value);
-  var cpassword = trimInput(event.target.cpassword.value);
-
-  if(isNotEmpty(first_name) &&
-      isNotEmpty(last_name) &&
-      isNotEmpty(email)     &&
-      isNotEmpty(password)  &&
-      isNotEmpty(cpassword) &&
-        isEmail(email)      &&
-         areValidPassword(password,cpassword)){
-
-Accounts.createUser({
-
-    email: email,
-    password: password,
-    profile:{
-    }
-  }, function(err){
-    if(err){
-      Bert.alert(err.reason, "danger", "growl-top-right");
-    } else {
-      Bert.alert("Accounts Created! You are NOW logged in", "success", 'growl-top-right');
-      Router.go("/msgDialog");
-    }
-});
-}
-      return false;
-
-}
-});
-*/
