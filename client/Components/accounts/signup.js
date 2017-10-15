@@ -21,7 +21,16 @@ Template.signup_content.events({
       }
     });
   },
-
+  'click .login-google':function(event){
+    event.preventDefault();
+    Meteor.loginWithGoogle({}, function(err){
+      if (err) {
+        console.log('Handle errors here: ', err);
+      } else {
+        FlowRouter.go("/msgDialog");
+      }
+    });
+  },
   'submit form': function(event){
     event.preventDefault();
 
