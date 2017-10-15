@@ -45,5 +45,15 @@ Template.login_content.events({
         FlowRouter.go("/msgDialog");
       }
     });
+  },
+  'click .login-google':function(event){
+    event.preventDefault();
+    Meteor.loginWithFacebook({}, function(err){
+      if (err) {
+        console.log('Handle errors here: ', err);
+      } else {
+        FlowRouter.go("/msgDialog");
+      }
+    });
   }
 });
