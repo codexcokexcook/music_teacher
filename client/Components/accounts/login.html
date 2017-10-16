@@ -6,35 +6,37 @@
   <form class="login_form col l12 m12 s12">
     <!-- Row No.1 - API Signin button -->
 
-    <div class="top24px center">
+    <br>
+    <div class="center-align">
+    <div class="row col l6 m9 s12 offset-l3 -m6 -s3 valign">
     <a class = "login-facebook" ><img src ="/Signup/Facebook_button.svg"></a>
-    <a href="http://www.google.com" target="_blank"><img src ="/Signup/G_button.svg"></a>
+    <a class = "login-google" ><img src ="/Signup/G_button.svg"></a>
     </div>
       <br>
   <!-- Row No.2 - Email Address -->
 
 
-  <div class="row">
-    <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
+  <div class="row valign">
+    <div class="input-field col l6 m12 s12 offset-l3 -m5 valign">
     <input id="email" name="email" type="email" class="validate">
     <label for="email">Email</label>
     </div>
   </div>
 <!-- Row No.3 - Password -->
-  <div class="row">
-    <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
+  <div class="row valign">
+    <div class="input-field col l6 m12 s12 offset-l3 -m6 -s3 valign">
     <input id="password" name="password" type="password" class="validate">
     <label for="password">Password</label>
     </div>
   </div>
 <!-- Row No.4 - Buttons -->
-      <div class="row">
+      <div class="row cente">
         <div class="col l9 m6 s6 valign">
       {{>login}}
         </div>
       </div>
 
-
+  </div>
 </form>
 </template>
 

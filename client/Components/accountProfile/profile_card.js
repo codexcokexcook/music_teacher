@@ -14,7 +14,20 @@ Template.profile_card.helpers({
       var get_dishes = Dishes.find({'user_id': Meteor.userId()});
       return get_dishes;
 
+    },
+
+    'profile_images': function(){
+      var get_profile_images = profile_images.findOne({'userId': Meteor.userId(),'meta':{"purpose": "profile_picture"}});
+
+      var get_profile_images_id = get_profile_images && get_profile_images._id;
+
+      var get_profile_images_ext = get_profile_images && get_profile_images.extensionWithDot;
+
+      var get_profile_images_name = get_profile_images_id + get_profile_images_ext;
+
+      return get_profile_images_name;
     }
+
 
 
 });

@@ -1,5 +1,5 @@
 <template name = "create_profile">
-    <form class ="create_profile" id="profile_details">
+    <form class ="create_profile" id="create_profile">
       {{>profile_banner}}
       <div class = "container">
       <br>
@@ -54,7 +54,7 @@
              </div>
      {{else}}
            {{#if checkUpload}}
-               <img src= "dishes_upload/{{imageFile}}" />
+               <img src= "profile_upload/{{imageFile}}" />
            {{else}}
                <div class = "profile_image_upload">
                    <label for = "file_input">

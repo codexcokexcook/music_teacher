@@ -12,6 +12,24 @@ Payment_details = new Mongo.Collection('payment_details');
 Bank_details = new Mongo.Collection('bank_details');
 
 
+Profile_Images = new FilesCollection({
+  collectionName: 'profile_images',
+  storagePath: () => {
+      return process.env.PWD + '/public/profile_upload/';
+  },
+  allowClientCode: false,
+  onBeforeUpload(file) {
+
+        if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
+          return true;
+        } else {
+          return 'Please upload image, with size equal or less than 10MB';
+        }
+  }
+});
+Meteor.subscribe('files.profile_images.all');
+
+Session.keys = {}
 
 
 
@@ -32,7 +50,7 @@ Template.profile_banner.helpers({
 
   imageFile() {
       var image_id = Session.get('image_id');
-      var image_location = Images.findOne({"_id": image_id});
+      var image_location = profile_images.findOne({"_id": image_id});
       var image_extension = image_location && image_location.extensionWithDot;
       /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
       /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
@@ -47,10 +65,13 @@ Template.profile_banner.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = Images.insert({
+      const upload = profile_images.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',
-        chunkSize: 'dynamic'
+        chunkSize: 'dynamic',
+        meta:{
+          purpose: "profile_picture"
+        }
       }, false);
 
       upload.on('start', function () {
@@ -183,7 +204,7 @@ Template.create_profile.events({
 
 
     //divert to the profile page
-    Blaze.render(Template.profile_card, document.getElementById('profile_card_container'));
+    Blaze.render(Template.profile_card, document.getElementById('profile'));
     Blaze.remove(Template.instance().view);
 
       }

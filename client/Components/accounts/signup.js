@@ -20,6 +20,15 @@ Template.signup_content.events({
     });
   },
 
+    'click .login-google':function(event){
+      event.preventDefault();
+      Meteor.loginWithGoogle({requestPermissions:['email']}, function(err){
+        if (err) {
+          console.log('Handle errors here: ', err);
+        }
+      })
+    },
+
   'submit form': function(event){
     event.preventDefault();
 
