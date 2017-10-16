@@ -31,6 +31,7 @@ Template.signup_content.events({
       }
     });
   },
+
   'submit form': function(event){
     event.preventDefault();
 

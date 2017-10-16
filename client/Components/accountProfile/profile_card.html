@@ -1,4 +1,4 @@
-<template name="profile_card">
+<template name="profile_card" id="profile_card">
     <div class = "profile_banner-area valign-wrapper">
 
       <div class = "container valign">
@@ -6,22 +6,19 @@
 
         <div class = "profile_image_upload">
             <label for = "profile_file_input">
-                <img class="profile_icon_img_upload" src="/profile_upload/profile_img_upload_icon.svg" />
+                <img class="profile_icon_img_upload" src="/profile_upload/{{profile_images}}" />
             </label>
-            <div class="file-field input-field">
-                <input id="profile_file_input" type="file">
-              <div class="file-path-wrapper">
-              </div>
-            </div>
-        </div>
-        </div>
 
+        </div>
+        </div>
+      <br>
      <div class="col l12 m4 s4 valign">
        <h6 class = "white-text center-align">{{profile_details.first_name}} {{profile_details.last_name}}</h6>
     </div>
 
     <div class="col l6 m4 s4 valign">
       <p class = "white-text center-align">{{profile_details.profile_keywords}}</p>
+      <p class = "white-text center-align">{{get_profile_images}}</p>
     </div>
 
 
@@ -33,10 +30,10 @@
     <div class = "container">
       <p class ="grey-text text-darken-2">{{profile_details.about_myself}}</p>
     <br>
-    </div>
 
 
-    <div class = "left80px">
+
+
     <h6>Created dishes</h6>
     <br>
     <div class="row">
@@ -44,22 +41,22 @@
     {{>dishes_rotation}}
     {{/each}}
   </div>
-</div>
+
 
     <br>
-    <div class = "left80px">
+
     {{>profile_created_menus}}
-    </div>
+
     <br>
 
     <br>
-    <div class = "left80px">
+
     {{>profile_recently_exploered}}
-    </div>
+
     <br>
 
+    </div>
 
-  
 </template>
 
 

@@ -2,10 +2,23 @@ import { Template } from 'meteor/templating';
 import { Accounts } from 'meteor/accounts-base';
 import { Mongo } from 'meteor/mongo';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Blaze } from 'meteor/blaze';
+
+
+
 
 Template.msgDialog_content.onRendered(function(){
   if(Meteor.userId()){
     FlowRouter.go('/msgDialog');
+
+    var data = Profile_details.find({'user_id': Meteor.userId()});
+    if(data.count()){
+    Blaze.render(Template.profile_card, document.getElementById('profile'));
+    }
+
+    else{
+    Blaze.render(Template.create_profile, document.getElementById('profile'));
+}
   } else {
     FlowRouter.go('/login');
   }
@@ -87,7 +100,7 @@ Template.add.events({
     Meteor.call('apiai.response',text);
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
-    
+
     Meteor.call('messages.insert', text,Meteor.userId(), Meteor.userId());
     // Clear form
     target.new_message.value = '';

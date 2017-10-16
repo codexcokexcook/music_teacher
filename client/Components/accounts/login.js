@@ -5,6 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import './login.html';
 
+
 Template.login_content.events({
   'submit form': function(events, template){
        event.preventDefault();

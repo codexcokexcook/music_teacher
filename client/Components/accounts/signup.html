@@ -6,11 +6,12 @@
   <form class="signup_form col l12 m12 s12">
 
 <!-- Row No.1 - API Signin button -->
+<div class="container">
     <div class="top24px center">
+        <div class="row col l6 m6 s12 offset-l3 -m3 -s3 valign">
     <a class = "login-facebook" ><img src ="/Signup/Facebook_button.svg"></a>
-    <a class = "login-google"><img src ="/Signup/G_button.svg"></a>
     </div>
-
+</div>
 <!-- Row No.2 - Email Address -->
 <!--
       <div class="row">
@@ -24,33 +25,34 @@
       </div>
     </div>
 -->
-      <div class="row">
-        <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
+
+      <div class="row center">
+        <div class="input-field col l8 m8 s12 offset-l2 -m5 -s3 valign">
         <input id="email" name="email" type="email" class="validate">
         <label for="email">Email</label>
         </div>
       </div>
 <!-- Row No.3 - Password -->
-      <div class="row">
-        <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
+      <div class="row center">
+        <div class="input-field col l8 m8 s12 offset-l2 -m2 -s3 valign">
         <input id="password" name="password" type="password" class="validate">
         <label for="password">Create a Password</label>
         </div>
       </div>
 <!-- Row No.4 - Password -->
-      <div class="row">
-        <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
+      <div class="row center">
+        <div class="input-field col l8 m8 s12 offset-l2 -m2 -s3 valign">
         <input id="cpassword" name="cpassword" type="password" class="validate">
         <label for="cpassword">Confirm your Password</label>
         </div>
       </div>
 <!-- Row No.5 - Buttons-->
-      <div class="row">
-        <div class="col l6 m4 s6 offset-l3 -m1 -s1 valign">
+      <div class="row center">
+        <div class="input-field col l10 m8 s12 offset -l0 valign">
           {{>signup}}
         </div>
         </div>
-
+      </div>
 
   </form>
 </template>
