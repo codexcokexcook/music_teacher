@@ -71,7 +71,13 @@
    </div>
 
    <div class="col l12 m4 s4 valign">
-     <h5 class = "white-text center-align">{{currentUser.profile.first_name}} {{currentUser.profile.last_name}}</h5>
+     <h5 class = "white-text center-align">
+       {{#if currentUser.profile.first_name}}
+        {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
+      {{else}}
+        {{currentUser.profile.name}}
+      {{/if}}
+      </h5>
   </div>
 
   <div class="input-field col l6 m4 s4 valign">

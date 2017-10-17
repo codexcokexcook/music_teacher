@@ -2,10 +2,14 @@ import { Template } from 'meteor/templating';
 import { Accounts } from 'meteor/accounts-base';
 import { Mongo } from 'meteor/mongo';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Blaze } from 'meteor/blaze';
 
 Template.msgDialog_content.onRendered(function(){
   if(Meteor.userId()){
     FlowRouter.go('/msgDialog');
+    // ** Use this to remove modal overlay that left behind
+    $(".modal-overlay").remove();
+    // ** //
   } else {
     FlowRouter.go('/login');
   }
@@ -87,7 +91,7 @@ Template.add.events({
     Meteor.call('apiai.response',text);
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
-    
+
     Meteor.call('messages.insert', text,Meteor.userId(), Meteor.userId());
     // Clear form
     target.new_message.value = '';

@@ -1,74 +1,37 @@
-
-
-
 <!--SignUp Content-->
 <template name="signup_content">
-  <form class="signup_form col l12 m12 s12">
-
-<!-- Row No.1 - API Signin button -->
-    <div class="top24px center">
-    <a class = "login-facebook" ><img src ="/Signup/Facebook_button.svg"></a>
-    <a class = "login-google"><img src ="/Signup/G_button.svg"></a>
-    </div>
-
-<!-- Row No.2 - Email Address -->
-<!--
-      <div class="row">
-        <div class="input-field col l3 m1 s1 offset-l3 -m1 -s1 valign">
-        <input id="first_name" name="first_name" type="text" class="validate">
-        <label for="first_name">First Name</label>
-      </div>
-      <div class="input-field col l3 m1 s1">
-        <input id="last_name" name="last_name" type="text" class="validate">
-        <label for="last_name">Last Name</label>
+  <div class="signup_form col l12 m12 s12">
+  <!-- Row No.1 - API Signin button -->
+    <div class = "row">
+      <div class="top24px center">
+        <a class = "login-facebook" ><img src ="/Signup/Facebook_button.svg"></a>
+        <a class = "login-google"><img src ="/Signup/G_button.svg"></a>
       </div>
     </div>
--->
-      <div class="row">
-        <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
-        <input id="email" name="email" type="email" class="validate">
-        <label for="email">Email</label>
-        </div>
-      </div>
-<!-- Row No.3 - Password -->
-      <div class="row">
-        <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
-        <input id="password" name="password" type="password" class="validate">
-        <label for="password">Create a Password</label>
-        </div>
-      </div>
-<!-- Row No.4 - Password -->
-      <div class="row">
-        <div class="input-field col l6 m9 s12 offset-l3 -m6 -s3 valign">
-        <input id="cpassword" name="cpassword" type="password" class="validate">
-        <label for="cpassword">Confirm your Password</label>
-        </div>
-      </div>
-<!-- Row No.5 - Buttons-->
-      <div class="row">
-        <div class="col l6 m4 s6 offset-l3 -m1 -s1 valign">
-          {{>signup}}
-        </div>
-        </div>
-
-
-  </form>
-</template>
-
-
-<!-- Buttons -->
-<template name="signup">
-  <button class="waves-effect waves-teal btn-flat right" name="submit" type="submit">Submit</button>
-  <!-- Modal Structure  data-target="modal_tnc" modal-trigger in class-->
-    <div id="modal_tnc" class="modal modal-fixed-footer">
-      <div class="modal-content">
-        <h4>Terms and Conditions</h4>
-        <p>If you are caught, please don't mention our name</p>
-      </div>
-      <div class="modal-footer">
-        <button href="/sent_verificaiton" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</button>
+  <!-- Row No.2 - Email Address -->
+    <div class="row">
+      <div class="input-field">
+      <input id="signup_email" name="email" type="email" class="validate">
+      <label for="signup_email">Email</label>
       </div>
     </div>
-
-  <a class="waves-effect waves-teal btn-flat right login" href="/login">Log in</a>
+  <!-- Row No.3 - Password -->
+    <div class="row">
+      <div class="input-field">
+      <input id="signup_password" name="password" type="password" class="validate">
+      <label for="signup_password">Create a Password</label>
+      </div>
+    </div>
+  <!-- Row No.4 - Password -->
+    <div class="row">
+      <div class="input-field">
+      <input id="signup_cpassword" name="cpassword" type="password" class="validate">
+      <label for="signup_cpassword">Confirm your Password</label>
+      </div>
+    </div>
+    <div class = "row">
+      <!-- <p>Already a member? <a id="login_redirect">Log in </a> here.</p> -->
+      <p><small>By joining us through your Facebook or Google account, or submitting your email and password, you have agreed our website <a>terms of use</a>.</small></p>
+    </div>
+  </div>
 </template>

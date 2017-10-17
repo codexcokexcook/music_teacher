@@ -110,7 +110,7 @@ Template.mapping.onCreated(function(){
   // set map center and marker on position found
   var self = this;
   GoogleMaps.ready('Map_location', function(map) {
-    var geocoder = new google.maps.Geocoder();
+      var geocoder = new google.maps.Geocoder();
     self.autorun(function(){
       geocoder.geocode({'address': Session.get('address')}, function(results,status) {
         if(status == 'OK') {

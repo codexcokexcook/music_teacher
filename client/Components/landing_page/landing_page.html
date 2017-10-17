@@ -1,8 +1,10 @@
 <template name="landing_page">
-  <body class="background">
+  <div class="background">
     {{> top_wrapper}}
     {{> title_wrapper}}
-  </body>
+    {{> login_modal}}
+    {{> signup_modal}}
+  </div>
 </template>
 
 <template name = "top_wrapper">
@@ -14,10 +16,10 @@
             <a href="#" class="brand-logo"><img src ="/landing_page/blueplate_logo.svg"></a>
           </div>
           <div class = "button_wrapper col s4 m4 l2 offset-l4 right">
-            {{#if currentUser}}
+            {{#if currentUser.emails.[0].verified}}
               <a class ="waves-effect waves-red btn-flat white-text right" href="/msgDialog">LOGGED IN</a>
             {{else}}
-              <a class ="waves-effect waves-red btn-flat white-text right" href="/login">LOG IN</a>
+              <a class ="waves-effect waves-red btn-flat white-text right modal-trigger" href="#login_modal">LOG IN</a>
             {{/if}}
           </div>
         </div>
@@ -29,10 +31,36 @@
 <template name ="title_wrapper">
   <div class = "title_wrapper row valign-wrapper">
     <div class = "col l8 offset-l3 center valign">
-      <h2 class = "white-text left-align">Good bye junk food.</h2>
-      <h2 class = "white-text left-align">Hello home cooked food.</h2>
-      <a class="waves-effect waves-red red lighten-2 btn left" style = "margin-right: 12px; width: 180px;">I am hungry</a>
-      <a class="waves-effect waves-red red lighten-2 btn left" style = "margin-right: 12px; width: 180px;">Make a dish</a>
+      <h2 class = "white-text left-align" style="text-shadow: 2px 2px #ff0000;">Goodbye junk food.</h2>
+      <h2 class = "white-text left-align" style="text-shadow: 2px 2px #ff0000;">Hello home cooked food.</h2>
+      <a class="waves-effect waves-red red lighten-2 btn modal-trigger left" href="#signup_modal" id="foodie_signup" style = "margin-right: 12px; width: 180px;">I am hungry</a>
+      <a class="waves-effect waves-red red lighten-2 btn modal-trigger left" href="#signup_modal" id="chef_signup" style = "margin-right: 12px; width: 180px;">Make a dish</a>
+    </div>
+  </div>
+</template>
+
+<template name = "login_modal">
+  <div id="login_modal" class="modal" style="width: 600px;">
+    <div class = "modal-content" id="login_content">
+      {{>login_content}}
+    </div>
+    <div class="row">
+      <div class="right">
+        {{> login}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name = "signup_modal">
+  <div id="signup_modal" class="modal" style="width: 600px;">
+    <div class = "modal-content" id="signup_content">
+      {{>signup_content}}
+    </div>
+    <div class="row">
+      <div class="right">
+        {{> login}}
+      </div>
     </div>
   </div>
 </template>
