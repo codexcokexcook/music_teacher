@@ -1,23 +1,13 @@
 <!-- New Navbar-->
 <template name="bp_navbar">
 <div class="navbar-fixed">
-  <nav class="nav-wrapper white">
+  <nav class="nav-wrapper white col l12">
+    <div class="valign-wrapper">
 
-<!--Since this part has to be the most RHS, thus, write it first-->
-    <div class='right col l4'>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="shopping_cart"><img src='/navbar/OrderDish.svg' height="24"/></a></li>
-            <li><a class="dropdown-button" href="#!" data-activates="profile_dropdown">
-              <div class="navbar_user_pic">
-                <img src="/msgDialog/user.jpg" height="24"/>
-              </div>
-            </a></li>
-          </ul>
-      </div>
 
       <!--Logo-->
 
-<div class="valign-wrapper">
+
       <div class='col l2'>
         <a href="#" class='navbar_brand_logo' data-activates="chatbot_nav"><img src="navbar/BPLogo_sysmbol.svg" height="30" width="30"></a>
       </div>
@@ -41,9 +31,14 @@
 
           <div class="input-field black-text col l4 m2 s2 valign">
           <i class="prefix"><img src="/navbar/Option.svg"/></i>
-          <input id="search_by_method" type="text" placeholder="SERVICE OPTION" required>
-
+          <select class="material_select" id="search_by_method">
+            <option value="" disabled selected>SERVICE OPTION</option>
+            {{#each service_option_list}}
+            <option value="{{option}}">{{service_option}}</option>
+            {{/each}}
+          </select>
           </div>
+
         </div>
         </form>
       </div>
@@ -52,6 +47,18 @@
       -->
 
 
+
+
+<div class='right col l4'>
+<ul id="nav-mobile" class="right">
+        <li><a href="shopping_cart"><img src='/navbar/OrderDish.svg' height="24"/></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="profile_dropdown">
+          <div class="navbar_user_pic">
+            <img src="/msgDialog/user.jpg" height="24"/>
+          </div>
+        </a></li>
+      </ul>
+  </div>
 </div>
     </nav>
     </div>
@@ -82,5 +89,5 @@
 <!--Dropdown setting for the slidenav-->
 <ul id="chatbot_nav" class="side-nav">
 
-    {{>msgDialog_content}}     </ul>
+    {{>chatbot_content}}     </ul>
     </template>

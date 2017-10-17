@@ -47,3 +47,13 @@ Template.bp_navbar.onRendered(function(){
   });
 
  })
+
+
+ Template.bp_navbar.helpers ({
+   service_option_list:[
+     { service_option: 'Pick up', option:'1'},
+     { service_option: 'Delivery', option:'2'},
+     { service_option: 'Dine in', option:'3'},
+
+   ],
+ });
