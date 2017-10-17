@@ -1,26 +1,86 @@
-<!-- SignUp Navbar -->
-<template name="signup_navbar">
-  <div class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper grey lighten-3">
-        <div class="left24px">
-        <a href="/" class="brand-logo black-text"><i class="material-icons black-text">arrow_back</i>Sign Up</a>
-        </div>
+<!-- New Navbar-->
+<template name="bp_navbar">
+<div class="navbar-fixed">
+  <nav class="nav-wrapper white">
+
+<!--Since this part has to be the most RHS, thus, write it first-->
+    <div class='right col l4'>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="shopping_cart"><img src='/navbar/OrderDish.svg' height="24"/></a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="profile_dropdown">
+              <div class="navbar_user_pic">
+                <img src="/msgDialog/user.jpg" height="24"/>
+              </div>
+            </a></li>
+          </ul>
       </div>
-    </nav>
-  </div>
-</template>
+
+      <!--Logo-->
+
+<div class="valign-wrapper">
+      <div class='col l2'>
+        <a href="#" class='navbar_brand_logo' data-activates="chatbot_nav"><img src="navbar/BPLogo_sysmbol.svg" height="30" width="30"></a>
+      </div>
+
+      <!--Search Bar-->
+      <div class='container col l7'>
+        <form class="nav_search_bar col l12 valign">
+
+          <div class='row'>
+          <div class="input-field black-text col l4 m2 s2 valign">
+          <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
+          <input id="search_by_place" type="text" placeholder="ADDRESS" required>
+
+          </div>
+
+          <div class="input-field black-text col l4 m2 s2 valign">
+          <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
+          <input id="search_by_time" type="text" class="timepicker" placeholder="DATE/TIME" required>
+
+          </div>
+
+          <div class="input-field black-text col l4 m2 s2 valign">
+          <i class="prefix"><img src="/navbar/Option.svg"/></i>
+          <input id="search_by_method" type="text" placeholder="SERVICE OPTION" required>
+
+          </div>
+        </div>
+        </form>
+      </div>
+<!--Example
+        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+      -->
 
 
-<!-- login navbar-->
-<template name="login_navbar">
-  <div class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper grey lighten-3">
-        <div class="left24px">
-        <a href="/" class="brand-logo black-text"><i class="material-icons black-text">arrow_back</i>Member Login</a>
-        </div>
-      </div>
+</div>
     </nav>
-  </div>
-</template>
+    </div>
+
+<!--Dropdown setting for the navbar-->
+    <ul id="profile_dropdown" class="dropdown-content">
+  <li><a href="#!"><h6>
+    <div class="navbar_user_pic">
+      <img src="/msgDialog/user.jpg" height="24"/>
+    </div>
+    Profile
+  </h6></a></li>
+  <li class="divider"></li>
+  <li><a><h6> I am Hungry<br>
+   Current Status</h6></a></li>
+  <li><a><h6> Dish Confirmation</h6></a></li>
+  <li><a><h6> Payment</h6></a></li>
+  <li><a><h6> Review</h6></a></li>
+  <li><a><h6> Make Dish</h6></a></li>
+  <li class="divider"></li>
+  <li><a><h6> Network</h6></a></li>
+  <li><a><h6> Chat</h6></a></li>
+  <li><a><h6> Settings</h6></a></li>
+  <li><a href="#!"><h6> Log Out</h6></a></li>
+</ul>
+
+
+<!--Dropdown setting for the slidenav-->
+<ul id="chatbot_nav" class="side-nav">
+
+    {{>msgDialog_content}}     </ul>
+    </template>

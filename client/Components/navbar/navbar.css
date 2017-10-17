@@ -1,0 +1,31 @@
+.navbar-fixed {
+  position: absolute;
+}
+
+.navbar_brand_logo{
+  float:left;
+  margin-left: 20px;
+}
+
+.nav_search_bar{
+    float: left;
+
+}
+
+.nav-mobile{
+    float:right;
+}
+
+.user_pic img{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+
+}
+
+.navbar_user_pic img{
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+
+}
