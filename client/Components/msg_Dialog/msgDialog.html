@@ -88,7 +88,15 @@
   {{#if Template.subscriptionsReady}}
     {{#if message_owner}}
       <div class = "right-align">
-        <div class="message_wrapper grey lighten-5 black-text"><strong>{{currentUser.profile.first_name}} {{currentUser.profile.last_name}}</strong><br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
+        <div class="message_wrapper grey lighten-5 black-text">
+          <strong>
+            {{#if currentUser.profile.first_name}}
+              {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
+            {{else}}
+              {{currentUser.profile.name}}
+            {{/if}}
+          </strong>
+          <br>{{text}}<br><div class="time_wrapper right">{{current_time}}</div></div>
         <br>
       </div>
     {{else}}
