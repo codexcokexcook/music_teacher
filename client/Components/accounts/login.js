@@ -7,6 +7,7 @@ import { Email } from 'meteor/email'
 
 import './login.html';
 
+
 Template.login_content.events({
   'click .login-facebook':function(event){
     event.preventDefault();

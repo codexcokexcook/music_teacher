@@ -4,12 +4,22 @@ import { Mongo } from 'meteor/mongo';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Blaze } from 'meteor/blaze';
 
+
 Template.msgDialog_content.onRendered(function(){
   if(Meteor.userId()){
     FlowRouter.go('/msgDialog');
     // ** Use this to remove modal overlay that left behind
     $(".modal-overlay").remove();
     // ** //
+
+    var data = Profile_details.find({'user_id': Meteor.userId()});
+    if(data.count()){
+    Blaze.render(Template.profile_card, document.getElementById('profile'));
+    }
+
+    else{
+    Blaze.render(Template.create_profile, document.getElementById('profile'));
+}
   } else {
     FlowRouter.go('/login');
   }
