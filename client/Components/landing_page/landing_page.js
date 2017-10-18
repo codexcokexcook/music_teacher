@@ -14,14 +14,4 @@ Template.landing_page.onRendered(function() {
       startingTop: '4%', // Starting top style attribute
       endingTop: '10%', // Ending top style attribute
     });
-  Session.set('status',"login");
-});
-
-Template.title_wrapper.events({
-  'click #foodie_signup': function() {
-    Session.set('status',"signup");
-  },
-  'click #chef_signup': function() {
-    Session.set('status',"signup");
-  },
 });

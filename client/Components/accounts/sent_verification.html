@@ -1,18 +1,15 @@
-<template name="sent_verification_navbar">
-  <div class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper grey lighten-3">
-        <div class="left24px">
-        <a href="/" class="brand-logo black-text"><i class="material-icons black-text">arrow_back</i>Verification Sent</a>
-        </div>
+<template name="sent_verification">
+  <div class="row valign-wrapper" style="height:100vh;">
+    <div class ="col s12 m12 l6 offset-l3">
+      <div class = "center">
+        {{#if currentUser}}
+          <div style="font-size: 2em; font-weight: bold; margin-bottom: 36px">Account verified. Redirecting you in...</div>
+          <div class="center-align timer">{{getCountdown}}</div>
+        {{else}}
+          <div style="font-size: 2em; font-weight: bold; margin-bottom: 36px">You haven't signedup yet. Redirect you back to our homepage in...</div>
+          <div class="center-align timer">{{getCountdown}}</div>
+        {{/if}}
       </div>
-    </nav>
+    </div>
   </div>
-</template>
-
-<template name="sent_verification_content">
-
-<div class="container valign-wrapper">
-  <h5 class ="valign">Please check your register email for email address verification.</h5>
-</div>
 </template>
