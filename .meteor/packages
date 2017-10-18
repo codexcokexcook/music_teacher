@@ -42,3 +42,4 @@ percolate:momentum
 service-configuration       # for facebook login
 meteorhacks:aggregate       # MongoDB aggregation for query and operation/grouping
 random                      # Random function
+flyandi:reactive-countdown

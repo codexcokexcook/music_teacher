@@ -3,12 +3,11 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Blaze } from 'meteor/blaze';
-import { Email } from 'meteor/email'
 
 import './login.html';
 
 
-Template.login_content.events({
+Template.login_modal.events({
   'click .login-facebook':function(event){
     event.preventDefault();
     Meteor.loginWithFacebook({requestPermissions:['public_profile','email']}, function(err){
@@ -30,63 +29,24 @@ Template.login_content.events({
         $('#login_modal').modal('close');
       }
     });
-  }
-});
-Template.login.helpers({
-  'status': function(){
-    return Session.get('status');
-  }
-});
-
-Template.login.events({
-  'click #signup': function(event){
-    event.preventDefault();
-    var email = trimInput($('#signup_email').val());
-    var password = trimInput($('#signup_password').val());
-    var cpassword = trimInput($('#signup_cpassword').val());
-  //  var last_name = trimInput(event.target.last_name.value);
-  //  var first_name = trimInput(event.target.first_name.value);
-    if( isNotEmpty(email)      &&
-        isNotEmpty(password)   &&
-  //      isNotEmpty(last_name)  &&
-  //      isNotEmpty(first_name) &&
-        isEmail(email)         &&
-        areValidPassword(password, cpassword)) {
-          Accounts.createUser({
-            email: email,
-            password: password,
-          }, function(err){
-            if(err){
-              Bert.alert(err.reason,"danger", "growl-top-right");
-          } else {
-            Blaze.render(Template.verification, document.getElementById('signup_content'));
-            $('.signup_form').remove();
-            $('#signup').remove();
-            Meteor.call('sendVerificationEmail', Meteor.userId());
-          }
-          });
-        }
-      return false;
-    },
-    'click #login': function(events, template){
-         event.preventDefault();
-
-         var email = $('#login_email').val();
-         var password = $('#login_password').val();
+  },
+  'click #login, keypress': function(event){
+    if (event.which === 1||event.which === 13){
+      console.log(event.which);
+      var email = $('#login_email').val();
+      var password = $('#login_password').val();
 
       Meteor.loginWithPassword(email, password, function(error){
         if (error) {
           Bert.alert( error.reason, 'danger','growl-top-right');
           return false;
         }
-  //Check if user verified his email
         else if (Meteor.user().emails[0].verified === true){
           Bert.alert( 'Welcome!', 'success' );
           FlowRouter.go("/msgDialog");
           $('#login_modal').modal('close');
         }
         else {
-  //log out user when his email not verified
           Meteor.logout(function(err){
            if (err) {
              Bert.alert(err.reason, "danger", "growl-top-right");
@@ -94,13 +54,13 @@ Template.login.events({
              Session.clear();
              Bert.alert( 'Please verify your email before login!', 'danger','growl-top-right' );
            }
-         })
+         });
         }
       });
       return false;
     }
+  }
 });
-
 
 //Validation rules
 //Trim Helper
