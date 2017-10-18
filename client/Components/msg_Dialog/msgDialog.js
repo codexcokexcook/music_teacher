@@ -21,7 +21,7 @@ Template.msgDialog_content.onRendered(function(){
     Blaze.render(Template.create_profile, document.getElementById('profile'));
 }
   } else {
-    FlowRouter.go('/login');
+    FlowRouter.go('/');
   }
 });
 
@@ -54,7 +54,10 @@ Template.msgDialog_content.onRendered(function () {
 Template.msgDialog_content.helpers({
   'messages':function() {
     return Messages.find({"channel": Meteor.userId()});
-  },
+  }
+});
+
+Template.card_screen.helpers({
   'render_component': function() {
     var latest_message =  Messages.findOne({"channel": Meteor.userId()},{sort:{createdAt: -1, limit:1}});
     return latest_message && String(latest_message.component);

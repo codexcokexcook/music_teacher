@@ -1,14 +1,8 @@
 <template name="msgDialog">
-
-
-
   <main>
-        {{>bp_navbar}}
-      {{>msgDialog_content}}
+    {{>bp_navbar}}
+    {{>card_screen}}
   </main>
-  <footer>
-    {{>msgDialog_footer}}
-  </footer>
 </template>
 
 <!--Instead of Header, use materializecss-NavBar-->
@@ -45,10 +39,13 @@
       </div>
     </div>
       {{>chips}}
-    <!--Show Card Screen-->
-    <div class="card-screen" id = "card_screen">
-      {{> Template.dynamic template = render_component}}
-    </div>
+  </div>
+    {{> add}}
+</template>
+
+<template name = "card_screen">
+  <div class="card-screen" id = "card_screen">
+    {{> Template.dynamic template = render_component}}
   </div>
 </template>
 
@@ -76,12 +73,6 @@
     </div>
   </div>
 </template>
-
-<!-- <template name="show_card_content">
-  <div class = "valign wrapper">
-    {{>dishes_list}}
-  </div>
-</template> -->
 
 <!--Message Chips-->
 <template name="message">
@@ -126,6 +117,8 @@
 
 <template name="add">
   <form class="send-message" autocomplete="off">
-    <input id="new_message_text" type="text" name="new_message" placeholder="Send a message" >
+    <div class = "center">
+      <input id="new_message_text" type="text" name="new_message" placeholder="Send a message" >
+    </div>
   </form>
 </template>
