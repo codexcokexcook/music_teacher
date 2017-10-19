@@ -5,7 +5,6 @@
   </main>
 </template>
 
-<!--Instead of Header, use materializecss-NavBar-->
 <template name="msgDialog_navbar">
   <div class="navbar-fixed">
     <nav>
@@ -30,7 +29,6 @@
 
 <template name = "msgDialog_content">
   <div class = "content">
-  <!--Show Conversation Screen-->
     <div class="conversation-screen">
       <div class="left24px top16px" id="messages_wrap">
         {{#each messages}}
@@ -49,7 +47,6 @@
   </div>
 </template>
 
-<!--Footer-->
 <template name="msgDialog_footer">
   <div class="footer">
     <div class="footer-left">
@@ -74,7 +71,6 @@
   </div>
 </template>
 
-<!--Message Chips-->
 <template name="message">
   {{#if Template.subscriptionsReady}}
     {{#if message_owner}}
