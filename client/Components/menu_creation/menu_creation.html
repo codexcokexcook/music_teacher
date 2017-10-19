@@ -70,33 +70,7 @@
   </div>
 </template>
 
-<template name = "dishes_selection">
-  <table class = "bordered" id="menu_dishes_table">
-    <thead>
-      <tr>
-        <th class = "col l2 s2 m2"></th>
-        <th class = "col l3 s2 m2">Dish Name</th>
-        <th class = "col l3 s2 m2">Cost</th>
-        <th class = "col l2 s2 m2">Selling price</th>
-        <th class = "col l2 s2 m2"></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each user_dishes}}
-        <tr>
-          <td>
-            <input class="dishes_checkbox" type="checkbox" id="c_{{_id}}" value="{{_id}}" />
-            <label for="c_{{_id}}"></label>
-          </td>
-          <td>{{dish_name}}</td>
-          <td>{{dish_cost}}</td>
-          <td>{{dish_selling_price}}</td>
-          <td style="width: 15%;">{{> get_dish_image}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</template>
+
 
 <template name = "view_menu">
     {{#each menu_retreival}}
