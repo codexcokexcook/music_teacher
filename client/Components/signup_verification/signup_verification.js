@@ -6,7 +6,7 @@ var countdown = new ReactiveCountdown(5);
 Template.sent_verification.onCreated(function(){
   countdown.start(function() {
     if (Meteor.userId()) {
-      FlowRouter.go('/msgDialog');
+      FlowRouter.go('/main');
     } else {
       FlowRouter.go('/');
     }

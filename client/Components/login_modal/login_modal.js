@@ -14,7 +14,7 @@ Template.login_modal.events({
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
-        FlowRouter.go("/msgDialog");
+        FlowRouter.go("/main");
         $('#login_modal').modal('close');
       }
     });
@@ -25,7 +25,7 @@ Template.login_modal.events({
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
-        FlowRouter.go("/msgDialog");
+        FlowRouter.go("/main");
         $('#login_modal').modal('close');
       }
     });
@@ -43,7 +43,7 @@ Template.login_modal.events({
         }
         else if (Meteor.user().emails[0].verified === true){
           Bert.alert( 'Welcome!', 'success' );
-          FlowRouter.go("/msgDialog");
+          FlowRouter.go("/main");
           $('#login_modal').modal('close');
         }
         else {

@@ -7,7 +7,7 @@ import { Blaze } from 'meteor/blaze';
 
 Template.msgDialog_content.onRendered(function(){
   if(Meteor.userId()){
-    FlowRouter.go('/msgDialog');
+    FlowRouter.go('/main');
     // ** Use this to remove modal overlay that left behind
     $(".modal-overlay").remove();
     // ** //
