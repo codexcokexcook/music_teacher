@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Blaze } from 'meteor/blaze';
 
-import './login.html';
+import './login_modal.html';
 
 
 Template.login_modal.events({
