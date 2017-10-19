@@ -1,14 +1,4 @@
 
-.header{
-  height: 65px;
-    width:  100%;
-
-}
-
-.navbar-fixed {
-  position: absolute;
-}
-
 
 /* Blueplate Logo */
 .logo-blueplate img {
@@ -121,13 +111,7 @@
   position:absolute;
 
     bottom: 0;
-    width: 100%
-}
-
-.footer-left{
-
-  /*float: left;*/
-  width: 100%;
+    width: 100%;
   margin:0;
   padding:0;
   height:56px;

@@ -13,16 +13,16 @@ Template.bp_navbar.onRendered(function(){
      inDuration: 300,
      outDuration: 225,
      constrainWidth: false, // Does not change width of dropdown to that of the activator
-     hover: true, // Activate on hover
+     hover: false, // Activate on hover
      gutter: 0, // Spacing from edge
-     belowOrigin: false, // Displays dropdown below the button
+     belowOrigin: true, // Displays dropdown below the button
      alignment: 'left', // Displays dropdown with edge aligned to the left of button
      stopPropagation: false // Stops event propagation
    }
  );
 
  //activate slideNav
- this.$(".navbar_brand_logo").sideNav({
+ this.$(".nav_brand_logo").sideNav({
       menuWidth: 300, // Default is 300
       edge: 'left', // Choose the horizontal origin
       closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
@@ -47,6 +47,25 @@ Template.bp_navbar.onRendered(function(){
  })
 
  Template.bp_navbar.helpers ({
+
+   location_option_list:[
+     {location_option: 'Home', option:'1'},
+     {location_option: 'Office', option:'2'},
+     {location_option: 'Pin a location', option:'3'},
+   ],
+
+   time_option_list:[
+     {time_option: '+ 30 mins', option:'1'},
+     {time_option: '+ 1 hour', option:'2'},
+     {time_option: '+ 2 hours', option:'3'},
+     {time_option: '+ 3 hours', option:'4'},
+     {time_option: '+ 4 hours', option:'5'},
+     {time_option: '+ 5 hours', option:'6'},
+     {time_option: '+ 6 hours', option:'7'},
+     {time_option: '+ 7 hours', option:'8'}
+   ],
+
+
    service_option_list:[
      { service_option: 'Pick up', option:'1'},
      { service_option: 'Delivery', option:'2'},
