@@ -6,8 +6,6 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 
 Template.bp_navbar.onRendered(function(){
-
-
   //activate dropdown
   this.$('select').material_select();
   //dropdown options
@@ -48,7 +46,6 @@ Template.bp_navbar.onRendered(function(){
 
  })
 
-
  Template.bp_navbar.helpers ({
    service_option_list:[
      { service_option: 'Pick up', option:'1'},
@@ -57,3 +54,14 @@ Template.bp_navbar.onRendered(function(){
 
    ],
  });
+
+ Template.bp_navbar.events({
+   'click #profile_link': function () {
+     FlowRouter.go('/profile');
+   },
+
+   'click #logout_link': function () {
+     Meteor.logout();
+     FlowRouter.go('/');
+   }
+ })
