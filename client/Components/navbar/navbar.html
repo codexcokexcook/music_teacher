@@ -6,43 +6,40 @@
       <!--Logo-->
       <div class='row'>
 
-      <a href="#" class ='nav_brand_logo left' data-activates="chatbot_nav"><img src="navbar/BPLogo_sysmbol.svg" class='navbar_logo' height="40" width="40"></a>
+      <a href="" class ='nav_brand_logo left' data-activates="chatbot_nav"><img src="navbar/BPLogo_sysmbol.svg" class='navbar_logo' height="40" width="40"></a>
 
            <!--Search Bar-->
 
         <form class="nav_search_bar col l6">
-            <div class="input-field black-text col l4 m2 s2">
-              <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
-              <select class=“material_select” id=“search_by_place”>
-                <option value=“” disabled selected>LOCATION</option>
-                {{#each location_option_list}}
-                <option value=“{{option}}“>{{location_option}}</option>
-                {{/each}}
-              </select>
-              </div>
+          <div class="input-field black-text col l4 m2 s2">
+            <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
+            <select class=“material_select” id=“search_by_place”>
+              <option value=“” disabled selected>LOCATION</option>
+              {{#each location_option_list}}
+              <option value=“{{option}}“>{{location_option}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="input-field black-text col l4 m2 s2">
+            <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
+            <select class=“material_select” id=“search_by_time”>
+              <option value=“” disabled selected>SERVING TIME</option>
+              {{#each time_option_list}}
+              <option value=“{{option}}“>{{time_option}}</option>
+              {{/each}}
+            </select>
+            </div>
 
             <div class="input-field black-text col l4 m2 s2">
-              <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
-              <select class=“material_select” id=“search_by_time”>
-                <option value=“” disabled selected>SERVING TIME</option>
-                {{#each time_option_list}}
-                <option value=“{{option}}“>{{time_option}}</option>
+              <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
+              <select class=“material_select” id=“search_by_method”>
+                <option value=“” disabled selected>SERVING OPTION</option>
+                {{#each service_option_list}}
+                <option value=“{{option}}“>{{service_option}}</option>
                 {{/each}}
               </select>
-              </div>
-
-
-              <div class="input-field black-text col l4 m2 s2">
-                <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
-                <select class=“material_select” id=“search_by_method”>
-                  <option value=“” disabled selected>SERVING OPTION</option>
-                  {{#each service_option_list}}
-                  <option value=“{{option}}“>{{service_option}}</option>
-                  {{/each}}
-                </select>
-                </div>
-
-
+            </div>
         </form>
 
 
@@ -56,42 +53,39 @@
 
       <div class='right'>
         <a href="shopping_cart" ><img src='/navbar/OrderDish.svg' height="40" class='navbar_logo'/></a>
-        <a class="dropdown-button" href="#!" data-activates="profile_dropdown">
+        <a class="dropdown-button" href="" data-activates="profile_dropdown">
 
             <img src="/msgDialog/user.jpg" class="circle navbar_logo" height='40'/></a>
           </div>
         </div>
     </nav>
   </div>
+  <!--Dropdown setting for the navbar-->
+  <ul id="profile_dropdown" class="dropdown-content" style="height:100%">
+    <li><a href="" id="profile_link"><i class="material-icons">person</i>Profile</a></li>
+    <li class="divider"></li>
+      <li><a href="" id="profile_link"><i class="material-icons">local_pizza</i>I wnna eat</a></li>
+        <!-- <li><a href="#!" style = "margin-left: 48px;">Current status</a></li> -->
+        <!-- <li><a href="#!" style = "margin-left: 48px;">Dish confirmation</a></li> -->
+        <!-- <li><a href="#!" style = "margin-left: 48px;">Payment</a></li> -->
+        <!-- <li><a href="#!" style = "margin-left: 48px;">Review</a></li> -->
+    <li class="divider"></li>
+      <li><a><i class="material-icons">restaurant</i>I wanna cook</a></li>
+        <li><a href="" id="dashboard_link" style ="margin-left: 48px;">Dashboard</a></li>
+        <li><a href="" id="create_dish_link" style ="margin-left: 48px;">Make dish</a></li>
+        <li><a href="" id="create_menu_link" style ="margin-left: 48px;">Make set menu</a></li>
+        <li><a href="" id="start_cooking_link" style ="margin-left: 48px;">Start cooking</a></li>
 
+    <li class="divider"></li>
+      <!-- <li><a href="#!"><i class="material-icons">people</i>Network</a></li> -->
+      <!-- <li><a href="#!"><i class="material-icons">chat</i>Chat</a></li> -->
+      <li><a href="" id="settings_link"><i class="material-icons">settings</i>Settings</a></li>
+      <li><a href="" id="logout_link"><i class="material-icons">exit_to_app</i>Log out</a></li>
+  </ul>
 
-<!--Dropdown setting for the navbar-->
-<ul id="profile_dropdown" class="dropdown-content" style="height:100%">
-  <li><a href="" id="profile_link"><i class="material-icons">person</i>Profile</a></li>
-  <li class="divider"></li>
-    <li><a href="" id="profile_link"><i class="material-icons">local_pizza</i>I wnna eat</a></li>
-      <!-- <li><a href="#!" style = "margin-left: 48px;">Current status</a></li> -->
-      <!-- <li><a href="#!" style = "margin-left: 48px;">Dish confirmation</a></li> -->
-      <!-- <li><a href="#!" style = "margin-left: 48px;">Payment</a></li> -->
-      <!-- <li><a href="#!" style = "margin-left: 48px;">Review</a></li> -->
-  <li class="divider"></li>
-    <li><a><i class="material-icons">restaurant</i>I wanna cook</a></li>
-      <li><a href="" id="dashboard_link" style ="margin-left: 48px;">Dashboard</a></li>
-      <li><a href="" id="create_dish_link" style ="margin-left: 48px;">Make dish</a></li>
-      <li><a href="" id="create_menu_link" style ="margin-left: 48px;">Make set menu</a></li>
-      <li><a href="" id="start_cooking_link" style ="margin-left: 48px;">Start cooking</a></li>
-
-  <li class="divider"></li>
-    <!-- <li><a href="#!"><i class="material-icons">people</i>Network</a></li> -->
-    <!-- <li><a href="#!"><i class="material-icons">chat</i>Chat</a></li> -->
-    <li><a href="" id="settings_link"><i class="material-icons">settings</i>Settings</a></li>
-    <li><a href="" id="logout_link"><i class="material-icons">exit_to_app</i>Log out</a></li>
-</ul>
-
-
-<!--Dropdown setting for the slidenav-->
-<ul id="chatbot_nav" class="side-nav">
-    {{>msgDialog_content}}
-</ul>
+  <!--Dropdown setting for the slidenav-->
+  <ul id="chatbot_nav" class="side-nav">
+      {{>msgDialog_content}}
+  </ul>
 
 </template>

@@ -16,7 +16,7 @@ Template.signup_modal.events({
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
-        FlowRouter.go("/msgDialog");
+        FlowRouter.go("/main");
         $('#login_modal').modal('close');
       }
     });
@@ -27,7 +27,7 @@ Template.signup_modal.events({
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
-        FlowRouter.go("/msgDialog");
+        FlowRouter.go("/main");
         $('#login_modal').modal('close');
       }
     });

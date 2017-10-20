@@ -1,6 +1,7 @@
 .navbar-fixed {
   position: absolute;
   height: 65px;
+  width: 100%;
 }
 
 .navbar_logo {
