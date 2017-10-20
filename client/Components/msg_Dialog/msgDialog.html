@@ -1,4 +1,9 @@
-
+<template name="screen">
+  {{>bp_navbar}}
+  <div class = "render_component">
+    {{> Template.dynamic template = render_component}}
+  </div>
+</template>
 
 <template name="msgDialog_navbar">
   <div class="navbar-fixed">
@@ -38,7 +43,7 @@
 
 <template name = "card_screen">
   <div class="card-screen" id = "card_screen">
-    {{> Template.dynamic template = render_component}}
+
   </div>
 </template>
 

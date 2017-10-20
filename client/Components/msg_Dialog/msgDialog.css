@@ -72,7 +72,11 @@
   overflow:scroll;
   padding-top: 48px;
 }
-
+.render_component {
+  overflow-y: scroll;
+  height: 100vh;
+  position: relative;
+}
 ::-webkit-scrollbar {
     width: 10px;
 }
