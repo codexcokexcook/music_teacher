@@ -1,0 +1,36 @@
+<template name='show_room'>
+  {{> show_room_dish}}
+  <br>
+  {{>show_room_menu}}
+  <br>
+  {{>show_room_chef}}
+</template>
+
+
+
+<template name='show_room_dish'>
+  <h6> Dishes</h6>
+  <div class = "row">
+    {{#each dishes_item}}
+      {{> dishes_rotation}}
+    {{/each}}
+  </div>
+</template>
+
+<template name='show_room_menu'>
+  <h6> Menu</h6>
+  <div class = "row">
+    {{#each dishes_item}}
+      {{> dishes_rotation}}
+    {{/each}}
+  </div>
+</template>
+
+<template name='show_room_chef'>
+  <h6> Chef</h6>
+  <div class = "row">
+    {{#each dishes_item}}
+      {{> dishes_rotation}}
+    {{/each}}
+  </div>
+</template>
