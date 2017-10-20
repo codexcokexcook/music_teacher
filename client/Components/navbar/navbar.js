@@ -77,9 +77,15 @@ Template.bp_navbar.onRendered(function(){
  Template.bp_navbar.events({
    'click #profile_link': function () {
      FlowRouter.go('/profile');
-   }, 
-
+   },
+   'click #create_dish_link': function () {
+     FlowRouter.go('/make_dish');
+   },
+   'click #create_menu_link': function () {
+     FlowRouter.go('/create_menu');
+   },
    'click #logout_link': function () {
+     Messages.remove({});
      Meteor.logout();
      FlowRouter.go('/');
    }

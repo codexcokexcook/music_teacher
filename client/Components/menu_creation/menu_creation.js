@@ -79,7 +79,7 @@ Template.menu_creation_content.events({
     // whether this template render location is on a modal or not.
     // if it is on a modal, view shoudln't be removed and view menu template
     // shoudln't be rendered.
-    var current_instance = Template.instance().view;;
+    var current_instance = Template.instance().view;
     if (!current_instance.parentView) {
       Blaze.render(Template.view_menu, document.getElementById('card_container'));
       Blaze.remove(current_instance);
