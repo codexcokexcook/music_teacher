@@ -21,7 +21,7 @@ Template.login_modal.events({
   },
   'click .login-google':function(event){
     event.preventDefault();
-    Meteor.loginWithFacebook({}, function(err){
+    Meteor.loginWithGoogle({}, function(err){
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
