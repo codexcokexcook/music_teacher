@@ -32,9 +32,6 @@ Template.msgDialog_navbar.events({
   }
 });
 
-// Accounts config
-Messages = new Mongo.Collection('messages');
-
 Template.msgDialog_content.onRendered(function () {
   Meteor.setTimeout(function() {
     var message_window = $("#messages_wrap").height();

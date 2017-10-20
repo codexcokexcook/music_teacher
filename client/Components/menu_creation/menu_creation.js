@@ -3,8 +3,6 @@ import { Session } from 'meteor/session';
 import { Blaze } from 'meteor/blaze';
 import { Tracker } from 'meteor/tracker';
 
-Menu = new Mongo.Collection('menu');
-
 Template.menu_creation.onRendered(function(){
   this.$('modal').modal();
   //Check if menu has data instance

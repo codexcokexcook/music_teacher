@@ -11,7 +11,7 @@
 <template name='show_room_dish'>
   <h6> Dishes</h6>
   <div class = "row">
-    {{#each dishes_item}}
+    {{#each find "Dishes"}}
       {{> dishes_rotation}}
     {{/each}}
   </div>
@@ -20,7 +20,7 @@
 <template name='show_room_menu'>
   <h6> Menu</h6>
   <div class = "row">
-    {{#each dishes_item}}
+    {{#each find "Menu"}}
       {{> dishes_rotation}}
     {{/each}}
   </div>
