@@ -11,30 +11,30 @@
            <!--Search Bar-->
 
         <form class="nav_search_bar col l6">
-          <div class="input-field black-text col l4 m2 s2">
+          <div class="input-field grey-text col l4 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class=“material_select” id=“search_by_place”>
-              <option value=“” disabled selected>LOCATION</option>
+              <option value=“” disabled selected>Location</option>
               {{#each location_option_list}}
               <option value=“{{option}}“>{{location_option}}</option>
               {{/each}}
             </select>
           </div>
 
-          <div class="input-field black-text col l4 m2 s2">
+          <div class="input-field grey-text col l4 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
             <select class=“material_select” id=“search_by_time”>
-              <option value=“” disabled selected>SERVING TIME</option>
+              <option value=“” disabled selected>Serving Time</option>
               {{#each time_option_list}}
               <option value=“{{option}}“>{{time_option}}</option>
               {{/each}}
             </select>
             </div>
 
-            <div class="input-field black-text col l4 m2 s2">
+            <div class="input-field grey-text col l4 m2 s2">
               <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
               <select class=“material_select” id=“search_by_method”>
-                <option value=“” disabled selected>SERVING OPTION</option>
+                <option value=“” disabled selected>Serving Option</option>
                 {{#each service_option_list}}
                 <option value=“{{option}}“>{{service_option}}</option>
                 {{/each}}
