@@ -85,7 +85,7 @@ Template.bp_navbar.onRendered(function(){
      FlowRouter.go('/create_menu');
    },
    'click #logout_link': function () {
-     Messages.remove({});
+     Meteor.call('messages.clear',Meteor.userId());
      Meteor.logout();
      FlowRouter.go('/');
    }
