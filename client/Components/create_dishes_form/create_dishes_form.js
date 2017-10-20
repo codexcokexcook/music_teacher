@@ -5,26 +5,6 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 import './create_dishes_form.html';
 
-Dishes = new Mongo.Collection('dishes');
-Ingredients_temporary = new Mongo.Collection(null);
-Ingredients = new Mongo.Collection('ingredients');
-
-
-Images = new FilesCollection({
-  collectionName: 'Images',
-  storagePath: () => {
-      return process.env.PWD + '/public/dishes_upload/';
-  },
-  allowClientCode: false,
-  onBeforeUpload(file) {
-
-        if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
-          return true;
-        } else {
-          return 'Please upload image, with size equal or less than 10MB';
-        }
-  }
-});
 
 Meteor.subscribe('files.images.all');
 
