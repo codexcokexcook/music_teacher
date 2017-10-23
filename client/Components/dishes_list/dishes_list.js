@@ -1,6 +1,11 @@
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
 
+Template.dishes_list.onRendered(function(){
+  this.$('.modal').modal();
+  this.$('ul.tabs').tabs();
+})
+
 Template.dishes_list.helpers ({
   // dishes are currently displayed based on everything
   //  in the database, which is not correct. It has to be improved
