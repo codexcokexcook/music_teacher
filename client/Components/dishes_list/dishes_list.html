@@ -32,30 +32,36 @@
         <h5>{{dish_name}}</h5>
         {{> info_tabs}}
         {{> location_time_info}}
-        {{> service_info}}
+      <!--  {{> service_info}} -->
+        <div class =  "info_wrapper">
+          {{> rating_price_info}}
+        </div>
       </div>
-      <div class =  "info_wrapper">
-        {{> rating_price_info}}
+
+      <div class = "card-action">
+        <a class="waves-effect waves-light btn red lighten-2" style="width:100%;">Order</a>
       </div>
     </div>
   </div>
 </template>
 
 <template name = "dishes_rotation">
-  <div class = "dishes_rotation_wrapper">
       <div class = "dish_thumbnail col s6 m3 l2" id="{{_id}}">
-        {{> get_dish_image}}
-        <div class = "center-align">{{dish_name}}</div>
+        <div class = "card dish_thumbnail_card z-depth-0">
+          {{> get_dish_image}}
+          <div class = "center-align">{{dish_name}}</div>
+        </div>
     </div>
-  </div>
 </template>
 
 <template name="get_dish_image">
-  {{#if image_id}}
-    <img src="/dishes_upload/{{image_id}}{{get_image_extension}}" id="dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
-  {{else}}
-    <div class = "center-align">no image to display</div>
-  {{/if}}
+    {{#if image_id}}
+      <img src="/dishes_upload/{{image_id}}{{get_image_extension}}" id="dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
+    {{else}}
+      <div class = "valign-wrapper no_display grey lighten-4">
+        <p class = "center-align">no image to display</p>
+      </div>
+    {{/if}}
 </template>
 
 <template name="ingredients_loop">
@@ -113,14 +119,8 @@
 
 <template name = "rating_price_info">
   <div class = "rating_price_wrapper" id="rating_price_info">
-    <row>
-      <div class = "left-align col s12 m8 l8" id="rating">
-        <!-- rating and review numbers has to be adjust to dynamic in the furture-->
-        <img src="/dish_cards/rating/0_of_5_hearts.svg" alt="heart"><h6>4</h6>
-      </div>
-      <div class = "col s12 m4 l4" id="price">
-        <h5 class = "right-align">${{dish_selling_price}}</h5>
-      </div>
-    </row>
+    <!-- rating and review numbers has to be adjust to dynamic in the furture-->
+    <img class = "rating left" src="/dish_cards/rating/0_of_5_hearts.svg" alt="heart">
+    <h5 class = "right">${{dish_selling_price}}</h5>
   </div>
 </template>

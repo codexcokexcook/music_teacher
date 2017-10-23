@@ -4,13 +4,7 @@
     <div class="card-image center" id = "small_dish_card_image">
       <!-- Required to convert to dynamic component when user accounts component is ready -->
       <img src="/user_avatar.svg" alt="user_avatar" id="small_user_avatar" class = "circle responsive-img center"/>
-      <div id="small_dish_img_wrapper">
-        {{#if image_id}}
-          <img src="/dishes_upload/{{image_id}}{{get_image_extension}}" id="small_dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
-        {{else}}
-          <div class = "center-align" style="height:100vh">no image to display</div>
-        {{/if}}
-      </div>
+        {{> get_dish_image}}
     </div>
       <div class = "info_wrapper">
         <h5>{{dish_name}}</h5>
