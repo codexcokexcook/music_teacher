@@ -3,7 +3,10 @@
   height: 420px;
   width: 685px;
 }
-
+#large_dish_display {
+  height: 420px;
+  width: 685px;
+}
 #dish_card_image {
   position: relative;
   width:45%;

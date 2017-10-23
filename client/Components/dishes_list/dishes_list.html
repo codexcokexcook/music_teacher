@@ -1,14 +1,12 @@
 <template name="dishes_list">
   <div class = "row">
-    <div class="col s12 m12 l12">
-      <div>
-        {{>dishes_card}}
-      </div>
-      <div class = "row">
-        {{#each dishes_item}}
-          {{> dishes_rotation}}
-        {{/each}}
-      </div>
+    {{#each dishes_item}}
+      {{> dishes_rotation}}
+    {{/each}}
+  </div>
+  <div class = "modal" id="large_dish_display">
+    <div class = "modal-content">
+      {{> dishes_card}}
     </div>
   </div>
 </template>
@@ -46,12 +44,12 @@
 </template>
 
 <template name = "dishes_rotation">
-      <div class = "dish_thumbnail col s6 m3 l2" id="{{_id}}">
+      <a class = "grey-text modal-trigger dish_thumbnail col s6 m3 l2" id="{{_id}}" href="#large_dish_display">
         <div class = "card dish_thumbnail_card z-depth-0">
           {{> get_dish_image}}
           <div class = "center-align">{{dish_name}}</div>
         </div>
-    </div>
+    </a>
 </template>
 
 <template name="get_dish_image">
