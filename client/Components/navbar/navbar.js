@@ -89,6 +89,9 @@ Template.bp_navbar.onRendered(function(){
    'click #profile_link': function () {
      FlowRouter.go('/profile');
    },
+   'click #all_link': function () {
+     FlowRouter.go('/main');
+   },
    'click #create_dish_link': function () {
      FlowRouter.go('/make_dish');
    },
