@@ -7,14 +7,13 @@
   height: 180px;
   margin-left:10px;
   margin-right:10px;
+  top: -40px;
 }
 
 #small_dish_image {
-  display:block;
   z-index: 1;
   max-height: 180px;
   width: auto;
-  top: -40px;
 }
 
 #small_user_avatar {
@@ -22,7 +21,7 @@
   z-index: 2;
   max-height: 40px;
   left: -60px;
-  top: 130px;
+  top: 175px;
 }
 
 .info_wrapper {

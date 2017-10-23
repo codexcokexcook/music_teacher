@@ -1,10 +1,12 @@
 #dish_card_large {
   padding: 10px 0px 0px 20px;
   height: 420px;
+  width: 685px;
 }
 
 #dish_card_image {
   position: relative;
+  width:45%;
 }
 
 #dish_image {
@@ -29,7 +31,7 @@
 }
 
 .card-stacked {
-  width: 285px;
+  width: 50vh;
 }
 
 .card-title p,h5 {
@@ -38,7 +40,7 @@
 
 .card-tabs {
   margin-top:5px;
-  height: 150px;
+  height: 120px;
   overflow: auto;
   margin-bottom: 14px;
 }
@@ -66,12 +68,23 @@
 }
 
 .info_wrapper {
-  margin: 0px 12px 12px 12px;
+  /* margin: 0px 12px 12px 12px; */
   font-size: 13px;
   color: rgba(0,0,0,0.54);
 }
 
+.dish_thumbnail_card {
+  display: block;
+  height: 180px;
+}
+
+.no_display {
+  height: 85%;
+  width: 100%;
+  display: relative;
+}
 #location_time_info p h6 {
+  margin-left: 3px;
   margin-top: 0px;
   margin-bottom: 12px;
 }
@@ -83,22 +96,7 @@
 }
 
 #rating_price_info {
-  margin-top: 10px;
-}
-
-#rating img {
-  margin-top: 20px;
-  margin-right: 3px;
-  width: 91px;
-  float: left;
-}
-
-
-#rating h6 {
-  margin-top: 20px;
-  position: relative;
-}
-
-#price h5 {
-  margin-top: 15px;
+  height: 100px;
+  padding-top: 24px;
+  left: -50px;
 }
