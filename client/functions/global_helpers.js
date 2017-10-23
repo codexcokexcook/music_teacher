@@ -31,8 +31,10 @@ Collections = {
 Template.registerHelper(
   'find', (collection) => {
     return Collections[collection].find()
-  },
+  }
+)
 
+Template.registerHelper(
   'profile_images', () => {
     var get_profile_images = Profile_images.findOne({'userId': Meteor.userId(),'meta':{"purpose": "profile_picture"}});
 
