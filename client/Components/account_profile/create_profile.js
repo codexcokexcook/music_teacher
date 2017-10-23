@@ -12,7 +12,7 @@ Payment_details = new Mongo.Collection('payment_details');
 Bank_details = new Mongo.Collection('bank_details');
 
 
-Profile_Images = new FilesCollection({
+Profile_images = new FilesCollection({
   collectionName: 'profile_images',
   storagePath: () => {
       return process.env.PWD + '/public/profile_upload/';
@@ -50,7 +50,7 @@ Template.profile_banner.helpers({
 
   imageFile() {
       var image_id = Session.get('image_id');
-      var image_location = profile_images.findOne({"_id": image_id});
+      var image_location = Profile_images.findOne({"_id": image_id});
       var image_extension = image_location && image_location.extensionWithDot;
       /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
       /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
@@ -65,7 +65,7 @@ Template.profile_banner.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = profile_images.insert({
+      const upload = Profile_images.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',
         chunkSize: 'dynamic',
@@ -82,7 +82,7 @@ Template.profile_banner.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-            Meteor.setTimeout(get_image_id,1000);
+            Meteor.setTimeout(get_image_id,3000);
             /** Setup a delay of 100msec to ensure image is in place
             before session getting the image id and return to html
             to ensure the image is ready to display when image_id is returned.

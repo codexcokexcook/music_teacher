@@ -11,7 +11,7 @@
            <!--Search Bar-->
 
         <form class="nav_search_bar col l7">
-          <div class="input-field grey-text col l4 m2 s2">
+          <div class="input-field grey-text col l3 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class=“material_select” id=“search_by_place”>
               <option value=“” disabled selected>Location</option>
@@ -21,26 +21,32 @@
             </select>
           </div>
 
-          <div class="input-field grey-text col l4 m2 s2">
-            <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
-            <select class=“material_select” id=“search_by_time”>
-              <option value=“” disabled selected>Serving Time</option>
-              {{#each time_option_list}}
-              <option value=“{{option}}“>{{time_option}}</option>
+          <div class="input-field grey-text col l3 m2 s2">
+            <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
+            <select class=“material_select” id=“search_by_method”>
+              <option value=“” disabled selected>Serving Option</option>
+              {{#each service_option_list}}
+              <option value=“{{option}}“>{{service_option}}</option>
               {{/each}}
             </select>
+          </div>
+
+
+          <div class="input-field grey-text col l3 m2 s2">
+            <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
+            <div class="textbox_adj">
+            <input class='datepicker' id=“search_by_date” type='text'/>
+            </div>
             </div>
 
-            <div class="input-field grey-text col l4 m2 s2">
-              <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
-              <select class=“material_select” id=“search_by_method”>
-                <option value=“” disabled selected>Serving Option</option>
-                {{#each service_option_list}}
-                <option value=“{{option}}“>{{service_option}}</option>
-                {{/each}}
-              </select>
+          <div class="input-field grey-text col l3 m2 s2">
+            <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
+            <div class="textbox_adj">
+            <input class='timepicker' id=“search_by_time” type='text' placeholder='time'/>
             </div>
-        </form>
+            </div>
+
+          </form>
 
 
 
@@ -54,8 +60,8 @@
       <div class='right'>
         <a href="shopping_cart" ><img src='/navbar/OrderDish.svg' height="40" class='navbar_logo'/></a>
         <a class="dropdown-button" href="" data-activates="profile_dropdown">
-
-            <img src="/msgDialog/user.jpg" class="circle navbar_logo" height='40'/></a>
+            {{get_profile_images}}
+            <img class="circle navbar_logo" height='40'/></a>
           </div>
         </div>
     </nav>
