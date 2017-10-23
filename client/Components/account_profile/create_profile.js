@@ -12,7 +12,7 @@ Payment_details = new Mongo.Collection('payment_details');
 Bank_details = new Mongo.Collection('bank_details');
 
 
-Profile_images = new FilesCollection({
+profile_images = new FilesCollection({
   collectionName: 'profile_images',
   storagePath: () => {
       return process.env.PWD + '/public/profile_upload/';
@@ -45,18 +45,18 @@ Template.profile_banner.helpers({
   },
 
   checkUpload() {
-     return Session.get('image_id');
+     return Session.get('profile_image_id');
   },
 
   imageFile() {
-      var image_id = Session.get('image_id');
-      var image_location = Profile_images.findOne({"_id": image_id});
-      var image_extension = image_location && image_location.extensionWithDot;
+      var profile_image_id = Session.get('profile_image_id');
+      var profile_image_location = profile_images.findOne({"_id": profile_image_id});
+      var profile_image_extension = profile_image_location && profile_image_location.extensionWithDot;
       /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
       /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
-      var ul_location = image_id + image_extension;
+      var profile_ul_location = profile_image_id + profile_image_extension;
 
-      return ul_location;
+      return profile_ul_location;
   }
 });
 
@@ -65,7 +65,7 @@ Template.profile_banner.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = Profile_images.insert({
+      const upload = profile_images.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',
         chunkSize: 'dynamic',
@@ -82,7 +82,7 @@ Template.profile_banner.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-            Meteor.setTimeout(get_image_id,3000);
+            Meteor.setTimeout(get_profile_image_id,3000);
             /** Setup a delay of 100msec to ensure image is in place
             before session getting the image id and return to html
             to ensure the image is ready to display when image_id is returned.
@@ -91,8 +91,8 @@ Template.profile_banner.events({
             /** There is a different time delay required for different browsers:
             For Chrome, we were able to display image with 100ms delay,
             for safari, it only worked with 2000ms delay. **/
-            function get_image_id() {
-              return Session.set('image_id', Images._id);
+            function get_profile_image_id() {
+              return Session.set('profile_image_id', profile_images._id);
             }
         /** above is the line that prevents meteor from reloading **/
         }
