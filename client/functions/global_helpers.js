@@ -36,7 +36,7 @@ Template.registerHelper(
 
 Template.registerHelper(
   'profile_images', () => {
-    var get_profile_images = Profile_images.findOne({'userId': Meteor.userId(),'meta':{"purpose": "profile_picture"}});
+    var get_profile_images = profile_images.findOne({'userId': Meteor.userId(),'meta':{"purpose": "profile_picture"}});
 
     var get_profile_images_id = get_profile_images && get_profile_images._id;
 
