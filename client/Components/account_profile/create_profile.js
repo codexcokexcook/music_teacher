@@ -50,7 +50,7 @@ Template.profile_banner.helpers({
 
   imageFile() {
       var image_id = Session.get('image_id');
-      var image_location = profile_images.findOne({"_id": image_id});
+      var image_location = Profile_images.findOne({"_id": image_id});
       var image_extension = image_location && image_location.extensionWithDot;
       /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
       /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
@@ -65,7 +65,7 @@ Template.profile_banner.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = profile_images.insert({
+      const upload = Profile_images.insert({
         file: e.currentTarget.files[0],
         streams: 'dynamic',
         chunkSize: 'dynamic',
