@@ -40,40 +40,10 @@
 
 <!--Template of the profile banner-->
 <template name = "profile_banner">
-  <div class = "valign-wrapper">
-    {{#with currentUpload}}
-            <div class="preloader-wrapper big active profile_img_preloader center">
-              <div class="spinner-layer spinner-red-only">
-                <div class="circle-clipper left">
-                  <div class="circle"></div>
-                </div><div class="gap-patch">
-                  <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                  <div class="circle"></div>
-                </div>
-              </div>
-            </div>
-    {{else}}
-          {{#if checkUpload}}
-              <img src= "profile_upload/{{imageFile}}" />
-          {{else}}
-              <div class = "profile_image_upload">
-                  <label for = "file_input">
-                    <div class='profile_banner_area_background'>{{>profile_banner_content}}</div>
+  <div class = "profile_banner-area valign-wrapper">
 
-                  </label>
-                  <div class="file-field input-field">
-                      <input id="file_input" type="file">
-                    <div class="file-path-wrapper">
-                    </div>
-                  </div>
-              </div>
-          {{/if}}
-    {{/with}}
-  </div>
-</template>
 
-    <template name="profile_banner_content">
+
     <div class = "container valign">
     <div class = "profile_circle_base" >
      {{#with currentUpload}}
@@ -122,6 +92,7 @@
 
   <div class="row upload_banner_image">
     <h6 class = "white-text center-align">Upload Banner Image</h6>
+  </div>
   </div>
   </div>
 </template>
