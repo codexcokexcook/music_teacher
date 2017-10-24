@@ -1,5 +1,7 @@
-.profile_banner-area {
+.profile_banner_area_background {
   height: 45vh;
+  z-index:-1;
+  width: 175vh;
   background-color: #E57373;
 
 }
@@ -10,23 +12,27 @@
     height: 125px;
   /**  border: 1px solid grey;**/
     margin: auto;
+    z-index:0;
 }
 
 .profile_circle_base img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 50%;
+    z-index:1;
 }
 
 .profile_icon_img_upload {
     display: block;
     height: 125px;
     width: 125px;
+    z-index:2;
 
 }
 
 .profile_img_preloader {
     margin:36.5%;
+    z-index:2;
 }
 
 .profile_icon {
@@ -34,6 +40,7 @@
     width: 125px;
     display: inline-block;
     float: right;
+    z-index:2;
 }
 
 .left{
