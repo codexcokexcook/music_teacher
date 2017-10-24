@@ -1,40 +1,18 @@
 <template name = "create_profile">
-
-
-    <form class ="create_profile" id="create_profile">
-      {{>profile_banner}}
-      <div class = "container">
-      <br>
+  <form class ="create_profile" id="create_profile">
+    {{>profile_banner}}
+    <div class = "container">
       {{>profile_personal_details}}
-      <br>
-      <br>
       {{>profile_address_details}}
-      <br>
-      <br>
       <h6>Major food allergies</h6>
-      <br>
-      {{> food_allergies}}
-      <br>
-      <br>
+        {{> food_allergies}}
       <h6>Dietary preferences</h6>
-      <br>
-      {{> dietary_preferences}}
-      <br>
-      <br>
-      {{>profile_payment_details}}
-      <br>
-      <br>
-      {{>profile_bank_details}}
-      <br>
-      <br>
+        {{> dietary_preferences}}
+        {{>profile_payment_details}}
+        {{>profile_bank_details}}
       <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
-      <br>
-      <br>
-      </div>
-      <br>
-      <br>
-    </form>
-
+    </div>
+  </form>
 </template>
 
 
