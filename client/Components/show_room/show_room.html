@@ -12,7 +12,7 @@
   <h5>Dishes</h5>
   <div class = "row">
     {{#each find "Dishes"}}
-      {{> dishes_rotation}}
+      {{> dishes_list}}
     {{/each}}
   </div>
 </template>
@@ -20,17 +20,11 @@
 <template name='show_room_menu'>
   <h5>Menu</h5>
   <div class = "row">
-    {{#each find "Menu"}}
-      {{> dishes_list}}
-    {{/each}}
   </div>
 </template>
 
 <template name='show_room_chef'>
   <h5>Chef</h5>
   <div class = "row">
-    {{#each dishes_item}}
-      {{> dishes_rotation}}
-    {{/each}}
   </div>
 </template>
