@@ -144,7 +144,7 @@ Template.create_profile.events({
 
 
 
-      if( isNotEmpty(kitchen_name)           &&
+/**      if( isNotEmpty(kitchen_name)           &&
           isNotEmpty(profile_keywords)       &&
           isNotEmpty(last_name)              &&
           isNotEmpty(first_name)             &&
@@ -164,7 +164,7 @@ Template.create_profile.events({
           isNotEmpty(cvv_code)               &&
           isNotEmpty(bank_fullname)          &&
           isNotEmpty(bank_name)              &&
-          isNotEmpty(bank_account_no)           )
+          isNotEmpty(bank_account_no)           )**/
 
           {
             Meteor.call('profile_details.insert',
@@ -208,9 +208,9 @@ Template.create_profile.events({
     Blaze.remove(Template.instance().view);
 
       }
-      else{
+    /**  else{
       return false;
-    }
+    } **/
   }
   });
 
