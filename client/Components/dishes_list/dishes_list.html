@@ -1,9 +1,5 @@
 <template name="dishes_list">
-  <div class = "row">
-    {{#each dishes_item}}
-      {{> dishes_rotation}}
-    {{/each}}
-  </div>
+  {{> dishes_rotation}}
   <div class = "modal" id="large_dish_display">
     <div class = "modal-content">
       {{> dishes_card}}
@@ -20,8 +16,7 @@
 <template name="dishes_card_layout">
   <div class="card horizontal" id = "dish_card_large">
     <div class="card-image circle responsive-img" id = "dish_card_image">
-      <!-- Required to convert to dynamic component when user accounts component is ready -->
-      <img src="/user_avatar.svg" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
+      {{> chef_avatar}}
       {{> get_dish_image}}
     </div>
 
@@ -41,6 +36,14 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name= "chef_avatar">
+  {{#if chef_avatar "Dishes"}}
+    <img src="/profile_upload/{{chef_avatar}}" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
+  {{else}}
+    <img src="/user_avatar.svg" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
+  {{/if}}
 </template>
 
 <template name = "dishes_rotation">

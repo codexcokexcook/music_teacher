@@ -4,8 +4,8 @@
   width: 685px;
 }
 #large_dish_display {
-  height: 420px;
-  width: 685px;
+  height: inherit;
+  width: 733px;
 }
 #dish_card_image {
   position: relative;
@@ -20,6 +20,7 @@
 
 #user_avatar {
   position: relative;
+  width: 36px;
   z-index: 2;
   top: 40px;
 }
@@ -101,5 +102,5 @@
 #rating_price_info {
   height: 100px;
   padding-top: 24px;
-  left: -50px;
+
 }
