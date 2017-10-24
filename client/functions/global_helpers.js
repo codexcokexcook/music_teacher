@@ -30,7 +30,7 @@ Collections = {
 
 Template.registerHelper(
   'find', (collection) => {
-    return Collections[collection].find()
+    return Collections[collection].find();
   }
 );
 
