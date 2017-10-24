@@ -82,7 +82,7 @@ Template.profile_banner.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-            Meteor.setTimeout(get_profile_image_id,3000);
+            Meteor.setTimeout(get_profile_image_id,4000);
             /** Setup a delay of 100msec to ensure image is in place
             before session getting the image id and return to html
             to ensure the image is ready to display when image_id is returned.

@@ -64,7 +64,7 @@
            {{else}}
                <div class = "profile_image_upload">
                    <label for = "file_input">
-                       <img class="profile_icon_img_upload" src="/profile_upload/profile_img_upload_icon.svg" />
+                       <img class="profile_icon_img_upload" src="img_upload_icon.svg" />
                    </label>
                    <div class="file-field input-field">
                        <input id="file_input" type="file">
@@ -100,12 +100,33 @@
 
 <!--Template for the personal details-->
 <template name="profile_personal_details">
-  <div class="row valign">
-  <div class="input-field col l12 m12 s12 valign">
-    <input id="kitchen_name" name="kitchen_name" type="text">
-    <label for="kitchen_name">Kitchen name</label>
-  </div>
-  </div>
+  <h6>Your details</h6>
+  <!--Row 1-->
+  <div class="row col l12 valign">
+    <div class="input-field col l2 m2 s2 valign">
+        <input id="mobile" name="mobile" type="text">
+        <label for="mobile">Mobile no.</label>
+      </div>
+    <div class="col l1">
+      </div>
+    <div class="input-field col l3 m3 s3 valign">
+        <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text">
+        <label for="first_name">Date of birth</label>
+      </div>
+    <div class="col l1">
+      </div>
+    <div class="gender">
+      <div class="col l2 m3 s3 valign">
+          <input class ="with-gap" type="radio" name="gender" value="male" id="male"/>
+          <label for="male">Male </label>
+        </div>
+      <div class="col l2 m3 s3 valign">
+          <input class ="with-gap" type="radio" name="gender" value="female" id="female"/>
+          <label for="female">Female </label>
+        </div>
+      </div>
+    </div>
+
   <div class="row valign">
   <div class="input-field col l3 m3 s3 -l4 -m2 -s2 valign">
     <input id="first_name" name="first_name" type="text">
@@ -115,16 +136,8 @@
     <input id="last_name" name="last_name" type="text">
     <label for="last_name">Last Name</label>
   </div>
-  <div class="input-field col l3 m3 s3 valign">
-    <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text">
-    <label for="first_name">Date of birth</label>
-  </div>
-  <div class="col l3 m3 s3 valign">
-  <input class ="with-gap" type="radio" name="gender" value="male" id="male"/>
-  <label for="male">Male </label>
-  <input class ="with-gap" type="radio" name="gender" value="female" id="female"/>
-  <label for="female">Female </label>
-</div>
+
+
 </div>
 <div class="input-field col l12 m2 s4 valign">
   <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500"></textarea>

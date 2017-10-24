@@ -4,7 +4,7 @@ Profile_details = new Mongo.Collection('profile_details');
 Address_details = new Mongo.Collection('address_details');
 Payment_details = new Mongo.Collection('payment_details');
 Bank_details = new Mongo.Collection('bank_details');
-Profile_images = new FilesCollection({
+profile_images = new FilesCollection({
   storagePath: () => {
       return process.env.PWD + '/public/profile_upload/';
   },
@@ -20,7 +20,7 @@ Profile_images = new FilesCollection({
   }
 });
 
-Meteor.publish('files.images.all', function () {
+Meteor.publish('files.profile_images.all', function () {
     return profile_images.find().cursor;
 });
 
