@@ -279,6 +279,46 @@ Template.create_foodie_profile.onRendered(function(){
   });
 
   //activate modal
+  this.$('.modal').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%', // Ending top style attribute
+      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+        alert("Ready");
+        console.log(modal, trigger);
+      },
+      complete: function() { alert('Closed'); } // Callback for Modal close
+    });
+
+  //activate dropdown
+  this.$('select').material_select();
+
+  //activate characterCounter
+  this.$('input#input_text, textarea#about_myself').characterCounter();
+
+  //activate the selection tabs
+  this.$(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
+
+});
+
+Template.create_homecook_profile.onRendered(function(){
+
+  //activate datepicker
+    this.$('.datepicker').pickadate({
+    selectMonths: 15, // Creates a dropdown to control month
+    selectYears: 150, // Creates a dropdown of 15 years to control year,
+    today: 'TODAY',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
+
+  //activate modal
   this.$('.modal').modal();
 
   //activate dropdown
@@ -296,27 +336,27 @@ Template.create_foodie_profile.onRendered(function(){
 
 Template.profile_bank_details.helpers ({
   bank_list: [
-    { name: '   003 - Standard Chartered Bank(Hong Kong)', option: '1'},
-    { name: '   004 - Hongkong and Shanghai Banking Corporation', option: '2'},
-    { name: '   009 - China Construction Bank (Asia)', option: '3'},
-    { name: '   012 - Bank of China (Hong Kong)', option: '4'},
-    { name: '   015 - Bank of East Asia', option: '5'},
-    { name: '   018 - China CITIC Bank International', option: '6'},
-    { name: '   020 - Wing Lung Bank', option: '7'},
-    { name: '   022 - OCBC Wing Hang Bank', option: '8'},
-    { name: '   024 - Hang Seng Bank', option: '9'},
-    { name: '   025 - Shanghai Commercial Bank', option: '10'},
-    { name: '   027 - Bank of Communications', option: '11'},
-    { name: '   028 - Public Bank (Hong Kong)', option: '12'},
-    { name: '   038 - Tai Yau Bank', option: '13'},
-    { name: '   039 - Chiyu Banking Corporation', option: '14'},
-    { name: '   040 - Dah Sing Bank', option: '15'},
-    { name: '   041 - Chong Hing Bank', option: '16'},
-    { name: '   043 - Nanyang Commercial Bank', option: '17'},
-    { name: '   061 - Tai Sang Bank', option: '18'},
-    { name: '   072 - Industrial and Commercial Bank of China (Asia)', option: '19'},
-    { name: '   128 - Fubon Bank (Hong Kong)', option: '20'},
-    { name: '   250 - CitiBank (Hong Kong)', option: '21'},
+    { name: '003 - Standard Chartered Bank (Hong Kong)', option: '1'},
+    { name: '004 - Hongkong and Shanghai Banking Corporation', option: '2'},
+    { name: '009 - China Construction Bank (Asia)', option: '3'},
+    { name: '012 - Bank of China (Hong Kong)', option: '4'},
+    { name: '015 - Bank of East Asia', option: '5'},
+    { name: '018 - China CITIC Bank International', option: '6'},
+    { name: '020 - Wing Lung Bank', option: '7'},
+    { name: '022 - OCBC Wing Hang Bank', option: '8'},
+    { name: '024 - Hang Seng Bank', option: '9'},
+    { name: '025 - Shanghai Commercial Bank', option: '10'},
+    { name: '027 - Bank of Communications', option: '11'},
+    { name: '028 - Public Bank (Hong Kong)', option: '12'},
+    { name: '038 - Tai Yau Bank', option: '13'},
+    { name: '039 - Chiyu Banking Corporation', option: '14'},
+    { name: '040 - Dah Sing Bank', option: '15'},
+    { name: '041 - Chong Hing Bank', option: '16'},
+    { name: '043 - Nanyang Commercial Bank', option: '17'},
+    { name: '061 - Tai Sang Bank', option: '18'},
+    { name: '072 - Industrial and Commercial Bank of China (Asia)', option: '19'},
+    { name: '128 - Fubon Bank (Hong Kong)', option: '20'},
+    { name: '250 - CitiBank (Hong Kong)', option: '21'},
   ],
 });
 
