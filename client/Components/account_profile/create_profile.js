@@ -35,11 +35,11 @@ Session.keys = {}
 
 /** function from ostrio **/
 
-Template.profile_banner.onCreated(function () {
+Template.foodie_profile_banner.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
 });
 
-Template.profile_banner.helpers({
+Template.foodie_profile_banner.helpers({
   currentUpload() {
     return Template.instance().currentUpload.get();
   },
@@ -60,7 +60,7 @@ Template.profile_banner.helpers({
   }
 });
 
-Template.profile_banner.events({
+Template.foodie_profile_banner.events({
   'change #file_input'(e, template) {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
@@ -111,7 +111,7 @@ Template.profile_banner.events({
 
 
 
-Template.create_profile.events({
+Template.create_foodie_profile.events({
 
   'submit form': function(event, template){
     event.preventDefault();
@@ -266,18 +266,18 @@ Template.create_profile.events({
 
 
 
-Template.create_profile.onRendered(function(){
-/**
+Template.create_foodie_profile.onRendered(function(){
+
   //activate datepicker
     this.$('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 100, // Creates a dropdown of 15 years to control year,
+    selectMonths: 15, // Creates a dropdown to control month
+    selectYears: 150, // Creates a dropdown of 15 years to control year,
     today: 'TODAY',
     clear: 'Clear',
     close: 'Ok',
     closeOnSelect: false // Close upon selecting a date,
   });
-**/
+
   //activate modal
   this.$('.modal').modal();
 
@@ -287,7 +287,10 @@ Template.create_profile.onRendered(function(){
   //activate characterCounter
   this.$('input#input_text, textarea#about_myself').characterCounter();
 
-
+  //activate the selection tabs
+  this.$(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
 
 });
 

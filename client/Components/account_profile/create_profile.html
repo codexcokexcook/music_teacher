@@ -1,8 +1,9 @@
-<template name = "create_profile">
-    <form class ="create_profile" id="create_profile">
-      {{>profile_banner}}
-      <div class = "container">
+<template name = "create_foodie_profile">
+    <form class ="create_foodie_profile" id="create_foodie_profile">
+      {{>foodie_profile_banner}}
       <br>
+      <br>
+      <div class = "container">
       {{>profile_personal_details}}
       <br>
       {{>profile_payment_details}}
@@ -21,9 +22,40 @@
     </form>
 </template>
 
+<template name = "create_homecook_profile">
+  <form class ="create_homecook_profile" id="create_homecook_profile">
+    {{>homecook_profile_banner}}
+    <br>
+    <br>
+    <div class = "container">
+    {{>profile_kitchen_details}}
+    <br>
+    {{>profile_bank_details}}
+    <br>
+    <br>
+    <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
+    <button class="waves-effect waves-teal btn-flat right" type="button" value="Preview">Preview</button>
+    <br>
+    <br>
+    </div>
+    <br>
+    <br>
+  </form>
+</template>
 
-<!--Template of the profile banner-->
-<template name = "profile_banner">
+<!--Template of the homecook profile banner-->
+<template name="homecook_profile_banner">
+</template>
+
+<!--Template of the kitchen details-->
+<template name="profile_kitchen_details">
+</template>
+
+
+
+
+<!--Template of the foodie profile banner-->
+<template name = "foodie_profile_banner">
   <div class = "profile_banner-area valign-wrapper">
 
 
@@ -60,20 +92,14 @@
      {{/with}}
    </div>
 
-   <div class="col l12 m4 s4 valign">
-     <h5 class = "white-text center-align">
-       {{#if currentUser.profile.first_name}}
-        {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
+   <div class="col l6 m4 s4 white-text">
+       {{#if currentUser.profile.name}}
+        <input id="profile_name" name="profile_name" type="text" style="text-align:center" value="{{currentUser.profile.name}}">
       {{else}}
-        {{currentUser.profile.name}}
+        <input id="profile_name" name="profile_name" type="text" style="text-align:center" placeholder="Please enter your name">
       {{/if}}
-      </h5>
-  </div>
-
-  <div class="input-field col l6 m4 s4 valign">
+    </div>
     <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
-  </div>
-
   <div class="row upload_banner_image">
     <h6 class = "white-text center-align">Upload Banner Image</h6>
   </div>
@@ -91,21 +117,20 @@
     </div>
     <div class="col l1">
       </div>
-    <div class="input-field col l2 m2 s2 valign">
-        <input id="mobile" name="mobile" type="text">
-        <label for="mobile">Mobile no.</label>
+    <div class="text-field col l2 m2 s2 valign">
+        <input id="mobile" name="mobile" type="text" placeholder="Mobile no.">
       </div>
-    <div class="input-field col l2 m3 s3 valign">
-        <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text">
-        <label for="first_name">Date of birth</label>
+    <div class="text-field col l2 m3 s3 valign">
+        <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text" placeholder="Date of birth">
+
       </div>
       <div class="col l1">
         </div>
-    <div class="col l2 valign">
+    <div class="text-field col l2 valign">
         <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male"/>
         <label for="male">Male </label></p>
       </div>
-    <div class="col l2 valign">
+    <div class="text-field col l2 valign">
         <p><input class ="with-gap right" type="radio" name="gender" value="female" id="female"/>
         <label for="female">Female </label></p>
       </div>

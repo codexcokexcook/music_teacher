@@ -1,4 +1,31 @@
 <template name='profile'>
   <div id='profile'>
+
   </div>
+</template>
+
+
+<template name="create_profile">
+  {{>foodie_homecook_tab}}
+  <div id="foodie" class="col l12">
+      {{>create_foodie_profile}}
+  </div>
+  <div id="homecook" class="col l12">
+      {{>create_homecook_profile}}
+  </div>
+</template>
+
+
+<template name='profile_card'>
+  <h6>welcome</h6>
+</template>
+
+<template name='foodie_homecook_tab'>
+<div class="row col l12">
+  <ul class="tabs">
+    <li class="tab col l2"><a class="active" href="#foodie">FOODIE</a></li>
+    <li class="tab col l2"><a href="#homecook">HOMECOOK</a></li>
+  </ul>
+
+</div>
 </template>
