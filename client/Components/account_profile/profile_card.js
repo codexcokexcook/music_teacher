@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 
 
-Template.profile_card.helpers({
+Template.foodie_profile_card.helpers({
     'profile_details': function () {
       var get_profile_details = Profile_details.findOne({'user_id': Meteor.userId()});
       return get_profile_details;

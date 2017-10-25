@@ -36,11 +36,12 @@ Template.create_profile.onRendered(function() {
   Session.keys = {};
 })
 
-Template.profile_banner.onCreated(function () {
+Template.foodie_profile_banner.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
 });
 
-Template.profile_banner.onRendered(function(){
+
+Template.foodie_profile_banner.onRendered(function(){
   var check_profile_banner = profile_images.findOne({
     "userId": Meteor.userId(),
     "meta": {"purpose": "banner_picture"}
@@ -54,7 +55,7 @@ Template.profile_banner.onRendered(function(){
   }
 });
 
-Template.profile_banner.helpers({
+Template.foodie_profile_banner.helpers({
   currentUpload() {
     return Template.instance().currentUpload.get();
   },
@@ -81,7 +82,7 @@ Template.profile_banner.helpers({
   }
 });
 
-Template.profile_banner.events({
+Template.foodie_profile_banner.events({
   'click #banner_file_input': function(){
     Meteor.call('profile_images.remove');
   },
@@ -200,8 +201,8 @@ Template.upload_profile.events({
   }
 });
 
-Template.create_profile.events({
 
+Template.create_foodie_profile.events({
   'submit form': function(event, template){
     event.preventDefault();
     const kitchen_name = trimInput(event.target.kitchen_name.value);
@@ -229,28 +230,30 @@ Template.create_profile.events({
     const bank_account_no = trimInput(event.target.bank_account_no.value);
     const user_id = Meteor.userId()
 
-      if( //isNotEmpty(kitchen_name)           &&
-          //isNotEmpty(profile_keywords)       &&
+/**      if( isNotEmpty(kitchen_name)           &&
+          isNotEmpty(profile_keywords)       &&
           isNotEmpty(last_name)              &&
-          isNotEmpty(first_name)
-          //isNotEmpty(date_of_birth)          &&
-          //isNotEmpty(gender)                 &&
-          //isNotEmpty(about_myself)           &&
-          //isNotEmpty(address_name_1)         &&
-          //isNotEmpty(address_details_1)      &&
-          //isNotEmpty(mobile_no_1)            &&
-          //isNotEmpty(address_name_2)         &&
-          //isNotEmpty(address_details_2)      &&
-          //isNotEmpty(mobile_no_2)            &&
-          //isNotEmpty(card_number)            &&
-          //isNotEmpty(card_fullname)          &&
-          //isNotEmpty(card_exp_month)         &&
-          //isNotEmpty(card_exp_year)          &&
-          //isNotEmpty(cvv_code)               &&
-          //isNotEmpty(bank_fullname)          &&
-          //isNotEmpty(bank_name)              &&
-          //isNotEmpty(bank_account_no)
-        )  {
+          isNotEmpty(first_name)             &&
+          isNotEmpty(date_of_birth)          &&
+          isNotEmpty(gender)                 &&
+          isNotEmpty(about_myself)           &&
+          isNotEmpty(address_name_1)         &&
+          isNotEmpty(address_details_1)      &&
+          isNotEmpty(mobile_no_1)            &&
+          isNotEmpty(address_name_2)         &&
+          isNotEmpty(address_details_2)      &&
+          isNotEmpty(mobile_no_2)            &&
+          isNotEmpty(card_number)            &&
+          isNotEmpty(card_fullname)          &&
+          isNotEmpty(card_exp_month)         &&
+          isNotEmpty(card_exp_year)          &&
+          isNotEmpty(cvv_code)               &&
+          isNotEmpty(bank_fullname)          &&
+          isNotEmpty(bank_name)              &&
+          isNotEmpty(bank_account_no)           )**/
+
+          {
+
             Meteor.call('profile_details.insert',
             user_id,
             first_name,
@@ -290,9 +293,11 @@ Template.create_profile.events({
     Blaze.render(Template.profile_card, document.getElementById('profile'));
     Blaze.remove(Template.instance().view);
 
-      } else {
+      }
+    /**  else{
+
       return false;
-    }
+    } **/
   }
   });
 
@@ -345,18 +350,60 @@ Template.create_profile.events({
       return true;
   }
 
-Template.create_profile.onRendered(function(){
-/**
+
+Template.create_foodie_profile.onRendered(function(){
+
+
   //activate datepicker
     this.$('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 100, // Creates a dropdown of 15 years to control year,
+    selectMonths: 15, // Creates a dropdown to control month
+    selectYears: 150, // Creates a dropdown of 15 years to control year,
     today: 'TODAY',
     clear: 'Clear',
     close: 'Ok',
     closeOnSelect: false // Close upon selecting a date,
   });
-**/
+
+  //activate modal
+  this.$('.modal').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%', // Ending top style attribute
+      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+        alert("Ready");
+        console.log(modal, trigger);
+      },
+      complete: function() { alert('Closed'); } // Callback for Modal close
+    });
+
+  //activate dropdown
+  this.$('select').material_select();
+
+  //activate characterCounter
+  this.$('input#input_text, textarea#about_myself').characterCounter();
+
+  //activate the selection tabs
+  this.$(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
+
+});
+
+Template.create_homecook_profile.onRendered(function(){
+
+  //activate datepicker
+    this.$('.datepicker').pickadate({
+    selectMonths: 15, // Creates a dropdown to control month
+    selectYears: 150, // Creates a dropdown of 15 years to control year,
+    today: 'TODAY',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
+
   //activate modal
   this.$('.modal').modal();
 
@@ -365,31 +412,38 @@ Template.create_profile.onRendered(function(){
 
   //activate characterCounter
   this.$('input#input_text, textarea#about_myself').characterCounter();
+
+  //activate the selection tabs
+  this.$(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
+
+
 });
 
 Template.profile_bank_details.helpers ({
   bank_list: [
-    { name: '   003 - Standard Chartered Bank(Hong Kong)', option: '1'},
-    { name: '   004 - Hongkong and Shanghai Banking Corporation', option: '2'},
-    { name: '   009 - China Construction Bank (Asia)', option: '3'},
-    { name: '   012 - Bank of China (Hong Kong)', option: '4'},
-    { name: '   015 - Bank of East Asia', option: '5'},
-    { name: '   018 - China CITIC Bank International', option: '6'},
-    { name: '   020 - Wing Lung Bank', option: '7'},
-    { name: '   022 - OCBC Wing Hang Bank', option: '8'},
-    { name: '   024 - Hang Seng Bank', option: '9'},
-    { name: '   025 - Shanghai Commercial Bank', option: '10'},
-    { name: '   027 - Bank of Communications', option: '11'},
-    { name: '   028 - Public Bank (Hong Kong)', option: '12'},
-    { name: '   038 - Tai Yau Bank', option: '13'},
-    { name: '   039 - Chiyu Banking Corporation', option: '14'},
-    { name: '   040 - Dah Sing Bank', option: '15'},
-    { name: '   041 - Chong Hing Bank', option: '16'},
-    { name: '   043 - Nanyang Commercial Bank', option: '17'},
-    { name: '   061 - Tai Sang Bank', option: '18'},
-    { name: '   072 - Industrial and Commercial Bank of China (Asia)', option: '19'},
-    { name: '   128 - Fubon Bank (Hong Kong)', option: '20'},
-    { name: '   250 - CitiBank (Hong Kong)', option: '21'},
+    { name: '003 - Standard Chartered Bank (Hong Kong)', option: '1'},
+    { name: '004 - Hongkong and Shanghai Banking Corporation', option: '2'},
+    { name: '009 - China Construction Bank (Asia)', option: '3'},
+    { name: '012 - Bank of China (Hong Kong)', option: '4'},
+    { name: '015 - Bank of East Asia', option: '5'},
+    { name: '018 - China CITIC Bank International', option: '6'},
+    { name: '020 - Wing Lung Bank', option: '7'},
+    { name: '022 - OCBC Wing Hang Bank', option: '8'},
+    { name: '024 - Hang Seng Bank', option: '9'},
+    { name: '025 - Shanghai Commercial Bank', option: '10'},
+    { name: '027 - Bank of Communications', option: '11'},
+    { name: '028 - Public Bank (Hong Kong)', option: '12'},
+    { name: '038 - Tai Yau Bank', option: '13'},
+    { name: '039 - Chiyu Banking Corporation', option: '14'},
+    { name: '040 - Dah Sing Bank', option: '15'},
+    { name: '041 - Chong Hing Bank', option: '16'},
+    { name: '043 - Nanyang Commercial Bank', option: '17'},
+    { name: '061 - Tai Sang Bank', option: '18'},
+    { name: '072 - Industrial and Commercial Bank of China (Asia)', option: '19'},
+    { name: '128 - Fubon Bank (Hong Kong)', option: '20'},
+    { name: '250 - CitiBank (Hong Kong)', option: '21'},
   ],
 });
 

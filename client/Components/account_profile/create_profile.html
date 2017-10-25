@@ -1,21 +1,3 @@
-<template name = "create_profile">
-  <form class ="create_profile" id="create_profile">
-    {{>profile_banner}}
-    <br>
-    <div class = "container">
-      {{>profile_personal_details}}
-      {{>profile_address_details}}
-      <h6>Major food allergies</h6>
-        {{> food_allergies}}
-      <h6>Dietary preferences</h6>
-        {{> dietary_preferences}}
-        {{>profile_payment_details}}
-        {{>profile_bank_details}}
-      <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
-    </div>
-  </form>
-</template>
-
 <!--Template of the profile banner-->
 <template name = "profile_banner">
     <div class = "profile_banner_area valign-wrapper">
@@ -89,44 +71,290 @@
         </div>
       {{/with}}
     {{/with}}
+</template>
+
+<!-- Template for foodie Profile-->
+<template name = "create_foodie_profile">
+    <form class ="create_foodie_profile" id="create_foodie_profile">
+      {{>foodie_profile_banner}}
+      <br>
+      <br>
+      <div class = "container">
+      {{>profile_personal_details}}
+      <br>
+      {{>profile_payment_details}}
+      <br>
+      {{>profile_food_allergies}}
+      <br>
+      {{>profile_dietary_perferences}}
+      <br>
+      <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
+      <a class="waves-effect waves-teal btn-flat right modal-trigger" href="#foodie_profile_card">Preview</a>
+      <br>
+      <br>
+      </div>
+      <br>
+      <br>
+      <div id='foodie_profile_card' class='modal'>
+        <div class ="modal-content">
+          {{>foodie_profile_card}}
+        </div>
+        </div>
+    </form>
+
+
+</template>
+
+
+<!-- Template for homecook Profile-->
+<template name = "create_homecook_profile">
+  <form class ="create_homecook_profile" id="create_homecook_profile">
+    {{>homecook_profile_banner}}
+    <br>
+    <br>
+    <div class = "container">
+    {{>profile_kitchen_details}}
+    <br>
+    {{>profile_bank_details}}
+    <br>
+    <br>
+    <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
+    <a class="waves-effect waves-teal btn-flat right modal-trigger" href="#homecook_profile_card">Preview</a>
+    <br>
+    <br>
+    </div>
+    <br>
+    <br>
+    <div id='foodie_profile_card' class='modal'>
+      <div class ="modal-content">
+        {{>foodie_profile_card}}
+      </div>
+      </div>
+  </form>
+</template>
+
+<!--Template of the homecook profile banner-->
+<template name="homecook_profile_banner">
+</template>
+
+<!--Template of the kitchen details-->
+<template name="profile_kitchen_details">
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Kitchen Address</h6>
+    </div>
+    <div class="input-field col l9 m3 s3 valign">
+      <input id="kitchen_address" name="kitchen_address" type="text">
+      <label for="kitchen_address">Kitchen Address</label>
+      </div>
+    </div>
+    <div class="row col l12 valign">
+      <div class="input-field col l9 m2 s4 offset-l3 valign">
+        <textarea id="about_homecook_myself" class="materialize-textarea" name="about_homecook_myself" type="text" data-length="500"></textarea>
+        <label for="about_homecook_myself">Write a paragraph about your food and the story about you</label>
+        </div>
+      </div>
+  </template>
+
+
+
+
+
+<!--Template of the foodie profile banner-->
+<template name = "foodie_profile_banner">
+  <div class = "profile_banner-area valign-wrapper">
+    <div class = "container valign">
+    <div class = "profile_circle_base" >
+     {{#with currentUpload}}
+             <div class="preloader-wrapper big active profile_img_preloader center">
+               <div class="spinner-layer spinner-red-only">
+                 <div class="circle-clipper left">
+                   <div class="circle"></div>
+                 </div><div class="gap-patch">
+                   <div class="circle"></div>
+                 </div><div class="circle-clipper right">
+                   <div class="circle"></div>
+                 </div>
+               </div>
+             </div>
+     {{else}}
+           {{#if checkUpload}}
+               <img src= "profile_upload/{{imageFile}}" />
+           {{else}}
+               <div class = "profile_image_upload">
+                   <label for = "file_input">
+                       <img class="profile_icon_img_upload" src="img_upload_icon.svg" />
+                   </label>
+                   <div class="file-field input-field">
+                       <input id="file_input" type="file">
+                     <div class="file-path-wrapper">
+                     </div>
+                   </div>
+               </div>
+           {{/if}}
+     {{/with}}
+   </div>
+
+   <div class="input-field col l6 m4 s4 white-text">
+       {{#if currentUser.profile.name}}
+        <input id="profile_name" name="profile_name" type="text" style="text-align:center" value={{currentUser.profile.name}}>
+      {{else}}
+        <input id="profile_name" name="profile_name" type="text" style="text-align:center" placeholder="Please enter your name">
+      {{/if}}
+    </div>
+    <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
+  <div class="row upload_banner_image">
+    <h6 class = "white-text center-align">Upload Banner Image</h6>
+  </div>
+  </div>
   </div>
 </template>
 <!--Template for the personal details-->
 <template name="profile_personal_details">
-  <div class="row valign">
-  <div class="input-field col l12 m12 s12 valign">
-    <input id="kitchen_name" name="kitchen_name" type="text">
-    <label for="kitchen_name">Kitchen name</label>
+  <!--Row 1-->
+<div class="row col l12 valign">
+  <div class="text-field col l3 m3 s3 valign">
+    <h6>Your details</h6>
+    </div>
+    <div class="text-field col l2 m2 s2 valign">
+        <input id="mobile" name="mobile" type="text" placeholder="Mobile no.">
+      </div>
+    <div class="text-field col l2 m3 s3 valign">
+        <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text" placeholder="Date of birth">
+      </div>
+    <div class="text-field col l2 valign">
+        <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male"/>
+        <label for="male">Male </label></p>
+      </div>
+    <div class="text-field col l2 valign">
+        <p><input class ="with-gap right" type="radio" name="gender" value="female" id="female"/>
+        <label for="female">Female </label></p>
+      </div>
+    </div>
+
+    <!--Row 2-->
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Home Address</h6>
+    </div>
+    <div class="input-field col l9 m3 s3 valign">
+      <input id="home_address" name="home_address" type="text">
+      <label for="home_address">Home Address</label>
+      </div>
+    </div>
+
+    <!--Row 3-->
+    <div class="row col l12 valign">
+      <div class="text-field col l3 m3 s3 valign">
+        <h6>Office Address</h6>
+      </div>
+      <div class="input-field col l9 m3 s3 valign">
+        <input id="office_address" name="office_address" type="text">
+        <label for="office_address">Office Address</label>
+        </div>
+      </div>
+
+      <!--Row 4-->
+      <div class="row col l12 valign">
+        <div class="input-field col l9 m2 s4 offset-l3 valign">
+          <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500"></textarea>
+          <label for="about_myself">Write a paragraph about yourself</label>
+          </div>
+        </div>
+    </template>
+
+<!-- Credit Card Details for Payment -->
+<template name="profile_payment_details">
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Payment details</h6>
+      </div>
+      <div class="input-field col l3 m3 s3 valign">
+        <input id="card_fullname" name="card_fullname" type="text" >
+        <label for="card_fullname">Full Name on Card</label>
+      </div>
+    <div class="input-field col l2 m3 s3 valign">
+      <input id="card_number" name="card_number" type="text" >
+      <label for="card_number">Card Number</label>
+      </div>
+      <div class="input-field col l1 m2 s2 valign">
+        <select class="material_select" id="card_exp_month">
+          <option value="" disabled selected>MM</option>
+          {{#each month_list}}
+          <option value="{{option}}">{{month}}</option>
+          {{/each}}
+          </select>
+        </div>
+      <div class="input-field col l1 m2 s2 valign">
+        <select class="material_select" id="card_exp_year">
+          <option value="" disabled selected>YYYY</option>
+          {{#each year_list}}
+          <option value="{{option}}">{{year}}</option>
+          {{/each}}
+          </select>
+        </div>
+      <div class="input-field col l2 m4 s4 valign">
+        <input id="cvv_code" name="cvv_code" type="text" >
+        <label for="cvv_code">cvv2/cvc2 code</label>
+        </div>
+    </div>
+</template>
+
+<!-- Template for calling food allergies -->
+<template name="profile_food_allergies">
+  <div class ="row l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Major food allergies</h6>
+      </div>
+    <div class="col l9 valign">
+      {{> food_allergies}}
+      </div>
+    </div>
+</template>
+
+
+<!--Template to call dietary Perference-->
+<template name="profile_dietary_perferences">
+  <div class ="row l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Dietary preferences</h6>
+      </div>
+    <div class="col l9 valign">
+      {{> dietary_preferences}}
+      </div>
+    </div>
+</template>
+
+
+<!-- Template to call bank payable details -->
+<template name="profile_bank_details">
+
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Bank details</h6>
+      </div>
+      <div class="input-field col l3 m3 s3 valign">
+        <input id="bank_fullname" name="bank_fullname" type="text" >
+        <label for="bank_fullname">Account Name</label>
+      </div>
+      <div class="input-field col l4 m6 s6 valign">
+        <select class="material_select" id="bank_name">
+          <option value="" disabled selected>   Bank Name</option>
+          {{#each bank_list}}
+          <option value="{{option}}">{{name}}</option>
+          {{/each}}
+
+        </select>
+        </div>
+  <div class="input-field col l2 m6 s6 valign">
+    <input id="bank_account_no" name="bank_account_no" type="text">
+    <label for="bank_account_no">Account Number</label>
   </div>
-  </div>
-  <div class="row valign">
-  <div class="input-field col l3 m3 s3 -l4 -m2 -s2 valign">
-    <input id="first_name" name="first_name" type="text">
-    <label for="first_name">First Name</label>
-  </div>
-    <div class="input-field col l3 m3 s3 valign">
-    <input id="last_name" name="last_name" type="text">
-    <label for="last_name">Last Name</label>
-  </div>
-  <div class="input-field col l3 m3 s3 valign">
-    <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text">
-    <label for="first_name">Date of birth</label>
-  </div>
-  <div class="col l3 m3 s3 valign">
-  <input class ="with-gap" type="radio" name="gender" value="male" id="male"/>
-  <label for="male">Male </label>
-  <input class ="with-gap" type="radio" name="gender" value="female" id="female"/>
-  <label for="female">Female </label>
-</div>
-</div>
-<div class="input-field col l12 m2 s4 valign">
-  <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500"></textarea>
-  <label for="about_myself">Write a paragraph about yourself</label>
 </div>
 </template>
 
 
-<!-- Template for address-->
+<!--
 <template name="profile_address_details">
   <h6 class="right-align>">Address 1</h6>
 
@@ -172,72 +400,4 @@
   </div>
   </div>
 </template>
-
-<template name="profile_payment_details">
-  <h6>Payment details</h6>
-  <br>
-  <div class = "container">
-
-    <div class="input-field col l3 m3 s3 valign">
-      <input id="card_number" name="card_number" type="text" >
-      <label for="card_number">Card Number</label>
-    </div>
-  <div class="input-field col l3 m3 s3 valign">
-    <input id="card_fullname" name="card_fullname" type="text" >
-    <label for="card_fullname">Full Name on Card</label>
-  </div>
-
-  <div class="row">
-  <div class="col l3 m3 s3" name="card_details" id="card_details">
-    <label for="card_details">Card Expires at</label>
-  </div>
-    <div class="input-field col l2 m2 s2 valign">
-    <select class="material_select" id="card_exp_month">
-      <option value="" disabled selected>MM</option>
-      {{#each month_list}}
-      <option value="{{option}}">{{month}}</option>
-      {{/each}}
-    </select>
-  </div>
-  <div class="input-field col l2 m2 s2 valign">
-      <select class="material_select" id="card_exp_year">
-        <option value="" disabled selected>YYYY</option>
-        {{#each year_list}}
-        <option value="{{option}}">{{year}}</option>
-        {{/each}}
-      </select>
-      </div>
-
-
-      <div class="input-field col l4 m4 s4 valign">
-      <input id="cvv_code" name="cvv_code" type="text" >
-      <label for="cvv_code">cvv2/cvc2 code</label>
-    </div>
-</div>
-</div>
-</template>
-
-<template name="profile_bank_details">
-  <h6>Bank details</h6>
-  <div class="container">
-    <div class="input-field col l6 m6 s6 valign">
-    <input id="bank_fullname" name="bank_fullname" type="text" >
-    <label for="bank_fullname">Full Name on Bank Record</label>
-  </div>
-
-    <div class="col l6 m6 s6 valign">
-      <select class="material_select" id="bank_name">
-        <option value="" disabled selected>   Bank Name</option>
-        {{#each bank_list}}
-        <option value="{{option}}">{{name}}</option>
-        {{/each}}
-
-      </select>
-      </div>
-
-  <div class="input-field col l6 m6 s6 valign">
-    <input id="bank_account_no" name="bank_account_no" type="text">
-    <label for="bank_account_no">Bank Account Number</label>
-  </div>
-</div>
-</template>
+-->
