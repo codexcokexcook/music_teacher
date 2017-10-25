@@ -84,20 +84,23 @@
 
 <!--Template for the personal details-->
 <template name="profile_personal_details">
-  <h6>Your details</h6>
   <!--Row 1-->
-  <div class="row col l12 valign">
+<div class="row col l12 valign">
+  <div class="text-field col l2 m3 s3 valign">
+    <h6>Your details</h6>
+    </div>
+    <div class="col l1">
+      </div>
     <div class="input-field col l2 m2 s2 valign">
         <input id="mobile" name="mobile" type="text">
         <label for="mobile">Mobile no.</label>
-      </div>
-    <div class="col l1">
       </div>
     <div class="input-field col l2 m3 s3 valign">
         <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text">
         <label for="first_name">Date of birth</label>
       </div>
-    <div class="col l3 valign"></div>
+      <div class="col l1">
+        </div>
     <div class="col l2 valign">
         <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male"/>
         <label for="male">Male </label></p>
