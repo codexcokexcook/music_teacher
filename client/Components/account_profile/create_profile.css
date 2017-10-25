@@ -2,25 +2,29 @@
   height: 45vh;
   z-index:-1;
   width: 100%;
-  background-size: 1500px 500px;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
-.profile_circle_base {
+.profile_upload_wrapper {
     border-radius: 50%;
     width: 125px;
     height: 125px;
-  /**  border: 1px solid grey;**/
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /** border: 1px solid grey; **/
     margin: auto;
-    z-index:0;
+    z-index:1;
 }
 
-.profile_circle_base img {
+/**.profile_circle_base img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 50%;
     z-index:1;
-}
+}**/
 
 .profile_icon_img_upload {
     display: block;
@@ -28,11 +32,6 @@
     width: 125px;
     z-index:1;
 
-}
-
-.profile_img_preloader {
-    margin:36.5%;
-    z-index:1;
 }
 
 .profile_icon {
