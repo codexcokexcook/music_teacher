@@ -36,12 +36,12 @@ Template.create_profile.onRendered(function() {
   Session.keys = {};
 })
 
-Template.foodie_profile_banner.onCreated(function () {
+Template.profile_banner.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
 });
 
 
-Template.foodie_profile_banner.onRendered(function(){
+Template.profile_banner.onRendered(function(){
   var check_profile_banner = profile_images.findOne({
     "userId": Meteor.userId(),
     "meta": {"purpose": "banner_picture"}
@@ -55,7 +55,7 @@ Template.foodie_profile_banner.onRendered(function(){
   }
 });
 
-Template.foodie_profile_banner.helpers({
+Template.profile_banner.helpers({
   currentUpload() {
     return Template.instance().currentUpload.get();
   },
@@ -82,7 +82,7 @@ Template.foodie_profile_banner.helpers({
   }
 });
 
-Template.foodie_profile_banner.events({
+Template.profile_banner.events({
   'click #banner_file_input': function(){
     Meteor.call('profile_images.remove');
   },
