@@ -1,3 +1,4 @@
+<!-- Template for foodie Profile-->
 <template name = "create_foodie_profile">
     <form class ="create_foodie_profile" id="create_foodie_profile">
       {{>foodie_profile_banner}}
@@ -13,15 +14,24 @@
       {{>profile_dietary_perferences}}
       <br>
       <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
-      <button class="waves-effect waves-teal btn-flat right" type="button" value="Preview">Preview</button>
+      <a class="waves-effect waves-teal btn-flat right modal-trigger" href="#foodie_profile_card">Preview</a>
       <br>
       <br>
       </div>
       <br>
       <br>
+      <div id='foodie_profile_card' class='modal'>
+        <div class ="modal-content">
+          {{>foodie_profile_card}}
+        </div>
+        </div>
     </form>
+
+
 </template>
 
+
+<!-- Template for homecook Profile-->
 <template name = "create_homecook_profile">
   <form class ="create_homecook_profile" id="create_homecook_profile">
     {{>homecook_profile_banner}}
@@ -34,12 +44,17 @@
     <br>
     <br>
     <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
-    <button class="waves-effect waves-teal btn-flat right" type="button" value="Preview">Preview</button>
+    <a class="waves-effect waves-teal btn-flat right modal-trigger" href="#homecook_profile_card">Preview</a>
     <br>
     <br>
     </div>
     <br>
     <br>
+    <div id='foodie_profile_card' class='modal'>
+      <div class ="modal-content">
+        {{>foodie_profile_card}}
+      </div>
+      </div>
   </form>
 </template>
 
@@ -49,7 +64,23 @@
 
 <!--Template of the kitchen details-->
 <template name="profile_kitchen_details">
-</template>
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Kitchen Address</h6>
+    </div>
+    <div class="input-field col l9 m3 s3 valign">
+      <input id="kitchen_address" name="kitchen_address" type="text">
+      <label for="kitchen_address">Kitchen Address</label>
+      </div>
+    </div>
+    <div class="row col l12 valign">
+      <div class="input-field col l9 m2 s4 offset-l3 valign">
+        <textarea id="about_homecook_myself" class="materialize-textarea" name="about_homecook_myself" type="text" data-length="500"></textarea>
+        <label for="about_homecook_myself">Write a paragraph about your food and the story about you</label>
+        </div>
+      </div>
+  </template>
+
 
 
 
@@ -57,9 +88,6 @@
 <!--Template of the foodie profile banner-->
 <template name = "foodie_profile_banner">
   <div class = "profile_banner-area valign-wrapper">
-
-
-
     <div class = "container valign">
     <div class = "profile_circle_base" >
      {{#with currentUpload}}
@@ -92,9 +120,9 @@
      {{/with}}
    </div>
 
-   <div class="col l6 m4 s4 white-text">
+   <div class="input-field col l6 m4 s4 white-text">
        {{#if currentUser.profile.name}}
-        <input id="profile_name" name="profile_name" type="text" style="text-align:center" value="{{currentUser.profile.name}}">
+        <input id="profile_name" name="profile_name" type="text" style="text-align:center" value={{currentUser.profile.name}}>
       {{else}}
         <input id="profile_name" name="profile_name" type="text" style="text-align:center" placeholder="Please enter your name">
       {{/if}}
@@ -112,20 +140,15 @@
 <template name="profile_personal_details">
   <!--Row 1-->
 <div class="row col l12 valign">
-  <div class="text-field col l2 m3 s3 valign">
+  <div class="text-field col l3 m3 s3 valign">
     <h6>Your details</h6>
     </div>
-    <div class="col l1">
-      </div>
     <div class="text-field col l2 m2 s2 valign">
         <input id="mobile" name="mobile" type="text" placeholder="Mobile no.">
       </div>
     <div class="text-field col l2 m3 s3 valign">
         <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text" placeholder="Date of birth">
-
       </div>
-      <div class="col l1">
-        </div>
     <div class="text-field col l2 valign">
         <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male"/>
         <label for="male">Male </label></p>
@@ -138,11 +161,9 @@
 
     <!--Row 2-->
   <div class="row col l12 valign">
-    <div class="text-field col l2 m3 s3 valign">
+    <div class="text-field col l3 m3 s3 valign">
       <h6>Home Address</h6>
     </div>
-    <div class="col l1">
-      </div>
     <div class="input-field col l9 m3 s3 valign">
       <input id="home_address" name="home_address" type="text">
       <label for="home_address">Home Address</label>
@@ -151,11 +172,9 @@
 
     <!--Row 3-->
     <div class="row col l12 valign">
-      <div class="text-field col l2 m3 s3 valign">
+      <div class="text-field col l3 m3 s3 valign">
         <h6>Office Address</h6>
       </div>
-      <div class="col l1">
-        </div>
       <div class="input-field col l9 m3 s3 valign">
         <input id="office_address" name="office_address" type="text">
         <label for="office_address">Office Address</label>
@@ -174,10 +193,8 @@
 <!-- Credit Card Details for Payment -->
 <template name="profile_payment_details">
   <div class="row col l12 valign">
-    <div class="text-field col l2 m3 s3 valign">
+    <div class="text-field col l3 m3 s3 valign">
       <h6>Payment details</h6>
-      </div>
-    <div class="col l1">
       </div>
       <div class="input-field col l3 m3 s3 valign">
         <input id="card_fullname" name="card_fullname" type="text" >
@@ -213,10 +230,9 @@
 <!-- Template for calling food allergies -->
 <template name="profile_food_allergies">
   <div class ="row l12 valign">
-    <div class="text-field col l2 m3 s3 valign">
+    <div class="text-field col l3 m3 s3 valign">
       <h6>Major food allergies</h6>
       </div>
-    <div class="col l1 valign"></div>
     <div class="col l9 valign">
       {{> food_allergies}}
       </div>
@@ -227,10 +243,9 @@
 <!--Template to call dietary Perference-->
 <template name="profile_dietary_perferences">
   <div class ="row l12 valign">
-    <div class="text-field col l2 m3 s3 valign">
+    <div class="text-field col l3 m3 s3 valign">
       <h6>Dietary preferences</h6>
       </div>
-    <div class="col l1 valign"></div>
     <div class="col l9 valign">
       {{> dietary_preferences}}
       </div>
@@ -240,26 +255,27 @@
 
 <!-- Template to call bank payable details -->
 <template name="profile_bank_details">
-  <h6>Bank details</h6>
-  <div class="container">
-    <div class="input-field col l6 m6 s6 valign">
-    <input id="bank_fullname" name="bank_fullname" type="text" >
-    <label for="bank_fullname">Full Name on Bank Record</label>
-  </div>
 
-    <div class="col l6 m6 s6 valign">
-      <select class="material_select" id="bank_name">
-        <option value="" disabled selected>   Bank Name</option>
-        {{#each bank_list}}
-        <option value="{{option}}">{{name}}</option>
-        {{/each}}
-
-      </select>
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m3 s3 valign">
+      <h6>Bank details</h6>
       </div>
+      <div class="input-field col l3 m3 s3 valign">
+        <input id="bank_fullname" name="bank_fullname" type="text" >
+        <label for="bank_fullname">Account Name</label>
+      </div>
+      <div class="input-field col l4 m6 s6 valign">
+        <select class="material_select" id="bank_name">
+          <option value="" disabled selected>   Bank Name</option>
+          {{#each bank_list}}
+          <option value="{{option}}">{{name}}</option>
+          {{/each}}
 
-  <div class="input-field col l6 m6 s6 valign">
+        </select>
+        </div>
+  <div class="input-field col l2 m6 s6 valign">
     <input id="bank_account_no" name="bank_account_no" type="text">
-    <label for="bank_account_no">Bank Account Number</label>
+    <label for="bank_account_no">Account Number</label>
   </div>
 </div>
 </template>
