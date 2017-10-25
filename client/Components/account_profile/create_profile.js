@@ -31,12 +31,27 @@ Meteor.subscribe('files.profile_images.all');
 
 Session.keys = {}
 
-
-
 /** function from ostrio **/
+Template.create_profile.onRendered(function() {
+  Session.keys = {};
+})
 
 Template.profile_banner.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
+});
+
+Template.profile_banner.onRendered(function(){
+  var check_profile_banner = profile_images.findOne({
+    "userId": Meteor.userId(),
+    "meta": {"purpose": "banner_picture"}
+  });
+  if (check_profile_banner) {
+    var banner_url = "/profile_upload/" + check_profile_banner._id + check_profile_banner.extensionWithDot;
+    $(".profile_banner_area").css("background-image", "url("+ banner_url +")");
+    $("#banner_upload_button").text("Change Banner Image");
+  } else {
+    $(".profile_banner_area").css("background-color", "#E57373");
+  }
 });
 
 Template.profile_banner.helpers({
@@ -45,22 +60,101 @@ Template.profile_banner.helpers({
   },
 
   checkUpload() {
-     return Session.get('profile_image_id');
+     return Session.get('banner_image_id');
   },
-
+  load_banner: function() {
+    var banner_id = Session.get('banner_image_id');
+    var banner_id_location = profile_images.findOne({"_id": banner_id});
+    banner_url = "/profile_upload/" + banner_id_location._id + banner_id_location.extensionWithDot;
+    $(".profile_banner_area").css("background-color","");
+    $(".profile_banner_area").css("background-image", "url("+ banner_url +")");
+  },
   imageFile() {
-      var profile_image_id = Session.get('profile_image_id');
-      var profile_image_location = profile_images.findOne({"_id": profile_image_id});
-      var profile_image_extension = profile_image_location && profile_image_location.extensionWithDot;
+      var banner_image_id = Session.get('banner_image_id');
+      var banner_image_location = profile_images.findOne({"_id": banner_image_id});
+      var banner_image_extension = banner_image_location && banner_image_location.extensionWithDot;
       /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
       /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
-      var profile_ul_location = profile_image_id + profile_image_extension;
+      var banner_ul_location = banner_image_id + banner_image_extension;
 
-      return profile_ul_location;
+      return banner_ul_location;
   }
 });
 
 Template.profile_banner.events({
+  'click #banner_file_input': function(){
+    Meteor.call('profile_images.remove');
+  },
+  'change #banner_file_input'(e, template) {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case
+      // multiple files were selected
+      const upload = profile_images.insert({
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic',
+        meta:{
+          purpose: "banner_picture"
+        }
+      }, false);
+
+      upload.on('start', function () {
+        template.currentUpload.set(this);
+      });
+
+      upload.on('end', function (error, profile_images) {
+        if (error) {
+          alert('Error during upload: ' + error);
+        } else {
+          Meteor.setTimeout(get_banner_image_id,5000);
+          /** Setup a delay of 100msec to ensure image is in place
+          before session getting the image id and return to html
+          to ensure the image is ready to display when image_id is returned.
+          by doind this, I can stop meteor from reload the entire page to
+          retrieve the image file **/
+          /** There is a different time delay required for different browsers:
+          For Chrome, we were able to display image with 100ms delay,
+          for safari, it only worked with 2000ms delay. **/
+          function get_banner_image_id() {
+            return Session.set('banner_image_id', profile_images._id);
+          }
+        /** above is the line that prevents meteor from reloading **/
+        }
+        Meteor._reload.onMigrate(function () {
+          return [false];
+        });
+        template.currentUpload.set(false);
+      });
+      upload.start();
+    }
+  }
+});
+
+Template.upload_profile.onCreated(function () {
+  this.currentUpload = new ReactiveVar(false);
+});
+
+Template.upload_profile.helpers({
+  currentUpload() {
+    return Template.instance().currentUpload.get();
+  },
+
+  checkUpload: function() {
+    var check_profile_picture = profile_images.findOne({
+      "userId": Meteor.userId(),
+      "meta": {"purpose": "profile_picture"}
+    });
+    return check_profile_picture;
+  },
+
+  load_profile: function() {
+    var profile_id_location = profile_images.findOne({"userId": Meteor.userId()});
+    profile_url = "/profile_upload/" + profile_id_location._id + profile_id_location.extensionWithDot;
+    return profile_url;
+  }
+});
+
+Template.upload_profile.events({
   'change #file_input'(e, template) {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
@@ -78,11 +172,11 @@ Template.profile_banner.events({
         template.currentUpload.set(this);
       });
 
-      upload.on('end', function (error, Images) {
+      upload.on('end', function (error, profile_images) {
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-            Meteor.setTimeout(get_profile_image_id,4000);
+            Meteor.setTimeout(get_profile_image_id,3000);
             /** Setup a delay of 100msec to ensure image is in place
             before session getting the image id and return to html
             to ensure the image is ready to display when image_id is returned.
@@ -101,15 +195,10 @@ Template.profile_banner.events({
         });
         template.currentUpload.set(false);
       });
-
       upload.start();
     }
   }
 });
-
-
-
-
 
 Template.create_profile.events({
 
@@ -138,35 +227,30 @@ Template.create_profile.events({
     const bank_fullname = trimInput(event.target.bank_fullname.value);
     const bank_name = trimInput(event.target.mobile_no_2.value);
     const bank_account_no = trimInput(event.target.bank_account_no.value);
-
-
     const user_id = Meteor.userId()
 
-
-
-      if( isNotEmpty(kitchen_name)           &&
-          isNotEmpty(profile_keywords)       &&
+      if( //isNotEmpty(kitchen_name)           &&
+          //isNotEmpty(profile_keywords)       &&
           isNotEmpty(last_name)              &&
-          isNotEmpty(first_name)             &&
-          isNotEmpty(date_of_birth)          &&
-          isNotEmpty(gender)                 &&
-          isNotEmpty(about_myself)           &&
-          isNotEmpty(address_name_1)         &&
-          isNotEmpty(address_details_1)      &&
-          isNotEmpty(mobile_no_1)            &&
-          isNotEmpty(address_name_2)         &&
-          isNotEmpty(address_details_2)      &&
-          isNotEmpty(mobile_no_2)            &&
-          isNotEmpty(card_number)            &&
-          isNotEmpty(card_fullname)          &&
-          isNotEmpty(card_exp_month)         &&
-          isNotEmpty(card_exp_year)          &&
-          isNotEmpty(cvv_code)               &&
-          isNotEmpty(bank_fullname)          &&
-          isNotEmpty(bank_name)              &&
-          isNotEmpty(bank_account_no)           )
-
-          {
+          isNotEmpty(first_name)
+          //isNotEmpty(date_of_birth)          &&
+          //isNotEmpty(gender)                 &&
+          //isNotEmpty(about_myself)           &&
+          //isNotEmpty(address_name_1)         &&
+          //isNotEmpty(address_details_1)      &&
+          //isNotEmpty(mobile_no_1)            &&
+          //isNotEmpty(address_name_2)         &&
+          //isNotEmpty(address_details_2)      &&
+          //isNotEmpty(mobile_no_2)            &&
+          //isNotEmpty(card_number)            &&
+          //isNotEmpty(card_fullname)          &&
+          //isNotEmpty(card_exp_month)         &&
+          //isNotEmpty(card_exp_year)          &&
+          //isNotEmpty(cvv_code)               &&
+          //isNotEmpty(bank_fullname)          &&
+          //isNotEmpty(bank_name)              &&
+          //isNotEmpty(bank_account_no)
+        )  {
             Meteor.call('profile_details.insert',
             user_id,
             first_name,
@@ -202,13 +286,11 @@ Template.create_profile.events({
             bank_name,
             bank_account_no);
 
-
     //divert to the profile page
     Blaze.render(Template.profile_card, document.getElementById('profile'));
     Blaze.remove(Template.instance().view);
 
-      }
-      else{
+      } else {
       return false;
     }
   }
@@ -263,9 +345,6 @@ Template.create_profile.events({
       return true;
   }
 
-
-
-
 Template.create_profile.onRendered(function(){
 /**
   //activate datepicker
@@ -286,9 +365,6 @@ Template.create_profile.onRendered(function(){
 
   //activate characterCounter
   this.$('input#input_text, textarea#about_myself').characterCounter();
-
-
-
 });
 
 Template.profile_bank_details.helpers ({
@@ -316,7 +392,6 @@ Template.profile_bank_details.helpers ({
     { name: '   250 - CitiBank (Hong Kong)', option: '21'},
   ],
 });
-
 
 Template.profile_payment_details.helpers ({
   month_list:[

@@ -1,132 +1,104 @@
 <template name = "create_profile">
-
-
-    <form class ="create_profile" id="create_profile">
-      {{>profile_banner}}
-      <div class = "container">
-      <br>
+  <form class ="create_profile" id="create_profile">
+    {{>profile_banner}}
+    <br>
+    <div class = "container">
       {{>profile_personal_details}}
-      <br>
-      <br>
       {{>profile_address_details}}
-      <br>
-      <br>
       <h6>Major food allergies</h6>
-      <br>
-      {{> food_allergies}}
-      <br>
-      <br>
+        {{> food_allergies}}
       <h6>Dietary preferences</h6>
-      <br>
-      {{> dietary_preferences}}
-      <br>
-      <br>
-      {{>profile_payment_details}}
-      <br>
-      <br>
-      {{>profile_bank_details}}
-      <br>
-      <br>
+        {{> dietary_preferences}}
+        {{>profile_payment_details}}
+        {{>profile_bank_details}}
       <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
-      <br>
-      <br>
-      </div>
-      <br>
-      <br>
-    </form>
-
+    </div>
+  </form>
 </template>
-
 
 <!--Template of the profile banner-->
 <template name = "profile_banner">
-  <div class = "profile_banner-area valign-wrapper">
-
-
-
-    <div class = "container valign">
-    <div class = "profile_circle_base" >
-     {{#with currentUpload}}
-             <div class="preloader-wrapper big active profile_img_preloader center">
-               <div class="spinner-layer spinner-red-only">
-                 <div class="circle-clipper left">
-                   <div class="circle"></div>
-                 </div><div class="gap-patch">
-                   <div class="circle"></div>
-                 </div><div class="circle-clipper right">
-                   <div class="circle"></div>
-                 </div>
-               </div>
-             </div>
-     {{else}}
-           {{#if checkUpload}}
-               <img src= "profile_upload/{{imageFile}}" />
-           {{else}}
-               <div class = "profile_image_upload">
-                   <label for = "file_input">
-                       <img class="profile_icon_img_upload" src="img_upload_icon.svg" />
-                   </label>
-                   <div class="file-field input-field">
-                       <input id="file_input" type="file">
-                     <div class="file-path-wrapper">
-                     </div>
-                   </div>
-               </div>
-           {{/if}}
-     {{/with}}
-   </div>
-
-   <div class="col l12 m4 s4 valign">
-     <h5 class = "white-text center-align">
-       {{#if currentUser.profile.first_name}}
-        {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
-      {{else}}
-        {{currentUser.profile.name}}
-      {{/if}}
-      </h5>
-  </div>
-
-  <div class="input-field col l6 m4 s4 valign">
-    <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
-  </div>
-
-  <div class="row upload_banner_image">
-    <h6 class = "white-text center-align">Upload Banner Image</h6>
-  </div>
-  </div>
+    <div class = "profile_banner_area valign-wrapper">
+      <div class = "container valign">
+        {{> upload_profile}}
+       <div class="col l12 m4 s4 valign">
+         <h5 class = "white-text center-align">
+           {{#if currentUser.profile.first_name}}
+            {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
+          {{else}}
+            {{currentUser.profile.name}}
+          {{/if}}
+          </h5>
+      </div>
+      <div class="input-field col l6 m4 s4 valign">
+        <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
+      </div>
+      <div class="row upload_banner_image">
+        {{#with currentUpload}}
+          <div class = "profile_banner_upload">
+            {{> spinner}}
+          </div>
+        {{else}}
+          {{#if checkUpload}}
+            {{load_banner}}
+            <div class="profile_banner_upload">
+              <label for="banner_file_input">
+                <h6 class = "white-text center-align" id="banner_upload_button">Change Banner Image</h6>
+              </label>
+              <div class="file-field input-field">
+                <input id="banner_file_input" type="file">
+              <div class="file-path-wrapper">
+              </div>
+            </div>
+          </div>
+          {{else}}
+            <div class="profile_banner_upload">
+              <label for="banner_file_input">
+                <h6 class = "white-text center-align" id="banner_upload_button">Upload Banner Image</h6>
+              </label>
+              <div class="file-field input-field">
+                <input id="banner_file_input" type="file">
+                <div class="file-path-wrapper">
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        {{/with}}
+      </div>
+    </div>
   </div>
 </template>
 
-
+<template name="upload_profile">
+  <div class = "profile_upload_wrapper">
+    {{#with currentUpload}}
+     {{> spinner}}
+    {{else}}
+      {{#with checkUpload}}
+        <div class = "profile_upload_wrapper" style="background-image: url({{load_profile}})"></div>
+      {{else}}
+        <div class = "profile_image_upload">
+          <label for = "file_input">
+            <img class="profile_icon_img_upload" src="/img_upload_icon.svg" />
+          </label>
+          <div class="file-field input-field">
+            <input id="file_input" type="file">
+            <div class="file-path-wrapper">
+            </div>
+          </div>
+        </div>
+      {{/with}}
+    {{/with}}
+  </div>
+</template>
 <!--Template for the personal details-->
 <template name="profile_personal_details">
-  <h6>Your details</h6>
-  <!--Row 1-->
-  <div class="row col l12 valign">
-    <div class="input-field col l2 m2 s2 valign">
-        <input id="mobile" name="mobile" type="text">
-        <label for="mobile">Mobile no.</label>
-      </div>
-    <div class="col l1">
-      </div>
-    <div class="input-field col l3 m3 s3 valign">
-        <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text">
-        <label for="first_name">Date of birth</label>
-      </div>
-    <div class="col l1">
-      </div>
-    <div class="gender">
-      <div class="col l2 m3 s3 valign">
-          <input class ="with-gap" type="radio" name="gender" value="male" id="male"/>
-          <label for="male">Male </label>
-        </div>
-      <div class="col l2 m3 s3 valign">
-          <input class ="with-gap" type="radio" name="gender" value="female" id="female"/>
-          <label for="female">Female </label>
-        </div>
-      </div>
-    </div>
-
+  <div class="row valign">
+  <div class="input-field col l12 m12 s12 valign">
+    <input id="kitchen_name" name="kitchen_name" type="text">
+    <label for="kitchen_name">Kitchen name</label>
+  </div>
+  </div>
   <div class="row valign">
   <div class="input-field col l3 m3 s3 -l4 -m2 -s2 valign">
     <input id="first_name" name="first_name" type="text">
@@ -136,8 +108,16 @@
     <input id="last_name" name="last_name" type="text">
     <label for="last_name">Last Name</label>
   </div>
-
-
+  <div class="input-field col l3 m3 s3 valign">
+    <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text">
+    <label for="first_name">Date of birth</label>
+  </div>
+  <div class="col l3 m3 s3 valign">
+  <input class ="with-gap" type="radio" name="gender" value="male" id="male"/>
+  <label for="male">Male </label>
+  <input class ="with-gap" type="radio" name="gender" value="female" id="female"/>
+  <label for="female">Female </label>
+</div>
 </div>
 <div class="input-field col l12 m2 s4 valign">
   <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500"></textarea>

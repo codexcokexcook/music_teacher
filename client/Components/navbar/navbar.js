@@ -100,6 +100,7 @@ Template.bp_navbar.onRendered(function(){
    },
    'click #logout_link': function () {
      Meteor.call('messages.clear',Meteor.userId());
+     Session.keys = {}
      Meteor.logout();
      FlowRouter.go('/');
    }
