@@ -10,7 +10,7 @@
     </div>
            <!--Search Bar-->
 
-        <form class="nav_search_bar col l8 m6 s6">
+        <form class="nav_search_bar col l9 m6 s6">
           <div class="input-field grey-text col l3 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class=“material_select” id=“search_by_place”>
@@ -49,19 +49,23 @@
     </form>
 <!--Example
         <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li> -->
-        <div calss='right'>
 
-
+          <div class="col l1 m6 s6">
+            <div calss='right'>
         <a href="shopping_cart" ><img src='/navbar/OrderDish.svg' height="40" class='navbar_logo'/></a>
+      </div>
+      </div>
+      <div class="col l1 m6 s6">
+        <div calss='right'>
         <a class="dropdown-button" href="" data-activates="profile_dropdown">
           {{#if profile_images 'profile_picture'}}
             <img class="circle navbar_logo" height='40' src="/profile_upload/{{profile_images 'profile_picture'}}"/>
           {{else}}
-            <img src="/user_avatar.svg" class="circle navbar_logo" height='40'/>
+            <img src="/profile_upload/user.jpg" class="circle navbar_logo" height='40'/>
             {{/if}}
           </a>
           </div>
-          
+          </div>
         </div>
     </nav>
 </div>
