@@ -92,15 +92,15 @@
       {{>profile_dietary_perferences}}
       <br>
       <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
-      <a class="waves-effect waves-teal btn-flat right modal-trigger" href="#foodie_profile_card">Preview</a>
+      <a class="waves-effect waves-teal btn-flat right modal-trigger" href="#preview_foodie_profile">Preview</a>
       <br>
       <br>
       </div>
       <br>
       <br>
-      <div id='foodie_profile_card' class='modal'>
+      <div id='preview_foodie_profile' class='modal'>
         <div class ="modal-content">
-          {{>foodie_profile_card}}
+          {{> foodie_profile_card}}
         </div>
         </div>
     </form>
@@ -127,7 +127,9 @@
     <br>
     <div id='foodie_profile_card' class='modal'>
       <div class ="modal-content">
+
         {{>foodie_profile_card}}
+
       </div>
       </div>
   </form>
