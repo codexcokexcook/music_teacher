@@ -14,6 +14,11 @@ Template.screen.onRendered(function(){
   } else {
     FlowRouter.go('/');
   }
+
+
+
+
+
 });
 
 Template.msgDialog_content.onRendered(function () {

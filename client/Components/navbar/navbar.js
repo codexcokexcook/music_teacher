@@ -5,9 +5,13 @@ import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 
 
+
+
+
 Template.bp_navbar.onRendered(function(){
   //activate dropdown
   this.$('select').material_select();
+
   //dropdown options
   this.$('.dropdown-button').dropdown({
      inDuration: 300,
