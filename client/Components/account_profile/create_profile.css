@@ -1,7 +1,7 @@
 .profile_banner_area {
   height: 45vh;
   z-index:-1;
-  width: 100%;
+  width: 100vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

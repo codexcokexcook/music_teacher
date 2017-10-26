@@ -356,7 +356,7 @@ Template.create_foodie_profile.onRendered(function(){
 
   //activate datepicker
     this.$('.datepicker').pickadate({
-    selectMonths: 15, // Creates a dropdown to control month
+    selectMonths: 12, // Creates a dropdown to control month
     selectYears: 150, // Creates a dropdown of 15 years to control year,
     today: 'TODAY',
     clear: 'Clear',
