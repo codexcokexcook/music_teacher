@@ -12,10 +12,10 @@ Template.profile.onRendered(function(){
   var data_2 = profile_images.find({'user_id': Meteor.userId()});
   if(data.count()){
 
-    Blaze.render(Template.foodie_profile_card, document.getElementById('profile'));
+    Blaze.render(Template.profile_card, document.getElementById('profile'));
   }
   else {
-    Blaze.render(Template.create_foodie_profile, document.getElementById('profile'));
+    Blaze.render(Template.create_profile, document.getElementById('profile'));
   }
 
 

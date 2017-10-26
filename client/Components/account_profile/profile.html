@@ -17,10 +17,11 @@
 </template>
 
 
-<template name='edit_profile'>
+<template name='profile_card'>
+    <br>
   {{>foodie_homecook_tab}}
   <div id="foodie" class="col l12">
-      {{>create_foodie_profile}}
+      {{>foodie_profile_card}}
   </div>
   <div id="homecook" class="col l12">
       {{>create_homecook_profile}}
@@ -29,7 +30,7 @@
 
 <template name='foodie_homecook_tab'>
 
-<div class="row col l10 offset-l1">
+<div class="row col l12s">
   <ul class="tabs">
     <li class="tab col l2"><a class="active" href="#foodie">FOODIE</a></li>
     <li class="tab col l2"><a href="#homecook">HOMECOOK</a></li>
