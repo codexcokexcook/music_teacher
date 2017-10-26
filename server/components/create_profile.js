@@ -25,8 +25,8 @@ Meteor.publish('files.profile_images.all', function () {
 });
 
 Meteor.methods({
-  'profile_images.remove'(){
-    profile_images.remove({userId: Meteor.userId(),meta:{purpose: "banner_picture"}});
+  'profile_images.remove'(purpose){
+    profile_images.remove({userId: Meteor.userId(),meta:{purpose: purpose}});
   },
 
   'profile_details.insert'(

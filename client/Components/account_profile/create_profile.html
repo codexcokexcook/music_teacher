@@ -18,7 +18,9 @@
       <div class="row upload_banner_image">
         {{#with currentUpload}}
           <div class = "profile_banner_upload">
-            {{> spinner}}
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
           </div>
         {{else}}
           {{#if checkUpload}}
@@ -102,10 +104,7 @@
         </div>
         </div>
     </form>
-
-
 </template>
-
 
 <!-- Template for homecook Profile-->
 <template name = "create_homecook_profile">
@@ -136,6 +135,80 @@
 
 <!--Template of the homecook profile banner-->
 <template name="homecook_profile_banner">
+  <div class = "homecook_profile_banner_area valign-wrapper">
+    <div class = "container valign">
+      {{> upload_homecook_profile}}
+     <div class="col l12 m4 s4 valign">
+       <h5 class = "white-text center-align">
+         {{#if currentUser.profile.first_name}}
+          {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
+        {{else}}
+          {{currentUser.profile.name}}
+        {{/if}}
+        </h5>
+    </div>
+    <div class="input-field col l6 m4 s4 valign">
+      <input id="homecook_profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
+    </div>
+    <div class="row upload_banner_image">
+      {{#with currentUpload}}
+        <div class = "homecook_profile_banner_upload">
+          <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+        </div>
+      {{else}}
+        {{#if checkUpload}}
+          {{load_banner}}
+          <div class="homecook_profile_banner_upload">
+            <label for="homecook_banner_file_input">
+              <h6 class = "white-text center-align" id="homecook_banner_upload_button">Change Banner Image</h6>
+            </label>
+            <div class="file-field input-field">
+              <input id="homecook_banner_file_input" type="file">
+            <div class="file-path-wrapper">
+            </div>
+          </div>
+        </div>
+        {{else}}
+          <div class="homecook_profile_banner_upload">
+            <label for="homecook_banner_file_input">
+              <h6 class = "white-text center-align" id="homecook_banner_upload_button">Upload Banner Image</h6>
+            </label>
+            <div class="file-field input-field">
+              <input id="homecook_banner_file_input" type="file">
+              <div class="file-path-wrapper">
+              </div>
+            </div>
+          </div>
+        {{/if}}
+      {{/with}}
+    </div>
+  </div>
+</div>
+</template>
+
+<template name="upload_homecook_profile">
+  <div class = "homecook_profile_upload_wrapper">
+    {{#with currentUpload}}
+     {{> spinner}}
+    {{else}}
+      {{#with checkUpload}}
+        <div class = "profile_upload_wrapper" style="background-image: url({{load_profile}})"></div>
+      {{else}}
+        <div class = "profile_image_upload">
+          <label for = "homecook_file_input">
+            <img class="homecook_profile_icon_img_upload" src="/img_upload_icon.svg" />
+          </label>
+          <div class="file-field input-field">
+            <input id="homecook_file_input" type="file">
+            <div class="file-path-wrapper">
+            </div>
+          </div>
+        </div>
+      {{/with}}
+    {{/with}}
+  </div>
 </template>
 
 <!--Template of the kitchen details-->
@@ -157,59 +230,6 @@
       </div>
   </template>
 
-
-
-
-
-<!--Template of the foodie profile banner-->
-<template name = "foodie_profile_banner">
-  <div class = "profile_banner-area valign-wrapper">
-    <div class = "container valign">
-    <div class = "profile_circle_base" >
-     {{#with currentUpload}}
-             <div class="preloader-wrapper big active profile_img_preloader center">
-               <div class="spinner-layer spinner-red-only">
-                 <div class="circle-clipper left">
-                   <div class="circle"></div>
-                 </div><div class="gap-patch">
-                   <div class="circle"></div>
-                 </div><div class="circle-clipper right">
-                   <div class="circle"></div>
-                 </div>
-               </div>
-             </div>
-     {{else}}
-           {{#if checkUpload}}
-               <img src= "profile_upload/{{imageFile}}" />
-           {{else}}
-               <div class = "profile_image_upload">
-                   <label for = "file_input">
-                       <img class="profile_icon_img_upload" src="img_upload_icon.svg" />
-                   </label>
-                   <div class="file-field input-field">
-                       <input id="file_input" type="file">
-                     <div class="file-path-wrapper">
-                     </div>
-                   </div>
-               </div>
-           {{/if}}
-     {{/with}}
-   </div>
-
-   <div class="input-field col l6 m4 s4 white-text">
-       {{#if currentUser.profile.name}}
-        <input id="profile_name" name="profile_name" type="text" style="text-align:center" value={{currentUser.profile.name}}>
-      {{else}}
-        <input id="profile_name" name="profile_name" type="text" style="text-align:center" placeholder="Please enter your name">
-      {{/if}}
-    </div>
-    <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
-  <div class="row upload_banner_image">
-    <h6 class = "white-text center-align">Upload Banner Image</h6>
-  </div>
-  </div>
-  </div>
-</template>
 <!--Template for the personal details-->
 <template name="profile_personal_details">
   <!--Row 1-->
@@ -312,7 +332,6 @@
       </div>
     </div>
 </template>
-
 
 <!--Template to call dietary Perference-->
 <template name="profile_dietary_perferences">

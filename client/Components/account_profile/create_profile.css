@@ -1,5 +1,6 @@
 .profile_banner_area {
   height: 45vh;
+  min-height: 375px;
   z-index:-1;
   width: 100%;
   background-size: cover;
@@ -19,14 +20,45 @@
     z-index:1;
 }
 
-/**.profile_circle_base img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 50%;
-    z-index:1;
-}**/
-
 .profile_icon_img_upload {
+    display: block;
+    height: 125px;
+    width: 125px;
+    z-index:1;
+
+}
+
+.profile_icon {
+    height: 125px;
+    width: 125px;
+    display: inline-block;
+    float: right;
+    z-index:1;
+}
+
+.homecook_profile_banner_area {
+  height: 45vh;
+  min-height: 375px;
+  z-index:-1;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.homecook_profile_upload_wrapper {
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /** border: 1px solid grey; **/
+    margin: auto;
+    z-index:1;
+}
+
+.homecook_profile_icon_img_upload {
     display: block;
     height: 125px;
     width: 125px;

@@ -16,22 +16,6 @@ Template.screen.onRendered(function(){
   }
 });
 
-Template.msgDialog_navbar.events({
-  'click .brand-logo': function(){
-    Meteor.call('messages.clear', Meteor.userId());
-    console.log("Logout");
-    Meteor.logout(function(err){
-      if (err) {
-        Bert.alert(err.reason, "danger", "growl-top-right");
-      } else {
-        Session.clear();
-        FlowRouter.go('/');
-        Bert.alert("you are now logged out", "success", "growl-top-right");
-      }
-    });
-  }
-});
-
 Template.msgDialog_content.onRendered(function () {
   Meteor.setTimeout(function() {
     var message_window = $("#messages_wrap").height();
