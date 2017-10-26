@@ -21,7 +21,7 @@ Template.bp_navbar.onRendered(function(){
      gutter: 0, // Spacing from edge
      belowOrigin: true, // Displays dropdown below the button
      alignment: 'left', // Displays dropdown with edge aligned to the left of button
-     stopPropagation: false // Stops event propagation
+     stopPropagation: true // Stops event propagation
    }
  );
 
@@ -37,8 +37,8 @@ Template.bp_navbar.onRendered(function(){
 
     //activate datepicker
   this.$('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
+      selectMonths: false, // Creates a dropdown to control month
+      selectYears: false, // Creates a dropdown of 15 years to control year,
       today: 'Today',
       clear: 'Clear',
       close: 'Ok',
