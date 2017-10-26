@@ -40,7 +40,6 @@ Template.profile_banner.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
 });
 
-
 Template.profile_banner.onRendered(function(){
   var check_profile_banner = profile_images.findOne({
     "userId": Meteor.userId(),
@@ -60,33 +59,30 @@ Template.profile_banner.helpers({
     return Template.instance().currentUpload.get();
   },
 
-  checkUpload() {
-     return Session.get('banner_image_id');
+  checkUpload: function() {
+     var checkupload = profile_images.findOne({userId: Meteor.userId(),meta:{purpose: "banner_picture"}});
+     if (checkupload) {
+       return true;
+     }
   },
   load_banner: function() {
-    var banner_id = Session.get('banner_image_id');
-    var banner_id_location = profile_images.findOne({"_id": banner_id});
-    banner_url = "/profile_upload/" + banner_id_location._id + banner_id_location.extensionWithDot;
+    banner_url = "/profile_upload/" + this._id + this.extensionWithDot;
     $(".profile_banner_area").css("background-color","");
     $(".profile_banner_area").css("background-image", "url("+ banner_url +")");
-  },
-  imageFile() {
-      var banner_image_id = Session.get('banner_image_id');
-      var banner_image_location = profile_images.findOne({"_id": banner_image_id});
-      var banner_image_extension = banner_image_location && banner_image_location.extensionWithDot;
-      /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
-      /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
-      var banner_ul_location = banner_image_id + banner_image_extension;
-
-      return banner_ul_location;
   }
 });
 
 Template.profile_banner.events({
   'click #banner_file_input': function(){
     Meteor.call('profile_images.remove',"banner_picture");
+    Meteor._reload.onMigrate(function () {
+      return [false];
+    });
   },
   'change #banner_file_input'(e, template) {
+    Meteor._reload.onMigrate(function () {
+      return [false];
+    });
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
@@ -107,19 +103,12 @@ Template.profile_banner.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-          Meteor.setTimeout(get_banner_image_id,5000);
-          /** Setup a delay of 100msec to ensure image is in place
-          before session getting the image id and return to html
-          to ensure the image is ready to display when image_id is returned.
-          by doind this, I can stop meteor from reload the entire page to
-          retrieve the image file **/
-          /** There is a different time delay required for different browsers:
-          For Chrome, we were able to display image with 100ms delay,
-          for safari, it only worked with 2000ms delay. **/
-          function get_banner_image_id() {
-            return Session.set('banner_image_id', profile_images._id);
-          }
-        /** above is the line that prevents meteor from reloading **/
+          Meteor.setTimeout(function(){
+            var banner_url = "/profile_upload/" + profile_images._id + profile_images.extensionWithDot;
+            $(".profile_banner_area").css("background-color","");
+            $(".profile_banner_area").css("background-image", "url("+ banner_url +")");
+          },500);
+        /** below is the line that prevents meteor from reloading **/
         }
         Meteor._reload.onMigrate(function () {
           return [false];
@@ -145,7 +134,9 @@ Template.upload_profile.helpers({
       "userId": Meteor.userId(),
       "meta": {"purpose": "profile_picture"}
     });
-    return check_profile_picture;
+    if (check_profile_picture){
+      return true;
+    }
   },
 
   load_profile: function() {
@@ -157,6 +148,9 @@ Template.upload_profile.helpers({
 
 Template.upload_profile.events({
   'change #file_input'(e, template) {
+    Meteor._reload.onMigrate(function () {
+      return [false];
+    });
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
@@ -177,18 +171,11 @@ Template.upload_profile.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-            Meteor.setTimeout(get_profile_image_id,3000);
-            /** Setup a delay of 100msec to ensure image is in place
-            before session getting the image id and return to html
-            to ensure the image is ready to display when image_id is returned.
-            by doind this, I can stop meteor from reload the entire page to
-            retrieve the image file **/
-            /** There is a different time delay required for different browsers:
-            For Chrome, we were able to display image with 100ms delay,
-            for safari, it only worked with 2000ms delay. **/
-            function get_profile_image_id() {
-              return Session.set('profile_image_id', profile_images._id);
-            }
+          Meteor.setTimeout(function(){
+            var profile_url = "/profile_upload/" + profile_images._id + profile_images.extensionWithDot;
+            console.log(profile_url);
+            $(".profile_upload_wrapper").css("background-image", "url("+ profile_url +")");
+          },100);
         /** above is the line that prevents meteor from reloading **/
         }
         Meteor._reload.onMigrate(function () {
@@ -224,34 +211,30 @@ Template.homecook_profile_banner.helpers({
   currentUpload() {
     return Template.instance().currentUpload.get();
   },
-
   checkUpload() {
-     return Session.get('homecook_banner_image_id');
+    var checkupload = profile_images.findOne({userId: Meteor.userId(),meta:{purpose: "banner_picture"}});
+    if (checkupload) {
+      return true;
+    }
   },
   load_banner: function() {
-    var banner_id = Session.get('homecook_banner_image_id');
-    var banner_id_location = profile_images.findOne({"_id": banner_id});
-    banner_url = "/profile_upload/" + banner_id_location._id + banner_id_location.extensionWithDot;
+    banner_url = "/profile_upload/" + this._id + this.extensionWithDot;
     $(".homecook_profile_banner_area").css("background-color","");
     $(".homecook_profile_banner_area").css("background-image", "url("+ banner_url +")");
-  },
-  imageFile() {
-      var banner_image_id = Session.get('homecook_banner_image_id');
-      var banner_image_location = profile_images.findOne({"_id": banner_image_id});
-      var banner_image_extension = banner_image_location && banner_image_location.extensionWithDot;
-      /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
-      /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
-      var banner_ul_location = banner_image_id + banner_image_extension;
-
-      return banner_ul_location;
   }
 });
 
 Template.homecook_profile_banner.events({
   'click #homecook_banner_file_input': function(){
     Meteor.call('profile_images.remove',"homecook_banner_picture");
+    Meteor._reload.onMigrate(function () {
+      return [false];
+    });
   },
   'change #homecook_banner_file_input'(e, template) {
+    Meteor._reload.onMigrate(function () {
+      return [false];
+    });
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
@@ -265,6 +248,9 @@ Template.homecook_profile_banner.events({
       }, false);
 
       upload.on('start', function () {
+        Meteor._reload.onMigrate(function () {
+          return [false];
+        });
         template.currentUpload.set(this);
       });
 
@@ -272,19 +258,11 @@ Template.homecook_profile_banner.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-          Meteor.setTimeout(get_banner_image_id,5000);
-          /** Setup a delay of 100msec to ensure image is in place
-          before session getting the image id and return to html
-          to ensure the image is ready to display when image_id is returned.
-          by doind this, I can stop meteor from reload the entire page to
-          retrieve the image file **/
-          /** There is a different time delay required for different browsers:
-          For Chrome, we were able to display image with 100ms delay,
-          for safari, it only worked with 2000ms delay. **/
-          function get_banner_image_id() {
-            return Session.set('homecook_banner_image_id', profile_images._id);
-          }
-        /** above is the line that prevents meteor from reloading **/
+          Meteor.setTimeout(function(){
+            var banner_url = "/profile_upload/" + profile_images._id + profile_images.extensionWithDot;
+            $(".homecook_profile_banner_area").css("background-color","");
+            $(".homecook_profile_banner_area").css("background-image", "url("+ banner_url +")");
+          },500);
         }
         Meteor._reload.onMigrate(function () {
           return [false];
@@ -310,7 +288,9 @@ Template.upload_homecook_profile.helpers({
       "userId": Meteor.userId(),
       "meta": {"purpose": "homecook_profile_picture"}
     });
-    return check_profile_picture;
+    if (check_profile_picture){
+      return true;
+    }
   },
 
   load_profile: function() {
@@ -342,20 +322,12 @@ Template.upload_homecook_profile.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-            Meteor.setTimeout(get_profile_image_id,3000);
-            /** Setup a delay of 100msec to ensure image is in place
-            before session getting the image id and return to html
-            to ensure the image is ready to display when image_id is returned.
-            by doind this, I can stop meteor from reload the entire page to
-            retrieve the image file **/
-            /** There is a different time delay required for different browsers:
-            For Chrome, we were able to display image with 100ms delay,
-            for safari, it only worked with 2000ms delay. **/
-            function get_profile_image_id() {
-              return Session.set('homecook_profile_image_id', profile_images._id);
-            }
-        /** above is the line that prevents meteor from reloading **/
+          Meteor.setTimeout(function(){
+            var profile_url = "/profile_upload/" + profile_images._id + profile_images.extensionWithDot;
+            $(".profile_upload_wrapper").css("background-image", "url("+ profile_url +")");
+          },100);
         }
+        /** above is the line that prevents meteor from reloading **/
         Meteor._reload.onMigrate(function () {
           return [false];
         });

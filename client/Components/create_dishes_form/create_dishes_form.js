@@ -49,6 +49,9 @@ Template.uploadForm.events({
       }, false);
 
       upload.on('start', function () {
+        Meteor._reload.onMigrate(function () {
+          return [false];
+        });
         template.currentUpload.set(this);
       });
 
