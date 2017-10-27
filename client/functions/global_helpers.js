@@ -4,6 +4,7 @@ Ingredients = new Mongo.Collection('ingredients');
 Menu = new Mongo.Collection('menu');
 Messages = new Mongo.Collection('messages');
 
+
 Images = new FilesCollection({
   collectionName: 'Images',
   storagePath: () => {
@@ -31,7 +32,7 @@ Collections = {
 Template.registerHelper(
   'find', (collection) => {
     return Collections[collection].find();
-  }
+  },
 );
 
 Template.registerHelper(
@@ -41,5 +42,21 @@ Template.registerHelper(
     var get_profile_images_ext = get_profile_images && get_profile_images.extensionWithDot;
     var get_profile_images_name = get_profile_images_id + get_profile_images_ext;
     return get_profile_images_name;
+  }
+);
+
+
+Template.registerHelper(
+  'profile_details', (userId) => {
+    var get_profile_details = Profile_details.findOne({'userId': userId});
+    return get_profile_details;
+  }
+);
+
+
+Template.registerHelper(
+  'kitchen_details', (userId) => {
+    var get_kitchen_details = Kitchen_details.findOne({'userId': userId});
+    return get_kitchen_details;
   }
 );

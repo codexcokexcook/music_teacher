@@ -1,9 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-
 Profile_details = new Mongo.Collection('profile_details');
-Address_details = new Mongo.Collection('address_details');
-Payment_details = new Mongo.Collection('payment_details');
-Bank_details = new Mongo.Collection('bank_details');
+Kitchen_details = new Mongo.Collection('kitchen_details');
+
 profile_images = new FilesCollection({
   storagePath: () => {
       return process.env.PWD + '/public/profile_upload/';
@@ -31,6 +29,7 @@ Meteor.methods({
 
   'profile_details.insert'(
     user_id,
+    foodie_name,
     mobile,
     profile_keywords,
     date_of_birth,
@@ -47,6 +46,7 @@ Meteor.methods({
     cvv_code ){
     Profile_details.insert({
     user_id: user_id,
+    foodie_name: foodie_name,
     mobile: mobile,
     profile_keywords: profile_keywords,
     date_of_birth: date_of_birth,
@@ -64,57 +64,29 @@ Meteor.methods({
 
   });
 },
-  'address_details.insert'(
-    user_id,
-    address_name_1,
-    address_details_1,
-    contact_no_1,
-    address_name_2,
-    address_details_2,
-    contact_no_2
-    ){
-    Address_details.insert({
-      user_id,
-      address_name_1,
-      address_details_1,
-      contact_no_1,
-      address_name_2,
-      address_details_2,
-      contact_no_2
 
-  });
-},
-
-'payment_details.insert'(
+  'kitchen_details.insert'(
   user_id,
-  card_number,
-  card_fullname,
-  card_exp_month,
-  card_exp_year,
-  cvv_code
-  ){
-  Payment_details.insert({
-    user_id,
-    card_number,
-    card_fullname,
-    card_exp_month,
-    card_exp_year,
-    cvv_code
-});
-},
-
-'bank_details.insert'(
-  user_id,
+  kitchen_name,
+  chef_name,
+  homecook_profile_keywords,
+  kitchen_address,
+  about_homecook_myself,
   bank_fullname,
   bank_name,
   bank_account_no
   ){
-  Bank_details.insert({
-    user_id,
-    bank_fullname,
-    bank_name,
-    bank_account_no
+  Kitchen_details.insert({
+  user_id: user_id,
+  kitchen_name: kitchen_name,
+  chef_name: chef_name,
+  homecook_profile_keywords: homecook_profile_keywords,
+  kitchen_address: kitchen_address,
+  about_homecook_myself: about_homecook_myself,
+  bank_fullname: bank_fullname,
+  bank_name: bank_name,
+  bank_account_no: bank_account_no
 
-});
-}
+  });
+  }
 });

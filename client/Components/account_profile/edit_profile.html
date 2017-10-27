@@ -1,0 +1,143 @@
+<template name = "edit_foodie_profile">
+    <form class ="edit_foodie_profile col l12 m6 s6" id="edit_foodie_profile">
+      {{>profile_banner}}
+      <br>
+      <br>
+      <div class = "container">
+        <div class="row col l12 valign">
+          <div class="text-field col l3 m6 s6 valign">
+            <h6>Your details</h6>
+            </div>
+            <div class="input-field col l3 m3 s6 valign">
+                <input id="foodie_name" name="foodie_name" type="text" value="{{profile_details.foodie_name}}">
+                    <label class="active" for="foodie_name">Foodie name</label>
+              </div>
+              <div class="input-field col l2 m3 s6 valign">
+                  <input disabled id="date_of_birth" name="date_of_birth" type="text" value="{{profile_details.date_of_birth}}">
+                  <label class="active" for="foodie_name">Date of Birth</label>
+                </div>
+                <div class="input-field col l2 m3 s6 valign">
+                    <input id="mobile" name="mobile" type="text" value="{{profile_details.mobile}}">
+                    <label class="active" for="mobile">Mobile</label>
+                  </div>
+                  {{#if check_gender}}
+                <div class="text-field col l1 m3 s3 valign">
+                      <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male" checked/>
+                      <label for="male">Male </label></p>
+                    </div>
+                <div class="text-field col l1 m3 s3 valign">
+                    <p><input class ="with-gap right" type="radio" name="gender" value="female" id="female"/>
+                    <label for="female">Female </label></p>
+                  </div>
+
+                {{else}}
+                <div class="text-field col l1 m3 s3 valign">
+                      <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male"/>
+                      <label for="male">Male </label></p>
+                    </div>
+                <div class="text-field col l1 m3 s3 valign">
+                    <p><input class ="with-gap right" type="radio" name="gender" value="female" id="female" checked/>
+                    <label for="female">Female </label></p>
+                  </div>
+
+                {{/if}}
+                </div>
+
+
+
+            <!--Row 2-->
+          <div class="row col l12 m6 s6 valign">
+            <div class="text-field col l3 m6 s6 valign">
+              <h6>Home Address</h6>
+            </div>
+            <div class="input-field col l9 m6 s6 valign">
+              <input id="home_address" name="home_address" type="text" value="{{profile_details.home_address}}">
+              <label class="active" for="home_address">Home Address</label>
+              </div>
+            </div>
+
+            <!--Row 3-->
+            <div class="row col l12 m6 s6 valign">
+              <div class="text-field col l3 m6 s6 valign">
+                <h6>Office Address</h6>
+              </div>
+              <div class="input-field col l9 m6 s6 valign">
+                <input id="office_address" name="office_address" type="text" value="{{profile_details.office_address}}">
+                <label class="active" for="office_address">Office Address</label>
+                </div>
+              </div>
+
+              <!--Row 4-->
+              <div class="row col l12 m6 s6 valign">
+                <div class="input-field col l9 m6 s6 offset-l3 valign">
+                  <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500" value="{{profile_details.about_myself}}"></textarea>
+                  <label class="active" for="about_myself">Write a paragraph about yourself</label>
+                  </div>
+                </div>
+      <br>
+      <div class="row col l12 valign">
+        <div class="text-field col l3 m3 s3 valign">
+          <h6>Payment details</h6>
+          </div>
+          <div class="input-field col l3 m3 s3 valign">
+            <input id="card_fullname" name="card_fullname" type="text" value="{{profile_details.card_fullname}}">
+            <label class="active" for="card_fullname">Full Name on Card</label>
+          </div>
+        <div class="input-field col l2 m3 s3 valign">
+          <input id="card_number" name="card_number" type="text" value="{{profile_details.card_number}}">
+          <label class="active" for="card_number">Card Number</label>
+          </div>
+          <div class="input-field col l1 m2 s2 valign">
+            <select class="material_select" id="card_exp_month" value="{{profile_details.card_exp_month}}">
+              <option value="" disabled selected>MM</option>
+              {{#each month_list}}
+              <option value="{{option}}">{{month}}</option>
+              {{/each}}
+              </select>
+            </div>
+          <div class="input-field col l1 m2 s2 valign">
+            <select class="material_select" id="card_exp_year" value="{{profile_details.card_exp_year}}">
+              <option value="" disabled selected>YYYY</option>
+              {{#each year_list}}
+              <option value="{{option}}">{{year}}</option>
+              {{/each}}
+              </select>
+            </div>
+          <div class="input-field col l2 m4 s4 valign">
+            <input id="cvv_code" name="cvv_code" type="text" value="{{profile_details.cvv_code}}">
+            <label class="active" for="cvv_code">cvv2/cvc2 code</label>
+            </div>
+        </div>
+      <br>
+      {{>profile_food_allergies}}
+      <br>
+      {{>profile_dietary_perferences}}
+      <br>
+      <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
+      <br>
+      <br>
+
+      <br>
+    </div>
+    </form>
+</template>
+
+
+<template name = "edit_homecook_profile">
+  <form class ="edit_homecook_profile col l12 m6 s6" id="edit_homecook_profile">
+    {{>homecook_profile_banner}}
+    <br>
+    <br>
+    <div class = "container">
+    {{>homecook_profile_details}}
+    <br>
+    {{>profile_bank_details}}
+    <br>
+    <br>
+    <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
+    <br>
+    <br>
+    </div>
+    <br>
+  </form>
+</template>

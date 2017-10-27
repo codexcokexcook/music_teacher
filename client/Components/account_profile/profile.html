@@ -16,6 +16,17 @@
   </div>
 </template>
 
+<template name="edit_profile">
+  <br>
+  {{>foodie_homecook_tab}}
+  <div id="foodie" class="col l12">
+      {{>edit_foodie_profile}}
+  </div>
+  <div id="homecook" class="col l12">
+      {{>edit_homecook_profile}}
+  </div>
+</template>
+
 
 <template name='profile_card'>
     <br>
@@ -24,7 +35,7 @@
       {{>foodie_profile_card}}
   </div>
   <div id="homecook" class="col l12">
-      {{>create_homecook_profile}}
+      {{>homecook_profile_card}}
   </div>
 </template>
 

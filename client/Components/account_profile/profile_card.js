@@ -5,10 +5,25 @@ import { Meteor } from 'meteor/meteor';
 
 
 Template.foodie_profile_card.helpers({
-    'profile_details': function () {
+/**    'profile_details': function () {
       var get_profile_details = Profile_details.findOne({'user_id': Meteor.userId()});
       return get_profile_details;
-    },
+    },**/
+
+    'created_dishes': function(){
+      var get_dishes = Dishes.find({'user_id': Meteor.userId()});
+      return get_dishes;
+
+    }
+
+
+});
+
+Template.homecook_profile_card.helpers({
+  /**  'kitchen_details': function () {
+      var get_kitchen_details = Kitchen_details.findOne({'user_id': Meteor.userId()});
+      return get_kitchen_details;
+    },**/
 
     'created_dishes': function(){
       var get_dishes = Dishes.find({'user_id': Meteor.userId()});

@@ -9,14 +9,17 @@ import './profile_card.html';
 Template.profile.onRendered(function(){
   //Check if user created profile
   var data = Profile_details.find({'user_id': Meteor.userId()});
-  var data_2 = profile_images.find({'user_id': Meteor.userId()});
+
   if(data.count()){
 
-    Blaze.render(Template.profile_card, document.getElementById('profile'));
+    Blaze.render(Template.edit_profile, document.getElementById('profile'));
   }
   else {
     Blaze.render(Template.create_profile, document.getElementById('profile'));
-  }
+  };
 
+  this.$(document).ready(function(){
+    $('ul.tabs').tabs();
 
+})
 })
