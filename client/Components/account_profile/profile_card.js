@@ -3,12 +3,22 @@ import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
 
 
+Template.foodie_profile_card.onRendered(function(){
+
+var get_profile = Profile_details.findOne({'user_id': Meteor.userId()});
+
+})
+
 
 Template.foodie_profile_card.helpers({
 /**    'profile_details': function () {
       var get_profile_details = Profile_details.findOne({'user_id': Meteor.userId()});
       return get_profile_details;
     },**/
+
+    'get_foodie_profile': function(){
+      return Profile_details.findOne({'user_id': Meteor.userId()});
+    },
 
     'created_dishes': function(){
       var get_dishes = Dishes.find({'user_id': Meteor.userId()});

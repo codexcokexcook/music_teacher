@@ -1,4 +1,5 @@
 <template name = "edit_foodie_profile">
+  {{#with get_foodie_profile}}
     <form class ="edit_foodie_profile col l12 m6 s6" id="edit_foodie_profile">
       {{>profile_banner}}
       <br>
@@ -113,13 +114,14 @@
       <br>
       {{>profile_dietary_perferences}}
       <br>
-      <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
+      <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Update</button>
       <br>
       <br>
 
       <br>
     </div>
     </form>
+    {{/with}}
 </template>
 
 
