@@ -146,6 +146,8 @@ Template.ingredient_input.events({
         $('#ingredient_quantity').val("");
         $('#ingredient_unit').val("");
 
+        this.$('select').material_select();
+
         console.log(Ingredients_temporary.find());
 
         return false;
