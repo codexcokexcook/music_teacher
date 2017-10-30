@@ -25,7 +25,7 @@ Meteor.methods({
     card_exp_year,
     cvv_code ){
     Profile_details.update(
-    {_id: menu_id},
+    {_id: profile_id},
     {$set: {
       foodie_name: foodie_name,
       mobile: mobile,
@@ -58,7 +58,7 @@ Meteor.methods({
   bank_account_no
   ){
   Kitchen_details.insert(
-  {_id: menu_id},
+  {_id: profile_id},
   {$set: {
       kitchen_name: kitchen_name,
       chef_name: chef_name,
