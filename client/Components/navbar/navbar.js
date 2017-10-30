@@ -93,7 +93,7 @@ Template.bp_navbar.onRendered(function(){
      FlowRouter.go('/main');
    },
    'click #create_dish_link': function () {
-     FlowRouter.go('/make_dish');
+     FlowRouter.go('/dishes_summary');
    },
    'click #create_menu_link': function () {
      FlowRouter.go('/create_menu');
