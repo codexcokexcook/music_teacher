@@ -1,15 +1,15 @@
 <template name = "create_dishes_form">
-    <div class = "container">
+    <div class = "create_dishes_form_container container">
         <form class="dish_descriptions" id="dish_descriptions">
           <br>
           <br>
           {{> uploadForm }}
             <h5>Dish descriptions</h5>
                 <div class = "input-field col l12 m12 s12">
-                    <input placeholder="Type your dish name" name="dish_name" id="dish_name" type="text">
+                    <input placeholder="Type your dish name" name="dish_name" id="dish_name" type="text" value="{{dish_name}}">
                 </div>
                 <div class = "input-field col l12 m12 s12">
-                    <input placeholder="Type something about your dish - description" name="dish_description" id="dish_description" type="text">
+                    <input placeholder="Type something about your dish - description" name="dish_description" id="dish_description" type="text" value="{{dish_description}}">
                 </div>
 
               <div class="row">
@@ -21,7 +21,7 @@
                 <div class="input-field col l6 m6 s6">
                     <h5>Cooking Time (mins)</h5>
                     <i class="material-icons prefix">av_timer</i>
-                    <input id="icon_prefix" name="cooking_time" type="number" min="0">
+                    <input id="icon_prefix" name="cooking_time" type="number" min="0" value="{{cooking_time}}">
                 </div>
               </div>
 
@@ -64,7 +64,7 @@
         {{>spinner}}
       {{else}}
             {{#if checkUpload}}
-                <img src= "dishes_upload/{{imageFile}}" />
+                <div class = "circle_base" style = "background-image: url({{load_dish}})"></div>
             {{else}}
                 <div class = "image_upload">
                     <label for = "file_input">
@@ -82,7 +82,7 @@
 </template>
 
 <template name="serving_option">
-  <select class="icons" name="serving_option">
+  <select class="icons" name="serving_option" value="{{serving_option}}">
     <option value="" disabled selected>Choose your option</option>
     <option value="Delivery" data-icon='/delivery.svg' class="left">Delivery</option>
     <option value="Pick-up" data-icon='/Pickup.svg' class="left">Pick up</option>
@@ -159,10 +159,10 @@
     <tbody>
       <tr>
         <td>
-            <input id="dish_cost" name="dish_cost" type="number" min="0">
+            <input id="dish_cost" name="dish_cost" type="number" min="0" value={{dish_cost}}>
         </td>
         <td>
-            <input id="dish_selling_price" name="dish_selling_price" type="number" min="0">
+            <input id="dish_selling_price" name="dish_selling_price" type="number" min="0" value={{dish_selling_price}}>
         </td>
         <td>
             <div name="profit">{{profit}}</div>
@@ -177,7 +177,7 @@
     <div class="row">
       {{#each allergy_list}}
         <div class="col l4 m4 s4" id="checkbox">
-            <input type="checkbox" class="filled-in" id= "{{file_name}}" value = {{name}} >
+            <input type="checkbox" class="allergy_checkboxes filled-in" id= "{{file_name}}" value = {{name}} >
             <label for="{{file_name}}">{{name}}<div class="right icon icon_{{file_name}}"></div></label>
         </div>
       {{/each}}
