@@ -1,12 +1,13 @@
 <template name = "create_dishes_form">
-    <div class = "create_dishes_form_container container">
+
+    <div class = "container create_dishes_form_container">
         <form class="dish_descriptions" id="dish_descriptions">
           <br>
           <br>
           {{> uploadForm }}
             <h5>Dish descriptions</h5>
                 <div class = "input-field col l12 m12 s12">
-                    <input placeholder="Type your dish name" name="dish_name" id="dish_name" type="text" value="{{dish_name}}">
+                    <input placeholder="Type your dish name" name="dish_name" id="dish_name" type="text" value = "{{dish_name}}">
                 </div>
                 <div class = "input-field col l12 m12 s12">
                     <input placeholder="Type something about your dish - description" name="dish_description" id="dish_description" type="text" value="{{dish_description}}">
@@ -50,7 +51,7 @@
                 {{> food_tags}}
               </div>
 
-            <input class="waves-effect waves-teal btn-flat" type="submit" value="Submit">
+            <input class="modal-action modal-close waves-effect waves-teal btn-flat create_dish_submit_btn" type="submit" value="Submit">
         </form>
     </div>
 </template>
@@ -159,10 +160,10 @@
     <tbody>
       <tr>
         <td>
-            <input id="dish_cost" name="dish_cost" type="number" min="0" value={{dish_cost}}>
+            <input id="dish_cost" name="dish_cost" type="number" min="0" value = "{{dish_cost}}">
         </td>
         <td>
-            <input id="dish_selling_price" name="dish_selling_price" type="number" min="0" value={{dish_selling_price}}>
+            <input id="dish_selling_price" name="dish_selling_price" type="number" min="0" value="{{dish_selling_price}}">
         </td>
         <td>
             <div name="profit">{{profit}}</div>

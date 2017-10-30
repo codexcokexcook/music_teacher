@@ -22,14 +22,22 @@
       {{> dishes_selection}}
     </div>
   </div>
-  <div class ="modal" id="add_dish_modal">
-    <div class = "modal-content">
+  <div class ="modal modal-fixed-footer" id="add_dish_modal">
+    <div class = "modal-content" id="add_dish_modal_content">
       <!-- called create_dishes_form template using Blaze.render in js -->
     </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat" id="modal_add_btn">Save</a>
+      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
   </div>
-  <div class ="modal" id="edit_dish_modal">
-    <div class = "modal-content">
+  <div class ="modal modal-fixed-footer" id="edit_dish_modal">
+    <div class = "modal-content" id="edit_dish_modal_content">
       <!-- called create_dishes_form template using Blaze.render in js -->
+    </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat" id="modal_update_btn">Save</a>
+      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
   </div>
 </template>
