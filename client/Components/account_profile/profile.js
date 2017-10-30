@@ -12,11 +12,14 @@ Template.profile.onRendered(function(){
 
   if(data.count()){
 
-    Blaze.render(Template.profile_card, document.getElementById('profile'));
+    Blaze.render(Template.edit_profile, document.getElementById('profile'));
   }
   else {
     Blaze.render(Template.create_profile, document.getElementById('profile'));
-  }
+  };
 
+  this.$(document).ready(function(){
+    $('ul.tabs').tabs();
 
+})
 })

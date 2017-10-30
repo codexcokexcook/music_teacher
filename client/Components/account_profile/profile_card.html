@@ -1,39 +1,23 @@
 <template name="foodie_profile_card" id="foodie_profile_card">
-    <div class = "profile_banner-area valign-wrapper">
-
-      <div class = "container valign">
-      <div class = "profile_circle_base" >
-
-        <div class = "profile_image_upload">
-            <label for = "profile_file_input">
-                <img class="profile_icon_img_upload" src="/profile_upload/{{profile_images 'profile_picture'}}" />
-            </label>
-
+    <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'banner_picture'}})">
+      <div class = "container col l12 m6 s6 valign">
+        <div class = "center-align">
+          <img class="circle" height="125" src="/profile_upload/{{profile_images 'profile_picture'}}" />
+          <br>
+          <div class="col l12 m4 s4 valign">
+            <h6 class = "grey-text center-align">{{currentUser.profile.name}}</h6>
+          </div>
+          <div class="col l12 m4 s4 valign">
+            <p class = "grey-text center-align">{{profile_details.profile_keywords}}</p>
+          </div>
         </div>
-        </div>
-      <br>
-     <div class="col l12 m4 s4 valign">
-       <h6 class = "white-text center-align">{{profile_details.first_name}} {{profile_details.last_name}}</h6>
+      </div>
     </div>
-
-    <div class="col l6 m4 s4 valign">
-      <p class = "white-text center-align">{{profile_details.profile_keywords}}</p>
-      <p class = "white-text center-align">{{get_profile_images_name}}</p>
-    </div>
-
-
-    </div>
-  </div>
     <br>
-
     <br>
     <div class = "container">
       <p class ="grey-text text-darken-2">{{profile_details.about_myself}}</p>
     <br>
-
-
-
-
     <h6>Created dishes</h6>
     <br>
     <div class="row">
@@ -41,25 +25,52 @@
     {{>dishes_rotation}}
     {{/each}}
   </div>
-
-
     <br>
-
-    {{>profile_created_menus}}
-
+        {{>profile_created_menus}}
     <br>
-
     <br>
-
     {{>profile_recently_exploered}}
-
     <br>
-
+    <h1>Hello</h1>
     </div>
-
 </template>
 
 
+<template name="homecook_profile_card" id="homecook_profile_card">
+    <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'homecook_banner_picture'}})">
+      <div class = "container col l12 m6 s6 valign">
+        <div class = "center-align">
+          <img class="circle" height="125" src="/profile_upload/{{profile_images 'homecook_profile_picture'}}" />
+          <br>
+          <div class="col l12 m4 s4 valign">
+            <h6 class = "grey-text center-align">{{kitchen_details.kitchen_name}}</h6>
+          </div>
+          <div class="col l12 m4 s4 valign">
+            <p class = "grey-text center-align">{{kitchen_details.homecook_profile_keywords}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class = "container">
+      <p class ="grey-text text-darken-2">{{kitchen_details.about_homecook_myself}}</p>
+    <br>
+    <h6>Created dishes</h6>
+    <br>
+    <div class="row">
+    {{#each created_dishes}}
+    {{>dishes_rotation}}
+    {{/each}}
+  </div>
+    <br>
+        {{>profile_created_menus}}
+    <br>
+    <br>
+    {{>profile_recently_exploered}}
+    <br>
+    </div>
+</template>
 
 
 

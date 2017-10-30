@@ -7,10 +7,7 @@ import './create_profile.html';
 import './profile_card.html';
 
 Profile_details = new Mongo.Collection('profile_details');
-Address_details = new Mongo.Collection('address_details');
-Payment_details = new Mongo.Collection('payment_details');
-Bank_details = new Mongo.Collection('bank_details');
-
+Kitchen_details = new Mongo.Collection('kitchen_details');
 
 profile_images = new FilesCollection({
   collectionName: 'profile_images',
@@ -320,19 +317,15 @@ Template.upload_homecook_profile.events({
 Template.create_foodie_profile.events({
   'submit form': function(event, template){
     event.preventDefault();
-    const kitchen_name = trimInput(event.target.kitchen_name.value);
+
+    const foodie_name = trimInput(event.target.foodie_name.value);
+    const mobile = trimInput(event.target.mobile.value);
     const profile_keywords = trimInput(event.target.profile_keywords.value);
-    const last_name = trimInput(event.target.last_name.value);
-    const first_name = trimInput(event.target.first_name.value);
     const date_of_birth = trimInput(event.target.date_of_birth.value);
     const gender = event.target.gender.value
     const about_myself = trimInput(event.target.about_myself.value);
-    const address_name_1 = trimInput(event.target.address_name_1.value);
-    const address_details_1 = trimInput(event.target.address_details_1.value);
-    const mobile_no_1 = trimInput(event.target.mobile_no_1.value);
-    const address_name_2 = trimInput(event.target.address_name_2.value);
-    const address_details_2 = trimInput(event.target.address_details_2.value);
-    const mobile_no_2 = trimInput(event.target.mobile_no_2.value);
+    const home_address = trimInput(event.target.home_address.value);
+    const office_address = trimInput(event.target.office_address.value);
     const allergy_tags = Session.get('allergy_tags');
     const dietary_tags = Session.get('dietary_tags');
     const card_number = trimInput(event.target.card_number.value);
@@ -340,9 +333,6 @@ Template.create_foodie_profile.events({
     const card_exp_month = trimInput(event.target.card_exp_month.value);
     const card_exp_year = trimInput(event.target.card_exp_year.value);
     const cvv_code = trimInput(event.target.cvv_code.value);
-    const bank_fullname = trimInput(event.target.bank_fullname.value);
-    const bank_name = trimInput(event.target.mobile_no_2.value);
-    const bank_account_no = trimInput(event.target.bank_account_no.value);
     const user_id = Meteor.userId()
 
 /**      if( isNotEmpty(kitchen_name)           &&
@@ -371,41 +361,26 @@ Template.create_foodie_profile.events({
 
             Meteor.call('profile_details.insert',
             user_id,
-            first_name,
-            last_name,
-            kitchen_name,
+            foodie_name,
+            mobile,
             profile_keywords,
             date_of_birth,
             gender,
             about_myself,
             allergy_tags,
-            dietary_tags);
-
-            Meteor.call('address_details.insert',
-            user_id,
-            address_name_1,
-            address_details_1,
-            mobile_no_1,
-            address_name_2,
-            address_details_2,
-            mobile_no_2);
-
-            Meteor.call('payment_details.insert',
-            user_id,
+            dietary_tags,
+            home_address,
+            office_address,
             card_number,
             card_fullname,
             card_exp_month,
             card_exp_year,
-            cvv_code);
+            cvv_code
+            );
 
-            Meteor.call('bank_details.insert',
-            user_id,
-            bank_fullname,
-            bank_name,
-            bank_account_no);
 
     //divert to the profile page
-    Blaze.render(Template.profile_card, document.getElementById('profile'));
+    Blaze.render(Template.foodie_profile_card, document.getElementById('profile'));
     Blaze.remove(Template.instance().view);
 
       }
@@ -415,6 +390,70 @@ Template.create_foodie_profile.events({
     } **/
   }
   });
+
+//Kitchen Database
+  Template.create_homecook_profile.events({
+    'submit form': function(event, template){
+      event.preventDefault();
+
+      const kitchen_name = trimInput(event.target.kitchen_name.value);
+      const chef_name = trimInput(event.target.chef_name.value);
+      const homecook_profile_keywords = trimInput(event.target.homecook_profile_keywords.value);
+      const kitchen_address = trimInput(event.target.kitchen_address.value);
+      const about_homecook_myself = trimInput(event.target.about_homecook_myself.value);
+      const bank_fullname = trimInput(event.target.bank_fullname.value);
+      const bank_account_no = trimInput(event.target.bank_account_no.value);
+      const bank_name = trimInput(event.target.bank_name.value);
+      const user_id = Meteor.userId()
+
+  /**      if( isNotEmpty(kitchen_name)           &&
+            isNotEmpty(profile_keywords)       &&
+            isNotEmpty(last_name)              &&
+            isNotEmpty(first_name)             &&
+            isNotEmpty(date_of_birth)          &&
+            isNotEmpty(gender)                 &&
+            isNotEmpty(about_myself)           &&
+            isNotEmpty(address_name_1)         &&
+            isNotEmpty(address_details_1)      &&
+            isNotEmpty(mobile_no_1)            &&
+            isNotEmpty(address_name_2)         &&
+            isNotEmpty(address_details_2)      &&
+            isNotEmpty(mobile_no_2)            &&
+            isNotEmpty(card_number)            &&
+            isNotEmpty(card_fullname)          &&
+            isNotEmpty(card_exp_month)         &&
+            isNotEmpty(card_exp_year)          &&
+            isNotEmpty(cvv_code)               &&
+            isNotEmpty(bank_fullname)          &&
+            isNotEmpty(bank_name)              &&
+            isNotEmpty(bank_account_no)           )**/
+
+            {
+
+              Meteor.call('kitchen_details.insert',
+              user_id,
+              kitchen_name,
+              chef_name,
+              homecook_profile_keywords,
+              kitchen_address,
+              about_homecook_myself,
+              bank_fullname,
+              bank_name,
+              bank_account_no
+              );
+
+
+      //divert to the profile page
+      Blaze.render(Template.profile_card, document.getElementById('profile'));
+      Blaze.remove(Template.instance().view);
+
+        }
+      /**  else{
+
+        return false;
+      } **/
+    }
+    });
 
   //Validation rules
 
@@ -471,7 +510,7 @@ Template.create_foodie_profile.onRendered(function(){
 
   //activate datepicker
     this.$('.datepicker').pickadate({
-    selectMonths: 15, // Creates a dropdown to control month
+    selectMonths: 12, // Creates a dropdown to control month
     selectYears: 150, // Creates a dropdown of 15 years to control year,
     today: 'TODAY',
     clear: 'Clear',
@@ -480,19 +519,7 @@ Template.create_foodie_profile.onRendered(function(){
   });
 
   //activate modal
-  this.$('.modal').modal({
-      dismissible: true, // Modal can be dismissed by clicking outside of the modal
-      opacity: .5, // Opacity of modal background
-      inDuration: 300, // Transition in duration
-      outDuration: 200, // Transition out duration
-      startingTop: '4%', // Starting top style attribute
-      endingTop: '10%', // Ending top style attribute
-      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-        alert("Ready");
-        console.log(modal, trigger);
-      },
-      complete: function() { alert('Closed'); } // Callback for Modal close
-    });
+  this.$('.modal').modal();
 
   //activate dropdown
   this.$('select').material_select();
