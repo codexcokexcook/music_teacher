@@ -20,6 +20,7 @@ Template.dishes_summary.onRendered(function(){
 
 Template.dishes_summary.events({
   'click #btn_add_dish': function() {
+
     if (Blaze.getView($("#add_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
       $('.create_dishes_form_container').remove();
     };

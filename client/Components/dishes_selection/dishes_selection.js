@@ -10,6 +10,10 @@ Template.dishes_selection.events({
     return selection.value;
   });
   Session.set('selected_dishes_id', checked_values);
+  },
+  'click #delete_dish': function () {
+    Meteor.call('dish.remove', this._id);
+    Meteor.call('dish_image.remove', this.image_id);
   }
 });
 

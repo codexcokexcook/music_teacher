@@ -8,12 +8,13 @@ import './create_dishes_form.html';
 
 Meteor.subscribe('files.images.all');
 
-Session.keys = {}
+
 
 /** function from ostrio **/
 
 Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
+  Session.keys = {}
 });
 
 Template.uploadForm.helpers({
@@ -22,18 +23,12 @@ Template.uploadForm.helpers({
   },
 
   checkUpload() {
-     return Session.get('image_id');
+    return Session.get('image_id');
   },
 
-  imageFile() {
-      var image_id = Session.get('image_id');
-      var image_location = Images.findOne({"_id": image_id});
-      var image_extension = image_location && image_location.extensionWithDot;
-      /** guarding technique was used about as it returns unknown property of image_location.type and image_type.replace **/
-      /** check this: http://seanmonstar.com/post/707078771/guard-and-default-operators **/
-      var ul_location = image_id + image_extension;
-
-      return ul_location;
+  load_dish: function () {
+    dish_url = "/dishes_upload/" + Images._id + Images.extensionWithDot;
+    return dish_url;
   }
 });
 
@@ -59,18 +54,11 @@ Template.uploadForm.events({
         if (error) {
           alert('Error during upload: ' + error);
         } else {
-            Meteor.setTimeout(get_image_id,4000);
-            /** Setup a delay of 100msec to ensure image is in place
-            before session getting the image id and return to html
-            to ensure the image is ready to display when image_id is returned.
-            by doind this, I can stop meteor from reload the entire page to
-            retrieve the image file **/
-            /** There is a different time delay required for different browsers:
-            For Chrome, we were able to display image with 100ms delay,
-            for safari, it only worked with 2000ms delay. **/
-            function get_image_id() {
-              return Session.set('image_id', Images._id);
-            }
+          Meteor.setTimeout(function(){
+            var dish_url= "/dishes_upload/" + Images._id + Images.extensionWithDot;
+            $(".circle_base").css("background-image","url("+dish_url+")");
+          },500);
+          Session.set('image_id',Images._id);
         /** above is the line that prevents meteor from reloading **/
         }
         Meteor._reload.onMigrate(function () {
@@ -511,7 +499,7 @@ Template.create_dishes_form.events({
 
             dish_cost: dish_cost,
             dish_selling_price: dish_selling_price,
-            dish_profit: Session.get('dish_profit'),
+            dish_profit: dish_profit,
 
             allergy_tags: Session.get('allergy_tags'),
             dietary_tags: Session.get('dietary_tags'),

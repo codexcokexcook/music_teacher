@@ -1,4 +1,5 @@
 <template name = "create_dishes_form">
+
     <div class = "container create_dishes_form_container">
         <form class="dish_descriptions" id="dish_descriptions">
           <br>
@@ -64,7 +65,7 @@
         {{>spinner}}
       {{else}}
             {{#if checkUpload}}
-                <img src= "dishes_upload/{{imageFile}}" />
+                <div class = "circle_base" style = "background-image: url({{load_dish}})"></div>
             {{else}}
                 <div class = "image_upload">
                     <label for = "file_input">
@@ -82,7 +83,7 @@
 </template>
 
 <template name="serving_option">
-  <select class="icons" name="serving_option">
+  <select class="icons" name="serving_option" value="{{serving_option}}">
     <option value="" disabled selected>Choose your option</option>
     <option value="Delivery" data-icon='/delivery.svg' class="left">Delivery</option>
     <option value="Pick-up" data-icon='/Pickup.svg' class="left">Pick up</option>
@@ -177,7 +178,7 @@
     <div class="row">
       {{#each allergy_list}}
         <div class="col l4 m4 s4" id="checkbox">
-            <input type="checkbox" class="filled-in" id= "{{file_name}}" value = {{name}} >
+            <input type="checkbox" class="allergy_checkboxes filled-in" id= "{{file_name}}" value = {{name}} >
             <label for="{{file_name}}">{{name}}<div class="right icon icon_{{file_name}}"></div></label>
         </div>
       {{/each}}
