@@ -8,35 +8,39 @@ Meteor.methods({
 
 
   'profile_details.update'(
-    profile_id,
+    foodie_profile_id,
     foodie_name,
+    first_name,
+    last_name,
     mobile,
     profile_keywords,
     date_of_birth,
     gender,
     about_myself,
-    allergy_tags,
-    dietary_tags,
     home_address,
     office_address,
+    allergy_tags,
+    dietary_tags,
     card_number,
     card_fullname,
     card_exp_month,
     card_exp_year,
     cvv_code ){
     Profile_details.update(
-    {_id: profile_id},
+    {_id: foodie_profile_id},
     {$set: {
       foodie_name: foodie_name,
+      first_name: first_name,
+      last_name: last_name,
       mobile: mobile,
       profile_keywords: profile_keywords,
       date_of_birth: date_of_birth,
       gender: gender,
       about_myself: about_myself,
-      allergy_tags: allergy_tags,
-      dietary_tags: dietary_tags,
       home_address: home_address,
       office_address: office_address,
+      allergy_tags: allergy_tags,
+      dietary_tags: dietary_tags,
       card_number: card_number,
       card_fullname: card_fullname,
       card_exp_month: card_exp_month,
@@ -47,7 +51,7 @@ Meteor.methods({
 },
 
   'kitchen_details.update'(
-  profile_id,
+  kitchen_profile_id,
   kitchen_name,
   chef_name,
   homecook_profile_keywords,
@@ -57,8 +61,8 @@ Meteor.methods({
   bank_name,
   bank_account_no
   ){
-  Kitchen_details.insert(
-  {_id: profile_id},
+  Kitchen_details.update(
+  {_id: kitchen_profile_id},
   {$set: {
       kitchen_name: kitchen_name,
       chef_name: chef_name,

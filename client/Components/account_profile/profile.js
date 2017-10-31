@@ -10,6 +10,7 @@ Template.profile.onRendered(function(){
   //Check if user created profile
   var data = Profile_details.find({'user_id': Meteor.userId()});
 
+
   if(data.count()){
 
     Blaze.render(Template.edit_profile, document.getElementById('profile'));
