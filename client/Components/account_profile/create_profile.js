@@ -315,25 +315,10 @@ Template.upload_homecook_profile.events({
 
 
 Template.create_foodie_profile.events({
-  'submit form': function(event, template){
-    event.preventDefault();
+  'click #create_foodie_button': function(event, template){
 
-    const foodie_name = trimInput(event.target.foodie_name.value);
-    const mobile = trimInput(event.target.mobile.value);
-    const profile_keywords = trimInput(event.target.profile_keywords.value);
-    const date_of_birth = trimInput(event.target.date_of_birth.value);
-    const gender = event.target.gender.value
-    const about_myself = trimInput(event.target.about_myself.value);
-    const home_address = trimInput(event.target.home_address.value);
-    const office_address = trimInput(event.target.office_address.value);
-    const allergy_tags = Session.get('allergy_tags');
-    const dietary_tags = Session.get('dietary_tags');
-    const card_number = trimInput(event.target.card_number.value);
-    const card_fullname = trimInput(event.target.card_fullname.value);
-    const card_exp_month = trimInput(event.target.card_exp_month.value);
-    const card_exp_year = trimInput(event.target.card_exp_year.value);
-    const cvv_code = trimInput(event.target.cvv_code.value);
-    const user_id = Meteor.userId()
+      event.preventDefault();
+
 
 /**      if( isNotEmpty(kitchen_name)           &&
           isNotEmpty(profile_keywords)       &&
@@ -359,29 +344,11 @@ Template.create_foodie_profile.events({
 
           {
 
-            Meteor.call('profile_details.insert',
-            user_id,
-            foodie_name,
-            mobile,
-            profile_keywords,
-            date_of_birth,
-            gender,
-            about_myself,
-            allergy_tags,
-            dietary_tags,
-            home_address,
-            office_address,
-            card_number,
-            card_fullname,
-            card_exp_month,
-            card_exp_year,
-            cvv_code
-            );
+
 
 
     //divert to the profile page
-    Blaze.render(Template.foodie_profile_card, document.getElementById('profile'));
-    Blaze.remove(Template.instance().view);
+    $('#create_homecook_button').click();
 
       }
     /**  else{
@@ -393,18 +360,39 @@ Template.create_foodie_profile.events({
 
 //Kitchen Database
   Template.create_homecook_profile.events({
-    'submit form': function(event, template){
+    'click #create_homecook_button': function(event, template){
+      console.log("HOMECOOK_CLICKED")
+
       event.preventDefault();
 
-      const kitchen_name = trimInput(event.target.kitchen_name.value);
-      const chef_name = trimInput(event.target.chef_name.value);
-      const homecook_profile_keywords = trimInput(event.target.homecook_profile_keywords.value);
-      const kitchen_address = trimInput(event.target.kitchen_address.value);
-      const about_homecook_myself = trimInput(event.target.about_homecook_myself.value);
-      const bank_fullname = trimInput(event.target.bank_fullname.value);
-      const bank_account_no = trimInput(event.target.bank_account_no.value);
-      const bank_name = trimInput(event.target.bank_name.value);
-      const user_id = Meteor.userId()
+
+      const foodie_name = $('#foodie_name').val();
+      const first_name = $('#first_name').val();
+      const last_name = $('#last_name').val();
+      const mobile = $('#mobile').val();
+      const profile_keywords = $('#profile_keywords').val();
+      const date_of_birth = $('#date_of_birth').val();
+      const gender =  $("input[name='gender']:checked"). val();
+      const about_myself = $('#about_myself').val();
+      const home_address = $('#home_address').val();
+      const office_address = $('#office_address').val();
+      const allergy_tags = Session.get('allergy_tags');
+      const dietary_tags = Session.get('dietary_tags');
+      const card_number = $('#card_number').val();
+      const card_fullname = $('#card_fullname').val();
+      const card_exp_month = $('#card_exp_month').val();
+      const card_exp_year = $('#card_exp_year').val();
+      const cvv_code = $('#cvv_code').val();
+
+      const kitchen_name = $('#kitchen_name').val();
+      const chef_name = $('#chef_name').val();
+      const homecook_profile_keywords = $('#homecook_profile_keywords').val();
+      const kitchen_address = $('#kitchen_address').val();
+      const about_homecook_myself = $('#about_homecook_myself').val();
+      const bank_fullname = $('#bank_fullname').val();
+      const bank_account_no = $('#bank_account_no').val();
+      const bank_name = $('#bank_name').val();
+      const user_id = Meteor.userId();
 
   /**      if( isNotEmpty(kitchen_name)           &&
             isNotEmpty(profile_keywords)       &&
@@ -442,16 +430,39 @@ Template.create_foodie_profile.events({
               bank_account_no
               );
 
+              Meteor.call('profile_details.insert',
+              user_id,
+              foodie_name,
+              first_name,
+              last_name,
+              mobile,
+              profile_keywords,
+              date_of_birth,
+              gender,
+              about_myself,
+              home_address,
+              office_address,
+              allergy_tags,
+              dietary_tags,
+              card_number,
+              card_fullname,
+              card_exp_month,
+              card_exp_year,
+              cvv_code
+              );
 
-      //divert to the profile page
-      Blaze.render(Template.profile_card, document.getElementById('profile'));
-      Blaze.remove(Template.instance().view);
+  Materialize.toast('Profile created!', 4000)
+   //divert to the profile page
+
+  /**    Blaze.render(Template.profile_card, document.getElementById('profile'));
+      Blaze.remove(Template.instance().view); **/
 
         }
       /**  else{
 
         return false;
       } **/
+
     }
     });
 

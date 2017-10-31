@@ -13,37 +13,52 @@
                 <input id="foodie_name" name="foodie_name" type="text" value="{{profile_details.foodie_name}}">
                     <label class="active" for="foodie_name">Foodie name</label>
               </div>
-              <div class="input-field col l2 m3 s6 valign">
-                  <input disabled id="date_of_birth" name="date_of_birth" type="text" value="{{profile_details.date_of_birth}}">
-                  <label class="active" for="foodie_name">Date of Birth</label>
+              <div class="input-field col l3 m3 s6 valign">
+                  <input id="first_name" name="first_name" type="text" placeholder="First Name" value="{{profile_details.first_name}}">
+                  <label class="active" for="first_name">First name</label>
+              </div>
+              <div class="input-field col l3 m3 s6 valign">
+                  <input id="last_name" name="last_name" type="text" placeholder="Last Name" value="{{profile_details.last_name}}">
+                  <label class="active" for="last_name">Last name</label>
+              </div>
                 </div>
-                <div class="input-field col l2 m3 s6 valign">
-                    <input id="mobile" name="mobile" type="text" value="{{profile_details.mobile}}">
-                    <label class="active" for="mobile">Mobile</label>
-                  </div>
-                  {{#if check_gender}}
-                <div class="text-field col l1 m3 s3 valign">
-                      <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male" checked/>
-                      <label for="male">Male </label></p>
+                  <div class="row col l12 m6 s6 valign">
+                    <div class="text-field col l3 m6 s6 valign">
                     </div>
-                <div class="text-field col l1 m3 s3 valign">
-                    <p><input class ="with-gap right" type="radio" name="gender" value="female" id="female"/>
-                    <label for="female">Female </label></p>
+                <div class="input-field col l3 m3 s6 valign">
+                    <input disabled id="date_of_birth" name="date_of_birth" type="text" value="{{profile_details.date_of_birth}}">
+                    <label class="active" for="foodie_name">Date of Birth</label>
                   </div>
-
-                {{else}}
-                <div class="text-field col l1 m3 s3 valign">
-                      <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male"/>
-                      <label for="male">Male </label></p>
+                  <div class="input-field col l3 m3 s6 valign">
+                      <input id="mobile" name="mobile" type="text" value="{{profile_details.mobile}}">
+                      <label class="active" for="mobile">Mobile</label>
                     </div>
-                <div class="text-field col l1 m3 s3 valign">
-                    <p><input class ="with-gap right" type="radio" name="gender" value="female" id="female" checked/>
-                    <label for="female">Female </label></p>
+
+                    {{#if check_gender}}
+                  <div class="text-field col l3 m3 s3 valign">
+                    <div class="col l6 m3 s3 valign">
+                        <p><input class ="with-gap right" type="radio" id="male" name="gender" value="male" checked/>
+                        <label for="male">Male </label></p>
+                      </div>
+                  <div class="col l6 m3 s3 valign">
+                      <p><input class ="with-gap right" type="radio" id="female" name="gender" value="female" />
+                      <label for="female">Female </label></p>
+                    </div>
+                  </div>
+                  {{else}}
+                  <div class="text-field col l3 m3 s3 valign">
+                    <div class="col l6 m3 s3 valign">
+                        <p><input class ="with-gap right" type="radio" id="male" name="gender" value="male"/>
+                        <label for="male">Male </label></p>
+                      </div>
+                  <div class="col l6 m3 s3 valign">
+                      <p><input class ="with-gap right" type="radio" id="female" name="gender" value="female" checked/>
+                      <label for="female">Female </label></p>
+                    </div>
                   </div>
 
-                {{/if}}
-                </div>
-
+                  {{/if}}
+                  </div>
 
 
             <!--Row 2-->
@@ -114,7 +129,7 @@
       <br>
       {{>profile_dietary_perferences}}
       <br>
-      <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Update</button>
+      <button id="edit_foodie_button" class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Update</button>
       <br>
       <br>
 
@@ -126,20 +141,71 @@
 
 
 <template name = "edit_homecook_profile">
+{{#with get_homecook_profile}}
   <form class ="edit_homecook_profile col l12 m6 s6" id="edit_homecook_profile">
     {{>homecook_profile_banner}}
     <br>
     <br>
     <div class = "container">
-    {{>homecook_profile_details}}
+      <div class="row col l12 valign">
+        <div class="text-field col l3 m3 s3 valign">
+          <h6>Kitchen Details</h6>
+        </div>
+        <div class="input-field col l4 m3 s3 valign">
+          <input id="kitchen_name" name="kitchen_name" type="text" value="{{get_homecook_profile.kitchen_name}}">
+          <label class="active" for="kitchen_name">Kitchen Name</label>
+          </div>
+          <div class="col l1"></div>
+          <div class="input-field col l4 m3 s3 valign">
+            <input id="chef_name" name="chef_name" type="text" value="{{get_homecook_profile.chef_name}}">
+            <label class="active" for="chef_name">Chef Name</label>
+            </div>
+        </div>
+      <div class="row col l12 valign">
+        <div class="text-field col l3 m3 s3 valign">
+          <h6>Kitchen Address</h6>
+        </div>
+        <div class="input-field col l9 m3 s3 valign">
+          <input id="kitchen_address" name="kitchen_address" type="text" value="{{get_homecook_profile.kitchen_address}}">
+          <label class="active" for="kitchen_address">Kitchen Address</label>
+          </div>
+        </div>
+        <div class="row col l12 valign">
+          <div class="input-field col l9 m2 s4 offset-l3 valign">
+            <textarea id="about_homecook_myself" class="materialize-textarea" name="about_homecook_myself" type="text" data-length="500" value="{{get_homecook_profile.about_homecook_myself}}"></textarea>
+            <label class="active" for="about_homecook_myself">Write a paragraph about your food and the story about you</label>
+            </div>
+          </div>
     <br>
-    {{>profile_bank_details}}
+    <div class="row col l12 m6 s6 valign">
+      <div class="text-field col l3 m3 s6 valign">
+        <h6>Bank details</h6>
+        </div>
+        <div class="input-field col l3 m3 s6 valign">
+          <input id="bank_fullname" name="bank_fullname" type="text" value="{{get_homecook_profile.bank_fullname}}">
+          <label class="active" for="bank_fullname">Account Name</label>
+        </div>
+        <div class="input-field col l4 m4 s6 valign">
+          <select class="material_select" id="bank_name" value="{{get_homecook_profile.bank_name}}">
+            <option value="" disabled selected>Bank Name</option>
+            {{#each bank_list}}
+            <option value="{{option}}">{{name}}</option>
+            {{/each}}
+
+          </select>
+          </div>
+    <div class="input-field col l2 m2 s6 valign">
+      <input id="bank_account_no" name="bank_account_no" type="text" value="{{get_homecook_profile.bank_account_no}}">
+      <label class="active" for="bank_account_no">Account Number</label>
+    </div>
+  </div>
     <br>
     <br>
-    <button class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Save</button>
+    <button id="edit_homecook_button" class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Update</button>
     <br>
     <br>
     </div>
     <br>
   </form>
+  {{/with}}
 </template>
