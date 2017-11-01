@@ -22,7 +22,7 @@
                 <div class="input-field col l6 m6 s6">
                     <h5>Cooking Time (mins)</h5>
                     <i class="material-icons prefix">av_timer</i>
-                    <input id="icon_prefix" name="cooking_time" type="number" min="0" value="{{cooking_time}}">
+                    <input id="cooking_time" name="cooking_time" type="number" min="0" value="{{cooking_time}}">
                 </div>
               </div>
 
@@ -52,6 +52,7 @@
               </div>
 
             <input class="modal-action modal-close waves-effect waves-teal btn-flat create_dish_submit_btn" type="submit" value="Submit">
+            <btn class="modal-action modal-close waves-effect waves-teal btn-flat update_dish_submit_btn"></btn>
         </form>
     </div>
 </template>
@@ -83,7 +84,7 @@
 </template>
 
 <template name="serving_option">
-  <select class="icons" name="serving_option" value="{{serving_option}}">
+  <select class="icons" id="serving_option" name="serving_option" value="{{serving_option}}">
     <option value="" disabled selected>Choose your option</option>
     <option value="Delivery" data-icon='/delivery.svg' class="left">Delivery</option>
     <option value="Pick-up" data-icon='/Pickup.svg' class="left">Pick up</option>
