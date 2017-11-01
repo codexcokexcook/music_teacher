@@ -15,19 +15,11 @@
         {{> upload_profile}}
        <div class="col l12 m4 s4 valign">
          <h5 class = "white-text center-align">
-           {{#if profile_details.foodie_name}}
-              {{profile_details.foodie_name}}
-            {{else}}
-              {{#if currentUser.profile.name}}
-                  {{currentUser.profile.name}}
-                {{else}}
-                  {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
-                {{/if}}
-              {{/if}}
+           {{check_foodie_name}}
           </h5>
       </div>
       <div class="input-field col l6 m4 s4 valign">
-        <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
+        <input id="profile_keywords" name="profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you" value={{check_foodie_keywords}}>
       </div>
       <div class="row upload_banner_image">
         {{#with currentUpload}}
@@ -283,19 +275,11 @@
       {{> upload_homecook_profile}}
      <div class="col l12 m4 s4 valign">
        <h5 class = "white-text center-align">
-         {{#if kitchen_details.chef_name}}
-            {{kitchen_details.chef_name}}
-          {{else}}
-            {{#if currentUser.profile.name}}
-                {{currentUser.profile.name}}
-              {{else}}
-                {{currentUser.profile.first_name}} {{currentUser.profile.last_name}}
-              {{/if}}
-            {{/if}}
+         {{check_chef_name}}
         </h5>
     </div>
     <div class="input-field col l6 m4 s4 valign">
-      <input id="homecook_profile_keywords" name="homecook_profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you">
+      <input id="homecook_profile_keywords" name="homecook_profile_keywords" type="text" style="text-align:center" placeholder="Write keywords about you" value={{check_chef_keywords}}>
     </div>
     <div class="row upload_banner_image">
       {{#with currentUpload}}

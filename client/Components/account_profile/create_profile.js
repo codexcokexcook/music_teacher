@@ -66,7 +66,33 @@ Template.profile_banner.helpers({
     banner_url = "/profile_upload/" + this._id + this.extensionWithDot;
     $(".profile_banner_area").css("background-color","");
     $(".profile_banner_area").css("background-image", "url("+ banner_url +")");
+  },
+
+  "check_foodie_name": function(){
+    var foodie_name = Profile_details.findOne({'user_id': Meteor.userId()});
+    var default_name = 'Foodie Name';
+
+    if(!foodie_name){
+      return default_name;
+    }
+    else{
+      return foodie_name.foodie_name;
+
+    }
+  },
+
+  "check_foodie_keywords": function(){
+    var foodie = Profile_details.findOne({'user_id': Meteor.userId()});
+    var keyword = ""
+
+    if(!foodie){
+      return keyword;
+    }
+    else{
+      return foodie.profile_keywords;
   }
+  }
+
 });
 
 Template.profile_banner.events({
@@ -206,7 +232,33 @@ Template.homecook_profile_banner.helpers({
     banner_url = "/profile_upload/" + this._id + this.extensionWithDot;
     $(".homecook_profile_banner_area").css("background-color","");
     $(".homecook_profile_banner_area").css("background-image", "url("+ banner_url +")");
+  },
+
+  "check_chef_name": function(){
+    var chef_name = Kitchen_details.findOne({'user_id': Meteor.userId()});
+    var default_name = 'Chef Name';
+
+    if(!chef_name){
+      return default_name;
+    }
+    else{
+      console.log(chef_name.chef_name)
+      return chef_name.chef_name;
+
+    }
+  },
+
+  "check_chef_keywords": function(){
+    var homecook = Kitchen_details.findOne({'user_id': Meteor.userId()});
+    var keyword = ""
+
+    if(!homecook){
+      return keyword;
+    }
+    else{
+      return homecook.homecook_profile_keywords;
   }
+}
 });
 
 Template.homecook_profile_banner.events({
@@ -392,8 +444,9 @@ Template.create_foodie_profile.events({
       const bank_fullname = $('#bank_fullname').val();
       const bank_account_no = $('#bank_account_no').val();
       const bank_name = $('#bank_name').val();
-      const user_id = Meteor.userId();
 
+      const user_id = Meteor.userId();
+     
   /**      if( isNotEmpty(kitchen_name)           &&
             isNotEmpty(profile_keywords)       &&
             isNotEmpty(last_name)              &&
@@ -577,27 +630,27 @@ Template.create_homecook_profile.onRendered(function(){
 Template.profile_bank_details.helpers ({
   bank_list: [
     { name: '003 - Standard Chartered Bank (Hong Kong)', option: '003 - Standard Chartered Bank (Hong Kong)'},
-    { name: '004 - Hongkong and Shanghai Banking Corporation', option: '2'},
-    { name: '009 - China Construction Bank (Asia)', option: '3'},
-    { name: '012 - Bank of China (Hong Kong)', option: '4'},
-    { name: '015 - Bank of East Asia', option: '5'},
-    { name: '018 - China CITIC Bank International', option: '6'},
-    { name: '020 - Wing Lung Bank', option: '7'},
-    { name: '022 - OCBC Wing Hang Bank', option: '8'},
-    { name: '024 - Hang Seng Bank', option: '9'},
-    { name: '025 - Shanghai Commercial Bank', option: '10'},
-    { name: '027 - Bank of Communications', option: '11'},
-    { name: '028 - Public Bank (Hong Kong)', option: '12'},
-    { name: '038 - Tai Yau Bank', option: '13'},
-    { name: '039 - Chiyu Banking Corporation', option: '14'},
-    { name: '040 - Dah Sing Bank', option: '15'},
-    { name: '041 - Chong Hing Bank', option: '16'},
-    { name: '043 - Nanyang Commercial Bank', option: '17'},
-    { name: '061 - Tai Sang Bank', option: '18'},
-    { name: '072 - Industrial and Commercial Bank of China (Asia)', option: '19'},
-    { name: '128 - Fubon Bank (Hong Kong)', option: '20'},
-    { name: '250 - CitiBank (Hong Kong)', option: '21'},
-  ],
+    { name: '004 - Hongkong and Shanghai Banking Corporation', option: '004 - Hongkong and Shanghai Banking Corporation'},
+    { name: '009 - China Construction Bank (Asia)', option: '009 - China Construction Bank (Asia)'},
+    { name: '012 - Bank of China (Hong Kong)', option: '012 - Bank of China (Hong Kong)'},
+    { name: '015 - Bank of East Asia', option: '015 - Bank of East Asia'},
+    { name: '018 - China CITIC Bank International', option: '018 - China CITIC Bank International'},
+    { name: '020 - Wing Lung Bank', option: '020 - Wing Lung Bank'},
+    { name: '022 - OCBC Wing Hang Bank', option: '022 - OCBC Wing Hang Bank'},
+    { name: '024 - Hang Seng Bank', option: '024 - Hang Seng Bank'},
+    { name: '025 - Shanghai Commercial Bank', option: '025 - Shanghai Commercial Bank'},
+    { name: '027 - Bank of Communications', option: '027 - Bank of Communications'},
+    { name: '028 - Public Bank (Hong Kong)', option: '028 - Public Bank (Hong Kong)'},
+    { name: '038 - Tai Yau Bank', option: '038 - Tai Yau Bank'},
+    { name: '039 - Chiyu Banking Corporation', option: '039 - Chiyu Banking Corporation'},
+    { name: '040 - Dah Sing Bank', option: '040 - Dah Sing Bank'},
+    { name: '041 - Chong Hing Bank', option: '041 - Chong Hing Bank'},
+    { name: '043 - Nanyang Commercial Bank', option: '043 - Nanyang Commercial Bank'},
+    { name: '061 - Tai Sang Bank', option: '061 - Tai Sang Bank'},
+    { name: '072 - Industrial and Commercial Bank of China (Asia)', option: '072 - Industrial and Commercial Bank of China (Asia)'},
+    { name: '128 - Fubon Bank (Hong Kong)', option: '128 - Fubon Bank (Hong Kong)'},
+    { name: '250 - CitiBank (Hong Kong)', option: '250 - CitiBank (Hong Kong)'},
+  ]
 });
 
 Template.profile_payment_details.helpers ({
