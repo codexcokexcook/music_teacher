@@ -101,25 +101,26 @@ Template.dishes_summary.events({
       Session.set('serving_temperature_tags',get_dish.serving_temperature_tags);
     }
   },
-  'click #btn_delete_dish': function() {
+  'click #btn_delete_dish': function(event) {
+    event.preventDefault();
     var selected_dishes = Session.get('selected_dishes_id');
-    if (!selected_dishes) {
+    if (!selected_dishes || selected_dishes.length === 0) {
       Materialize.toast("Please select a dish you'd like to delete", 4000);
     } else {
-      for (i = 0; i <= selected_dishes.length; i++) {
+      for (i = 0; i < selected_dishes.length; i++) {
         var dish_details = Dishes.findOne({_id: selected_dishes[i]});
         if (dish_details.image_id) {
-          var image_id = Images.findOne({_id: dish_details.image_id});
-          Meteor.call('dish_image.remove',image_id);
+          Meteor.call('dish_image.remove',dish_details.image_id);
         }
         var delete_message = dish_details.dish_name + " deleted";
-        Meteor.call('dish.remove', selected_dishes[i]);
         Materialize.toast(delete_message, 3000);
-        var checkboxes = document.getElementsByClassName("dishes_checkbox");
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = false;
-        };
+        Meteor.call('dish.remove', selected_dishes[i]);
+      //  var checkboxes = document.getElementsByClassName("dishes_checkbox");
+      //  for (var i = 0; i < checkboxes.length; i++) {
+      //      checkboxes[i].checked = false;
+      //  };
       }
+      Session.set('selected_dishes_id',"");
     }
   },
   'click .modal-close': function() {
