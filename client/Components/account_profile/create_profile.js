@@ -576,7 +576,7 @@ Template.create_homecook_profile.onRendered(function(){
 
 Template.profile_bank_details.helpers ({
   bank_list: [
-    { name: '003 - Standard Chartered Bank (Hong Kong)', option: '1'},
+    { name: '003 - Standard Chartered Bank (Hong Kong)', option: '003 - Standard Chartered Bank (Hong Kong)'},
     { name: '004 - Hongkong and Shanghai Banking Corporation', option: '2'},
     { name: '009 - China Construction Bank (Asia)', option: '3'},
     { name: '012 - Bank of China (Hong Kong)', option: '4'},
@@ -617,18 +617,17 @@ Template.profile_payment_details.helpers ({
   ],
 
   year_list:[
-    { year: '2017', option:'1'},
-    { year: '2018', option:'2'},
-    { year: '2019', option:'3'},
-    { year: '2020', option:'4'},
-    { year: '2021', option:'5'},
-    { year: '2022', option:'6'},
-    { year: '2023', option:'7'},
-    { year: '2024', option:'8'},
-    { year: '2025', option:'9'},
-    { year: '2026', option:'10'},
-    { year: '2027', option:'11'},
-    { year: '2028', option:'12'},
-
+    { year: '2017', option:'2017'},
+    { year: '2018', option:'2018'},
+    { year: '2019', option:'2019'},
+    { year: '2020', option:'2020'},
+    { year: '2021', option:'2021'},
+    { year: '2022', option:'2022'},
+    { year: '2023', option:'2023'},
+    { year: '2024', option:'2024'},
+    { year: '2025', option:'2025'},
+    { year: '2026', option:'2026'},
+    { year: '2027', option:'2027'},
+    { year: '2028', option:'2028'},
   ],
 });
