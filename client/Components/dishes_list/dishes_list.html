@@ -17,7 +17,7 @@
   <div class="card horizontal" id = "dish_card_large">
     <div class="card-image circle responsive-img" id = "dish_card_image">
       {{> chef_avatar}}
-      {{> get_dish_image}}
+      <div id="dishes_card_layout_img_wrapper">{{> get_dish_image}}</div>
     </div>
 
     <div class="card-stacked">
@@ -49,20 +49,10 @@
 <template name = "dishes_rotation">
       <a class = "grey-text modal-trigger dish_thumbnail col s6 m3 l2" id="{{_id}}" href="#large_dish_display">
         <div class = "card dish_thumbnail_card z-depth-0">
-          {{> get_dish_image}}
+          <div id="thumbnail_img_wrapper">{{> get_dish_image}}</div>
           <div class = "center-align">{{dish_name}}</div>
         </div>
     </a>
-</template>
-
-<template name="get_dish_image">
-    {{#if image_id}}
-      <img src="/dishes_upload/{{image_id}}{{get_image_extension}}" id="dish_image" alt="{{dishes_name}}" class="circle responsive-img"/>
-    {{else}}
-      <div class = "valign-wrapper no_display grey lighten-4">
-        <p class = "center-align">no image to display</p>
-      </div>
-    {{/if}}
 </template>
 
 <template name="ingredients_loop">

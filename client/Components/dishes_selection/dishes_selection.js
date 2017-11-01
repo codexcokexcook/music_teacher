@@ -1,4 +1,3 @@
-
 Template.dishes_selection.onRendered(function(){
   this.$('select').material_select();
 });
@@ -14,6 +13,11 @@ Template.dishes_selection.events({
   'click #delete_dish': function () {
     Meteor.call('dish.remove', this._id);
     Meteor.call('dish_image.remove', this.image_id);
+  },
+  'click #edit_dish': function() {
+    Session.set('selected_dishes_id', this._id);
+    $("#btn_edit_dish").click();
+    return false;
   }
 });
 
