@@ -45,7 +45,8 @@ Meteor.methods({
       card_fullname: card_fullname,
       card_exp_month: card_exp_month,
       card_exp_year: card_exp_year,
-      cvv_code: cvv_code
+      cvv_code: cvv_code,
+      updatedAt: new Date()
 
   }});
 },
@@ -71,7 +72,8 @@ Meteor.methods({
       about_homecook_myself: about_homecook_myself,
       bank_fullname: bank_fullname,
       bank_name: bank_name,
-      bank_account_no: bank_account_no
+      bank_account_no: bank_account_no,
+      updatedAt: new Date()
 
   }});
   }

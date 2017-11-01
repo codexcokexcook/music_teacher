@@ -10,15 +10,15 @@
             <h6>Your details</h6>
             </div>
             <div class="input-field col l3 m3 s6 valign">
-                <input id="foodie_name" name="foodie_name" type="text" value="{{profile_details.foodie_name}}">
+                <input id="foodie_name" name="foodie_name" type="text" value="{{get_foodie_profile.foodie_name}}">
                     <label class="active" for="foodie_name">Foodie name</label>
               </div>
               <div class="input-field col l3 m3 s6 valign">
-                  <input id="first_name" name="first_name" type="text" placeholder="First Name" value="{{profile_details.first_name}}">
+                  <input id="first_name" name="first_name" type="text" placeholder="First Name" value="{{get_foodie_profile.first_name}}">
                   <label class="active" for="first_name">First name</label>
               </div>
               <div class="input-field col l3 m3 s6 valign">
-                  <input id="last_name" name="last_name" type="text" placeholder="Last Name" value="{{profile_details.last_name}}">
+                  <input id="last_name" name="last_name" type="text" placeholder="Last Name" value="{{get_foodie_profile.last_name}}">
                   <label class="active" for="last_name">Last name</label>
               </div>
                 </div>
@@ -26,11 +26,11 @@
                     <div class="text-field col l3 m6 s6 valign">
                     </div>
                 <div class="input-field col l3 m3 s6 valign">
-                    <input disabled id="date_of_birth" name="date_of_birth" type="text" value="{{profile_details.date_of_birth}}">
+                    <input disabled id="date_of_birth" name="date_of_birth" type="text" value="{{get_foodie_profile.date_of_birth}}">
                     <label class="active" for="foodie_name">Date of Birth</label>
                   </div>
                   <div class="input-field col l3 m3 s6 valign">
-                      <input id="mobile" name="mobile" type="text" value="{{profile_details.mobile}}">
+                      <input id="mobile" name="mobile" type="text" value="{{get_foodie_profile.mobile}}">
                       <label class="active" for="mobile">Mobile</label>
                     </div>
 
@@ -67,7 +67,7 @@
               <h6>Home Address</h6>
             </div>
             <div class="input-field col l9 m6 s6 valign">
-              <input id="home_address" name="home_address" type="text" value="{{profile_details.home_address}}">
+              <input id="home_address" name="home_address" type="text" value="{{get_foodie_profile.home_address}}">
               <label class="active" for="home_address">Home Address</label>
               </div>
             </div>
@@ -78,7 +78,7 @@
                 <h6>Office Address</h6>
               </div>
               <div class="input-field col l9 m6 s6 valign">
-                <input id="office_address" name="office_address" type="text" value="{{profile_details.office_address}}">
+                <input id="office_address" name="office_address" type="text" value="{{get_foodie_profile.office_address}}">
                 <label class="active" for="office_address">Office Address</label>
                 </div>
               </div>
@@ -86,7 +86,7 @@
               <!--Row 4-->
               <div class="row col l12 m6 s6 valign">
                 <div class="input-field col l9 m6 s6 offset-l3 valign">
-                  <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500" value="{{profile_details.about_myself}}"></textarea>
+                  <textarea id="about_myself" class="materialize-textarea" name="about_myself" type="text" data-length="500" value="{{get_foodie_profile.about_myself}}"></textarea>
                   <label class="active" for="about_myself">Write a paragraph about yourself</label>
                   </div>
                 </div>
@@ -96,31 +96,31 @@
           <h6>Payment details</h6>
           </div>
           <div class="input-field col l3 m3 s3 valign">
-            <input id="card_fullname" name="card_fullname" type="text" value="{{profile_details.card_fullname}}">
+            <input id="card_fullname" name="card_fullname" type="text" value="{{get_foodie_profile.card_fullname}}">
             <label class="active" for="card_fullname">Full Name on Card</label>
           </div>
         <div class="input-field col l2 m3 s3 valign">
-          <input id="card_number" name="card_number" type="text" value="{{profile_details.card_number}}">
+          <input id="card_number" name="card_number" type="text" value="{{get_foodie_profile.card_number}}">
           <label class="active" for="card_number">Card Number</label>
           </div>
           <div class="input-field col l1 m2 s2 valign">
-            <select class="material_select" id="card_exp_month" value="{{profile_details.card_exp_month}}">
-              <option value="" disabled selected>MM</option>
+            <select class="material_select" id="card_exp_month" >
+              <option value="{{get_foodie_profile.card_exp_month}}" selected>{{get_foodie_profile.card_exp_month}}</option>
               {{#each month_list}}
               <option value="{{option}}">{{month}}</option>
               {{/each}}
               </select>
             </div>
           <div class="input-field col l1 m2 s2 valign">
-            <select class="material_select" id="card_exp_year" value="{{profile_details.card_exp_year}}">
-              <option value="" disabled selected>YYYY</option>
+            <select class="material_select" id="card_exp_year">
+              <option value="{{get_foodie_profile.card_exp_year}}" selected>{{get_foodie_profile.card_exp_year}}</option>
               {{#each year_list}}
               <option value="{{option}}">{{year}}</option>
               {{/each}}
               </select>
             </div>
           <div class="input-field col l2 m4 s4 valign">
-            <input id="cvv_code" name="cvv_code" type="text" value="{{profile_details.cvv_code}}">
+            <input id="cvv_code" name="cvv_code" type="text" value="{{get_foodie_profile.cvv_code}}">
             <label class="active" for="cvv_code">cvv2/cvc2 code</label>
             </div>
         </div>
@@ -186,8 +186,8 @@
           <label class="active" for="bank_fullname">Account Name</label>
         </div>
         <div class="input-field col l4 m4 s6 valign">
-          <select class="material_select" id="bank_name" value="{{get_homecook_profile.bank_name}}">
-            <option value="" disabled selected>Bank Name</option>
+          <select class="material_select" id="bank_name" >
+            <option value="{{get_homecook_profile.bank_name}}" disabled selected>{{get_homecook_profile.bank_name}}</option>
             {{#each bank_list}}
             <option value="{{option}}">{{name}}</option>
             {{/each}}

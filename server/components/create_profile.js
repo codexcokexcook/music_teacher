@@ -45,7 +45,8 @@ Meteor.methods({
     card_fullname,
     card_exp_month,
     card_exp_year,
-    cvv_code ){
+    cvv_code
+   ){
     Profile_details.insert({
     user_id: user_id,
     foodie_name: foodie_name,
@@ -64,7 +65,9 @@ Meteor.methods({
     card_fullname: card_fullname,
     card_exp_month: card_exp_month,
     card_exp_year: card_exp_year,
-    cvv_code: cvv_code
+    cvv_code: cvv_code,
+    createdAt: new Date(),
+    updatedAt: new Date()
 
   });
 },
@@ -89,7 +92,10 @@ Meteor.methods({
   about_homecook_myself: about_homecook_myself,
   bank_fullname: bank_fullname,
   bank_name: bank_name,
-  bank_account_no: bank_account_no
+  bank_account_no: bank_account_no,
+  createdAt: new Date(),
+  updatedAt: new Date()
+
 
   });
   }

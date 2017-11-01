@@ -47,7 +47,7 @@ Template.registerHelper(
 
 
 Template.registerHelper(
-  'profile_details', (userId) => {
+  'get_profile_details', (userId) => {
     var get_profile_details = Profile_details.findOne({'userId': userId});
     return get_profile_details;
   }
@@ -55,7 +55,7 @@ Template.registerHelper(
 
 
 Template.registerHelper(
-  'kitchen_details', (userId) => {
+  'get_kitchen_details', (userId) => {
     var get_kitchen_details = Kitchen_details.findOne({'userId': userId});
     return get_kitchen_details;
   }
