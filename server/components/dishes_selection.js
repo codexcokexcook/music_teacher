@@ -36,8 +36,5 @@ Meteor.methods({
         updatedAt: new Date()
       }}
     );
-  },
-  'ingredients.remove'(dish_name,user_id) {
-    Ingredients.remove({dish_name:dish_name, user_id: user_id});
   }
 });

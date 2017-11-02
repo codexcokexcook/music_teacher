@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
 import { FilesCollection } from 'meteor/ostrio:files';
+import { Tracker } from 'meteor/tracker'
 import { get_checkboxes_value } from '/imports/functions/get_checkboxes_value.js';
 
 import './create_dishes_form.html';
@@ -73,12 +74,25 @@ Template.uploadForm.events({
 
 /** fucntion from Ostrio -- end here -- **/
 
-Template.serving_option.onRendered(function(){
+Template.serving_option.helpers ({
+  serving_option_list: [
+    { name: 'Delivery', file_name: 'delivery'},
+    { name: 'Dine-in', file_name: 'Dine_in'},
+    { name: 'Pick-up', file_name: 'Pickup'},
+  ],
+});
+
+Template.serving_option.events({
+  'change .filled-in': function(event, template) {
+    get_checkboxes_value('serving_option_tags', template);
+  }
+});
+
+Template.ingredient_input.onRendered(function(){
     this.$('select').material_select();
 });
 
-Template.ingredient_unit_selector.helpers({
-
+Template.ingredient_input.helpers({
   units: [
     { name: 'g', shortform: 'g' },
     { name: 'kg', shortform: 'kg' },
@@ -94,21 +108,29 @@ Template.ingredient_unit_selector.helpers({
     { name: 'inch', shortform: 'in' },
     { name: 'portion(s)', shortform: 'portions' },
     { name: 'piece(s)', shortform: 'pieces' },
-  ]
-});
-
-Template.ingredient_unit_selector.onRendered(function(){
-    this.$('select').material_select();
-});
-
-Template.ingredient_input.helpers({
-  'ingredient_list': function () {
+  ],
+  'perm_ingredient_collection': function() {
+    if (this.dish_name){
+      var value = Ingredients.find({dish_name: this.dish_name,user_id:Meteor.userId()});
+      return value;
+    }
+  },
+  'temp_ingredient_list': function () {
       return Ingredients_temporary.find();
+  },
+  'check_status': function() {
+    var selected_dish = Session.get('selected_dishes_id');
+    if (selected_dish){
+      Ingredients.find({dish_name: selected_dish.dish_name, user_id: Meteor.userId()});
+      return "ingredient_update";
+    } else {
+      return "ingredient_input";
+    }
   }
 });
 
 Template.ingredient_input.events({
-  'click .ingredient_input': function(event) {
+  'click #ingredient_input': function(event) {
     event.preventDefault();
     var dish_name = $('#dish_name').val();
     var ingredient_name= $('#ingredient_name').val();
@@ -124,13 +146,37 @@ Template.ingredient_input.events({
     });
     $('#ingredient_name').val("");
     $('#ingredient_quantity').val("");
-    $('#ingredient_unit').val("");
+    $('select>option:eq(0)').prop('selected', true);
+  },
+
+  'click #ingredient_update': function(event) {
+    event.preventDefault();
+    var dish_name = $('#dish_name').val();
+    var ingredient_name= $('#ingredient_name').val();
+    var ingredient_quantity = $('#ingredient_quantity').val();
+    var ingredient_unit = $('#ingredient_unit').val();
+    Meteor.call('ingredient.update',dish_name,Meteor.userId(),ingredient_name,ingredient_quantity,ingredient_unit);
+
+    $('#ingredient_name').val("");
+    $('#ingredient_quantity').val("");
+    $('select>option:eq(0)').prop('selected', true);
+  },
+
+  'click #delete_perm_ingredient': function(event) {
+    Meteor.call('ingredient.remove',this._id);
+  },
+
+  'click #delete_temp_ingredient': function(event) {
+    Ingredients_temporary.remove({_id: this._id});
   }
 });
 
 Template.price.helpers ({
   'profit': function () {
-    return Session.get('dish_profit');
+    Tracker.autorun(function(){
+      var profit = $('#dish_selling_price').val()- $('#dish_cost').val();
+      return profit;
+    });
   }
 });
 
@@ -421,13 +467,11 @@ Template.create_dishes_form.events({
          var user_id = Meteor.userId();
          var dish_name = event.target.dish_name.value;
          var dish_description = event.target.dish_description.value;
-         var serving_option = event.target.serving_option.value;
          var cooking_time = event.target.cooking_time.value;
 
          var dish_cost = event.target.dish_cost.value;
          var dish_selling_price = event.target.dish_selling_price.value;
          var dish_profit = dish_selling_price - dish_cost;
-
          Ingredients_temporary.find({}).forEach(function(doc){Ingredients.insert(doc);});
          Dishes.insert({
             /** user_id: user_id, this should be implemented after user account is available **/
@@ -436,7 +480,7 @@ Template.create_dishes_form.events({
             dish_name: dish_name,
             dish_description: dish_description,
 
-            serving_option: serving_option,
+            serving_option: Session.get('serving_option_tags'),
             cooking_time: cooking_time,
 
             dish_cost: dish_cost,
@@ -462,7 +506,6 @@ Template.create_dishes_form.events({
          Ingredients_temporary.remove({});
          event.target.dish_name.value ="";
          event.target.dish_description.value ="";
-         event.target.serving_option.value="";
          event.target.cooking_time.value="";
          event.target.dish_cost.value="";
          event.target.dish_selling_price.value="";
@@ -479,10 +522,7 @@ Template.create_dishes_form.events({
        var user_id = Meteor.userId();
        var dish_name = $('#dish_name').val();
        var dish_description = $('#dish_description').val();
-       // below, serving option is undefined right now, need tow ork on it.
-       var serving_option = $('#serving_option').val();
        var cooking_time = $('#cooking_time').val();
-       // ^ cooking_time is undefined right now, need to work on it.
        var dish_cost = $('#dish_cost').val();
        var dish_selling_price = $('#dish_selling_price').val();
        var dish_profit = dish_selling_price - dish_cost;
@@ -493,7 +533,7 @@ Template.create_dishes_form.events({
          user_id,
          dish_name,
          dish_description,
-         serving_option,
+         Session.get('serving_option_tags'),
          cooking_time,
          dish_cost,
          dish_selling_price,
@@ -511,7 +551,9 @@ Template.create_dishes_form.events({
          Session.get('serving_temperature_tags'),
          new Date()
        );
+
        Ingredients_temporary.find({}).forEach(function(doc){Ingredients.insert(doc);});
+
        Ingredients_temporary.remove({});
     }
 });

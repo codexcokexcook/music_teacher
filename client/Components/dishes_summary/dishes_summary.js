@@ -20,6 +20,8 @@ Template.dishes_summary.onRendered(function(){
 
 Template.dishes_summary.events({
   'click #btn_add_dish': function() {
+    event.preventDefault()
+
     Session.keys = {};
 
     if (Blaze.getView($("#add_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
@@ -29,7 +31,10 @@ Template.dishes_summary.events({
     $(".create_dish_submit_btn").hide()
     $(".update_dish_submit_btn").hide()
   },
+
   'click #btn_edit_dish': function(event,template) {
+    event.preventDefault()
+
     if (Blaze.getView($("#edit_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
       $('.create_dishes_form_container').remove();
     };
@@ -47,12 +52,12 @@ Template.dishes_summary.events({
       var get_dish = Dishes.findOne({_id: selected_dishes[0]});
 
       // Recall ingredients of the dish to tempoaray collection for display
-      Ingredients.find({dish_name: get_dish.dish_name}).forEach(
-        function(doc){
-          Ingredients_temporary.insert(doc);
-        }
-      );
-      Meteor.call('ingredients.remove', get_dish.dish_name, Meteor.userId());
+      //Ingredients.find({dish_name: get_dish.dish_name}).forEach(
+      //  function(doc){
+      //    Ingredients_temporary.insert(doc);
+      //  }
+      //);
+
       // Below parameters will be passed to create_dishes_form template using Blaze.renderWithData
       var get_dish_contents = {
         dish_name: get_dish.dish_name,
@@ -63,6 +68,8 @@ Template.dishes_summary.events({
         dish_selling_price: get_dish.dish_selling_price,
       };
       Blaze.renderWithData(Template.create_dishes_form, get_dish_contents,$("#edit_dish_modal_content")[0]);
+      $(".create_dish_submit_btn").hide()
+      $(".update_dish_submit_btn").hide()
       Tracker.autorun(function(){
         if (get_dish.image_id) {
           var dish_image = Images.findOne({_id:get_dish.image_id});
@@ -71,10 +78,8 @@ Template.dishes_summary.events({
           $('.image_upload').hide();
         }
       });
-      if (get_dish.serving_option){
-        $('select option[value='+get_dish.serving_option+']').attr("selected", true);
-      }
       // After template is rendered, tick the right checkboxes
+      checkboxes_recall(get_dish.serving_option);
       checkboxes_recall(get_dish.allergy_tags);
       checkboxes_recall(get_dish.dietary_tags);
       checkboxes_recall(get_dish.cuisines_tags);
@@ -88,6 +93,7 @@ Template.dishes_summary.events({
       checkboxes_recall(get_dish.serving_temperature_tags);
       Session.set('selected_dishes_id',get_dish._id);
       Session.set('image_id',get_dish.image_id);
+      Session.set('serving_option_tags',get_dish.serving_option);
       Session.set('allergy_tags',get_dish.allergy_tags);
       Session.set('dietary_tags',get_dish.dietary_tags);
       Session.set('cuisines_tags',get_dish.cuisines_tags);
@@ -101,6 +107,7 @@ Template.dishes_summary.events({
       Session.set('serving_temperature_tags',get_dish.serving_temperature_tags);
     }
   },
+
   'click #btn_delete_dish': function(event) {
     event.preventDefault();
     var selected_dishes = Session.get('selected_dishes_id');
@@ -123,6 +130,7 @@ Template.dishes_summary.events({
       Session.set('selected_dishes_id',"");
     }
   },
+
   'click .modal-close': function() {
     $('.modal-content').scrollTop(0);
     $('.modal-overlay').remove();

@@ -21,3 +21,20 @@ Images = new FilesCollection({
 Meteor.publish('files.images.all', function () {
     return Images.find().cursor;
 });
+
+Meteor.methods({
+  'ingredient.update'(dish_name,user_id,ingredient_name,ingredient_quantity,ingredient_unit){
+    Ingredients.insert({
+      dish_name: dish_name,
+      user_id: user_id,
+      ingredient_name: ingredient_name,
+      ingredient_quantity: ingredient_quantity,
+      ingredient_unit: ingredient_unit,
+    });
+  },
+  'ingredient.remove'(_id) {
+    Ingredients.remove({
+      _id: _id
+    })
+  }
+});

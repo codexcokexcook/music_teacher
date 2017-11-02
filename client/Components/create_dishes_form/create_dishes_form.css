@@ -39,8 +39,32 @@
 
 #checkbox {
   padding: 10px;
-  display: block;
+  width: 235px;
+  display: inline-flex;
+  background-color: transparent;
 }
+
+.icon_delivery {
+    background: url("delivery.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 60px;
+}
+
+.icon_Dine_in {
+    background: url("Dine_in.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 60px;
+}
+
+.icon_Pickup {
+    background: url("Pickup.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 60px;
+}
+
 
 .icon_milk {
     background: url("allergies_icons/dairy.svg");
@@ -87,10 +111,6 @@
     margin-bottom: 20px;
 }
 
-# checkbox {
-  padding: 10px;
-  display: block;
-}
 
 /*#dish_descriptions {
     width: 800px;

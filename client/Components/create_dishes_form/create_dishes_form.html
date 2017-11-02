@@ -1,58 +1,90 @@
 <template name = "create_dishes_form">
 
-    <div class = "container create_dishes_form_container">
+    <div class = "create_dishes_form_container">
         <form class="dish_descriptions" id="dish_descriptions">
           <br>
           <br>
-          {{> uploadForm }}
-            <h5>Dish descriptions</h5>
-                <div class = "input-field col l12 m12 s12">
-                    <input placeholder="Type your dish name" name="dish_name" id="dish_name" type="text" value = "{{dish_name}}">
-                </div>
-                <div class = "input-field col l12 m12 s12">
-                    <input placeholder="Type something about your dish - description" name="dish_description" id="dish_description" type="text" value="{{dish_description}}">
-                </div>
+            {{> uploadForm }}
+          <br>
+          <br>
+          <div class="row">
+            <div class = "col l3 m3 s3 valign">
+              <h6>Dish descriptions</h6>
+            </div>
+            <div class = "input-field col l9 m9 s9">
+                <input placeholder="Type your dish name" name="dish_name" id="dish_name" type="text" value = "{{dish_name}}">
+            </div>
+          </div>
+          <div class ="row">
+            <div class = "col l3 m3 s3"></div>
+            <div class = "input-field col l9 m9 s9">
+                <input placeholder="Type something about your dish - description" name="dish_description" id="dish_description" type="text" value="{{dish_description}}">
+            </div>
+          </div>
+          <div class="row">
+            <div class = "col l3 m3 s3">
+              <h6>Serving Options</h6>
+            </div>
+            <div class="col l9 m9 s9">
+              {{> serving_option}}
+            </div>
+          </div>
+          <div class="row">
+            <div class = "col l3 m3 s3">
+              <h6>Cooking Time <small>(mins)</small></h6>
+            </div>
+            <div class="input-field col l9 m9 s9">
+              <i class="material-icons prefix">av_timer</i>
+              <input id="cooking_time" name="cooking_time" type="number" min="0" value="{{cooking_time}}">
+            </div>
+          </div>
+          <div class="row add_ingredient">
+            <div class="col l3 m3 s3">
+              <h6>Ingredients</h6>
+            </div>
+            <div class = "col l9 m9 s9">
+              {{#if ingredient_collection}}
+                  {{> ingredient_update}}
+              {{else}}
+                {{> ingredient_input}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="row add_price">
+            <div class = "col l3 m3 s3">
+              <h6>Price</h6>
+            </div>
+            <div class = "col l9 m9 s9">
+              {{> price}}
+            </div>
+          </div>
+          <div class="row food_allergies">
+            <div class = "col l3 m3 s3">
+              <h6>Major food allergies</h6>
+            </div>
+            <div class = "col l9 m9 s9">
+              {{> food_allergies}}
+            </div>
+          </div>
+          <div class="row dietary_preferences">
+            <div class = "col l3 m3 s3">
+              <h6>Dietary preferences</h6>
+            </div>
+            <div class = "col l9 m9 s9">
+              {{> dietary_preferences}}
+            </div>
+          </div>
+          <div class="row food_tags">
+            <div class = "col l3 m3 s3">
+              <h6>Tags</h6>
+            </div>
+            <div class = "col l9 m9 s9">
+              {{> food_tags}}
+            </div>
+          </div>
 
-              <div class="row">
-                  <div class="input-field col l6 m6 s6">
-                    <h5>Serving Options</h5>
-                    {{> serving_option}}
-                  </div>
-
-                <div class="input-field col l6 m6 s6">
-                    <h5>Cooking Time (mins)</h5>
-                    <i class="material-icons prefix">av_timer</i>
-                    <input id="cooking_time" name="cooking_time" type="number" min="0" value="{{cooking_time}}">
-                </div>
-              </div>
-
-              <div class="add_ingredient">
-                  <h5>Ingredients</h5>
-                  {{> ingredient_input}}
-              </div>
-
-              <div class="add_price">
-                <h5>Price</h5>
-                {{> price}}
-              </div>
-
-              <div class="food_allergies">
-                <h5>Major food allergies</h5>
-                {{> food_allergies}}
-              </div>
-
-              <div class="dietary_preferences">
-                <h5>Dietary preferences</h5>
-                {{> dietary_preferences}}
-              </div>
-
-              <div class="food_tags">
-                <h5>Tags</h5>
-                {{> food_tags}}
-              </div>
-
-            <input class="modal-action modal-close waves-effect waves-teal btn-flat create_dish_submit_btn" type="submit" value="Submit">
-            <btn class="modal-action modal-close waves-effect waves-teal btn-flat update_dish_submit_btn"></btn>
+            <input class="waves-effect waves-teal btn-flat create_dish_submit_btn" type="submit" value="Submit">
+            <btn class="waves-effect waves-teal btn-flat update_dish_submit_btn"></btn>
         </form>
     </div>
 </template>
@@ -84,77 +116,85 @@
 </template>
 
 <template name="serving_option">
-  <select class="icons" id="serving_option" name="serving_option" value="{{serving_option}}">
-    <option value="" disabled selected>Choose your option</option>
-    <option value="Delivery" data-icon='/delivery.svg' class="left">Delivery</option>
-    <option value="Pick-up" data-icon='/Pickup.svg' class="left">Pick up</option>
-    <option value="Dine-in" data-icon='/Dine_in.svg' class="left">Dine in</option>
-  </select>
+    <br>
+    <div class="row">
+      {{#each serving_option_list}}
+        <div class="card z-depth-0" id="checkbox">
+            <input type="checkbox" class="serving_option_checkboxes filled-in" id= "{{file_name}}" value = "{{name}} ">
+            <label for="{{file_name}}">{{name}}<div class="right icon icon_{{file_name}}"></div></label>
+        </div>
+      {{/each}}
+    </div>
+    <br>
 </template>
 
 <template name="ingredient_input">
-      <table>
-        <thead>
-          <tr>
-              <th class="col l8 m8 s8">Ingredient</th>
-              <th class="col l2 m2 s2">Quantity</th>
-              <th class="col l2 m2 s2">Unit</th>
-          </tr>
-        </thead>
-            {{#each ingredient_list}}
-                {{> display_ingredients}}
-            {{/each}}
-        <tr>
+  <table>
+    <thead>
+      <tr>
+        <th>Ingredient</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th></th>
+      </tr>
+    </thead>
+    {{#if perm_ingredient_collection}}
+      {{#each perm_ingredient_collection}}
+      <tr style="height: 35px;">
+        <td>{{ingredient_name}}</td>
+        <td>{{ingredient_quantity}}</td>
+        <td>{{ingredient_unit}}</td>
         <td>
-            <input id="ingredient_name" name="ingredient_name" type="text">
+          <a class = "transparent" href="#" id="delete_perm_ingredient">
+            <i style="font-size: 20px; margin-top: 5px;" class="material-icons grey-text text-lighten-1">delete</i>
+          </a>
         </td>
-        <td>
-            <input id="ingredient_quantity" name="ingredient_quantity" type="number" min="0">
-        </td>
-        <td>
-            {{> ingredient_unit_selector}}
-        </td>
+      </tr>
+      {{/each}}
+    {{else}}
+      {{#each temp_ingredient_list}}
+        <tr style="height: 35px;">
+          <td>{{ingredient_name}}</td>
+          <td>{{ingredient_quantity}}</td>
+          <td>{{ingredient_unit}}</td>
+          <td>
+            <a class = "transparent" href="#" id="delete_temp_ingredient">
+              <i style="font-size: 20px; margin-top: 5px;" class="material-icons grey-text text-lighten-1">delete</i>
+            </a>
+          </td>
         </tr>
-        <tbody>
-        <tr>
-        </tr>
-        </tbody>
-    </table>
-
+      {{/each}}
+    {{/if}}
+    <tr>
+      <td>
+          <input id="ingredient_name" name="ingredient_name" type="text">
+      </td>
+      <td>
+          <input id="ingredient_quantity" name="ingredient_quantity" type="number" min="0">
+      </td>
+      <td>
+        <select id="ingredient_unit" name="ingredient_unit" type="text">
+        <!-- https://en.wikibooks.org/wiki/Cookbook:Units_of_measurement -->
+          <option value="0">Choose an unit</option>
+          {{#each units}}
+            <option value={{shortform}}>{{name}}</option>
+          {{/each}}
+        </select>
+      </td>
+    </tr>
+  </table>
   <div class="right-align">
-        <a class="ingredient_input btn-floating btn-medium waves-effect waves-red-300" type="submit" value="Submit"><i class="material-icons right">add</i></a>
+    <a class="btn-floating btn-medium waves-effect waves-red-300" id="{{check_status}}" type="submit" value="Submit"><i class="material-icons right">add</i></a>
   </div>
-</template>
-
-<template name = "ingredient_unit_selector">
-  <select id="ingredient_unit" name="ingredient_unit" type="text">
-  <!-- https://en.wikibooks.org/wiki/Cookbook:Units_of_measurement -->
-    <option value="">Choose an unit</option>
-    {{#each units}}
-      {{> unit_list}}
-    {{/each}}
-  </select>
-</template>
-
-<template name="display_ingredients">
-  <tr>
-      <td>{{ingredient_name}}</td>
-      <td>{{ingredient_quantity}}</td>
-      <td>{{ingredient_unit}}</td>
-  </tr>
-</template>
-
-<template name="unit_list">
-    <option value={{shortform}}>{{name}}</option>
 </template>
 
 <template name="price">
   <table>
     <thead>
       <tr>
-          <th class="col l8 m8 s8">Cost</th>
-          <th class="col l2 m2 s2">Expected selling price</th>
-          <th class="col l2 m2 s2">Expected profit</th>
+          <th>Cost</th>
+          <th>Expected selling price</th>
+          <th>Expected profit</th>
       </tr>
     </thead>
 
@@ -178,8 +218,8 @@
     <br>
     <div class="row">
       {{#each allergy_list}}
-        <div class="col l4 m4 s4" id="checkbox">
-            <input type="checkbox" class="allergy_checkboxes filled-in" id= "{{file_name}}" value = {{name}} >
+        <div class="card z-depth-0" id="checkbox">
+            <input type="checkbox" class="allergy_checkboxes filled-in" id= "{{file_name}}" value = "{{name}}" >
             <label for="{{file_name}}">{{name}}<div class="right icon icon_{{file_name}}"></div></label>
         </div>
       {{/each}}
@@ -191,7 +231,7 @@
     <br>
     <div class="row">
       {{#each dietary_list}}
-        <div class="col l4 m4 s4" id="checkbox">
+        <div class="card z-depth-0" id="checkbox">
             <input type="checkbox" class="filled-in" id="{{file_name}}" value={{name}} >
             <label for="{{file_name}}">{{name}}<div class="icon icon_{{file_name}}"></div></label>
         </div>
