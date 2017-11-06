@@ -5,6 +5,7 @@ import { Tracker } from 'meteor/tracker';
 
 Template.menu_creation.onRendered(function(){
   this.$('modal').modal();
+  this.$('select').material_select();
   //Check if menu has data instance
   var data = Menu.find({"createdBy": Meteor.userId()})
   if (data.count()) {

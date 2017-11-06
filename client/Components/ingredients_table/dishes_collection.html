@@ -1,0 +1,32 @@
+<template name = "dishes_collection">
+  <div class="container ingredients_table_container">
+  <table class="bordered">
+      <thead>
+        <tr>
+            <th class = "col l2 s2 m2 checkbox_column"></th>
+            <th class = "col l3 s2 m2">ID</th>
+            <th class = "col l3 s2 m2"></th>
+            <th class = "col l3 s2 m2">Dishes</th>
+            <th class = "col l3 s2 m2">Serving by</th>
+            <th class = "col l3 s2 m2">Timing</th>
+          </tr>
+      </thead>
+
+      <tbody>
+        {{#each helper1}}
+        <tr>
+          <td >
+            <input class="with-gap" name="group1" type="radio" id="{{_id}}"  />
+            <label for="{{_id}}"></label>
+          </td>
+            <td>{{_id}} </td>
+            <td></td>
+            <td>{{dish_name}}</td>
+            <td>{{serving_option}}</td>
+            <td>cooking_time</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+    </div>
+</template>
