@@ -32,12 +32,13 @@ Template.dishes_summary.events({
     $(".update_dish_submit_btn").hide()
   },
 
-  'click #btn_edit_dish': function(event,template) {
+  'click .btn_edit_dish': function(event,template) {
     event.preventDefault()
-
+    // Check if a create dish form existed in the modal
     if (Blaze.getView($("#edit_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
       $('.create_dishes_form_container').remove();
     };
+
     var selected_dishes = Session.get('selected_dishes_id');
 
     //Validation of dish selection checkbox
@@ -50,13 +51,6 @@ Template.dishes_summary.events({
     } else {
       var selected_dishes = Session.get('selected_dishes_id');
       var get_dish = Dishes.findOne({_id: selected_dishes[0]});
-
-      // Recall ingredients of the dish to tempoaray collection for display
-      //Ingredients.find({dish_name: get_dish.dish_name}).forEach(
-      //  function(doc){
-      //    Ingredients_temporary.insert(doc);
-      //  }
-      //);
 
       // Below parameters will be passed to create_dishes_form template using Blaze.renderWithData
       var get_dish_contents = {
@@ -91,6 +85,7 @@ Template.dishes_summary.events({
       checkboxes_recall(get_dish.vegetables_tags);
       checkboxes_recall(get_dish.condiments_tags);
       checkboxes_recall(get_dish.serving_temperature_tags);
+      // Store all the values in Sessions
       Session.set('selected_dishes_id',get_dish._id);
       Session.set('image_id',get_dish.image_id);
       Session.set('serving_option_tags',get_dish.serving_option);
@@ -122,10 +117,6 @@ Template.dishes_summary.events({
         var delete_message = dish_details.dish_name + " deleted";
         Materialize.toast(delete_message, 3000);
         Meteor.call('dish.remove', selected_dishes[i]);
-      //  var checkboxes = document.getElementsByClassName("dishes_checkbox");
-      //  for (var i = 0; i < checkboxes.length; i++) {
-      //      checkboxes[i].checked = false;
-      //  };
       }
       Session.set('selected_dishes_id',"");
     }
