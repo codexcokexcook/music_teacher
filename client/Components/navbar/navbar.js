@@ -9,6 +9,7 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 
 Template.bp_navbar.onRendered(function(){
+
   //activate dropdown
   this.$('select').material_select();
 
@@ -87,6 +88,14 @@ Template.bp_navbar.onRendered(function(){
      { service_option: 'Dine in', option:'3'},
 
    ],
+
+     "check_shopping_cart": function(){
+       var total_item_in_cart = 0;
+       Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
+         total_item_in_cart += doc.quantity;
+       });
+       return total_item_in_cart;
+     }
  });
 
  Template.bp_navbar.events({

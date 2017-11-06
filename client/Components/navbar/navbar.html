@@ -52,14 +52,14 @@
 
           <div class="col l1 m6 s6">
             <div calss='right'>
-        <a href="shopping_cart" ><img src='/navbar/OrderDish.svg' height="40" class='navbar_logo'/></a>
+        <a href="shopping_cart" ><h6 class='navbar_logo'>{{check_shopping_cart}}</h6></a>
       </div>
       </div>
       <div class="col l1 m6 s6">
         <div calss='right'>
         <a class="dropdown-button" href="" data-activates="profile_dropdown">
           {{#if profile_images 'profile_picture'}}
-            <img class="circle navbar_logo" height='40' src="/profile_upload/{{profile_images 'profile_picture'}}"/>
+            <img class="circle logo_wrapper navbar_logo" style="background-image:url(/profile_upload/{{profile_images 'profile_picture'}})"/>
           {{else}}
             <img src="/profile_upload/user.jpg" class="circle navbar_logo" height='40'/>
             {{/if}}

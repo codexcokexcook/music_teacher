@@ -3,7 +3,8 @@ Ingredients_temporary = new Mongo.Collection(null);
 Ingredients = new Mongo.Collection('ingredients');
 Menu = new Mongo.Collection('menu');
 Messages = new Mongo.Collection('messages');
-
+Shopping_cart = new Mongo.Collection('shopping_cart');
+Transaction = new Mongo.Collection('transaction');
 
 Images = new FilesCollection({
   collectionName: 'Images',
@@ -26,7 +27,9 @@ Collections = {
   'Ingredients': Ingredients,
   'Menu': Menu,
   'Messages': Messages,
-  'Images': Images
+  'Images': Images,
+  'Shopping_cart': Shopping_cart,
+  'Transaction': Transaction
 }
 
 Template.registerHelper(
