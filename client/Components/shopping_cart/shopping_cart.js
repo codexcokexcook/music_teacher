@@ -34,13 +34,14 @@ Template.shopping_cart_card.helpers({
 
 })
 
-
-/**Template.shopping_cart_card.events({
-$('.quantity').change( function() {
+/**
+Template.shopping_cart_card.events({
+#quantity.change( function() {
   updateQuantity(this);
 });
 
 $('.product-removal button').click( function() {
   removeItem(this);
 });
-})**/
+})
+**/
