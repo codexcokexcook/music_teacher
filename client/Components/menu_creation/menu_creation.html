@@ -45,9 +45,6 @@
   </div>
   <div class = "modal-footer section">
     <span>
-      <div class = "left">
-        <a class="waves-effect waves-red btn-flat red-text text-lighten-2 modal-trigger" id="add_dish" href="#create_dish_modal">Add dish</a>
-      </div>
       <div class = "right">
         <a class="modal-action modal-close waves-effect waves-red btn-flat red-text text-lighten-2" id="cancel">Cancel</a>
         <button class="modal-action modal-close btn waves-effect waves-light red lighten-2" type="submit" name="action" id="create_menu">Create</button>
@@ -73,10 +70,14 @@
 
 
 <template name = "view_menu">
-    {{#each menu_retreival}}
-      {{> menu_card}}
-    {{/each}}
-    {{>edit_content}}
+  <div class = "section">
+    <h5>Available set menus:</h5>
+    <br>
+      {{#each menu_retreival}}
+        {{> menu_card}}
+      {{/each}}
+      {{>edit_content}}
+  </div>
   <div class = "section">
     <a class="btn-floating btn-large waves-effect waves-light red lighten-2 right modal-trigger" href="#create_menu_modal" id="add_menu"><i class="material-icons">add</i></a>
       {{> modal}}
@@ -172,11 +173,11 @@
               <table class = "bordered" id="menu_dishes_table">
                 <thead>
                   <tr>
-                    <th class = "col l2 s2 m2"></th>
-                    <th class = "col l3 s2 m2">Dish Name</th>
-                    <th class = "col l3 s2 m2">Cost</th>
-                    <th class = "col l2 s2 m2">Selling price</th>
-                    <th class = "col l2 s2 m2"></th>
+                    <th></th>
+                    <th>Dish Name</th>
+                    <th>Cost</th>
+                    <th>Selling price</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>

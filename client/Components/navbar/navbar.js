@@ -105,11 +105,8 @@ Template.bp_navbar.onRendered(function(){
    'click #all_link': function () {
      FlowRouter.go('/main');
    },
-   'click #create_dish_link': function () {
-     FlowRouter.go('/dishes_summary');
-   },
-   'click #create_menu_link': function () {
-     FlowRouter.go('/create_menu');
+   'click #i_wanna_cook': function () {
+     FlowRouter.go('/cooking');
    },
    'click #logout_link': function () {
      Meteor.call('messages.clear',Meteor.userId());

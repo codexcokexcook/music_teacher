@@ -25,6 +25,7 @@ Meteor.publish('files.images.all', function () {
 
 Meteor.methods({
 
+
   'shopping_cart.insert'(
     foodie_id,
     homecook_id,
@@ -63,5 +64,20 @@ Meteor.methods({
   }
 
 }
-
-  )
+  ),
+    
+  'ingredient.update'(dish_name,user_id,ingredient_name,ingredient_quantity,ingredient_unit){
+    Ingredients.insert({
+      dish_name: dish_name,
+      user_id: user_id,
+      ingredient_name: ingredient_name,
+      ingredient_quantity: ingredient_quantity,
+      ingredient_unit: ingredient_unit,
+    });
+  },
+  'ingredient.remove'(_id) {
+    Ingredients.remove({
+      _id: _id
+    })
+  }
+});

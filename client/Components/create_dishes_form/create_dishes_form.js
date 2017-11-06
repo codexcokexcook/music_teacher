@@ -1,13 +1,14 @@
+import { Mongo } from 'meteor/mongo';
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
 import { FilesCollection } from 'meteor/ostrio:files';
+import { Tracker } from 'meteor/tracker'
+import { get_checkboxes_value } from '/imports/functions/get_checkboxes_value.js';
 
 import './create_dishes_form.html';
 
 
 Meteor.subscribe('files.images.all');
-
-
 
 /** function from ostrio **/
 
@@ -73,12 +74,25 @@ Template.uploadForm.events({
 
 /** fucntion from Ostrio -- end here -- **/
 
-Template.serving_option.onRendered(function(){
+Template.serving_option.helpers ({
+  serving_option_list: [
+    { name: 'Delivery', file_name: 'delivery'},
+    { name: 'Dine-in', file_name: 'Dine_in'},
+    { name: 'Pick-up', file_name: 'Pickup'},
+  ],
+});
+
+Template.serving_option.events({
+  'change .filled-in': function(event, template) {
+    get_checkboxes_value('serving_option_tags', template);
+  }
+});
+
+Template.ingredient_input.onRendered(function(){
     this.$('select').material_select();
 });
 
-Template.ingredient_unit_selector.helpers({
-
+Template.ingredient_input.helpers({
   units: [
     { name: 'g', shortform: 'g' },
     { name: 'kg', shortform: 'kg' },
@@ -94,57 +108,75 @@ Template.ingredient_unit_selector.helpers({
     { name: 'inch', shortform: 'in' },
     { name: 'portion(s)', shortform: 'portions' },
     { name: 'piece(s)', shortform: 'pieces' },
-  ]
-});
-
-Template.ingredient_unit_selector.onRendered(function(){
-    this.$('select').material_select();
-});
-
-Template.ingredient_input.helpers({
-  'ingredient_list': function () {
+  ],
+  'perm_ingredient_collection': function() {
+    if (this.dish_name){
+      var value = Ingredients.find({dish_name: this.dish_name,user_id:Meteor.userId()});
+      return value;
+    }
+  },
+  'temp_ingredient_list': function () {
       return Ingredients_temporary.find();
+  },
+  'check_status': function() {
+    var selected_dish = Session.get('selected_dishes_id');
+    if (selected_dish){
+      Ingredients.find({dish_name: selected_dish.dish_name, user_id: Meteor.userId()});
+      return "ingredient_update";
+    } else {
+      return "ingredient_input";
+    }
   }
 });
 
 Template.ingredient_input.events({
-    'click .ingredient_input': function(event) {
-        event.preventDefault();
-        var dish_name = $('#dish_name').val();
-        var ingredient_name= $('#ingredient_name').val();
-        var ingredient_quantity = $('#ingredient_quantity').val();
-        var ingredient_unit = $('#ingredient_unit').val();
-        // var user_id = Meteor.userId(); this should be implemented after user account is available **/
+  'click #ingredient_input': function(event) {
+    event.preventDefault();
+    var dish_name = $('#dish_name').val();
+    var ingredient_name= $('#ingredient_name').val();
+    var ingredient_quantity = $('#ingredient_quantity').val();
+    var ingredient_unit = $('#ingredient_unit').val();
 
-         Ingredients_temporary.insert({
-            dish_name: dish_name,
-          //  user_id: user_id, this should be implemented after user account is available **/
-            ingredient_name: ingredient_name,
-            ingredient_quantity: ingredient_quantity,
-            ingredient_unit: ingredient_unit,
-         });
+    Ingredients_temporary.insert({
+      dish_name: dish_name,
+      user_id: Meteor.userId(),
+      ingredient_name: ingredient_name,
+      ingredient_quantity: ingredient_quantity,
+      ingredient_unit: ingredient_unit,
+    });
+    $('#ingredient_name').val("");
+    $('#ingredient_quantity').val("");
+    $('select>option:eq(0)').prop('selected', true);
+  },
 
-       /* this is how it is done if 'Ingredients' is an array of objective, not
-       a database -- Ingredients.push({"ingredient_name":ingredient_name,
-       "ingredient_quantity":ingredient_quantity,"ingredinet_unit":ingredient_unit});
-        console.log(Ingredients); */
+  'click #ingredient_update': function(event) {
+    event.preventDefault();
+    var dish_name = $('#dish_name').val();
+    var ingredient_name= $('#ingredient_name').val();
+    var ingredient_quantity = $('#ingredient_quantity').val();
+    var ingredient_unit = $('#ingredient_unit').val();
+    Meteor.call('ingredient.update',dish_name,Meteor.userId(),ingredient_name,ingredient_quantity,ingredient_unit);
 
-        $('#ingredient_name').val("");
-        $('#ingredient_quantity').val("");
-        $('#ingredient_unit').val("");
+    $('#ingredient_name').val("");
+    $('#ingredient_quantity').val("");
+    $('select>option:eq(0)').prop('selected', true);
+  },
 
-        this.$('select').material_select();
+  'click #delete_perm_ingredient': function(event) {
+    Meteor.call('ingredient.remove',this._id);
+  },
 
-        console.log(Ingredients_temporary.find());
-
-        return false;
-
-    }
+  'click #delete_temp_ingredient': function(event) {
+    Ingredients_temporary.remove({_id: this._id});
+  }
 });
 
 Template.price.helpers ({
   'profit': function () {
-    return Session.get('dish_profit');
+    Tracker.autorun(function(){
+      var profit = $('#dish_selling_price').val()- $('#dish_cost').val();
+      return profit;
+    });
   }
 });
 
@@ -172,11 +204,7 @@ Template.food_allergies.helpers ({
 
 Template.food_allergies.events({
   'change .filled-in': function(event, template) {
-    var get_allergy = template.findAll("input[type=checkbox]:checked");
-      var selected_allergy = get_allergy.map(function(selection){
-        return selection.value;
-    });
-    Session.set('allergy_tags',selected_allergy);
+    get_checkboxes_value('allergy_tags', template);
     }
 });
 
@@ -198,11 +226,7 @@ Template.dietary_preferences.helpers ({
 
 Template.dietary_preferences.events({
   'change .filled-in': function(event, template) {
-    var get_dietary = template.findAll("input[type=checkbox]:checked");
-      var selected_dietary = get_dietary.map(function(item){
-        return item.value;
-    });
-    Session.set('dietary_tags',selected_dietary);
+    get_checkboxes_value('dietary_tags', template);
     }
 });
 
@@ -261,11 +285,7 @@ Template.cuisines_list.helpers({
 
 Template.cuisines_list.events({
   'change .filled-in': function(event, template) {
-    var get_cuisines = template.findAll("input[type=checkbox]:checked");
-      var selected_cuisines = get_cuisines.map(function(item){
-        return item.value;
-    });
-    Session.set('cuisines_tags',selected_cuisines);
+    get_checkboxes_value('cuisines_tags', template);
     }
 });
 
@@ -283,11 +303,7 @@ Template.proteins_list.helpers({
 
 Template.proteins_list.events({
   'change .filled-in': function(event, template) {
-    var get_proteins = template.findAll("input[type=checkbox]:checked");
-      var selected_proteins = get_proteins.map(function(item){
-        return item.value;
-    });
-    Session.set('proteins_tags',selected_proteins);
+    get_checkboxes_value('proteins_tags', template);
     }
 });
 
@@ -314,12 +330,8 @@ Template.categories_list.helpers({
 
 Template.categories_list.events({
   'change .filled-in': function(event, template) {
-    var get_categories = template.findAll("input[type=checkbox]:checked");
-      var selected_categories = get_categories.map(function(item){
-        return item.value;
-    });
-    Session.set('categories_tags',selected_categories);
-    }
+    get_checkboxes_value('categories_tags', template);
+  }
 });
 
 Template.cooking_methods_list.helpers({
@@ -339,11 +351,7 @@ Template.cooking_methods_list.helpers({
 
 Template.cooking_methods_list.events({
   'change .filled-in': function(event, template) {
-    var get_cooking_methods = template.findAll("input[type=checkbox]:checked");
-      var selected_cooking_methods = get_cooking_methods.map(function(item){
-        return item.value;
-    });
-    Session.set('cooking_methods_tags',selected_cooking_methods);
+    get_checkboxes_value('cooking_methods_tags', template);
     }
 });
 
@@ -367,11 +375,7 @@ Template.tastes_list.helpers({
 
 Template.tastes_list.events({
   'change .filled-in': function(event, template) {
-    var get_tastes = template.findAll("input[type=checkbox]:checked");
-      var selected_tastes = get_tastes.map(function(item){
-        return item.value;
-    });
-    Session.set('tastes_tags',selected_tastes);
+    get_checkboxes_value('tastes_tags', template);
     }
 });
 
@@ -390,12 +394,8 @@ Template.textures_list.helpers({
 
 Template.textures_list.events({
   'change .filled-in': function(event, template) {
-    var get_textures = template.findAll("input[type=checkbox]:checked");
-      var selected_textures = get_textures.map(function(item){
-        return item.value;
-    });
-    Session.set('textures_tags',selected_textures);
-    }
+    get_checkboxes_value('textures_tags', template);
+  }
 });
 
 Template.vegetables_list.helpers({
@@ -414,11 +414,7 @@ Template.vegetables_list.helpers({
 
 Template.vegetables_list.events({
   'change .filled-in': function(event, template) {
-    var get_vegetables = template.findAll("input[type=checkbox]:checked");
-      var selected_vegetables = get_vegetables.map(function(item){
-        return item.value;
-    });
-    Session.set('vegetables_tags',selected_vegetables);
+    get_checkboxes_value('vegetables_tags', template);
     }
 });
 
@@ -445,11 +441,7 @@ Template.condiments_list.helpers({
 
 Template.condiments_list.events({
   'change .filled-in': function(event, template) {
-    var get_condiments = template.findAll("input[type=checkbox]:checked");
-      var selected_condiments = get_condiments.map(function(item){
-        return item.value;
-    });
-    Session.set('condiments_tags',selected_condiments);
+    get_checkboxes_value('condiemnts_tags', template);
     }
 });
 
@@ -465,11 +457,7 @@ Template.serving_temperature_list.helpers({
 
 Template.serving_temperature_list.events({
   'change .filled-in': function(event, template) {
-    var get_serving_temperature = template.findAll("input[type=checkbox]:checked");
-      var selected_serving_temperature = get_serving_temperature.map(function(item){
-        return item.value;
-    });
-    Session.set('serving_temperature_tags',selected_serving_temperature);
+    get_checkboxes_value('serving_temperature_tags', template);
     }
 });
 
@@ -478,74 +466,98 @@ Template.create_dishes_form.events({
          event.preventDefault();
          var user_id = Meteor.userId();
          var dish_name = event.target.dish_name.value;
-         var dish_description = event.target.dish_description.value;
-         var serving_option = event.target.serving_option.value;
-         var cooking_time = event.target.cooking_time.value;
+         if (!dish_name) {
+           Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name to save",3000);
+         } else {
+           var dish_description = event.target.dish_description.value;
+           var cooking_time = event.target.cooking_time.value;
 
-         var dish_cost = event.target.dish_cost.value;
-         var dish_selling_price = event.target.dish_selling_price.value;
-         var dish_profit = dish_selling_price - dish_cost;
+           var dish_cost = event.target.dish_cost.value;
+           var dish_selling_price = event.target.dish_selling_price.value;
+           var dish_profit = dish_selling_price - dish_cost;
+           Ingredients_temporary.find({}).forEach(function(doc){Ingredients.insert(doc);});
+           Dishes.insert({
+              /** user_id: user_id, this should be implemented after user account is available **/
+              image_id: Session.get('image_id'),
+              user_id: user_id,
+              dish_name: dish_name,
+              dish_description: dish_description,
 
-         Dishes.insert({
-            /** user_id: user_id, this should be implemented after user account is available **/
-            image_id: Session.get('image_id'),
-            user_id: user_id,
-            dish_name: dish_name,
-            dish_description: dish_description,
+              serving_option: Session.get('serving_option_tags'),
+              cooking_time: cooking_time,
 
-            serving_option: serving_option,
-            cooking_time: cooking_time,
+              dish_cost: dish_cost,
+              dish_selling_price: dish_selling_price,
+              dish_profit: dish_profit,
 
-            dish_cost: dish_cost,
-            dish_selling_price: dish_selling_price,
-            dish_profit: dish_profit,
+              allergy_tags: Session.get('allergy_tags'),
+              dietary_tags: Session.get('dietary_tags'),
 
-            allergy_tags: Session.get('allergy_tags'),
-            dietary_tags: Session.get('dietary_tags'),
+              cuisines_tags: Session.get('cuisines_tags'),
+              proteins_tags: Session.get('proteins_tags'),
+              categories_tags: Session.get('categories_tags'),
+              cooking_methods_tags: Session.get('cooking_methods_tags'),
+              tastes_tags: Session.get('tastes_tags'),
+              textures_tags: Session.get('textures_tags'),
+              vegetables_tags: Session.get('vegetables_tags'),
+              condiments_tags: Session.get('condiments_tags'),
+              serving_temperature_tags: Session.get('serving_temperature_tags'),
+              createdAt: new Date(),
+              updatedAt: new Date()
+           });
+           Materialize.toast('Nice! You have created a dish!', 2000);
+           Ingredients_temporary.remove({});
+           event.target.dish_name.value ="";
+           event.target.dish_description.value ="";
+           event.target.cooking_time.value="";
+           event.target.dish_cost.value="";
+           event.target.dish_selling_price.value="";
+           var checkboxes = document.getElementsByClassName("filled-in");
+           for (var i = 0; i < checkboxes.length; i++) {
+               checkboxes[i].checked = false;
+           };
+           Session.keys = {}; /** clear Session.get for image upload to reset back to original **/
+           Materialize.updateTextFields();
+           return false;
+         }
+    },
+    'click .update_dish_submit_btn': function(event) {
+       event.preventDefault();
+       var user_id = Meteor.userId();
+       var dish_name = $('#dish_name').val();
+       var dish_description = $('#dish_description').val();
+       var cooking_time = $('#cooking_time').val();
+       var dish_cost = $('#dish_cost').val();
+       var dish_selling_price = $('#dish_selling_price').val();
+       var dish_profit = dish_selling_price - dish_cost;
 
-            cuisines_tags: Session.get('cuisines_tags'),
-            proteins_tags: Session.get('proteins_tags'),
-            categories_tags: Session.get('categories_tags'),
-            cooking_methods_tags: Session.get('cooking_methods_tags'),
-            tastes_tags: Session.get('tastes_tags'),
-            textures_tags: Session.get('textures_tags'),
-            vegetables_tags: Session.get('vegetables_tags'),
-            condiments_tags: Session.get('condiments_tags'),
-            serving_temperature_tags: Session.get('serving_temperature_tags'),
+       Meteor.call('dish.update',
+         Session.get('selected_dishes_id'),
+         Session.get('image_id'),
+         user_id,
+         dish_name,
+         dish_description,
+         Session.get('serving_option_tags'),
+         cooking_time,
+         dish_cost,
+         dish_selling_price,
+         dish_profit,
+         Session.get('allergy_tags'),
+         Session.get('dietary_tags'),
+         Session.get('cuisines_tags'),
+         Session.get('proteins_tags'),
+         Session.get('categories_tags'),
+         Session.get('cooking_methods_tags'),
+         Session.get('tastes_tags'),
+         Session.get('textures_tags'),
+         Session.get('vegetables_tags'),
+         Session.get('condiments_tags'),
+         Session.get('serving_temperature_tags'),
+         new Date()
+       );
 
-            random: Math.random(), //insert a random number for sampling random dish on surpise me / blueplate special
+       Ingredients_temporary.find({}).forEach(function(doc){Ingredients.insert(doc);});
 
-            createdAt: new Date()
-         });
-
-        Ingredients_temporary.find({}).forEach(
-            function(doc){
-              Ingredients.insert(doc);
-            }
-          );
-         Materialize.toast('Nice! You have created a dish!', 2000);
-
-         Ingredients_temporary.remove({});
-
-         event.target.dish_name.value ="";
-         event.target.dish_description.value ="";
-         event.target.serving_option.value="";
-         event.target.cooking_time.value="";
-         event.target.dish_cost.value="";
-         event.target.dish_selling_price.value="";
-
-         var checkboxes = document.getElementsByClassName("filled-in");
-         for (var i = 0; i < checkboxes.length; i++) {
-             checkboxes[i].checked = false;
-         };
-
-         Session.keys = {}; /** clear Session.get for image upload to reset back to original **/
-
-         console.log(Session.get('image_id'));
-         console.log(Dishes.find());
-         console.log(Ingredients_temporary.find());
-         console.log(Ingredients.find());
-         Materialize.updateTextFields();
-         return false;
+       Ingredients_temporary.remove({});
     }
 });

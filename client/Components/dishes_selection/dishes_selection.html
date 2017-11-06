@@ -2,29 +2,30 @@
   <table class = "bordered" id="menu_dishes_table">
     <thead>
       <tr>
-        <th class = "col l2 s2 m2 checkbox_column"></th>
-        <th class = "col l3 s2 m2">Dish Name</th>
-        <th class = "col l3 s2 m2">Cost</th>
-        <th class = "col l2 s2 m2">Selling price</th>
-        <th class = "col l2 s2 m2"></th>
+        <th></th>
+        <th>Dish Name</th>
+        <th>Cost</th>
+        <th>Selling price</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       {{#each user_dishes}}
         <tr>
-          <td class ="checkbox_column">
-            <input class="dishes_checkbox" type="checkbox" id="c_{{_id}}" value="{{_id}}" />
-            <label for="c_{{_id}}"></label>
+          <td width="40px">
+            <input class="dishes_checkbox" type="checkbox" id="{{checkbox_id}}" value="{{_id}}"/>
+            <label for="{{checkbox_id}}"></label>
           </td>
           <td>{{dish_name}}</td>
           <td>{{dish_cost}}</td>
           <td>{{dish_selling_price}}</td>
-          <td style="width: 15%;">{{> get_dish_image}}</td>
+          <td><div id="dish_image_list_display">{{> get_dish_image}}</div></td>
           <td>
-            <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent" href="#" id="edit_dish">
+            <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent btn_edit_dish" id="edit_dish">
               <i class="material-icons grey-text text-lighten-1">edit</i>
             </a>
-            <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent" href="#" id="delete_dish">
+            <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent" href="" id="delete_dish">
               <i class="material-icons grey-text text-lighten-1">delete</i>
             </a>
           </td>

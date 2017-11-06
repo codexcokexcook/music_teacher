@@ -1,0 +1,12 @@
+.img_wrapper {
+    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+    /** border: 0.5px solid grey; **/
+    margin-left: auto;
+    margin-right: auto;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index:1;
+}

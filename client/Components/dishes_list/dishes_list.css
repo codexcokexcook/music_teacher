@@ -12,12 +12,6 @@
   width:45%;
 }
 
-#dish_image {
-  position: relative;
-  z-index: 1;
-  max-height: 350px;
-}
-
 #user_avatar {
   position: relative;
   width: 36px;
@@ -79,7 +73,12 @@
 
 .dish_thumbnail_card {
   display: block;
-  height: 180px;
+  height: 250px;
+}
+
+#thumbnail_img_wrapper {
+  width: 150px;
+  height: 150px;
 }
 
 .no_display {
