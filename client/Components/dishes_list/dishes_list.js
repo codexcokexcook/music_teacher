@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
+import { FilesCollection } from 'meteor/ostrio:files';
 
 Template.dishes_list.onRendered(function(){
   $('.modal').modal({
@@ -70,4 +71,50 @@ var serving_option = this.serving_option;
 /**  if this.serving_option.value = "Delivery" {
     document.getSVGDocument().getElementById("pick_up_option").style.color=rgba(0,0,0,0.18);
   } **/
+});
+
+
+//Action for template dishes_card_layout (Ordering)
+
+Template.dishes_card_layout.events({
+  'click #place_order': function () {
+    var dish_details = Dishes.findOne({"_id":this._id});
+    var foodie_details = Profile_details.findOne({"user_id": Meteor.userId()});
+    var foodie_id = Meteor.userId();
+    var homecook_id = dish_details.user_id;
+    var homecook_details = Kitchen_details.findOne({"user_id": homecook_id});
+    var foodie_name = foodie_details.foodie_name;
+    var homecook_name =  homecook_details.chef_name;
+    var dish_id = dish_details._id;
+    var dish_price = dish_details.dish_selling_price;
+    var dish_name = dish_details.dish_name;
+    var quantity = 1;
+
+    //check if the dish has been put in shopping check_shopping_cart
+    var order = Shopping_cart.findOne({"product_id":this._id});
+    console.log(order)
+
+    if (order)
+    {
+      var order_id = order._id;
+      quantity = order.quantity + 1;
+      Meteor.call('shopping_cart.update',
+      order_id,
+      quantity
+    )
+    }
+    else{
+      Meteor.call('shopping_cart.insert',
+      foodie_id,
+      homecook_id,
+      foodie_name,
+      homecook_name,
+      dish_id,
+      dish_name,
+      quantity,
+      dish_price,
+      );
+    }
+
+    }
 });
