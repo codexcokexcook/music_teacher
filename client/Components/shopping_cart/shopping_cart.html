@@ -19,30 +19,32 @@
               <h6>{{product_name}}</h6>
                 By {{seller_name}}
           </div>
-          <div class="field col l1 m1 s1 valign">
+
+          <div class="text-field col l1 m1 s1 valign">
               <input class="quantity center" id="q_{{_id}}" name="quantity" type="text" value='{{quantity}}' min='1'>
             </div>
-            <div class="bill_board">
-            <div class="field col l1 m1 s1 valign">
+
+            <div class="text-field col l1 m1 s1 valign">
               </div>
-          <div class="col l1 m1 s2 valign">
+          <div class="text-field col l1 m1 s2 valign" style="padding-top:12px;">
             ${{product_price}}
           </div>
-          <div class="field col l1 m1 s1 valign">
+          <div class="col l1 m1 s1 valign">
             </div>
 
-          <div class="col l1 m1 s2 valign">
+          <div class="text-field col l1 m1 s2 valign">
             <input class="total_price center" id="t_{{_id}}" name="quantity" type="text">
           </div>
-          <div class="col l1 m1 s1 valign">
+
+          <div class="text-field col l1 m1 s1 valign">
           <div id="product-removal">
-            <i class="material-icons right">delete</i>
+            <i class="material-icons right" style="padding-top:12px;">delete</i>
           </div>
         </div>
 
 
 
-          </div>
+
           </div>
           {{/each}}
           </div>
