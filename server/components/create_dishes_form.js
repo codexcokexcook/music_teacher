@@ -61,11 +61,9 @@ Meteor.methods({
 
       createdAt: new Date()
     }});
-  }
+  },
 
-}
-  ),
-    
+
   'ingredient.update'(dish_name,user_id,ingredient_name,ingredient_quantity,ingredient_unit){
     Ingredients.insert({
       dish_name: dish_name,

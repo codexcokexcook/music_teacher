@@ -9,7 +9,7 @@
   <div class = "container col l12 m6 s6 valign">
     <div class="row col l12 valign">
       <div class="text-field col l3 m6 s6 valign">
-        <h6>{{foodie_name}}'s Order Summary</h6>
+        <h6>Order Summary</h6>
         </div>
         {{#each shopping_cart}}
         <div class="row col l12 valign">
@@ -20,7 +20,7 @@
                 By {{seller_name}}
           </div>
           <div class="field col l1 m1 s1 valign">
-              <input class="center" id="{{product_id}}quantity" name="quantity" type="text" value='{{quantity}}' min='1'>
+              <input class="quantity center" id="q_{{_id}}" name="quantity" type="text" value='{{quantity}}' min='1'>
             </div>
             <div class="bill_board">
             <div class="field col l1 m1 s1 valign">
@@ -32,10 +32,10 @@
             </div>
 
           <div class="col l1 m1 s2 valign">
-            $
+            <input class="total_price center" id="t_{{_id}}" name="quantity" type="text">
           </div>
-<div class="col l1 m1 s1 valign">
-          <div class="product-removal">
+          <div class="col l1 m1 s1 valign">
+          <div id="product-removal">
             <i class="material-icons right">delete</i>
           </div>
         </div>
