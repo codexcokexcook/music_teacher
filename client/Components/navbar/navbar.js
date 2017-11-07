@@ -43,7 +43,8 @@ Template.bp_navbar.onRendered(function(){
       today: 'Today',
       clear: 'Clear',
       close: 'Ok',
-      closeOnSelect: false // Close upon selecting a date,
+      closeOnSelect: false, // Close upon selecting a date,
+      format: 'dd/mm/yyyy'
     });
 
 
@@ -92,7 +93,7 @@ Template.bp_navbar.onRendered(function(){
      "check_shopping_cart": function(){
        var total_item_in_cart = 0;
        Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
-         total_item_in_cart += doc.quantity;
+         total_item_in_cart += parseInt(doc.quantity);
        });
        return total_item_in_cart;
      }

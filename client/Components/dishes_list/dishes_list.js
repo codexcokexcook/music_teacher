@@ -92,12 +92,10 @@ Template.dishes_card_layout.events({
 
     //check if the dish has been put in shopping check_shopping_cart
     var order = Shopping_cart.findOne({"product_id":this._id});
-    console.log(order)
-
     if (order)
     {
       var order_id = order._id;
-      quantity = order.quantity + 1;
+      quantity = parseInt(order.quantity) + 1;
       Meteor.call('shopping_cart.update',
       order_id,
       quantity

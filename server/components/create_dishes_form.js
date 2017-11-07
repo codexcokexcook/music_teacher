@@ -63,6 +63,14 @@ Meteor.methods({
     }});
   },
 
+  'shopping_cart.remove'(
+    cart_id
+  ){
+    Shopping_cart.remove({
+      _id: cart_id
+    })
+  },
+
 
   'ingredient.update'(dish_name,user_id,ingredient_name,ingredient_quantity,ingredient_unit){
     Ingredients.insert({
