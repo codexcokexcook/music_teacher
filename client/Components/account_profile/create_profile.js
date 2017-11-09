@@ -242,7 +242,6 @@ Template.homecook_profile_banner.helpers({
       return default_name;
     }
     else{
-      console.log(chef_name.chef_name)
       return chef_name.chef_name;
 
     }
@@ -446,7 +445,7 @@ Template.create_foodie_profile.events({
       const bank_name = $('#bank_name').val();
 
       const user_id = Meteor.userId();
-     
+
   /**      if( isNotEmpty(kitchen_name)           &&
             isNotEmpty(profile_keywords)       &&
             isNotEmpty(last_name)              &&

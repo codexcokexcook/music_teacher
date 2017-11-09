@@ -9,6 +9,7 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 
 Template.bp_navbar.onRendered(function(){
+
   //activate dropdown
   this.$('select').material_select();
 
@@ -42,7 +43,8 @@ Template.bp_navbar.onRendered(function(){
       today: 'Today',
       clear: 'Clear',
       close: 'Ok',
-      closeOnSelect: false // Close upon selecting a date,
+      closeOnSelect: false, // Close upon selecting a date,
+      format: 'dd/mm/yyyy'
     });
 
 
@@ -87,6 +89,14 @@ Template.bp_navbar.onRendered(function(){
      { service_option: 'Dine in', option:'3'},
 
    ],
+
+     "check_shopping_cart": function(){
+       var total_item_in_cart = 0;
+       Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
+         total_item_in_cart += parseInt(doc.quantity);
+       });
+       return total_item_in_cart;
+     }
  });
 
  Template.bp_navbar.events({

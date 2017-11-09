@@ -10,7 +10,7 @@
     </div>
            <!--Search Bar-->
 
-        <form class="nav_search_bar col l9 m6 s6">
+        <form class="nav_search_bar col l6 m6 s6">
           <div class="input-field grey-text col l3 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class=“material_select” id=“search_by_place”>
@@ -24,7 +24,7 @@
           <div class="input-field grey-text col l3 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
             <select class=“material_select” id=“search_by_method”>
-              <option value=“” disabled selected>Serving Option</option>
+              <option value=“” disabled selected>Option</option>
               {{#each service_option_list}}
               <option value=“{{option}}“>{{service_option}}</option>
               {{/each}}
@@ -49,11 +49,18 @@
     </form>
 <!--Example
         <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li> -->
+          <div class='col l3 m3 s3'>
+          </div>
+          <div class="col l1 m6 s6">
+            <div calss='right'>
+        <a href="shopping_cart" ><h6 class='navbar_logo'>{{check_shopping_cart}}</h6></a>
+      </div>
+      </div>
       <div class="col l1 m6 s6">
         <div calss='right'>
         <a class="dropdown-button" href="" data-activates="profile_dropdown">
           {{#if profile_images 'profile_picture'}}
-            <img class="circle navbar_logo" height='40' src="/profile_upload/{{profile_images 'profile_picture'}}"/>
+            <img class="circle logo_wrapper navbar_logo" style="background-image:url(/profile_upload/{{profile_images 'profile_picture'}})"/>
           {{else}}
             <img src="/profile_upload/user.jpg" class="circle navbar_logo" height='40'/>
             {{/if}}

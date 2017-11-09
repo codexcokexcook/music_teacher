@@ -1,0 +1,102 @@
+<template name="shopping_cart_card">
+  <div class = "container col l12 m6 s6 valign">
+    <div class="row col l12 valign">
+      <div class="text-field col l3 m6 s6 valign">
+        <h6>Order summary</h6>
+        </div>
+      </div>
+        {{#each shopping_cart}}
+        <div class="row col l12 valign">
+          <div class="text-field col l3 m6 s6 valign">
+          </div>
+          <div class="col l4 m2 s2 valign">
+              <h6>{{product_name}}</h6>
+                By {{seller_name}}
+          </div>
+          <div class="text-field col l1 m1 s1 valign">
+               <input class="quantity center" id="{{_id}}_quantity" name="quantity" type="text" value='{{quantity}}' min='1'>
+            </div>
+            <div class="text-field col l2 m1 s2 valign center" style="padding-top:12px;">
+                ${{product_price}}
+              </div>
+          <div class="text-field col l1 m1 s2 valign center" style="padding-top:12px;">
+                ${{total_price_per_dish}}
+          </div>
+          <div class="text-field col l1 m1 s1 valign">
+            <i class="remove_button material-icons right" id="{{_id}}_removal" style="padding-top:12px;">delete</i>
+            </div>
+          </div>
+          {{/each}}
+        <li class="divider"></li>
+        <div class="row col l12 valign">
+            <div class="text-field col l8 m6 s6 valign">
+            </div>
+            <div class="col l4 m1 s1 valign">
+              <div class="col l6 valign left">
+                <p>Subtotal</p>
+              <p>Delivery</p>
+                <p>Tax</p>
+                <p>Total</p>
+              </div>
+              <div class="col l6 valign right">
+                <p>$</p>
+                <p>$</p>
+                <p>$</p>
+                <p>$</p>
+              </div>
+          </div>
+        </div>
+        <li class="divider"></li>
+        {{>sc_serving_details}}
+        <li class="divider"></li>
+        {{>sc_payment}}
+
+
+
+  </div>
+</template>
+
+
+<template name = 'sc_serving_details'>
+
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m6 s6 valign">
+      </div>
+      </div>
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m6 s6 valign">
+      </div>
+    </div>
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m6 s6 valign">
+      </div>
+    </div>
+  <div class="row col l12 valign">
+    <div class="text-field col l3 m6 s6 valign">
+      </div>
+    <div class="text-field col l3 m6 s6 valign">
+      Delivery time:
+      </div>
+    <div class="text-field col l4 m6 s6 valign">
+      <h5>14/12/2017, 12:30</h5>
+      </div>
+    <div class="text-field col l2 m6 s6 valign">
+
+      </div>
+    </div>
+
+</template>
+
+
+<template name='sc_payment'>
+  <div class="row col l12 valign">
+  <div class="text-field col l3 m6 s6 valign">
+    </div>
+    <div class="text-field col l3 m6 s6 valign">
+      Pay with <i class="payment_card_logo" src=""></i>
+      </div>
+      <div class="text-field col l5 m6 s6 valign">
+        {{get_credit_card}}
+        </div>
+        </div>
+</template>
