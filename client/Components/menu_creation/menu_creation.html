@@ -51,11 +51,6 @@
       </div>
     </span>
   </div>
-  <div class="modal" id="create_dish_modal">
-    <div class="modal-content">
-      {{> create_dishes_form}}
-    </div>
-  </div>
 </template>
 
 <template name = "menu_initiation">
@@ -67,11 +62,17 @@
   </div>
 </template>
 
-
-
 <template name = "view_menu">
   <div class = "section">
-    <h5>Available set menus:</h5>
+    <div class = "row">
+      <h5>Available set menus</h5>
+      <a class = "btn-floating waves-effect waves-red grey lighten-3 z-depth-0 left transparent modal-trigger tooltipped" href="#create_menu_modal" data-position="bottom" data-delay="50" data-tooltip="Create new menu" id="add_menu">
+        <i class="material-icons red-text text-lighten-1">add</i>
+      </a>
+    </div>
+  </div>
+  <div class = "divider"></div>
+  <div class = "section card_container">
     <br>
       {{#each menu_retreival}}
         {{> menu_card}}
@@ -79,52 +80,14 @@
       {{>edit_content}}
   </div>
   <div class = "section">
-    <a class="btn-floating btn-large waves-effect waves-light red lighten-2 right modal-trigger" href="#create_menu_modal" id="add_menu"><i class="material-icons">add</i></a>
       {{> modal}}
   </div>
 </template>
 
 <template name = "modal">
-  <div class="modal" id="create_menu_modal">
+  <div class="modal modal-footer" id="create_menu_modal">
     <div class="modal-content" id="modal_content">
       {{> menu_creation_content}}
-    </div>
-  </div>
-</template>
-
-<template name = "menu_card">
-  <div class = "card">
-    <div class = "card-content">
-      <span class="card-title center">{{menu_name}}
-        <a class = "dropdown-button right" href="#!" data-activates="dropdown_{{_id}}">
-          <i class="material-icons grey-text text-darken-1">more_vert</i>
-        </a>
-      </span>
-      <ul id='dropdown_{{_id}}' class='dropdown-content'>
-        <li><a id="edit_menu" href="#edit_menu_modal"><i class="material-icons">edit</i>Edit</a></li>
-        <li><a id="delete_menu"><i class="material-icons">delete</i>Delete</a></li>
-      </ul>
-      <div class="section">
-        {{#each dishes_id}}
-          {{#with dishes_retreival}}
-            <div class = "row">
-              <div class = "center-align"><strong>{{dish_name}}</strong></div>
-              <div class = "center-align">{{dish_description}}</div>
-            </div>
-          {{/with}}
-        {{/each}}
-        <h6 class = "center-align">
-          $ {{menu_selling_price}} with minimum order of {{min_order}}
-        </h6>
-        <div class = "center-align">
-          {{#if lead_days}}
-            {{lead_days}} day(s)
-          {{/if}}
-          {{#if lead_hours}}
-            {{lead_hours}} hour(s) advance order
-          {{/if}}
-        </div>
-      </div>
     </div>
   </div>
 </template>

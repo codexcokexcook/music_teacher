@@ -22,14 +22,14 @@
     <br>
     <div class="row">
     {{#each created_dishes}}
-    {{>dishes_rotation}}
+      {{>dishes_rotation}}
     {{/each}}
   </div>
     <br>
         {{>profile_created_menus}}
     <br>
     <br>
-    {{>profile_recently_exploered}}
+      {{>profile_recently_exploered}}
     <br>
 
     </div>
@@ -37,20 +37,7 @@
 
 
 <template name="homecook_profile_card" id="homecook_profile_card">
-    <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'homecook_banner_picture'}})">
-      <div class = "container col l12 m6 s6 valign">
-        <div class = "center-align">
-          <img class="circle" height="125" src="/profile_upload/{{profile_images 'homecook_profile_picture'}}" />
-          <br>
-          <div class="col l12 m4 s4 valign">
-            <h6 class = "grey-text center-align">{{kitchen_details.kitchen_name}}</h6>
-          </div>
-          <div class="col l12 m4 s4 valign">
-            <p class = "grey-text center-align">{{kitchen_details.homecook_profile_keywords}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+{{> homecook_profile}}
     <br>
     <br>
     <div class = "container">
@@ -72,7 +59,22 @@
     </div>
 </template>
 
-
+<template name = "homecook_profile">
+  <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'homecook_banner_picture'}})">
+    <div class = "container col l12 m6 s6 valign">
+      <div class = "center-align">
+        <img class="circle" height="125" src="/profile_upload/{{profile_images 'homecook_profile_picture'}}" />
+        <br>
+        <div class="col l12 m4 s4 valign">
+          <h6 class = "grey-text center-align">{{kitchen_details.kitchen_name}}</h6>
+        </div>
+        <div class="col l12 m4 s4 valign">
+          <p class = "grey-text center-align">{{kitchen_details.homecook_profile_keywords}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <template name="profile_created_dishes">
 <h6>Created dishes</h6>

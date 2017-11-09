@@ -6,7 +6,7 @@ import { check } from 'meteor/check';
 Menu = new Mongo.Collection('menu');
 
 Meteor.methods({
-  'menu.insert'(menu_name, createdBy, menu_selling_price, min_order, lead_hours,lead_days,dishes_id) {
+  'menu.insert'(menu_name, createdBy, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id) {
     Menu.insert({
       menu_name: menu_name,
       createdBy: createdBy,
@@ -16,10 +16,11 @@ Meteor.methods({
       lead_hours: lead_hours,
       lead_days: lead_days,
       dishes_id: dishes_id,
+      image_id: image_id,
       updatedAt: new Date()
     });
   },
-  'menu.update'(menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id) {
+  'menu.update'(menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id) {
     Menu.update(
       {_id: menu_id},
       {$set: {
@@ -29,6 +30,7 @@ Meteor.methods({
         lead_hours: lead_hours,
         lead_days: lead_days,
         dishes_id: dishes_id,
+        image_id: image_id,
         updatedAt: new Date()
       }}
     );
