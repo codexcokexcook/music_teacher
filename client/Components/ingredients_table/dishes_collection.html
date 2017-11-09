@@ -1,11 +1,10 @@
 <template name = "dishes_collection">
-  <div class="container ingredients_table_container">
-  <table class="bordered">
+  <div class="container">
+  <table class = "bordered" id="menu_dishes_table">
       <thead>
         <tr>
             <th class = "col l2 s2 m2 checkbox_column"></th>
             <th class = "col l3 s2 m2">ID</th>
-            <th class = "col l3 s2 m2"></th>
             <th class = "col l3 s2 m2">Dishes</th>
             <th class = "col l3 s2 m2">Serving by</th>
             <th class = "col l3 s2 m2">Timing</th>
@@ -13,14 +12,14 @@
       </thead>
 
       <tbody>
-        {{#each helper1}}
+        {{#each dishes}}
+
         <tr>
-          <td >
-            <input class="with-gap" name="group1" type="radio" id="{{_id}}"  />
-            <label for="{{_id}}"></label>
-          </td>
+            <td>
+                <input class="with-gap radio_button" name="group1" type="radio" id="{{_id}}"  />
+                <label for="{{_id}}"></label>
+            </td>
             <td>{{_id}} </td>
-            <td></td>
             <td>{{dish_name}}</td>
             <td>{{serving_option}}</td>
             <td>cooking_time</td>
@@ -28,5 +27,18 @@
       {{/each}}
       </tbody>
     </table>
+    </div>
+        {{> Ingredients_table}}
+</template>
+
+
+<template name="Ingredients_table">
+    <div class="container">
+  {{#each ingredient}}
+
+    <li> Your dishes ingredient {{ingredient_name}}</li>
+
+  {{/each}}
+
     </div>
 </template>
