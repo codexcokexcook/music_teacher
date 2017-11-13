@@ -4,7 +4,6 @@ import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 import './create_profile.html';
-import './profile_card.html';
 
 Profile_details = new Mongo.Collection('profile_details');
 Kitchen_details = new Mongo.Collection('kitchen_details');

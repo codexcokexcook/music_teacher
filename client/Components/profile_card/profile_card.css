@@ -1,0 +1,29 @@
+.profile_banner_area {
+  width: 100vw;
+  /* z-index: -1;
+  overflow: hidden; */
+}
+
+/* .homecook_profile_page {
+  width: 800px;
+  z-index: 1;
+  overflow-x: hidden;
+} */
+
+.homecook_profile_avatar {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position:absolute;
+  top: 5%;
+  left: calc(50% - 100px);
+  z-index: 0;
+}
+
+.profile_description_wrapper {
+  position: relative;
+  top: calc(78px + 12px);
+}
