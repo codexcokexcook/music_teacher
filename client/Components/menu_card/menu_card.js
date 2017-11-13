@@ -33,8 +33,9 @@ Template.menu_card.events({
     Session.set('dishes_id', this.dishes_id);
   },
   'click #menu_card': function() {
-    if($('.dropdown_element').length===0) {
-      FlowRouter.go('/menu/' + this._id);
+    if($('.dropdown_element').length === 0) {
+      var route = '/' + this.createdBy + '/menu/' + this._id;
+      FlowRouter.go(window.open(route,'_blank'));
     }
   }
 });
@@ -49,8 +50,12 @@ Template.menu_card.helpers({
     return Menu.findOne({"_id": this._id});
   },
   'multi_images_menu': function() {
-    var random_limit = this.image_id.length;
-    var random_number = Math.floor(Math.random()*(random_limit-1)+1);
-    return Images.findOne({_id: this.image_id[random_number]});
+    if (this.image_id.length) {
+      var random_limit = this.image_id.length;
+      var random_number = Math.floor(Math.random()*(random_limit-1)+1);
+      return Images.findOne({_id: this.image_id[random_number]});
+    } else {
+      return true;
+    }
   }
 });

@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
 import { FilesCollection } from 'meteor/ostrio:files';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.dishes_list.onRendered(function(){
   $('.modal').modal({
@@ -27,34 +28,22 @@ Template.dishes_card.helpers ({
   }
 });
 
-Template.chef_avatar.helpers({
-  'chef_avatar': function () {
-    var returned_dish_id = Session.get('dish_id');
-    var get_dish_details = Dishes.findOne({"_id":returned_dish_id});
-    var get_dish_creator = get_dish_details && get_dish_details.user_id;
-    var get_profile_images = profile_images.findOne({"userId": get_dish_creator});
-    var get_profile_images_id = get_profile_images && get_profile_images._id;
-    var get_profile_images_ext = get_profile_images && get_profile_images.extensionWithDot;
-    var get_profile_images_name = get_profile_images_id + get_profile_images_ext;
-    return get_profile_images_name;
-  }
-});
-
 Template.info_tabs.onRendered(function(){
   this.$('ul.tabs').tabs();
 });
 
 
-Template.dishes_rotation.onRendered(function(){
+Template.dishes_thumbnails.onRendered(function(){
   var first_dish_display = Dishes.findOne({});
   var first_dish_id = first_dish_display._id;
   Session.set('dish_id',first_dish_id);
 });
 
-Template.dishes_rotation.events({
+Template.dishes_thumbnails.events({
   'click .dish_thumbnail': function () {
     var dish_id = this._id;
     Session.set('dish_id', dish_id);
+    $('ul.tabs').tabs();
   }
 });
 
@@ -73,10 +62,13 @@ var serving_option = this.serving_option;
   } **/
 });
 
-
 //Action for template dishes_card_layout (Ordering)
 
 Template.dishes_card_layout.events({
+  'click #chef_avatar': function() {
+    var route = '/' + this.user_id + '/';
+    FlowRouter.go(window.open(route,'_blank'));
+  },
   'click #place_order': function () {
     var dish_details = Dishes.findOne({"_id":this._id});
     var foodie_details = Profile_details.findOne({"user_id": Meteor.userId()});

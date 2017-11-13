@@ -1,44 +1,44 @@
 <template name = "menu_card">
-  <div id="menu_card" class = "card">
-    {{#with multi_images_menu}}
-      <div class = "menu_image_display" style="background-image:url('/dishes_upload/{{_id}}{{extensionWithDot}}')">
-      </div>
-    {{/with}}
-    <div class = "card-content">
-      <div class = "dropdown_element">
-        <a class = "dropdown-button right" href="#" data-activates="dropdown_{{_id}}">
-          <i class="material-icons grey-text text-darken-1">more_vert</i>
-        </a>
-        <ul id='dropdown_{{_id}}' class='dropdown-content'>
-          <li><a id="edit_menu" href="#edit_menu_modal"><i class="material-icons">edit</i>Edit</a></li>
-          <li><a id="delete_menu"><i class="material-icons">delete</i>Delete</a></li>
-        </ul>
-      </div>
-      <div class="card-title">
-        <h5>{{menu_name}}</h5>
-      </div>
-      <div class = "row">
-        <div class = "dishes_details col l12 m12 s12">
-          {{#each dishes_id}}
-            {{#with dishes_retreival}}
-              <div><strong>{{dish_name}}</strong></div>
-              <div>{{dish_description}}</div>
-              <br>
-            {{/with}}
-          {{/each}}
-          <h6 class = "left-align">
-            $ {{menu_selling_price}} with minimum order of {{min_order}}
-          </h6>
-          <div class = "left-align">
-            {{#if lead_days}}
-              {{lead_days}} day(s)
-            {{/if}}
-            {{#if lead_hours}}
-              {{lead_hours}} hour(s) advance order
-            {{/if}}
+    <div id="menu_card" class = "card">
+      {{#with multi_images_menu}}
+        <div class = "menu_image_display" style="background-image:url('/dishes_upload/{{_id}}{{extensionWithDot}}')">
+        </div>
+      {{/with}}
+      <div class = "card-content">
+        <div class = "dropdown_element">
+          <a class = "dropdown-button right" href="#" data-activates="dropdown_{{_id}}">
+            <i class="material-icons grey-text text-darken-1">more_vert</i>
+          </a>
+          <ul id='dropdown_{{_id}}' class='dropdown-content'>
+            <li><a id="edit_menu" href="#edit_menu_modal"><i class="material-icons">edit</i>Edit</a></li>
+            <li><a id="delete_menu"><i class="material-icons">delete</i>Delete</a></li>
+          </ul>
+        </div>
+        <div class="card-title">
+          <h5>{{menu_name}}</h5>
+        </div>
+        <div class = "row">
+          <div class = "dishes_details col l12 m12 s12">
+            {{#each dishes_id}}
+              {{#with dishes_retreival}}
+                <div><strong>{{dish_name}}</strong></div>
+                <div>{{dish_description}}</div>
+                <br>
+              {{/with}}
+            {{/each}}
+            <h6 class = "left-align">
+              $ {{menu_selling_price}} with minimum order of {{min_order}}
+            </h6>
+            <div class = "left-align">
+              {{#if lead_days}}
+                {{lead_days}} day(s)
+              {{/if}}
+              {{#if lead_hours}}
+                {{lead_hours}} hour(s) advance order
+              {{/if}}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </template>

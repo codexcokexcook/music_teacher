@@ -1,6 +1,6 @@
 #dish_card_large {
   padding: 10px 0px 0px 20px;
-  height: 420px;
+  height: 450px;
   width: 685px;
 }
 #large_dish_display {
@@ -12,11 +12,11 @@
   width:45%;
 }
 
-#user_avatar {
-  position: relative;
-  width: 36px;
-  z-index: 2;
-  top: 40px;
+#dishes_card_layout_img_wrapper {
+  position: absolute;
+  top: 60px;
+  width: 300px;
+  height: 300px;
 }
 
 .card-title {
@@ -65,20 +65,36 @@
   display:block;
 }
 
+.card-content h5 {
+  max-height: 80px;
+}
+
 .info_wrapper {
   /* margin: 0px 12px 12px 12px; */
   font-size: 13px;
   color: rgba(0,0,0,0.54);
 }
+.card-tabs {
+  overflow-x: hidden;
+  max-height: 128px;
+  width: 100%;
+}
+
+.dietary_info {
+  padding-left: 11px;
+}
 
 .dish_thumbnail_card {
-  display: block;
+  overflow: hidden;
+  display: inline-block;
   height: 250px;
+  width: 174px;
 }
 
 #thumbnail_img_wrapper {
   width: 150px;
   height: 150px;
+  margin: 12px;
 }
 
 .no_display {
@@ -92,6 +108,11 @@
   margin-bottom: 12px;
 }
 
+.price_tag {
+  position: absolute;
+  right: 24px;
+}
+
 #service_info img {
   position: relative;
   top: 5px;
@@ -100,6 +121,11 @@
 
 #rating_price_info {
   height: 100px;
-  padding-top: 24px;
+  padding-top: 3%;
+}
 
+.rating {
+  position: absolute;
+  margin-top: 5px;
+  left: 24px;
 }

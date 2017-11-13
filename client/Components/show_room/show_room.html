@@ -1,30 +1,25 @@
 <template name='show_room'>
   <div class = "container">
     {{> show_room_dish}}
-
-    <br>
     {{>show_room_menu}}
-    <br>
     {{>show_room_chef}}
   </div>
 </template>
 
 <template name='show_room_dish'>
   <h5>Dishes</h5>
-  <div class = "row">
     {{#each find "Dishes"}}
       {{> dishes_list}}
     {{/each}}
-  </div>
 </template>
 
 <template name='show_room_menu'>
   <h5>Menu</h5>
-    <div class = "menu_card_wrapper">
-      {{#each find "Menu"}}
-        {{> menu_card}}
-      {{/each}}
-    </div>
+  <div class = "menu_card_wrapper">
+    {{#each find "Menu"}}
+      {{> menu_card}}
+    {{/each}}
+  </div>
 </template>
 
 <template name='show_room_chef'>

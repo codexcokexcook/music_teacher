@@ -1,10 +1,19 @@
 <template name="dishes_list">
-  {{> dishes_rotation}}
+  {{> dishes_thumbnails}}
   <div class = "modal" id="large_dish_display">
     <div class = "modal-content">
       {{> dishes_card}}
     </div>
   </div>
+</template>
+
+<template name = "dishes_thumbnails">
+      <a class = "grey-text modal-trigger dish_thumbnail" id="{{_id}}" href="#large_dish_display">
+        <div class = "card dish_thumbnail_card z-depth-0">
+          <div id="thumbnail_img_wrapper">{{> get_dish_image}}</div>
+          <div class = "center-align">{{dish_name}}</div>
+        </div>
+    </a>
 </template>
 
 <template name = "dishes_card">
@@ -38,33 +47,9 @@
   </div>
 </template>
 
-<template name= "chef_avatar">
-  {{#if chef_avatar "Dishes"}}
-    <img src="/profile_upload/{{chef_avatar}}" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
-  {{else}}
-    <img src="/user_avatar.svg" alt="user_avatar" id="user_avatar" class = "circle responsive-img"/>
-  {{/if}}
-</template>
-
-<template name = "dishes_rotation">
-      <a class = "grey-text modal-trigger dish_thumbnail col s6 m3 l2" id="{{_id}}" href="#large_dish_display">
-        <div class = "card dish_thumbnail_card z-depth-0">
-          <div id="thumbnail_img_wrapper">{{> get_dish_image}}</div>
-          <div class = "center-align">{{dish_name}}</div>
-        </div>
-    </a>
-</template>
-
 <template name="ingredients_loop">
   {{#each get_ingredients}}
-    <row>
-      <div class = "col s3 m3 l3">
-        <p>{{ingredient_quantity}}{{ingredient_unit}}</p>
-      </div>
-      <div class = "col s9 m9 l9">
-        <p>{{ingredient_name}}</p>
-      </div>
-    </row>
+    <p>{{ingredient_name}} .............................................. {{ingredient_quantity}}{{ingredient_unit}}</p>
   {{/each}}
 </template>
 
@@ -84,8 +69,8 @@
     <div id="ingredients_{{_id}}">
       {{> ingredients_loop}}
     </div>
-    <div id="dietary_info_{{_id}}">
-      <div class = "valign-wrapper">
+    <div class="dietary_info" id="dietary_info_{{_id}}">
+      <div class = "row">
         {{#each allergy_tags}}
           <div class= "chip">{{this}}</div>
         {{/each}}
@@ -112,6 +97,6 @@
   <div class = "rating_price_wrapper" id="rating_price_info">
     <!-- rating and review numbers has to be adjust to dynamic in the furture-->
     <img class = "rating left" src="/dish_cards/rating/0_of_5_hearts.svg" alt="heart">
-    <h5 class = "right">${{dish_selling_price}}</h5>
+    <h5 class = "price_tag right">${{dish_selling_price}}</h5>
   </div>
 </template>

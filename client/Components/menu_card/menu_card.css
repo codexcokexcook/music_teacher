@@ -38,3 +38,26 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+/** Pinterest way to display card **/
+@media (max-width: 1000px) {
+  .menu_card_wrapper {
+    -webkit-column-count: 1;
+    -webkit-column-gap:   12px;
+    -moz-column-count:    1;
+    -moz-column-gap:      12px;
+    column-count:         1;
+    column-gap:           12px;
+  }
+}
+/** Pinterest way to display card **/
+@media(min-width: 1000px) {
+  .menu_card_wrapper {
+    -webkit-column-count: 2;
+    -webkit-column-gap:   12px;
+    -moz-column-count:    2;
+    -moz-column-gap:      12px;
+    column-count:         2;
+    column-gap:           12px;
+  }
+}

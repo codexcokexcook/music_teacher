@@ -40,7 +40,13 @@ Template.registerHelper(
 
 Template.registerHelper(
   'profile_images', (type) => {
-    var get_profile_images = profile_images.findOne({'userId': Meteor.userId(),'meta':{"purpose": type}});
+    // check whether we display user own profile image or other profile images
+    if (Session.get('user_id') || Session.get('user_id'==="")) {
+      var user_id = Session.get('user_id');
+    } else {
+      var user_id = Meteor.userId();
+    }
+    var get_profile_images = profile_images.findOne({'userId': user_id,'meta':{"purpose": type}});
     var get_profile_images_id = get_profile_images && get_profile_images._id;
     var get_profile_images_ext = get_profile_images && get_profile_images.extensionWithDot;
     var get_profile_images_name = get_profile_images_id + get_profile_images_ext;
