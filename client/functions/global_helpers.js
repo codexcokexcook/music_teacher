@@ -38,6 +38,7 @@ Template.registerHelper(
   },
 );
 
+
 Template.registerHelper(
   'profile_images', (type) => {
     // check whether we display user own profile image or other profile images

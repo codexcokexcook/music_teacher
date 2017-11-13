@@ -504,10 +504,7 @@ Template.create_foodie_profile.events({
 
   Materialize.toast('Profile created!', 4000)
    //divert to the profile page
-
-  /**    Blaze.render(Template.profile_card, document.getElementById('profile'));
-      Blaze.remove(Template.instance().view); **/
-
+BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})
         }
       /**  else{
 

@@ -8,7 +8,8 @@
 
 <template name='show_room_dish'>
   <h5>Dishes</h5>
-    {{#each find "Dishes"}}
+  <div class = "row">
+    {{#each find_dishes_by}}
       {{> dishes_list}}
     {{/each}}
 </template>
