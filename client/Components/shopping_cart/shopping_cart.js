@@ -53,13 +53,3 @@ Template.shopping_cart_card.events({
   }
 
 })
-
-/**
-'click #product-removal': function(event){
-
-      removeItem(this);
-}
-});
-
-function updateQuantity(quantity_input)
-**/

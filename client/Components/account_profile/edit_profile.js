@@ -264,10 +264,7 @@ console.log(kitchen_profile_id)
 Materialize.toast('Profile updated!', 4000)
 
         //divert to the profile page
-/**        Blaze.render(Template.profile_card, document.getElementById('profile'));
-        Blaze.remove(Template.instance().view);
-**/
-          }
+BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})          }
         /**  else{
 
           return false;

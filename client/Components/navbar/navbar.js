@@ -57,8 +57,11 @@ Template.bp_navbar.onRendered(function(){
     cleartext: 'Clear', // text for clear-button
     canceltext: 'Cancel', // Text for cancel-button
     autoclose: false, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
-    aftershow: function(){} //Function for after opening timepicker
+    ampmclickable: false, // make AM PM clickable
+    aftershow: function(){
+      $('#nav_sarch').trigger('change');
+
+    } //Function for after opening timepicker
   });
 
  })
@@ -66,9 +69,9 @@ Template.bp_navbar.onRendered(function(){
  Template.bp_navbar.helpers ({
 
    location_option_list:[
-     {location_option: 'Home', option:'1'},
-     {location_option: 'Office', option:'2'},
-     {location_option: 'Pin a location', option:'3'},
+     {location_option: 'Home', option:'Home'},
+     {location_option: 'Office', option:'Office'},
+     {location_option: 'Pin a location', option:'Pin a location'},
    ],
 
    time_option_list:[
@@ -84,9 +87,9 @@ Template.bp_navbar.onRendered(function(){
 
 
    service_option_list:[
-     { service_option: 'Pick up', option:'1'},
-     { service_option: 'Delivery', option:'2'},
-     { service_option: 'Dine in', option:'3'},
+     { service_option: 'Pick-up', option:'Pick-up'},
+     { service_option: 'Delivery', option:'Delivery'},
+     { service_option: 'Dine-in', option:'Dine-in'},
 
    ],
 
@@ -114,5 +117,17 @@ Template.bp_navbar.onRendered(function(){
      Session.keys = {}
      Meteor.logout();
      FlowRouter.go('/');
+   },
+   'change #nav_sarch': function(){
+     const location = $('#by_place').val();
+     const method = $('#by_method').val();
+     const date = $('#by_date').val();
+     const time = $('#by_time').val();
+     console.log(location, method, date, time);
+     Session.set('location', location)
+     Session.set('method', method)
+     Session.set('date', date)
+     Session.set('time', time)
+
    }
  })
