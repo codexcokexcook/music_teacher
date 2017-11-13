@@ -19,13 +19,11 @@
 
 <template name='show_room_menu'>
   <h5>Menu</h5>
-  <div class = "row">
-    {{#each find "Menu"}}
-      <div class = "menu_card_wrapper col l4 m6 s12" width="300">
+    <div class = "menu_card_wrapper">
+      {{#each find "Menu"}}
         {{> menu_card}}
-      </div>
-    {{/each}}
-  </div>
+      {{/each}}
+    </div>
 </template>
 
 <template name='show_room_chef'>

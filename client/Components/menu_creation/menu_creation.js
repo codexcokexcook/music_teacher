@@ -6,6 +6,7 @@ import { Tracker } from 'meteor/tracker';
 Template.menu_creation.onRendered(function(){
   this.$('modal').modal();
   this.$('select').material_select();
+  this.$('.tooltipped').tooltip({delay: 500});
   //Check if menu has data instance
   var data = Menu.find({"createdBy": Meteor.userId()})
   if (data.count()) {
@@ -60,6 +61,13 @@ Template.menu_creation_content.events({
     var lead_hours = $('#lead_time_hours_range').val();
     var lead_days = $('#lead_time_days_range').val();
     var dishes_id = Session.get('selected_dishes_id');
+    var dishes_details = [];
+    var image_id = [];
+    for (i=0; i < dishes_id.length; i++){
+      alert('for loop working');
+      dishes_details[i] = Dishes.findOne({_id: dishes_id[i]});
+      image_id[i] = dishes_details[i].image_id;
+    }
 
     if (menu_name && menu_selling_price && dishes_id) {
       Meteor.call('menu.insert',
@@ -69,7 +77,8 @@ Template.menu_creation_content.events({
         min_order,
         lead_hours,
         lead_days,
-        dishes_id
+        dishes_id,
+        image_id
       );
     } else {
       Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
@@ -109,47 +118,6 @@ Template.view_menu.helpers({
   }
 });
 
-Template.menu_card.helpers({
-  'edit_current_menu': function() {
-    return Menu.findOne({"_id": this._id});
-  }
-});
-
-Template.menu_card.events({
-  'click #delete_menu': function () {
-    Menu.remove(this._id);
-    $('edit_menu_modal').modal('close');
-  },
-  'click #edit_menu': function () {
-    $('edit_menu_modal_').modal('open')
-    Session.set('menu_id', this._id);
-    Session.set('dishes_id', this.dishes_id);
-  }
-});
-
-Template.menu_card.onRendered(function(){
-  $('div.modal').scrollTop(0);
-  this.$('.dropdown-button').dropdown({
-    inDuration: 300,
-    outDuration: 225,
-    constrainWidth: true, // Does not change width of dropdown to that of the activator
-    hover: false, // Activate on hover
-    gutter: 0, // Spacing from edge
-    belowOrigin: false, // Displays dropdown below the button
-    alignment: 'left', // Displays dropdown with edge aligned to the left of button
-    stopPropagation: false // Stops event propagation
-  });
-
-});
-
-Template.menu_card.helpers({
-  'dishes_retreival': function() {
-    var dishes_id = String(this); //converted single object of dish id to string ***important***
-    var find_dishes = Dishes.findOne({"_id": dishes_id});
-    return find_dishes;
-  }
-});
-
 Template.edit_content.onRendered(function() {
     this.$('select').material_select();
     this.$('.modal').modal();
@@ -177,9 +145,9 @@ Template.edit_content.events({
   'change .edit_dishes_checkbox': function(event, template) {
     var checked_dishes = template.findAll("input[type=checkbox]:checked");
     var checked_values = checked_dishes.map(function(selection){
-    return selection.value;
-  });
-  Session.set('edited_dishes_id', checked_values);
+      return selection.value;
+    });
+    Session.set('edited_dishes_id', checked_values);
   }
 });
 
@@ -214,8 +182,16 @@ Template.edit_content.events({
     var lead_days = $('#edit_lead_time_days_range').val();
     var dishes_id = Session.get('edited_dishes_id');
 
+    var dishes_details = [];
+    var image_id = [];
+
+    for (i=0; i < dishes_id.length; i++){
+      dishes_details[i] = Dishes.findOne({_id: dishes_id[i]});
+      image_id[i] = dishes_details[i].image_id;
+    };
+
     if (menu_name && menu_selling_price && dishes_id) {
-      Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id);
+      Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id);
       $('div.modal').scrollTop(0);
     } else {
       Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
