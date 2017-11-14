@@ -1,0 +1,20 @@
+.kitchen_card {
+  width: 328px;
+  display: inline-block;
+}
+
+.kitchen_card_image {
+  height: 200px;
+  width: 100%;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.homecook_image {
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: absolute;
+  top: 166px;
+}
