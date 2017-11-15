@@ -7,26 +7,32 @@
 </template>
 
 <template name='show_room_dish'>
-  <h5>Dishes</h5>
-  <div class = "row">
-    {{#each find_dishes_by}}
-      {{> dishes_list}}
-    {{/each}}
+  <div class = "section">
+    <h5>Dishes</h5>
+    <div class = "row">
+      {{#each find_dishes_by}}
+        {{> dishes_list}}
+      {{/each}}
+    </div>
   </div>
 </template>
 
 <template name='show_room_menu'>
-  <h5>Menu</h5>
-  <div class = "menu_card_wrapper">
-    {{#each find "Menu"}}
-      {{> menu_card}}
-    {{/each}}
+  <div class = "section">
+    <h5>Menu</h5>
+    <div class = "menu_card_wrapper">
+      {{#each find "Menu"}}
+        {{> menu_card}}
+      {{/each}}
+    </div>
   </div>
 </template>
 
 <template name='show_room_chef'>
-  <h5>Chef</h5>
-    {{#each find "Kitchen_details"}}
-      {{> kitchen_card}}
-    {{/each}}
+  <div class = "section">
+    <h5>Chef</h5>
+      {{#each find "Kitchen_details"}}
+        {{> kitchen_card}}
+      {{/each}}
+    </div>
 </template>

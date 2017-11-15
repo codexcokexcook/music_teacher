@@ -2,7 +2,8 @@ import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
-import {checkboxes_recall} from '/imports/functions/checkboxes_recall.js'
+import { checkboxes_recall } from '/imports/functions/checkboxes_recall.js'
+import { address_geocode } from '/imports/functions/address_geocode.js'
 import './edit_profile.html';
 
 
@@ -74,11 +75,14 @@ Template.edit_foodie_profile.onRendered(function(){
 
 
 Template.edit_foodie_profile.events({
+  'blur #edit_home_address': function() {
+    address_geocode('home_address_conversion',$('#edit_home_address').val());
+  },
+  'blur #edit_office_address': function() {
+    address_geocode('office_address_conversion',$('#edit_office_address').val());
+  },
   'click #edit_foodie_button': function(event, template){
     event.preventDefault();
-
-
-
 
 /**      if( isNotEmpty(kitchen_name)           &&
           isNotEmpty(profile_keywords)       &&
@@ -105,8 +109,6 @@ Template.edit_foodie_profile.events({
           {
 
             $('#edit_homecook_button').click();
-
-
 
 
 /**    //divert to the profile page
@@ -169,6 +171,9 @@ Template.edit_foodie_profile.events({
 
   //Kitchen Database
     Template.edit_homecook_profile.events({
+      'blur #edit_kitchen_address': function() {
+        address_geocode('kitchen_address_conversion',$('#edit_kitchen_address').val());
+      },
       'click #edit_homecook_button': function(event, template){
         event.preventDefault();
 
@@ -181,8 +186,10 @@ Template.edit_foodie_profile.events({
         const date_of_birth = $('#date_of_birth').val();
         const gender =  $("input[name='gender']:checked"). val();
         const about_myself = $('#about_myself').val();
-        const home_address = $('#home_address').val();
-        const office_address = $('#office_address').val();
+        const home_address = $('#edit_home_address').val();
+        const home_address_conversion = Session.get('home_address_conversion');
+        const office_address = $('#edit_office_address').val();
+        const office_address_conversion = Session.get('office_address_conversion');
         const allergy_tags = Session.get('allergy_tags');
         const dietary_tags = Session.get('dietary_tags');
         const card_number = $('#card_number').val();
@@ -192,17 +199,16 @@ Template.edit_foodie_profile.events({
         const cvv_code = $('#cvv_code').val();
 
         const kitchen_profile_id = Kitchen_details.findOne({'user_id': Meteor.userId()})._id
-        const kitchen_name = $('#kitchen_name').val();
+        const kitchen_name = $('kitchen_name').val();
         const chef_name = $('#chef_name').val();
         const homecook_profile_keywords = $('#homecook_profile_keywords').val();
-        const kitchen_address = $('#kitchen_address').val();
+        const kitchen_address = $('#edit_kitchen_address').val();
+        const kitchen_address_conversion = Session.get('kitchen_address_conversion');
         const about_homecook_myself = $('#about_homecook_myself').val();
         const bank_fullname = $('#bank_fullname').val();
         const bank_name = $('#bank_name').val();
         const bank_account_no = $('#bank_account_no').val();
         const user_id = Meteor.userId()
-
-console.log(kitchen_profile_id)
 
     /**      if( isNotEmpty(kitchen_name)           &&
               isNotEmpty(profile_keywords)       &&
@@ -239,7 +245,9 @@ console.log(kitchen_profile_id)
                 gender,
                 about_myself,
                 home_address,
+                home_address_conversion,
                 office_address,
+                office_address_conversion,
                 allergy_tags,
                 dietary_tags,
                 card_number,
@@ -255,6 +263,7 @@ console.log(kitchen_profile_id)
                 chef_name,
                 homecook_profile_keywords,
                 kitchen_address,
+                kitchen_address_conversion,
                 about_homecook_myself,
                 bank_fullname,
                 bank_name,

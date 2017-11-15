@@ -18,7 +18,9 @@ Meteor.methods({
     gender,
     about_myself,
     home_address,
+    home_address_conversion,
     office_address,
+    office_address_conversion,
     allergy_tags,
     dietary_tags,
     card_number,
@@ -38,7 +40,9 @@ Meteor.methods({
       gender: gender,
       about_myself: about_myself,
       home_address: home_address,
+      home_address_conversion: home_address_conversion,
       office_address: office_address,
+      office_address_conversion: office_address_conversion,
       allergy_tags: allergy_tags,
       dietary_tags: dietary_tags,
       card_number: card_number,
@@ -47,7 +51,6 @@ Meteor.methods({
       card_exp_year: card_exp_year,
       cvv_code: cvv_code,
       updatedAt: new Date()
-
   }});
 },
 
@@ -57,6 +60,7 @@ Meteor.methods({
   chef_name,
   homecook_profile_keywords,
   kitchen_address,
+  kitchen_address_conversion,
   about_homecook_myself,
   bank_fullname,
   bank_name,
@@ -69,12 +73,12 @@ Meteor.methods({
       chef_name: chef_name,
       homecook_profile_keywords: homecook_profile_keywords,
       kitchen_address: kitchen_address,
+      kitchen_address_conversion: kitchen_address_conversion,
       about_homecook_myself: about_homecook_myself,
       bank_fullname: bank_fullname,
       bank_name: bank_name,
       bank_account_no: bank_account_no,
       updatedAt: new Date()
-
   }});
   }
 });

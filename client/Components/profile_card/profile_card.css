@@ -4,11 +4,10 @@
   overflow: hidden; */
 }
 
-/* .homecook_profile_page {
-  width: 800px;
-  z-index: 1;
+.homecook_profile_page {
+  overflow-y: scroll;
   overflow-x: hidden;
-} */
+}
 
 .homecook_profile_avatar {
   border-radius: 50%;

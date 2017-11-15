@@ -5,6 +5,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.profile_created_menus.onRendered(function(){
   $('.dropdown_element').hide();
+  $('.modal').modal()
 });
 
 Template.profile_created_dishes.helpers({
