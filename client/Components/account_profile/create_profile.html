@@ -114,18 +114,23 @@
       <input id="foodie_name" name="foodie_name" type="text" placeholder="Foodie Name">
     </div>
     <div class="text-field col l3 m3 s6 valign">
-      <input id="first_name" name="first_name" type="text" placeholder="First Name">
+      <input id="email" name="email" type="text" placeholder="Email Address">
     </div>
     <div class="text-field col l3 m3 s6 valign">
-      <input id="last_name" name="last_name" type="text" placeholder="Last Name">
-    </div>
+        <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text" placeholder="Date of birth">
+      </div>
   </div>
         <div class="row col l12 valign">
           <div class="text-field col l3 m6 s6 valign">
             </div>
-        <div class="text-field col l3 m3 s6 valign">
-            <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text" placeholder="Date of birth">
-          </div>
+            <div class="text-field col l3 m2 s2 valign">
+              <select class="material_select" id="mobile_country">
+                <option value="" disabled selected>Country</option>
+                {{#each country_list}}
+                <option value={{dial_code}}>{{name}} {{dial_code}}</option>
+                {{/each}}
+                </select>
+              </div>
           <div class="text-field col l3 m3 s6 valign">
               <input id="mobile" name="mobile" type="text" placeholder="Mobile no.">
             </div>
@@ -146,10 +151,20 @@
     <div class="text-field col l3 m6 s6 valign">
       <h6>Home Address</h6>
     </div>
+
     <div class="input-field col l9 m6 s6 valign">
       <input id="create_home_address" name="create_home_address" type="text">
       <label for="create_home_address">Home Address</label>
+
       </div>
+      <div class="input-field col l3 m2 s2 valign">
+        <select class="material_select" id="home_address_country">
+          <option value="" disabled selected>Country</option>
+          {{#each country_list}}
+          <option value={{name}}>{{name}}</option>
+          {{/each}}
+          </select>
+        </div>
     </div>
 
     <!--Row 3-->
@@ -157,10 +172,19 @@
       <div class="text-field col l3 m6 s6 valign">
         <h6>Office Address</h6>
       </div>
+
       <div class="input-field col l9 m6 s6 valign">
         <input id="create_office_address" name="create_office_address" type="text">
         <label for="create_office_address">Office Address</label>
-        </div>
+      </div>
+        <div class="input-field col l3 m2 s2 valign">
+          <select class="material_select" id="office_address_country">
+            <option value="" disabled selected>Country</option>
+            {{#each country_list}}
+            <option value={{name}}>{{name}}</option>
+            {{/each}}
+            </select>
+          </div>
       </div>
 
       <!--Row 4-->
@@ -206,6 +230,20 @@
         <input id="cvv_code" name="cvv_code" type="text" >
         <label for="cvv_code">cvv2/cvc2 code</label>
         </div>
+    </div>
+    <div class="row col l12 valign">
+      <div class="input-field col l6 m6 s6 offset-l3 valign">
+        <input id="billing_address" name="billing_address" type="text">
+        <label for="billing_address">Billing Address</label>
+        </div>
+        <div class="input-field col l3 m2 s2 valign">
+          <select class="material_select" id="billing_address_country">
+            <option value="" disabled selected>Country</option>
+            {{#each country_list}}
+            <option value="{{name}}">{{name}}</option>
+            {{/each}}
+            </select>
+          </div>
     </div>
 </template>
 
@@ -342,12 +380,12 @@
     <div class="text-field col l3 m3 s3 valign">
       <h6>Kitchen Details</h6>
     </div>
-    <div class="input-field col l4 m3 s3 valign">
+    <div class="input-field col l3 m3 s3 valign">
       <input id="kitchen_name" name="kitchen_name" type="text">
       <label for="kitchen_name">Kitchen Name</label>
       </div>
-      <div class="col l1"></div>
-      <div class="input-field col l4 m3 s3 valign">
+
+      <div class="input-field col l3 m3 s3 valign">
         <input id="chef_name" name="chef_name" type="text">
         <label for="chef_name">Chef Name</label>
         </div>
@@ -356,10 +394,19 @@
     <div class="text-field col l3 m3 s3 valign">
       <h6>Kitchen Address</h6>
     </div>
+    
     <div class="input-field col l9 m3 s3 valign">
       <input id="create_kitchen_address" name="create_kitchen_address" type="text">
       <label for="create_kitchen_address">Kitchen Address</label>
       </div>
+      <div class="input-field col l3 m2 s2 valign">
+        <select class="material_select" id="kitchen_address_country">
+          <option value="" disabled selected>Country</option>
+          {{#each country_list}}
+          <option value="{{name}}">{{name}}</option>
+          {{/each}}
+          </select>
+        </div>
     </div>
     <div class="row col l12 valign">
       <div class="input-field col l9 m2 s4 offset-l3 valign">
@@ -381,19 +428,29 @@
         <input id="bank_fullname" name="bank_fullname" type="text" >
         <label for="bank_fullname">Account Name</label>
       </div>
-      <div class="input-field col l4 m4 s6 valign">
-        <select class="material_select" id="bank_name">
-          <option value="" disabled selected>Bank Name</option>
-          {{#each bank_list}}
-          <option value="{{option}}">{{name}}</option>
-          {{/each}}
-
-        </select>
+      <div class="input-field col l3 m3 s6 valign">
+        <input id="bank_name" name="bank_name" type="text" >
+        <label for="bank_name">Name of the Bank</label>
+      </div>
+      <div class="input-field col l3 m2 s6 valign">
+        <input id="bank_account_no" name="bank_account_no" type="text">
+        <label for="bank_account_no">Account Number</label>
+      </div>
+    </div>
+    <div class="row col l12 m6 s6 valign">
+      <div class="input-field col l6 m6 s6 offset-l3 valign">
+        <input id="bank_address" name="bank_address" type="text">
+        <label for="bank_address">Address of the Bank</label>
         </div>
-  <div class="input-field col l2 m2 s6 valign">
-    <input id="bank_account_no" name="bank_account_no" type="text">
-    <label for="bank_account_no">Account Number</label>
-  </div>
+      <div class="input-field col l3 m2 s2 valign">
+        <select class="material_select" id="bank_address_country">
+          <option value="" disabled selected>Country</option>
+          {{#each country_list}}
+          <option value="{{name}}">{{name}}</option>
+          {{/each}}
+          </select>
+        </div>
+
 </div>
 </template>
 

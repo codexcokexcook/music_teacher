@@ -14,21 +14,25 @@
                     <label class="active" for="foodie_name">Foodie name</label>
               </div>
               <div class="input-field col l3 m3 s6 valign">
-                  <input id="first_name" name="first_name" type="text" placeholder="First Name" value="{{get_foodie_profile.first_name}}">
-                  <label class="active" for="first_name">First name</label>
+                <input id="email" name="email" type="text" value="{{get_foodie_profile.email}}">
+                    <label class="active" for="email">Email Address</label>
               </div>
               <div class="input-field col l3 m3 s6 valign">
-                  <input id="last_name" name="last_name" type="text" placeholder="Last Name" value="{{get_foodie_profile.last_name}}">
-                  <label class="active" for="last_name">Last name</label>
-              </div>
+                  <input disabled id="date_of_birth" name="date_of_birth" type="text" value="{{get_foodie_profile.date_of_birth}}">
+                  <label class="active" for="foodie_name">Date of Birth</label>
                 </div>
+            </div>
                   <div class="row col l12 m6 s6 valign">
-                    <div class="text-field col l3 m6 s6 valign">
+                    <div class="input-field col l3 m6 s6 valign">
                     </div>
-                <div class="input-field col l3 m3 s6 valign">
-                    <input disabled id="date_of_birth" name="date_of_birth" type="text" value="{{get_foodie_profile.date_of_birth}}">
-                    <label class="active" for="foodie_name">Date of Birth</label>
-                  </div>
+                    <div class="input-field col l3 m2 s2 valign">
+                      <select class="material_select" id="mobile_country">
+                        <option value="{{get_foodie_profile.dial_code}}" selected>{{get_foodie_profile.dial_code}}</option>
+                        {{#each country_list}}
+                        <option value={{dial_code}}>{{name}} {{dial_code}}</option>
+                        {{/each}}
+                        </select>
+                      </div>
                   <div class="input-field col l3 m3 s6 valign">
                       <input id="mobile" name="mobile" type="text" value="{{get_foodie_profile.mobile}}">
                       <label class="active" for="mobile">Mobile</label>
@@ -70,6 +74,14 @@
               <input id="edit_home_address" name="edit_home_address" type="text" value="{{get_foodie_profile.home_address}}">
               <label class="active" for="edit_home_address">Home Address</label>
               </div>
+              <div class="input-field col l3 m2 s2 valign">
+                <select class="material_select" id="home_address_country">
+                  <option value={{get_foodie_profile.home_address_country}} selected>{{get_foodie_profile.home_address_country}}</option>
+                  {{#each country_list}}
+                  <option value={{name}}>{{name}}</option>
+                  {{/each}}
+                  </select>
+                </div>
             </div>
 
             <!--Row 3-->
@@ -81,6 +93,14 @@
                 <input id="edit_office_address" name="edit_office_address" type="text" value="{{get_foodie_profile.office_address}}">
                 <label class="active" for="edit_office_address">Office Address</label>
                 </div>
+                <div class="input-field col l3 m2 s2 valign">
+                  <select class="material_select" id="office_address_country">
+                    <option value={{get_foodie_profile.office_address_country}} selected>{{get_foodie_profile.office_address_country}}</option>
+                    {{#each country_list}}
+                    <option value={{name}}>{{name}}</option>
+                    {{/each}}
+                    </select>
+                  </div>
               </div>
 
               <!--Row 4-->
@@ -124,6 +144,20 @@
             <label class="active" for="cvv_code">cvv2/cvc2 code</label>
             </div>
         </div>
+        <div class="row col l12 valign">
+          <div class="input-field col l6 m6 s6 offset-l3 valign">
+            <input id="billing_address" name="billing_address" type="text">
+            <label for="billing_address">Billing Address</label>
+            </div>
+            <div class="input-field col l3 m2 s2 valign">
+              <select class="material_select" id="billing_address_country">
+                <option value={{get_foodie_profile.billing_address_country}} selected>{{get_foodie_profile.billing_address_country}}</option>
+                {{#each country_list}}
+                <option value={{name}}>{{name}}</option>
+                {{/each}}
+                </select>
+              </div>
+        </div>
       <br>
       {{>profile_food_allergies}}
       <br>
@@ -155,8 +189,7 @@
           <input id="edit_kitchen_name" name="edit_kitchen_name" type="text" value="{{get_homecook_profile.kitchen_name}}">
           <label class="active" for="edit_kitchen_name">Kitchen Name</label>
           </div>
-          <div class="col l1"></div>
-          <div class="input-field col l4 m3 s3 valign">
+          <div class="input-field col l3 m3 s3 valign">
             <input id="chef_name" name="chef_name" type="text" value="{{get_homecook_profile.chef_name}}">
             <label class="active" for="chef_name">Chef Name</label>
             </div>
@@ -169,6 +202,14 @@
           <input id="edit_kitchen_address" name="edit_kitchen_address" type="text" value="{{get_homecook_profile.kitchen_address}}">
           <label class="active" for="edit_kitchen_address">Kitchen Address</label>
           </div>
+          <div class="input-field col l3 m2 s2 valign">
+            <select class="material_select" id="kitchen_address_country">
+              <option value={{get_homecook_profile.kitchen_address_country}} selected>{{get_homecook_profile.kitchen_address_country}}</option>
+              {{#each country_list}}
+              <option value={{name}}>{{name}}</option>
+              {{/each}}
+              </select>
+            </div>
         </div>
         <div class="row col l12 valign">
           <div class="input-field col l9 m2 s4 offset-l3 valign">
@@ -185,20 +226,29 @@
           <input id="bank_fullname" name="bank_fullname" type="text" value="{{get_homecook_profile.bank_fullname}}">
           <label class="active" for="bank_fullname">Account Name</label>
         </div>
-        <div class="input-field col l4 m4 s6 valign">
-          <select class="material_select" id="bank_name" >
-            <option value="{{get_homecook_profile.bank_name}}" disabled selected>{{get_homecook_profile.bank_name}}</option>
-            {{#each bank_list}}
-            <option value="{{option}}">{{name}}</option>
-            {{/each}}
-
-          </select>
+        <div class="input-field col l3 m3 s6 valign">
+          <input id="bank_name" name="bank_name" type="text" value="{{get_homecook_profile.bank_name}}">
+          <label for="bank_name">Name of the Bank</label>
+        </div>
+        <div class="input-field col l3 m2 s6 valign">
+          <input id="bank_account_no" name="bank_account_no" type="text" value="{{get_homecook_profile.bank_account_no}}">
+          <label class="active" for="bank_account_no">Account Number</label>
+        </div>
+      </div>
+      <div class="row col l12 m6 s6 valign">
+        <div class="input-field col l6 m6 s6 offset-l3 valign">
+          <input id="bank_address" name="bank_address" type="text" value="{{get_homecook_profile.bank_address}}">
+          <label for="bank_address">Address of the Bank</label>
           </div>
-    <div class="input-field col l2 m2 s6 valign">
-      <input id="bank_account_no" name="bank_account_no" type="text" value="{{get_homecook_profile.bank_account_no}}">
-      <label class="active" for="bank_account_no">Account Number</label>
-    </div>
-  </div>
+        <div class="input-field col l3 m2 s2 valign">
+          <select class="material_select" id="bank_address_country">
+            <option value="{{get_homecook_profile.bank_address_country}}"  selected>{{get_homecook_profile.bank_address_country}}</option>
+            {{#each country_list}}
+            <option value="{{name}}">{{name}}</option>
+            {{/each}}
+            </select>
+          </div>
+        </div>
     <br>
     <br>
     <button id="edit_homecook_button" class="waves-effect waves-teal btn-flat right" type="submit" value="Submit">Update</button>
