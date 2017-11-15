@@ -30,14 +30,16 @@ Meteor.methods({
   'profile_details.insert'(
     user_id,
     foodie_name,
-    first_name,
-    last_name,
+    email,
+    date_of_birth,
+    mobile_dial_code,
     mobile,
     profile_keywords,
-    date_of_birth,
     gender,
     about_myself,
+    home_address_country,
     home_address,
+    office_address_country,
     office_address,
     allergy_tags,
     dietary_tags,
@@ -45,19 +47,23 @@ Meteor.methods({
     card_fullname,
     card_exp_month,
     card_exp_year,
-    cvv_code
+    cvv_code,
+    billing_address_country,
+    billing_address
    ){
     Profile_details.insert({
     user_id: user_id,
     foodie_name: foodie_name,
-    first_name: first_name,
-    last_name: last_name,
+    email: email,
+    date_of_birth: date_of_birth,
+    mobile_dial_code: mobile_dial_code,
     mobile: mobile,
     profile_keywords: profile_keywords,
-    date_of_birth: date_of_birth,
     gender: gender,
     about_myself: about_myself,
+    home_address_country: home_address_country,
     home_address: home_address,
+    office_address_country: office_address_country,
     office_address: office_address,
     allergy_tags: allergy_tags,
     dietary_tags: dietary_tags,
@@ -66,6 +72,8 @@ Meteor.methods({
     card_exp_month: card_exp_month,
     card_exp_year: card_exp_year,
     cvv_code: cvv_code,
+    billing_address_country: billing_address_country,
+    billing_address: billing_address,
     createdAt: new Date(),
     updatedAt: new Date()
 
@@ -73,26 +81,32 @@ Meteor.methods({
 },
 
   'kitchen_details.insert'(
-  user_id,
-  kitchen_name,
-  chef_name,
-  homecook_profile_keywords,
-  kitchen_address,
-  about_homecook_myself,
-  bank_fullname,
-  bank_name,
-  bank_account_no
+    user_id,
+    kitchen_name,
+    chef_name,
+    homecook_profile_keywords,
+    kitchen_address_country,
+    kitchen_address,
+    about_homecook_myself,
+    bank_fullname,
+    bank_name,
+    bank_account_no,
+    bank_address_country,
+    bank_address
   ){
   Kitchen_details.insert({
   user_id: user_id,
   kitchen_name: kitchen_name,
   chef_name: chef_name,
   homecook_profile_keywords: homecook_profile_keywords,
+  kitchen_address_country: kitchen_address_country,
   kitchen_address: kitchen_address,
   about_homecook_myself: about_homecook_myself,
   bank_fullname: bank_fullname,
   bank_name: bank_name,
   bank_account_no: bank_account_no,
+  bank_address_country: bank_address_country,
+  bank_address: bank_address,
   createdAt: new Date(),
   updatedAt: new Date()
 

@@ -121,13 +121,13 @@ Template.bp_navbar.onRendered(function(){
    'change #nav_sarch': function(){
      const location = $('#by_place').val();
      const method = $('#by_method').val();
-     const date = $('#by_date').val();
-     const time = $('#by_time').val();
-     console.log(location, method, date, time);
+/**  const date = $('#by_date').val();
+     const time = $('#by_time').val(); **/
+
      Session.set('location', location)
      Session.set('method', method)
-     Session.set('date', date)
-     Session.set('time', time)
+/**  Session.set('date', date)
+     Session.set('time', time) **/
 
    }
  })

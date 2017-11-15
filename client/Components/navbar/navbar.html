@@ -10,8 +10,8 @@
     </div>
            <!--Search Bar-->
 
-        <div class="nav_search_bar col l7 m6 s6" id="nav_sarch">
-          <div class="input-field grey-text col l3 m2 s2">
+        <div class="nav_search_bar col l4 m6 s6" id="nav_sarch">
+          <div class="input-field grey-text col l6 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class=“material_select” id='by_place'>
               <option value=''>Location</option>
@@ -21,7 +21,7 @@
             </select>
           </div>
 
-          <div class="input-field grey-text col l3 m2 s2">
+          <div class="input-field grey-text col l6 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
             <select class=“material_select” id='by_method'>
               <option value=''>Option</option>
@@ -31,7 +31,7 @@
             </select>
           </div>
 
-          <div class="input-field grey-text col l3 m2 s2">
+      <!--    <div class="input-field grey-text col l3 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/Date.svg"/></i>
             <div class="textbox_adj">
             <input class='timepicker' type='time' placeholder='Time' id='by_time'/>
@@ -44,7 +44,7 @@
             <div class="textbox_adj">
             <input class='datepicker' type='text' placeholder='Date' id='by_date'/>
             </div>
-            </div>
+          </div> -->
 
 
 
@@ -52,11 +52,14 @@
     </div>
 <!--Example
         <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li> -->
+          <div class='col l3 m3 s3'>
+          </div>
           <div class='col l2 m3 s3'>
+          <a href="start_cooking"><span class='badge navbar_logo'>Start Cooking</span></a>
           </div>
           <div class="col l1 m6 s6">
             <div calss='right'>
-        <a href="shopping_cart" ><h6 class='navbar_logo'>{{check_shopping_cart}}</h6></a>
+        <a href="shopping_cart"><span class='badge navbar_logo' data-badge-caption='shopping_cart'>{{check_shopping_cart}}</span></a>
       </div>
       </div>
       <div class="col l1 m6 s6">
