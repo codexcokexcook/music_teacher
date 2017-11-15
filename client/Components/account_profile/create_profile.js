@@ -3,6 +3,9 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { address_geocode } from '/imports/functions/address_geocode.js'
+import { Tracker } from 'meteor/tracker'
+
 import './create_profile.html';
 
 profile_images = new FilesCollection({
@@ -192,6 +195,21 @@ Template.upload_profile.events({
       });
       upload.start();
     }
+  }
+});
+
+Template.profile_personal_details.events({
+  'blur #create_home_address': function() {
+    address_geocode('home_address_conversion',$('#create_home_address').val());
+  },
+  'blur #create_office_address': function() {
+    address_geocode('office_address_conversion',$('#create_office_address').val());
+  }
+});
+
+Template.homecook_profile_details.events({
+  'blur #create_kitchen_address': function() {
+    address_geocode('kitchen_address_conversion',$('#create_kitchen_address').val());
   }
 });
 
@@ -408,10 +426,8 @@ Template.create_foodie_profile.events({
 //Kitchen Database
   Template.create_homecook_profile.events({
     'click #create_homecook_button': function(event, template){
-      console.log("HOMECOOK_CLICKED")
 
       event.preventDefault();
-
 
       const foodie_name = $('#foodie_name').val();
       const email = $('#email').val();
@@ -422,9 +438,11 @@ Template.create_foodie_profile.events({
       const gender =  $("input[name='gender']:checked"). val();
       const about_myself = $('#about_myself').val();
       const home_address_country = $('#home_address_country').val();
-      const home_address = $('#home_address').val();
+      const home_address = $('#create_home_address').val();
+      const home_address_conversion = Session.get('home_address_conversion');
       const office_address_country = $('#office_address_country').val();
-      const office_address = $('#office_address').val();
+      const office_address = $('#create_office_address').val();
+      const office_address_conversion = Session.get('office_address_conversion');
       const allergy_tags = Session.get('allergy_tags');
       const dietary_tags = Session.get('dietary_tags');
       const card_number = $('#card_number').val();
@@ -435,11 +453,12 @@ Template.create_foodie_profile.events({
       const billing_address_country = $('#billing_address_country').val();
       const billing_address = $('#billing_address').val();
 
-      const kitchen_name = $('#kitchen_name').val();
+      const kitchen_name = $('#create_kitchen_name').val();
       const chef_name = $('#chef_name').val();
       const homecook_profile_keywords = $('#homecook_profile_keywords').val();
       const kitchen_address_country = $('#kitchen_address_country').val();
       const kitchen_address = $('#kitchen_address').val();
+      const kitchen_address_conversion = Session.get('kitchen_address_conversion');
       const about_homecook_myself = $('#about_homecook_myself').val();
       const bank_fullname = $('#bank_fullname').val();
       const bank_name = $('#bank_name').val();
@@ -479,6 +498,7 @@ Template.create_foodie_profile.events({
               homecook_profile_keywords,
               kitchen_address_country,
               kitchen_address,
+              kitchen_address_conversion,
               about_homecook_myself,
               bank_fullname,
               bank_name,
@@ -499,8 +519,10 @@ Template.create_foodie_profile.events({
               about_myself,
               home_address_country,
               home_address,
+              home_address_conversion,
               office_address_country,
               office_address,
+              office_address_conversion,
               allergy_tags,
               dietary_tags,
               card_number,

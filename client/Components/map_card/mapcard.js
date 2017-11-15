@@ -69,7 +69,6 @@ Template.mapping.onCreated(function(){
       geocoder.geocode({'location': pos}, function(results, status){
         if (status === 'OK') {
           if (results[0]) {
-            console.log(results[0].formatted_address);
             var address = results[0].formatted_address;
             Session.set('address', address);
           } else {
@@ -114,6 +113,7 @@ Template.mapping.onCreated(function(){
     self.autorun(function(){
       geocoder.geocode({'address': Session.get('address')}, function(results,status) {
         if(status == 'OK') {
+          console.log(results[0].geometry.location);
           map.instance.setCenter(results[0].geometry.location);
           marker.setPosition(results[0].geometry.location);
         }

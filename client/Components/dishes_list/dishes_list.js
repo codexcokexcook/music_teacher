@@ -15,10 +15,8 @@ Template.dishes_list.onRendered(function(){
         $('ul.tabs').tabs();
       },
       complete: function() {} // Callback for Modal close
-    }
-  );
-
-})
+    });
+});
 
 Template.dishes_card.helpers ({
   'dish_details': function () {
@@ -43,7 +41,7 @@ Template.dishes_thumbnails.events({
   'click .dish_thumbnail': function () {
     var dish_id = this._id;
     Session.set('dish_id', dish_id);
-    $('ul.tabs').tabs();
+    this.$('ul.tabs').tabs();
   }
 });
 
@@ -66,7 +64,7 @@ var serving_option = this.serving_option;
 
 Template.dishes_card_layout.events({
   'click #chef_avatar': function() {
-    var route = '/' + this.user_id + '/';
+    var route = '/kitchen/' + this.user_id;
     FlowRouter.go(window.open(route,'_blank'));
   },
   'click #place_order': function () {
