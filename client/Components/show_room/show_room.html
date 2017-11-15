@@ -1,8 +1,13 @@
 <template name='show_room'>
-<div class='container'>
-    {{> show_room_dish}}
-    {{> show_room_menu}}
-    {{> show_room_chef}}
+  <div class = "row">
+    <div class='col l8 m9 s9'>
+      {{> show_room_dish}}
+      {{> show_room_menu}}
+      {{> show_room_chef}}
+    </div>
+    <div class ='col l4 m3 s3'>
+      {{> mapcard}}
+    </div>
   </div>
 </template>
 
