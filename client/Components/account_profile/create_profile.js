@@ -467,7 +467,6 @@ Template.create_foodie_profile.events({
             isNotEmpty(bank_name)              &&
             isNotEmpty(bank_account_no)           )**/
 
-            {
 
               Meteor.call('kitchen_details.insert',
               user_id,
@@ -502,14 +501,12 @@ Template.create_foodie_profile.events({
               cvv_code
               );
 
-  Materialize.toast('Profile created!', 4000)
-   //divert to the profile page
-BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})
-        }
-      /**  else{
+              Materialize.toast('Profile created!', 4000)
+               //divert to the profile page
+              BlazeLayout.render('screen', render_component:"show_room")
 
-        return false;
-      } **/
+
+
 
     }
     });

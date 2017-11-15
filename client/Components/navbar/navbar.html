@@ -14,7 +14,7 @@
           <div class="input-field grey-text col l3 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class=“material_select” id='by_place'>
-              <option value=“” disabled selected>Location</option>
+              <option value=''>Location</option>
               {{#each location_option_list}}
               <option value={{option}}>{{location_option}}</option>
               {{/each}}
@@ -24,7 +24,7 @@
           <div class="input-field grey-text col l3 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
             <select class=“material_select” id='by_method'>
-              <option value=“” disabled selected>Option</option>
+              <option value=''>Option</option>
               {{#each service_option_list}}
               <option value={{option}}>{{service_option}}</option>
               {{/each}}
