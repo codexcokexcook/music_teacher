@@ -5,6 +5,8 @@ Menu = new Mongo.Collection('menu');
 Messages = new Mongo.Collection('messages');
 Shopping_cart = new Mongo.Collection('shopping_cart');
 Transaction = new Mongo.Collection('transaction');
+Profile_details = new Mongo.Collection('profile_details');
+Kitchen_details = new Mongo.Collection('kitchen_details');
 
 Images = new FilesCollection({
   collectionName: 'Images',
@@ -29,7 +31,9 @@ Collections = {
   'Messages': Messages,
   'Images': Images,
   'Shopping_cart': Shopping_cart,
-  'Transaction': Transaction
+  'Transaction': Transaction,
+  'Profile_details': Profile_details,
+  'Kitchen_details': Kitchen_details
 }
 
 Template.registerHelper(

@@ -1,9 +1,9 @@
 <template name='show_room'>
 <div class='container'>
     {{> show_room_dish}}
-    {{>show_room_menu}}
-    {{>show_room_chef}}
-</div>
+    {{> show_room_menu}}
+    {{> show_room_chef}}
+  </div>
 </template>
 
 <template name='show_room_dish'>
@@ -32,7 +32,7 @@
 <template name='show_room_chef'>
 
   <h5>Chef</h5>
-  <div class = "row">
-  
-  </div>
+    {{#each find "Kitchen_details"}}
+      {{> kitchen_card}}
+    {{/each}}
 </template>

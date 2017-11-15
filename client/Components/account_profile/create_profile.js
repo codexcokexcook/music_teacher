@@ -5,9 +5,6 @@ import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 import './create_profile.html';
 
-Profile_details = new Mongo.Collection('profile_details');
-Kitchen_details = new Mongo.Collection('kitchen_details');
-
 profile_images = new FilesCollection({
   collectionName: 'profile_images',
   storagePath: () => {
