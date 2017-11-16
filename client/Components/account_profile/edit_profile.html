@@ -27,9 +27,9 @@
                     </div>
                     <div class="input-field col l3 m2 s2 valign">
                       <select class="material_select" id="mobile_country">
-                        <option value="{{get_foodie_profile.dial_code}}" selected>{{get_foodie_profile.dial_code}}</option>
+                        <option value="{{get_foodie_profile.mobile_dial_code}}" selected>{{get_foodie_profile.mobile_dial_code}}</option>
                         {{#each country_list}}
-                        <option value={{dial_code}}>{{name}} {{dial_code}}</option>
+                        <option value='{{name}} {{dial_code}}'>{{name}} {{dial_code}}</option>
                         {{/each}}
                         </select>
                       </div>
@@ -70,7 +70,7 @@
             <div class="text-field col l3 m6 s6 valign">
               <h6>Home Address</h6>
             </div>
-            <div class="input-field col l9 m6 s6 valign">
+            <div class="input-field col l6 m6 s6 valign">
               <input id="edit_home_address" name="edit_home_address" type="text" value="{{get_foodie_profile.home_address}}">
               <label class="active" for="edit_home_address">Home Address</label>
               </div>
@@ -89,7 +89,7 @@
               <div class="text-field col l3 m6 s6 valign">
                 <h6>Office Address</h6>
               </div>
-              <div class="input-field col l9 m6 s6 valign">
+              <div class="input-field col l6 m6 s6 valign">
                 <input id="edit_office_address" name="edit_office_address" type="text" value="{{get_foodie_profile.office_address}}">
                 <label class="active" for="edit_office_address">Office Address</label>
                 </div>
@@ -198,7 +198,7 @@
         <div class="text-field col l3 m3 s3 valign">
           <h6>Kitchen Address</h6>
         </div>
-        <div class="input-field col l9 m3 s3 valign">
+        <div class="input-field col l6 m3 s3 valign">
           <input id="edit_kitchen_address" name="edit_kitchen_address" type="text" value="{{get_homecook_profile.kitchen_address}}">
           <label class="active" for="edit_kitchen_address">Kitchen Address</label>
           </div>
@@ -228,7 +228,7 @@
         </div>
         <div class="input-field col l3 m3 s6 valign">
           <input id="bank_name" name="bank_name" type="text" value="{{get_homecook_profile.bank_name}}">
-          <label for="bank_name">Name of the Bank</label>
+          <label class="active" for="bank_name">Name of the Bank</label>
         </div>
         <div class="input-field col l3 m2 s6 valign">
           <input id="bank_account_no" name="bank_account_no" type="text" value="{{get_homecook_profile.bank_account_no}}">
@@ -238,7 +238,7 @@
       <div class="row col l12 m6 s6 valign">
         <div class="input-field col l6 m6 s6 offset-l3 valign">
           <input id="bank_address" name="bank_address" type="text" value="{{get_homecook_profile.bank_address}}">
-          <label for="bank_address">Address of the Bank</label>
+          <label class="active" for="bank_address">Address of the Bank</label>
           </div>
         <div class="input-field col l3 m2 s2 valign">
           <select class="material_select" id="bank_address_country">

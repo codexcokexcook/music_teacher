@@ -127,7 +127,7 @@
               <select class="material_select" id="mobile_country">
                 <option value="" disabled selected>Country</option>
                 {{#each country_list}}
-                <option value={{dial_code}}>{{name}} {{dial_code}}</option>
+                <option value='{{name}} {{dial_code}}'>{{name}} {{dial_code}}</option>
                 {{/each}}
                 </select>
               </div>
@@ -152,7 +152,7 @@
       <h6>Home Address</h6>
     </div>
 
-    <div class="input-field col l9 m6 s6 valign">
+    <div class="input-field col l6 m6 s6 valign">
       <input id="create_home_address" name="create_home_address" type="text">
       <label for="create_home_address">Home Address</label>
 
@@ -394,7 +394,7 @@
     <div class="text-field col l3 m3 s3 valign">
       <h6>Kitchen Address</h6>
     </div>
-    
+
     <div class="input-field col l9 m3 s3 valign">
       <input id="create_kitchen_address" name="create_kitchen_address" type="text">
       <label for="create_kitchen_address">Kitchen Address</label>

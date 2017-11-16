@@ -41,7 +41,7 @@ Template.dishes_thumbnails.events({
   'click .dish_thumbnail': function () {
     var dish_id = this._id;
     Session.set('dish_id', dish_id);
-    this.$('ul.tabs').tabs();
+    $('ul.tabs').tabs();
   }
 });
 
@@ -80,15 +80,22 @@ Template.dishes_card_layout.events({
     var dish_name = dish_details.dish_name;
     var quantity = 1;
 
+
+    var serving_option = Session.get('method')
+    var address = Session.get('address')
     //check if the dish has been put in shopping check_shopping_cart
-    var order = Shopping_cart.findOne({"product_id":this._id});
+    var order = Shopping_cart.findOne({"product_id":this._id, "serving_option": serving_option, "address": address});
+    var total_price_per_dish = 0;
+
     if (order)
     {
       var order_id = order._id;
       quantity = parseInt(order.quantity) + 1;
+      total_price_per_dish = parseInt(dish_price) * quantity
       Meteor.call('shopping_cart.update',
       order_id,
-      quantity
+      quantity,
+      total_price_per_dish
     )
     }
     else{
@@ -97,6 +104,8 @@ Template.dishes_card_layout.events({
       homecook_id,
       foodie_name,
       homecook_name,
+      address,
+      serving_option,
       dish_id,
       dish_name,
       quantity,

@@ -31,6 +31,8 @@ Meteor.methods({
     homecook_id,
     foodie_name,
     homecook_name,
+    address,
+    serving_option,
     dish_id,
     dish_name,
     quantity,
@@ -41,25 +43,30 @@ Meteor.methods({
     seller_id: homecook_id,
     buyer_name: foodie_name,
     seller_name: homecook_name,
+    address: address,
+    serving_option: serving_option,
     product_id: dish_id,
     product_name: dish_name,
     quantity: quantity,
     product_price: dish_price,
-
+    total_price_per_dish: dish_price,
+    updatedAt: new Date(),
     createdAt: new Date()
   })
 },
 
   'shopping_cart.update'(
       order_id,
-      quantity
+      quantity,
+      total_price_per_dish
     ){
     Shopping_cart.update(
       {_id: order_id},
       {$set: {
       quantity: quantity,
+      total_price_per_dish: total_price_per_dish,
+      updatedAt: new Date()
 
-      createdAt: new Date()
     }});
   },
 

@@ -179,16 +179,19 @@ Template.edit_foodie_profile.events({
 
         const foodie_profile_id = Profile_details.findOne({'user_id': Meteor.userId()})._id;
         const foodie_name = $('#foodie_name').val();
-        const first_name = $('#first_name').val();
-        const last_name = $('#last_name').val();
+        const email = $('#email').val();
+        const date_of_birth = $('#date_of_birth').val();
+        const mobile_dial_code = $('#mobile_country').val();
+        console.log(mobile_dial_code)
         const mobile = $('#mobile').val();
         const profile_keywords = $('#profile_keywords').val();
-        const date_of_birth = $('#date_of_birth').val();
         const gender =  $("input[name='gender']:checked"). val();
         const about_myself = $('#about_myself').val();
+        const home_address_country = $('#home_address_country').val();
         const home_address = $('#edit_home_address').val();
         const home_address_conversion = Session.get('home_address_conversion');
         const office_address = $('#edit_office_address').val();
+        const office_address_country = $('#office_address_country').val();
         const office_address_conversion = Session.get('office_address_conversion');
         const allergy_tags = Session.get('allergy_tags');
         const dietary_tags = Session.get('dietary_tags');
@@ -197,17 +200,23 @@ Template.edit_foodie_profile.events({
         const card_exp_month = $('#card_exp_month').val();
         const card_exp_year = $('#card_exp_year').val();
         const cvv_code = $('#cvv_code').val();
+        const billing_address_country = $('#billing_address_country').val();
+        const billing_address = $('#billing_address').val();
 
         const kitchen_profile_id = Kitchen_details.findOne({'user_id': Meteor.userId()})._id
-        const kitchen_name = $('kitchen_name').val();
+        const kitchen_name = $('#edit_kitchen_name').val();
         const chef_name = $('#chef_name').val();
         const homecook_profile_keywords = $('#homecook_profile_keywords').val();
+        const kitchen_address_country = $('#kitchen_address_country').val();
         const kitchen_address = $('#edit_kitchen_address').val();
         const kitchen_address_conversion = Session.get('kitchen_address_conversion');
         const about_homecook_myself = $('#about_homecook_myself').val();
         const bank_fullname = $('#bank_fullname').val();
         const bank_name = $('#bank_name').val();
         const bank_account_no = $('#bank_account_no').val();
+        const bank_address_country = $('#bank_address_country').val();
+        const bank_address = $('#bank_address').val();
+
         const user_id = Meteor.userId()
 
     /**      if( isNotEmpty(kitchen_name)           &&
@@ -237,15 +246,17 @@ Template.edit_foodie_profile.events({
                 Meteor.call('profile_details.update',
                 foodie_profile_id,
                 foodie_name,
-                first_name,
-                last_name,
+                email,
+                date_of_birth,
+                mobile_dial_code,
                 mobile,
                 profile_keywords,
-                date_of_birth,
                 gender,
                 about_myself,
+                home_address_country,
                 home_address,
                 home_address_conversion,
+                office_address_country,
                 office_address,
                 office_address_conversion,
                 allergy_tags,
@@ -254,7 +265,9 @@ Template.edit_foodie_profile.events({
                 card_fullname,
                 card_exp_month,
                 card_exp_year,
-                cvv_code
+                cvv_code,
+                billing_address_country,
+                billing_address
                 );
 
                 Meteor.call('kitchen_details.update',
@@ -262,12 +275,16 @@ Template.edit_foodie_profile.events({
                 kitchen_name,
                 chef_name,
                 homecook_profile_keywords,
+                kitchen_address_country,
                 kitchen_address,
                 kitchen_address_conversion,
                 about_homecook_myself,
                 bank_fullname,
                 bank_name,
-                bank_account_no
+                bank_account_no,
+                bank_address_country,
+                bank_address
+
                 );
 
 Materialize.toast('Profile updated!', 4000)
