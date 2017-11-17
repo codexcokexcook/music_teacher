@@ -5,27 +5,26 @@
 }
 
 #location_search_input_card {
-  top: 14px;
+  top: -10px;
   height: 60px;
-  z-index: 2;
 }
 
 #location_search_input {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-left:14px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-left: 0px;
   width: 85%;
-  z-index: 1;
+  z-index: 5;
+  color: grey;
 }
 #location_search_card i {
   display:block;
-  top: 8px;
 }
 .map-container {
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
   top: 0px;
   left: 0px;
 }

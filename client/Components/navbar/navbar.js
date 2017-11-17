@@ -3,16 +3,9 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
-
-
-
-
+import { Tracker } from 'meteor/tracker';
 
 Template.bp_navbar.onRendered(function(){
-
-  //activate dropdown
-  this.$('select').material_select();
-
   //dropdown options
   this.$('.dropdown-button').dropdown({
      inDuration: 300,
@@ -47,7 +40,6 @@ Template.bp_navbar.onRendered(function(){
       format: 'dd/mm/yyyy'
     });
 
-
   //activate timepicker
   this.$('.timepicker').pickatime({
     default: 'now', // Set default time: 'now', '1:30AM', '16:30'
@@ -64,70 +56,99 @@ Template.bp_navbar.onRendered(function(){
     } //Function for after opening timepicker
   });
 
- })
+  // activate location dropdown based on addresses available in profile details
+  Tracker.autorun(()=> {
+    var profile_details = Profile_details.findOne({user_id: Meteor.userId()});
+    if (profile_details) {
+      $('#home_location').val(profile_details.home_address);
+      $('#office_location').val(profile_details.office_address);
+      $('#pin_location').val("pin_location");
+      if (profile_details.home_address && profile_details.office_address) {
+        this.$('select').material_select();
+        $('#home_location').val(profile_details.home_address);
+        $('#office_location').val(profile_details.office_address);
+        $('#pin_location').val("pin_location");
+      } else if (!profile_details.home_address) {
+        $('#home_location').hide();
+        $('select').material_select();
+        $('#office_location').val(profile_details.office_address);
+        $('#pin_location').val("pin_location");
+      } else if (!profile_details.office_address){
+        $('#office_location').hide();
+        this.$('select').material_select();
+        $('#home_location').val(profile_details.home_address);
+        $('#pin_location').val("pin_location");
+      } else {
+        $('#home_location').hide();
+        $('#office_location').hide();
+        this.$('select').material_select();
+        $('#pin_location').val("pin_location");
+      }
+    } else {
+      $('#home_location').hide();
+      $('#office_location').hide();
+      this.$('select').material_select();
+      $('#pin_location').val("pin_location");
+    }
+  });
+});
 
- Template.bp_navbar.helpers ({
-
-   location_option_list:[
-     {location_option: 'Home', option:'Home'},
-     {location_option: 'Office', option:'Office'},
-     {location_option: 'Pin a location', option:'Pin a location'},
-   ],
-
-   time_option_list:[
-     {time_option: '+ 30 mins', option:'1'},
-     {time_option: '+ 1 hour', option:'2'},
-     {time_option: '+ 2 hours', option:'3'},
-     {time_option: '+ 3 hours', option:'4'},
-     {time_option: '+ 4 hours', option:'5'},
-     {time_option: '+ 5 hours', option:'6'},
-     {time_option: '+ 6 hours', option:'7'},
-     {time_option: '+ 7 hours', option:'8'}
-   ],
-
-
-   service_option_list:[
-     { service_option: 'Pick-up', option:'Pick-up'},
-     { service_option: 'Delivery', option:'Delivery'},
-     { service_option: 'Dine-in', option:'Dine-in'},
-
-   ],
-
-     "check_shopping_cart": function(){
-       var total_item_in_cart = 0;
-       Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
-         total_item_in_cart += parseInt(doc.quantity);
-       });
-       return total_item_in_cart;
-     }
- });
-
- Template.bp_navbar.events({
-   'click #profile_link': function () {
-     FlowRouter.go('/profile');
-   },
-   'click #all_link': function () {
-     FlowRouter.go('/main');
-   },
-   'click #i_wanna_cook': function () {
-     FlowRouter.go('/cooking');
-   },
-   'click #logout_link': function () {
-     Meteor.call('messages.clear',Meteor.userId());
-     Session.keys = {}
-     Meteor.logout();
-     FlowRouter.go('/');
-   },
-   'change #nav_sarch': function(){
-     const location = $('#by_place').val();
-     const method = $('#by_method').val();
-/**  const date = $('#by_date').val();
-     const time = $('#by_time').val(); **/
-
-     Session.set('location', location)
-     Session.set('method', method)
-/**  Session.set('date', date)
-     Session.set('time', time) **/
-
+Template.bp_navbar.helpers ({
+ location_option_list:[
+   {location_option: 'Home', option:'Home', id:'home_location'},
+   {location_option: 'Office', option:'Office', id:'office_location'},
+   {location_option: 'Pin a location', option:'Pin a location', id:'pin_location'},
+ ],
+ service_option_list:[
+   { service_option: 'Pick-up', option:'Pick-up'},
+   { service_option: 'Delivery', option:'Delivery'},
+   { service_option: 'Dine-in', option:'Dine-in'},
+ ],
+   "check_shopping_cart": function(){
+     var total_item_in_cart = 0;
+     Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
+       total_item_in_cart += parseInt(doc.quantity);
+     });
+     return total_item_in_cart;
    }
- })
+});
+
+Template.bp_navbar.events({
+  'click .dropdown-button': function() {
+    $('.dropdown-button').dropdown('open');
+  },
+ 'click #profile_link': function () {
+   FlowRouter.go('/profile');
+ },
+ 'click #all_link': function () {
+   FlowRouter.go('/main');
+ },
+ 'click #i_wanna_cook': function () {
+   FlowRouter.go('/cooking');
+ },
+ 'click #logout_link': function () {
+   Meteor.call('messages.clear',Meteor.userId());
+   Session.keys = {}
+   Meteor.logout();
+   FlowRouter.go('/');
+ },
+ 'change #by_place': function(event, template){
+   var location_value = $(event.currentTarget).val();
+   if (location_value === "pin_location") {
+     if ($('#location_search_input_card').length < 1) {
+       Blaze.render(Template.location_search_card,$('#nav_sarch')[0]);
+     };
+     $('#location_search_input').focus();
+   } else {
+     Session.set('address', location_value);
+   }
+ },
+ 'change #by_method': function(event, template){
+   Session.set('method', $(event.currentTarget).val());
+ },
+ 'blur #location_search_input_card': function(event) {
+   if ($('#location_search_input_card').length > 0) {
+     $(event.currentTarget).remove();
+   }
+ }
+});

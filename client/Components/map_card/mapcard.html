@@ -1,29 +1,19 @@
 <template name = "mapcard">
-  <div class = "col s12 m12 l12 valign-wrapper">
     <div class = "card valign" id="location_search_card">
-        {{> mapping}}
-      <div class = "row">
-        {{> location_search_card}}
-      </div>
     </div>
-  </div>
 </template>
 
 <template name = "mapping">
-    <div class="map-container">
-      {{> googleMap name="Map_location" options=map_options}}
-    </div>
+  <div class="map-container">
+    {{> googleMap name="Map_location" options=map_options}}
+  </div>
 </template>
 
 <template name = "location_search_card">
-  <div class = "row">
-    <div class = "col l10 offset-l1">
-      <div class = "card" id="location_search_input_card">
-        <div class = "row">
-          <div class = "input-field col l12">
-            <input onClick="this.select();" id="location_search_input" placeholder="{{address}}" value = "{{address}}" type="search"><i class = "material-icons">search</i>
-          </div>
-        </div>
+  <div class = "card col l12 m12 s12 z-depth-3" id="location_search_input_card">
+    <div class = "row">
+      <div class = "input-field col l12" >
+        <input onClick="this.select();" id="location_search_input" placeholder="{{address}}" value = "{{address}}" type="search"><i class = "material-icons">search</i>
       </div>
     </div>
   </div>
