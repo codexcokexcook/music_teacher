@@ -15,7 +15,7 @@ export function address_geocode(name, address) {
         };
         Session.set(name, latlng);
       } else {
-        Materialize.toast('Ops... Looks like the addresses provided are incorrect, please double check!', 4000)
+        Materialize.toast('Ops... Looks like the addresses provided are incorrect, please double check!', 4000, "round red lighten-2")
       }
     });
   }

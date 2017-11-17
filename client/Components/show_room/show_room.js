@@ -1,15 +1,19 @@
-
 import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 
+Template.show_room.onRendered(function(){
+  $('.map_wrapper').pushpin({
+    top: 0,
+    bottom: 2000,
+    offset: 85
+  });
+});
+
 Template.show_room_dish.helpers ({
-
-
   'find_dishes_by': function(){
-
     var location = Session.get('location');
     var method = Session.get('method');
     var date = Session.get('date');
@@ -62,7 +66,5 @@ Template.show_room_dish.helpers ({
     while (check === 13){return result}
     while (check === 14){return result}
     while (check === 15){return result}
-
-}
-})
-
+  }
+});
