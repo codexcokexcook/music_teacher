@@ -1,3 +1,6 @@
+import { Blaze } from 'meteor/blaze';
+import { Meteor } from 'meteor/meteor';
+
 Markers = new Mongo.Collection('markers');
 
 Template.mapping.helpers({
@@ -11,8 +14,8 @@ Template.mapping.helpers({
   // initial setting of when google map is loaded, set center and zoom range
     if (GoogleMaps.loaded()) {
       return {
-        center: new google.maps.LatLng(22.286394, 114.149139),
-        zoom: 15
+        center: new google.maps.LatLng(22.3964, 114.1095),
+        zoom: 11
       };
     }
   }
@@ -35,16 +38,23 @@ Template.location_search_card.events({
     if (event.which === 13) {
       var address = document.getElementById('location_search_input').value;
       Session.set('address', address);
+      try {
+        Blaze.remove(Template.instance().view);
+      }
+      catch (err) {
+        return false;
+      }
     }
   }
 });
 
-Template.mapping.onRendered(function(){
-  // initialize using google map package with api key provided by google
-  GoogleMaps.load({key: 'AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac' });
+Template.mapcard.onRendered(function(){
+  Blaze.render(Template.mapping, $('#location_search_card')[0]);
+  // using blaze to render the template everytime preventing google map
+  // having partial grey area when rerendered
 });
 
-Template.mapping.onCreated(function(){
+Template.mapping.onRendered(function(){
   GoogleMaps.ready('Map_location', function(map) {
   // Define markers properties when google map is created. pointer didn't specify
   // as we will obtain current location later on
@@ -113,7 +123,6 @@ Template.mapping.onCreated(function(){
     self.autorun(function(){
       geocoder.geocode({'address': Session.get('address')}, function(results,status) {
         if(status == 'OK') {
-          console.log(results[0].geometry.location);
           map.instance.setCenter(results[0].geometry.location);
           marker.setPosition(results[0].geometry.location);
         }

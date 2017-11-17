@@ -4,6 +4,7 @@
   min-height: 300px;
   display: inline-block;
   border-radius: 20px;
+  z-index: 3;
 }
 
 .dropdown_wrapper {

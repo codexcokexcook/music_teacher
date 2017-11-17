@@ -14,9 +14,9 @@
           <div class="input-field grey-text col l6 m2 s2">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class=“material_select” id='by_place'>
-              <option value=''>Location</option>
+              <option value='' id="default_location">Location</option>
               {{#each location_option_list}}
-              <option value={{option}}>{{location_option}}</option>
+                <option value={{option}} id={{id}}>{{location_option}}</option>
               {{/each}}
             </select>
           </div>
@@ -26,7 +26,7 @@
             <select class=“material_select” id='by_method'>
               <option value=''>Option</option>
               {{#each service_option_list}}
-              <option value={{option}}>{{service_option}}</option>
+                <option value={{option}}>{{service_option}}</option>
               {{/each}}
             </select>
           </div>
@@ -45,10 +45,6 @@
             <input class='datepicker' type='text' placeholder='Date' id='by_date'/>
             </div>
           </div> -->
-
-
-
-
     </div>
 <!--Example
         <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li> -->
