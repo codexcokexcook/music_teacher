@@ -51,26 +51,10 @@ Template.registerHelper(
     } else {
       var user_id = Meteor.userId();
     }
-    var get_profile_images = profile_images.findOne({'userId': user_id,'meta':{"purpose": type}});
+    var get_profile_images = profile_images.findOne({'user_id': user_id,'meta':{"purpose": type}});
     var get_profile_images_id = get_profile_images && get_profile_images._id;
     var get_profile_images_ext = get_profile_images && get_profile_images.extensionWithDot;
     var get_profile_images_name = get_profile_images_id + get_profile_images_ext;
     return get_profile_images_name;
-  }
-);
-
-
-Template.registerHelper(
-  'get_profile_details', (userId) => {
-    var get_profile_details = Profile_details.findOne({'userId': userId});
-    return get_profile_details;
-  }
-);
-
-
-Template.registerHelper(
-  'get_kitchen_details', (userId) => {
-    var get_kitchen_details = Kitchen_details.findOne({'userId': userId});
-    return get_kitchen_details;
   }
 );

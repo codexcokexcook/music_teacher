@@ -38,7 +38,7 @@ Template.profile_banner.onCreated(function () {
 
 Template.profile_banner.onRendered(function(){
   var check_profile_banner = profile_images.findOne({
-    "userId": Meteor.userId(),
+    "user_id": Meteor.userId(),
     "meta": {"purpose": "banner_picture"}
   });
   if (check_profile_banner) {
@@ -56,7 +56,7 @@ Template.profile_banner.helpers({
   },
 
   checkUpload: function() {
-     var checkupload = profile_images.findOne({userId: Meteor.userId(),meta:{purpose: "banner_picture"}});
+     var checkupload = profile_images.findOne({user_id: Meteor.userId(),meta:{purpose: "banner_picture"}});
      if (checkupload) {
        return true;
      }
@@ -145,7 +145,7 @@ Template.upload_profile.helpers({
 
   checkUpload: function() {
     var check_profile_picture = profile_images.findOne({
-      "userId": Meteor.userId(),
+      'user_id': Meteor.userId(),
       "meta": {"purpose": "profile_picture"}
     });
     if (check_profile_picture){
@@ -154,7 +154,7 @@ Template.upload_profile.helpers({
   },
 
   load_profile: function() {
-    var profile_id_location = profile_images.findOne({"userId": Meteor.userId(),"meta": {"purpose": "profile_picture"}});
+    var profile_id_location = profile_images.findOne({'user_id': Meteor.userId(),"meta": {"purpose": "profile_picture"}});
     profile_url = "/profile_upload/" + profile_id_location._id + profile_id_location.extensionWithDot;
     return profile_url;
   }
@@ -220,7 +220,7 @@ Template.homecook_profile_banner.onCreated(function () {
 
 Template.homecook_profile_banner.onRendered(function(){
   var check_profile_banner = profile_images.findOne({
-    "userId": Meteor.userId(),
+    'user_id': Meteor.userId(),
     "meta": {"purpose": "homecook_banner_picture"}
   });
   if (check_profile_banner) {
@@ -237,7 +237,7 @@ Template.homecook_profile_banner.helpers({
     return Template.instance().currentUpload.get();
   },
   checkUpload() {
-    var checkupload = profile_images.findOne({userId: Meteor.userId(),meta:{purpose: "homecook_banner_picture"}});
+    var checkupload = profile_images.findOne({user_id: Meteor.userId(),meta:{purpose: "homecook_banner_picture"}});
     if (checkupload) {
       return true;
     }
@@ -325,7 +325,7 @@ Template.upload_homecook_profile.helpers({
 
   checkUpload: function() {
     var check_profile_picture = profile_images.findOne({
-      "userId": Meteor.userId(),
+      'user_id': Meteor.userId(),
       "meta": {"purpose": "homecook_profile_picture"}
     });
     if (check_profile_picture){
@@ -334,7 +334,7 @@ Template.upload_homecook_profile.helpers({
   },
 
   load_profile: function() {
-    var profile_id_location = profile_images.findOne({"userId": Meteor.userId(),"meta":{"purpose": "homecook_profile_picture"}});
+    var profile_id_location = profile_images.findOne({'user_id': Meteor.userId(),"meta":{"purpose": "homecook_profile_picture"}});
     profile_url = "/profile_upload/" + profile_id_location._id + profile_id_location.extensionWithDot;
     return profile_url;
   }
@@ -536,7 +536,7 @@ Template.create_foodie_profile.events({
 
               Materialize.toast('Profile created!', 4000)
                //divert to the profile page
-              BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"}) 
+              BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})
 
 
 

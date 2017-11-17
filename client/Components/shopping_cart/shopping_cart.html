@@ -5,6 +5,7 @@
         <h6>Order summary</h6>
         </div>
       </div>
+      {{#if check_shopping_cart}}
         {{#each shopping_cart}}
         <div class="row col l12 valign">
           <div class="text-field col l3 m6 s6 valign">
@@ -27,25 +28,25 @@
             </div>
           </div>
           {{/each}}
-        <li class="divider"></li>
-        <div class="row col l12 valign">
-            <div class="text-field col l8 m6 s6 valign">
-            </div>
-            <div class="col l4 m1 s1 valign">
-              <div class="col l6 valign left">
-                <p>Subtotal</p>
-              <p>Delivery</p>
-                <p>Tax</p>
-                <p>Total</p>
-              </div>
-              <div class="col l6 valign right">
-                <p>$</p>
-                <p>$</p>
-                <p>$</p>
-                <p>$</p>
-              </div>
+          {{else}}
+          <div class="row col l12 valign">
+            <h5 class='center'>Shopping Cart is Currently Empty</h5>
           </div>
-        </div>
+          {{/if}}
+        <li class="divider"></li>
+        <br>
+        <div class="row col l12 valign">
+            <div class="text-field col l2 m1 s2 offset-l8 valign center">Subtotal</div>
+            <div class="text-field col l1 m1 s2 valign center">${{total_food_price}}</div>
+          </div>
+          <div class="row col l12 valign">
+              <div class="text-field col l2 m1 s2 offset-l8 valign center">Delivery</div>
+              <div class="text-field col l1 m1 s2 valign center">${{total_delivery_cost}}</div>
+            </div>
+            <div class="row col l12 valign">
+                <div class="text-field col l2 m1 s2 offset-l8 valign center">Total</div>
+                <div class="text-field col l1 m1 s2 valign center">${{total_price}}</div>
+              </div>
         <li class="divider"></li>
         {{>sc_serving_details}}
         <li class="divider"></li>
@@ -58,10 +59,16 @@
 
 
 <template name = 'sc_serving_details'>
-
   <div class="row col l12 valign">
     <div class="text-field col l3 m6 s6 valign">
+      <ul id ='sc_serving_option' class="dropdown-content">
+        <li><a href="#!">Pick-up</a></li>
+        <li><a href="#!">Delivery</a></li>
+        <li><a href="#!">Dine-in</a></li>
+      </ul>
+       <a class="btn dropdown-button" href="#!" data-activates="dropdown2">Dropdown<i class="material-icons right">arrow_drop_down</i></a>
       </div>
+
       </div>
   <div class="row col l12 valign">
     <div class="text-field col l3 m6 s6 valign">

@@ -8,7 +8,7 @@ Template.menu_creation.onRendered(function(){
   this.$('select').material_select();
   this.$('.tooltipped').tooltip({delay: 500});
   //Check if menu has data instance
-  var data = Menu.find({"createdBy": Meteor.userId()})
+  var data = Menu.find({"user_id": Meteor.userId()})
   if (data.count()) {
     Blaze.render(Template.view_menu, document.getElementById('card_container'));
   } else {
@@ -55,7 +55,7 @@ Template.menu_creation_content.events({
   'click #create_menu': function(event, template) {
     event.preventDefault;
     var menu_name = $('#menu_name').val();
-    var createdBy = Meteor.userId();
+    var user_id = Meteor.userId();
     var menu_selling_price = $('#menu_selling_price').val();
     var min_order = $('#min_order_range').val();
     var lead_hours = $('#lead_time_hours_range').val();
@@ -72,7 +72,7 @@ Template.menu_creation_content.events({
     if (menu_name && menu_selling_price && dishes_id) {
       Meteor.call('menu.insert',
         menu_name,
-        createdBy,
+        user_id,
         menu_selling_price,
         min_order,
         lead_hours,
@@ -114,7 +114,7 @@ Template.view_menu.onRendered(function(){
 
 Template.view_menu.helpers({
   'menu_retreival': function() {
-    return Menu.find({"createdBy": Meteor.userId()});
+    return Menu.find({"user_id": Meteor.userId()});
   }
 });
 
