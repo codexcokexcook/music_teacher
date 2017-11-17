@@ -3,6 +3,8 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { search_distinct } from '/imports/functions/find_by.js'
+
 
 Template.shopping_cart_card.onRendered(function(){
 
@@ -12,16 +14,47 @@ Template.shopping_cart_card.onRendered(function(){
 
 Template.shopping_cart_card.helpers({
 
+'check_shopping_cart': function(){
+    return Shopping_cart.findOne({"buyer_id": Meteor.userId()})
+},
+
 'shopping_cart': function(){
-    var shopping_cart = Shopping_cart.find({"buyer_id": Meteor.userId()})
-    return shopping_cart
+    return Shopping_cart.find({"buyer_id": Meteor.userId()})
 },
 
 'total_price_per_dish': function(){
-    var total_price_per_dish = this.quantity*this.product_price
-    return total_price_per_dish
+    return this.quantity*this.product_price
+},
 
-  }
+'total_food_price':function(){
+  var total_food_price = 0;
+  Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
+    total_food_price += parseInt(doc.total_price_per_dish);
+  });
+  return total_food_price;
+},
+
+'total_delivery_cost':function(){
+
+ var no_destination = search_distinct(Shopping_cart, 'seller_id').length
+ var delivery_cost_per_place = 50
+ var total_delivery_cost = no_destination * delivery_cost_per_place
+ return total_delivery_cost
+},
+
+'total_price':function(){
+  var total_food_price = 0;
+  var no_destination = search_distinct(Shopping_cart, 'seller_id').length
+  var delivery_cost_per_place = 50
+  var total_price = 0
+
+  Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
+    total_food_price += parseInt(doc.total_price_per_dish);
+  });
+
+  total_price = no_destination * delivery_cost_per_place + total_food_price
+  return total_price
+}
 
 })
 
@@ -39,10 +72,12 @@ Template.shopping_cart_card.events({
     var cart_id = this._id
     var field_name = this._id+"_quantity"
     var quantity = document.getElementById(field_name).value;
+    var total_price_per_dish = quantity*this.product_price
 
     Meteor.call('shopping_cart.update',
       cart_id,
-      quantity)
+      quantity,
+      total_price_per_dish)
     },
 
 'click .remove_button': function(event){

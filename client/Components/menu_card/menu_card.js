@@ -34,7 +34,7 @@ Template.menu_card.events({
   },
   'click #menu_card': function() {
     if($('.dropdown_element').length === 0) {
-      var route = '/' + this.createdBy + '/menu/' + this._id;
+      var route = '/' + this.user_id + '/menu/' + this._id;
       FlowRouter.go(window.open(route,'_blank'));
     }
   }

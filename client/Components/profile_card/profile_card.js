@@ -18,7 +18,7 @@ Template.profile_created_dishes.helpers({
 Template.profile_created_menus.helpers({
   'created_menus': function() {
     var user_id = this.user_id;
-    return Menu.find({createdBy: user_id});
+    return Menu.find({user_id: user_id});
   }
 });
 

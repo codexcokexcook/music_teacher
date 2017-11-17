@@ -27,7 +27,7 @@
   <div class = "section">
     <h5>Menu</h5>
     <div class = "menu_card_wrapper">
-      {{#each find "Menu"}}
+      {{#each find_menu_by}}
         {{> menu_card}}
       {{/each}}
     </div>
@@ -38,7 +38,7 @@
 <template name='show_room_chef'>
   <div class = "section">
     <h5>Chef</h5>
-      {{#each find "Kitchen_details"}}
+      {{#each find_kitchen_by}}
         {{> kitchen_card}}
       {{/each}}
     </div>
