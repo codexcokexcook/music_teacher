@@ -9,7 +9,10 @@ Template.mapping.helpers({
     if (GoogleMaps.loaded()) {
       return {
         center: new google.maps.LatLng(22.3964, 114.1095),
-        zoom: 11
+        zoom: 11,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false
       };
     }
   }
@@ -59,27 +62,33 @@ Template.mapping.onRendered(function(){
     zoom: 15
   });
 
-  var kitchen_marker = [];
+  // Reactive markers on google map to reflect search results
+
+  kitchen_marker = []; //define a global marker array to administrate pin locations of kitchens on google map
 
   Tracker.autorun(function() {
     var kitchen_details = navbar_find_by("Kitchen_details").fetch();
     console.log(kitchen_marker);
-    if (kitchen_marker) {
-      consoloe.log('yes');
-      kitchen_marker.setMap(null);
+    if (kitchen_marker.length > 0) {
+      console.log('yes');
+      for (i=0; i< kitchen_marker.length; i++) {
+        kitchen_marker[i].setMap(null);
+      }
       kitchen_marker = [];
     } else {
       console.log('no');
-      var kitchen_marker = [];
     }
     console.log(kitchen_details.length);
     for (i=0; i < kitchen_details.length; i++) {
       kitchen_marker[i] = new google.maps.Marker({
         position: kitchen_details[i].kitchen_address_conversion,
-        map: map.instance,
-        title: String(kitchen_details[i].kitchen_name)
+        animation: google.maps.Animation.DROP,
+        title: String(kitchen_details[i].kitchen_name),
+        kitchen_id: kitchen_details[i]._id
       })
+      kitchen_marker[i].setMap(map.instance);
       console.log(kitchen_marker[i]);
+      console.log(kitchen_marker[i].kitchen_id);
     }
   });
 
