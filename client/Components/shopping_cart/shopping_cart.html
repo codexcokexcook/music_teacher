@@ -60,13 +60,13 @@
 
 <template name = 'sc_serving_details'>
   <div class="row col l12 valign">
-    <div class="text-field col l3 m6 s6 valign">
-      <ul id ='sc_serving_option' class="dropdown-content">
-        <li><a href="#!">Pick-up</a></li>
-        <li><a href="#!">Delivery</a></li>
-        <li><a href="#!">Dine-in</a></li>
-      </ul>
-       <a class="btn dropdown-button" href="#!" data-activates="dropdown2">Dropdown<i class="material-icons right">arrow_drop_down</i></a>
+    <div class="text-field col l3 m6 s6 offset-l3 valign">
+      <select class=“material_select” id='sc_serving_method'>
+        <option value=''>Option</option>
+        {{#each service_option_list}}
+          <option value={{option}}>{{service_option}}</option>
+        {{/each}}
+      </select>
       </div>
 
       </div>
