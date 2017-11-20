@@ -18,6 +18,8 @@ window.fbAsyncInit = function() {
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
 
- Meteor.startup(function() {
-   GoogleMaps.load({key: 'AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac'});
- })
+Meteor.startup(function() {
+  GoogleMaps.load({
+    key: 'AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac'
+  });
+})
