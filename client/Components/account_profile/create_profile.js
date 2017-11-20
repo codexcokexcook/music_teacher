@@ -55,13 +55,13 @@ Template.profile_banner.helpers({
     return Template.instance().currentUpload.get();
   },
 
-  checkUpload: function() {
+  'checkUpload': function() {
      var checkupload = profile_images.findOne({user_id: Meteor.userId(),meta:{purpose: "banner_picture"}});
      if (checkupload) {
        return true;
      }
   },
-  load_banner: function() {
+  'load_banner': function() {
     banner_url = "/profile_upload/" + this._id + this.extensionWithDot;
     $(".profile_banner_area").css("background-color","");
     $(".profile_banner_area").css("background-image", "url("+ banner_url +")");
@@ -149,6 +149,7 @@ Template.upload_profile.helpers({
       "meta": {"purpose": "profile_picture"}
     });
     if (check_profile_picture){
+      console.log('ok');
       return true;
     }
   },
