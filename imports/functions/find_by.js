@@ -15,21 +15,21 @@ export function navbar_find_by(collection){
   if(location){
     if(method){
       //Location
-
+      console.log('case 1');
       return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}})
 
         }else if (!method){
           //Location
-
+      console.log('case 2');
         return  Collections[collection].find({'user_id':{$ne: Meteor.userId()}})
 
         }
       }else if(method){
-
+      console.log('case 3');
       return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}})
 
     }else{
-
+      console.log('case 4');
         return Collections[collection].find({'user_id':{$ne: Meteor.userId()}})
 
       }

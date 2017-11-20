@@ -7,6 +7,7 @@ Shopping_cart = new Mongo.Collection('shopping_cart');
 Transaction = new Mongo.Collection('transaction');
 Profile_details = new Mongo.Collection('profile_details');
 Kitchen_details = new Mongo.Collection('kitchen_details');
+Markers = new Mongo.Collection('markers');
 
 Images = new FilesCollection({
   collectionName: 'Images',
@@ -33,7 +34,8 @@ Collections = {
   'Shopping_cart': Shopping_cart,
   'Transaction': Transaction,
   'Profile_details': Profile_details,
-  'Kitchen_details': Kitchen_details
+  'Kitchen_details': Kitchen_details,
+  'Markers': Markers
 }
 
 Template.registerHelper(

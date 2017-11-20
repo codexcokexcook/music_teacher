@@ -1,15 +1,9 @@
 import { Blaze } from 'meteor/blaze';
 import { Meteor } from 'meteor/meteor';
-
-Markers = new Mongo.Collection('markers');
+import { Tracker } from 'meteor/tracker';
+import { navbar_find_by } from '/imports/functions/find_by.js'
 
 Template.mapping.helpers({
-  location: [
-    {name: 'Home', id: 'home', address: '92 Bauhinia Road, Fairview Park'},
-    {name: 'Office', id: 'office', address: 'Room 803, 8/F, Lai Cheong Factory Building, 479 Castle Peak Road, Lai Chi Kok, Kowloon, Hong Kong'},
-    {name: 'Map', id:'map', address:'Tung Fat Building, Yuen Long'},
-  ],
-
   'map_options': function() {
   // initial setting of when google map is loaded, set center and zoom range
     if (GoogleMaps.loaded()) {
@@ -65,6 +59,31 @@ Template.mapping.onRendered(function(){
     zoom: 15
   });
 
+  var kitchen_marker = [];
+
+  Tracker.autorun(function() {
+    var kitchen_details = navbar_find_by("Kitchen_details").fetch();
+    console.log(kitchen_marker);
+    if (kitchen_marker) {
+      consoloe.log('yes');
+      kitchen_marker.setMap(null);
+      kitchen_marker = [];
+    } else {
+      console.log('no');
+      var kitchen_marker = [];
+    }
+    console.log(kitchen_details.length);
+    for (i=0; i < kitchen_details.length; i++) {
+      kitchen_marker[i] = new google.maps.Marker({
+        position: kitchen_details[i].kitchen_address_conversion,
+        map: map.instance,
+        title: String(kitchen_details[i].kitchen_name)
+      })
+      console.log(kitchen_marker[i]);
+    }
+  });
+
+
   var geocoder = new google.maps.Geocoder(); //Define new geocoder of the map
   if (navigator.geolocation) {
     //obtain current location of user
@@ -102,7 +121,6 @@ Template.mapping.onRendered(function(){
     geocoder.geocode({'location': marker_position}, function(results, status){
       if (status === 'OK') {
         if (results[0]) {
-          console.log(results[0].formatted_address);
           var address = results[0].formatted_address;
           Session.set('address', address);
         } else {
@@ -130,8 +148,8 @@ Template.mapping.onRendered(function(){
     });
   });
 
-/*** Multiple marker function on click, with drag function, a good refernce
-  GoogleMaps.ready('Map_location', function(map) {
+//Multiple marker function on click, with drag function, a good refernce
+/*  GoogleMaps.ready('Map_location', function(map) {
    google.maps.event.addListener(map.instance, 'click', function(event) {
         Markers.insert({lat:event.latLng.lat(),lng:event.latLng.lng() });
         console.log(Markers.find());
@@ -174,6 +192,5 @@ Template.mapping.onRendered(function(){
         delete markers[oldDocument._id];
       }
     });
-  });
-******* End here ********/
+  }); */
 });

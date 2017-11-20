@@ -182,7 +182,6 @@ Template.edit_foodie_profile.events({
         const email = $('#email').val();
         const date_of_birth = $('#date_of_birth').val();
         const mobile_dial_code = $('#mobile_country').val();
-        console.log(mobile_dial_code)
         const mobile = $('#mobile').val();
         const profile_keywords = $('#profile_keywords').val();
         const gender =  $("input[name='gender']:checked"). val();

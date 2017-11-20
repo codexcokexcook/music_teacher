@@ -490,53 +490,57 @@ Template.create_foodie_profile.events({
             isNotEmpty(bank_name)              &&
             isNotEmpty(bank_account_no)           )**/
 
+        Meteor.call('kitchen_details.insert',
+        user_id,
+        kitchen_name,
+        chef_name,
+        homecook_profile_keywords,
+        kitchen_address_country,
+        kitchen_address,
+        kitchen_address_conversion,
+        about_homecook_myself,
+        bank_fullname,
+        bank_name,
+        bank_account_no,
+        bank_address_country,
+        bank_address
+        );
 
-              Meteor.call('kitchen_details.insert',
-              user_id,
-              kitchen_name,
-              chef_name,
-              homecook_profile_keywords,
-              kitchen_address_country,
-              kitchen_address,
-              kitchen_address_conversion,
-              about_homecook_myself,
-              bank_fullname,
-              bank_name,
-              bank_account_no,
-              bank_address_country,
-              bank_address
-              );
+        Meteor.call('profile_details.insert',
+        user_id,
+        foodie_name,
+        email,
+        date_of_birth,
+        mobile_dial_code,
+        mobile,
+        profile_keywords,
+        gender,
+        about_myself,
+        home_address_country,
+        home_address,
+        home_address_conversion,
+        office_address_country,
+        office_address,
+        office_address_conversion,
+        allergy_tags,
+        dietary_tags,
+        card_number,
+        card_fullname,
+        card_exp_month,
+        card_exp_year,
+        cvv_code,
+        billing_address_country,
+        billing_address
+        );
 
-              Meteor.call('profile_details.insert',
-              user_id,
-              foodie_name,
-              email,
-              date_of_birth,
-              mobile_dial_code,
-              mobile,
-              profile_keywords,
-              gender,
-              about_myself,
-              home_address_country,
-              home_address,
-              home_address_conversion,
-              office_address_country,
-              office_address,
-              office_address_conversion,
-              allergy_tags,
-              dietary_tags,
-              card_number,
-              card_fullname,
-              card_exp_month,
-              card_exp_year,
-              cvv_code,
-              billing_address_country,
-              billing_address
-              );
+//        const kitchen_details = Kitchen_details.findOne({user_id: Meteor.userId()});
+//        const kithcen_id = kitchen_details._id;
+//        Meteor.call('markers.insert', user_id, kitchen_id, lat, lng);
 
-              Materialize.toast('Profile created!', 4000)
-               //divert to the profile page
-              BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})
+
+        Materialize.toast('Profile created!', 4000)
+         //divert to the profile page
+        BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})
 
 
 
