@@ -5,22 +5,6 @@ import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { search_distinct } from '/imports/functions/find_by.js'
 
-
-Template.sc_serving_details.onRendered(function(){
-  this.$('.dropdown-button').dropdown({
-     inDuration: 300,
-     outDuration: 225,
-     constrainWidth: false, // Does not change width of dropdown to that of the activator
-     hover: false, // Activate on hover
-     gutter: 0, // Spacing from edge
-     belowOrigin: true, // Displays dropdown below the button
-     alignment: 'left', // Displays dropdown with edge aligned to the left of button
-     stopPropagation: true // Stops event propagation
-   })
-
-});
-
-
 Template.shopping_cart_card.helpers({
 
 'check_shopping_cart': function(){
@@ -66,6 +50,36 @@ Template.shopping_cart_card.helpers({
 }
 
 })
+
+
+Template.sc_serving_details.onRendered(function() {
+  this.$('select').material_select();
+})
+
+Template.sc_serving_details.helpers({
+service_option_list:[
+  { service_option: 'Pick-up', option:'Pick-up'},
+  { service_option: 'Delivery', option:'Delivery'},
+  { service_option: 'Dine-in', option:'Dine-in'},
+]
+})
+
+Template.sc_serving_details.events({
+  'change #sc_select_serving_option':function(event){
+    var option = $('#sc_select_serving_option').val();
+    if(option ==='Pick-up'){
+      BlazeLayout.render('screen',{navbar: "bp_navbar",render_component:'shopping_cart_card', serving_details:'sc_serving_details_pick_up'});
+    }else if(option ==='Delivery'){
+      BlazeLayout.render('screen',{navbar: "bp_navbar",render_component:'shopping_cart_card', serving_details:'sc_serving_details_delivery'});
+    }else if(option ==='Dine-in'){
+      BlazeLayout.render('screen',{navbar: "bp_navbar",render_component:'shopping_cart_card', serving_details:'sc_serving_details_dine_in'});
+    }else{
+      BlazeLayout.render('screen',{navbar: "bp_navbar",render_component:'shopping_cart_card', serving_details:'sc_serving_details_pick_up'});
+    }
+  }
+
+})
+
 
 Template.sc_payment.helpers({
   'get_credit_card': function(){

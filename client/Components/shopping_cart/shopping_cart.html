@@ -34,64 +34,68 @@
           </div>
           {{/if}}
         <li class="divider"></li>
-        <br>
-        <div class="row col l12 valign">
-            <div class="text-field col l2 m1 s2 offset-l8 valign center">Subtotal</div>
-            <div class="text-field col l1 m1 s2 valign center">${{total_food_price}}</div>
-          </div>
-          <div class="row col l12 valign">
-              <div class="text-field col l2 m1 s2 offset-l8 valign center">Delivery</div>
-              <div class="text-field col l1 m1 s2 valign center">${{total_delivery_cost}}</div>
-            </div>
-            <div class="row col l12 valign">
-                <div class="text-field col l2 m1 s2 offset-l8 valign center">Total</div>
-                <div class="text-field col l1 m1 s2 valign center">${{total_price}}</div>
-              </div>
-        <li class="divider"></li>
         {{>sc_serving_details}}
         <li class="divider"></li>
+        <br>
+        {{>sc_cost_summary}}
+        <li class="divider"></li>
         {{>sc_payment}}
+        </div>
+</template>
 
-
-
-  </div>
+<template name='sc_cost_summary'>
+  <div class="row col l12 valign">
+      <div class="text-field col l2 m1 s2 offset-l8 valign center">Subtotal</div>
+      <div class="text-field col l1 m1 s2 valign center">${{total_food_price}}</div>
+    </div>
+    <div class="row col l12 valign">
+        <div class="text-field col l2 m1 s2 offset-l8 valign center">Delivery</div>
+        <div class="text-field col l1 m1 s2 valign center">${{total_delivery_cost}}</div>
+      </div>
+      <div class="row col l12 valign">
+          <div class="text-field col l2 m1 s2 offset-l8 valign center">Total</div>
+          <div class="text-field col l1 m1 s2 valign center">${{total_price}}</div>
+        </div>
 </template>
 
 
 <template name = 'sc_serving_details'>
   <div class="row col l12 valign">
-    <div class="text-field col l3 m6 s6 offset-l3 valign">
-      <select class=“material_select” id='sc_serving_method'>
-        <option value=''>Option</option>
+    <div class="input-field col l2 m6 s6 offset-l3 valign">
+      <select class='material_select' id="sc_select_serving_option">
+        <option value=''>Serving Option</option>
         {{#each service_option_list}}
           <option value={{option}}>{{service_option}}</option>
         {{/each}}
       </select>
       </div>
-
-      </div>
-  <div class="row col l12 valign">
-    <div class="text-field col l3 m6 s6 valign">
-      </div>
-    </div>
-  <div class="row col l12 valign">
-    <div class="text-field col l3 m6 s6 valign">
-      </div>
-    </div>
-  <div class="row col l12 valign">
-    <div class="text-field col l3 m6 s6 valign">
-      </div>
-    <div class="text-field col l3 m6 s6 valign">
-      Delivery time:
-      </div>
-    <div class="text-field col l4 m6 s6 valign">
-      <h5>14/12/2017, 12:30</h5>
-      </div>
-    <div class="text-field col l2 m6 s6 valign">
-
-      </div>
     </div>
 
+
+  {{> Template.dynamic template = serving_details}}
+
+
+</template>
+
+<template name='sc_serving_details_pick_up'>
+  <div class="row col l12 valign">
+    <div class='row col l3 m3 s3 offset-l3 valign'>
+    Kitchen Address:
+    </div>
+    asdasdkladlkasjkjaskjdklajdlkajdlak
+  </div>
+</template>
+
+<template name='sc_serving_details_delivery'>
+  <div class="row col l12 valign">
+
+  </div>
+</template>
+
+<template name='sc_serving_details_dine_in'>
+  <div class="row col l12 valign">
+
+  </div>
 </template>
 
 
