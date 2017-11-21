@@ -1,38 +1,69 @@
-
 import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
-import { Blaze } from 'meteor/blaze';
-import { FilesCollection } from 'meteor/ostrio:files';
+import { address_geocode } from '/imports/functions/address_geocode.js';
 
 
 export function navbar_find_by(collection){
 
-  var location = Session.get('location');
+  var location = Session.get('address');
   var method = Session.get('method');
 
-
-  if(location){
-    if(method){
-      //Location
-      console.log('case 1');
-      return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}})
-
-        }else if (!method){
-          //Location
-      console.log('case 2');
-        return  Collections[collection].find({'user_id':{$ne: Meteor.userId()}})
-
+  if (collection === "Menu" || "Dishes") {
+    if (location) {
+      address_geocode('location', location);
+      Meteor.call('mapping.check_radius', Session.get('location'), 5, function(error, result){
+        if (error) {
+          Materialise.toast(error, 4000, "round red lighten-2");
         }
-      }else if(method){
-      console.log('case 3');
-      return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}})
-
-    }else{
-      console.log('case 4');
-        return Collections[collection].find({'user_id':{$ne: Meteor.userId()}})
-
+        var filtered_kitchen = result;
+      });
+      if (method) {
+        //location: T, method: T
+        console.log('location: T, method: T');
+        return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}, 'kitchen_id': filtered_kitchen});
+      } else if (!method) {
+        //location: T, method: F
+        console.log('location: T, method: F');
+        return  Collections[collection].find({'user_id':{$ne: Meteor.userId()}});
       }
+    } else if (method) {
+      //location: F, method: T
+      console.log('location: F, method: T');
+      return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}});
+    } else {
+      //location: F, method: F
+      console.log('location: F, method: F');
+      return Collections[collection].find({'user_id':{$ne: Meteor.userId()}});
+    }
+  } else { //if collection is Kitchen_details
+    if (location) {
+      address_geocode('location', location);
+      Meteor.call('mapping.check_radius', Session.get('location'), 5, function(error, result){
+        return result;
+        if (error) {
+          Materialise.toast(error, 4000, "round red lighten-2");
+        }
+      });
+      if (method) {
+        //location: T, method: T
+        console.log('location: T, method: T');
+        return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}});
+      } else if (!method) {
+        //location: T, method: F
+        console.log('location: T, method: F');
+        return  Collections[collection].find({'user_id':{$ne: Meteor.userId()}});
+      }
+    } else if (method) {
+      //location: F, method: T
+      console.log('location: F, method: T');
+      return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}});
+    } else {
+      //location: F, method: F
+      console.log('location: F, method: F');
+      return Collections[collection].find({'user_id':{$ne: Meteor.userId()}});
+    }
+  }
 }
 
 export function search_distinct(collection, field){

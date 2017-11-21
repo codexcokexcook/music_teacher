@@ -70,25 +70,26 @@ Template.mapping.onRendered(function(){
     var kitchen_details = navbar_find_by("Kitchen_details").fetch();
     console.log(kitchen_marker);
     if (kitchen_marker.length > 0) {
-      console.log('yes');
+      console.log('have markers');
       for (i=0; i< kitchen_marker.length; i++) {
         kitchen_marker[i].setMap(null);
       }
       kitchen_marker = [];
     } else {
-      console.log('no');
+      console.log('no markers');
     }
-    console.log(kitchen_details.length);
+    console.log('total kitchens display on map:' + kitchen_details.length);
     for (i=0; i < kitchen_details.length; i++) {
       kitchen_marker[i] = new google.maps.Marker({
-        position: kitchen_details[i].kitchen_address_conversion,
+        position: {
+          lat: kitchen_details[i].kitchen_address_conversion.lat,
+          lng: kitchen_details[i].kitchen_address_conversion.lng
+        },
         animation: google.maps.Animation.DROP,
         title: String(kitchen_details[i].kitchen_name),
         kitchen_id: kitchen_details[i]._id
       })
       kitchen_marker[i].setMap(map.instance);
-      console.log(kitchen_marker[i]);
-      console.log(kitchen_marker[i].kitchen_id);
     }
   });
 

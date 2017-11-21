@@ -8,10 +8,10 @@ export function address_geocode(name, address) {
   if (address) {
     geocoder.geocode({'address': String(address)}, function(results,status){
       if (status == 'OK') {
-        var latlnt = [];
+        var latlng = [];
         var latlng = {
-          lat: results[0].geometry.location.lat(),
-          lng: results[0].geometry.location.lng()
+          lng: results[0].geometry.location.lng(),
+          lat: results[0].geometry.location.lat()
         };
         Session.set(name, latlng);
       } else {

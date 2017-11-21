@@ -166,6 +166,7 @@ Template.edit_foodie_profile.events({
     this.$(document).ready(function(){
       $('ul.tabs').tabs();
     });
+    checkboxes_recall(get_homecook_profile.serving_option);
 });
 
 
@@ -210,6 +211,7 @@ Template.edit_foodie_profile.events({
         const kitchen_address = $('#edit_kitchen_address').val();
         const kitchen_address_conversion = Session.get('kitchen_address_conversion');
         const about_homecook_myself = $('#about_homecook_myself').val();
+        const serving_option = Session.get('serving_option_tags');
         const bank_fullname = $('#bank_fullname').val();
         const bank_name = $('#bank_name').val();
         const bank_account_no = $('#bank_account_no').val();
@@ -278,6 +280,7 @@ Template.edit_foodie_profile.events({
                 kitchen_address,
                 kitchen_address_conversion,
                 about_homecook_myself,
+                serving_option,
                 bank_fullname,
                 bank_name,
                 bank_account_no,

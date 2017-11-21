@@ -56,6 +56,8 @@ Template.menu_creation_content.events({
     event.preventDefault;
     var menu_name = $('#menu_name').val();
     var user_id = Meteor.userId();
+    var kitchen = Kitchen_details.findOne({user_id: user_id});
+    var kitchen_id = kitchen._id;
     var menu_selling_price = $('#menu_selling_price').val();
     var min_order = $('#min_order_range').val();
     var lead_hours = $('#lead_time_hours_range').val();
@@ -73,6 +75,7 @@ Template.menu_creation_content.events({
       Meteor.call('menu.insert',
         menu_name,
         user_id,
+        kitchen_id,
         menu_selling_price,
         min_order,
         lead_hours,
