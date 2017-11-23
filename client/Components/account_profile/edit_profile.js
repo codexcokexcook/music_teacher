@@ -71,6 +71,10 @@ Template.edit_foodie_profile.onRendered(function(){
   //activate checkboxes_recall
   checkboxes_recall(get_profile.allergy_tags)
   checkboxes_recall(get_profile.dietary_tags)
+  checkboxes_recall(get_profile.serving_option_tags)
+  address_geocode('home_address_conversion',$('#edit_home_address').val());
+  address_geocode('office_address_conversion',$('#edit_office_address').val());
+  address_geocode('kitchen_address_conversion',$('#edit_kitchen_address').val());
 });
 
 
