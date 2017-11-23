@@ -67,7 +67,17 @@ Template.mapping.onRendered(function(){
   kitchen_marker = []; //define a global marker array to administrate pin locations of kitchens on google map
 
   Tracker.autorun(function() {
-    var kitchen_details = navbar_find_by("Kitchen_details").fetch();
+    try {
+      var kitchen_details = Session.get('searched_result');
+      console.log(kitchen_details);
+    }
+    catch (err) {
+      console.log(err);
+      for (i=0; i< kitchen_marker.length; i++) {
+        kitchen_marker[i].setMap(null);
+      }
+      return true;
+    }
     console.log(kitchen_marker);
     if (kitchen_marker.length > 0) {
       console.log('have markers');
@@ -77,6 +87,9 @@ Template.mapping.onRendered(function(){
       kitchen_marker = [];
     } else {
       console.log('no markers');
+      for (i=0; i< kitchen_marker.length; i++) {
+        kitchen_marker[i].setMap(null);
+      }
     }
     console.log('total kitchens display on map:' + kitchen_details.length);
     for (i=0; i < kitchen_details.length; i++) {
