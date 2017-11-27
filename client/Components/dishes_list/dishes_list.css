@@ -110,6 +110,7 @@
 
 .price_tag {
   position: absolute;
+  bottom: 75px;
   right: 24px;
 }
 
@@ -126,6 +127,6 @@
 
 .rating {
   position: absolute;
-  margin-top: 5px;
+  bottom: 92px;
   left: 24px;
 }
