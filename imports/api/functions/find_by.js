@@ -7,6 +7,26 @@ export function navbar_find_by(collection){
   var location = Session.get('address');
   var method = Session.get('method');
 
+<<<<<<< HEAD:imports/api/functions/find_by.js
+
+  if(location){
+    if(method){
+      //Location
+      return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}})
+
+        }else if (!method){
+          //Location
+        return  Collections[collection].find({'user_id':{$ne: Meteor.userId()}})
+
+        }
+    }else if(method){
+      return Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}})
+
+    }else{
+        return Collections[collection].find({'user_id':{$ne: Meteor.userId()}})
+
+      }
+=======
   if (collection) {
     if (location) {
       address_geocode('location', location);
@@ -57,10 +77,5 @@ export function navbar_find_by(collection){
       Session.set('searched_result', searched_result.fetch());
     }
   }
+>>>>>>> master:imports/functions/find_by.js
 }
-
-export function search_distinct(collection, field){
-  return _.uniq(collection.find({'buyer_id': Meteor.userId(), 'serving_option':'Delivery'}, {
-      sort: {[field]: 1}, fields: {[field]: 1}
-    }).fetch().map(x => x[field]), true);
-  }

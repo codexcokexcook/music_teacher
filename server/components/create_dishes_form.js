@@ -78,6 +78,23 @@ Meteor.methods({
     })
   },
 
+  'shopping_cart.update_serving'(
+    buyer_id,
+    seller_id,
+    address,
+    serving_option
+    ){
+    Shopping_cart.update({
+      buyer_id: buyer_id,
+      seller_id: seller_id},
+    {$set: {
+    address: address,
+    serving_option: serving_option,
+    updatedAt: new Date()
+  }},
+    {multi: true});
+},
+
 
   'ingredient.update'(dish_name,user_id,ingredient_name,ingredient_quantity,ingredient_unit){
     Ingredients.insert({
