@@ -24,7 +24,7 @@ Meteor.publish('files.profile_images.all', function () {
 
 Meteor.methods({
   'profile_images.remove'(purpose){
-    profile_images.remove({user_id: Meteor.userId(),meta:{purpose: purpose}});
+    profile_images.remove({userId: Meteor.userId(),meta:{purpose: purpose}});
   },
 
   'profile_details.insert'(
@@ -93,6 +93,7 @@ Meteor.methods({
     kitchen_address,
     kitchen_address_conversion,
     about_homecook_myself,
+    serving_option,
     bank_fullname,
     bank_name,
     bank_account_no,
@@ -108,6 +109,7 @@ Meteor.methods({
   kitchen_address: kitchen_address,
   kitchen_address_conversion: kitchen_address_conversion,
   about_homecook_myself: about_homecook_myself,
+  serving_option,
   bank_fullname: bank_fullname,
   bank_name: bank_name,
   bank_account_no: bank_account_no,

@@ -464,6 +464,8 @@ Template.serving_temperature_list.events({
 Template.create_dishes_form.events({
     'submit form': function(event) {
          event.preventDefault();
+         var kitchen = Kitchen_details.findOne({user_id: Meteor.userId()});
+         var kitchen_id = kitchen._id;
          var user_id = Meteor.userId();
          var dish_name = event.target.dish_name.value;
          if (!dish_name) {
@@ -477,9 +479,9 @@ Template.create_dishes_form.events({
            var dish_profit = dish_selling_price - dish_cost;
            Ingredients_temporary.find({}).forEach(function(doc){Ingredients.insert(doc);});
            Dishes.insert({
-              /** user_id: user_id, this should be implemented after user account is available **/
               image_id: Session.get('image_id'),
               user_id: user_id,
+              kitchen_id: kitchen_id,
               dish_name: dish_name,
               dish_description: dish_description,
 
@@ -505,7 +507,7 @@ Template.create_dishes_form.events({
               createdAt: new Date(),
               updatedAt: new Date()
            });
-           Materialize.toast('Nice! You have created a dish!', 2000);
+           Materialize.toast('Nice! You have created a dish!', 2000, "round red lighten-2");
            Ingredients_temporary.remove({});
            event.target.dish_name.value ="";
            event.target.dish_description.value ="";
@@ -523,6 +525,8 @@ Template.create_dishes_form.events({
     },
     'click .update_dish_submit_btn': function(event) {
        event.preventDefault();
+       var kitchen = Kitchen_details.findOne({user_id: Meteor.userId()});
+       var kitchen_id = kitchen._id;
        var user_id = Meteor.userId();
        var dish_name = $('#dish_name').val();
        var dish_description = $('#dish_description').val();
@@ -535,6 +539,7 @@ Template.create_dishes_form.events({
          Session.get('selected_dishes_id'),
          Session.get('image_id'),
          user_id,
+         kitchen_id,
          dish_name,
          dish_description,
          Session.get('serving_option_tags'),

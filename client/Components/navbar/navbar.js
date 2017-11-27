@@ -4,6 +4,7 @@ import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { Tracker } from 'meteor/tracker';
+import { get_current_location } from '/imports/functions/get_current_location.js';
 
 Template.bp_navbar.onRendered(function(){
   //dropdown options
@@ -32,6 +33,7 @@ Template.bp_navbar.onRendered(function(){
 
   // activate location dropdown based on addresses available in profile details
   Tracker.autorun(()=> {
+    this.$('select').material_select();
     var profile_details = Profile_details.findOne({user_id: Meteor.userId()});
     if (profile_details) {
       $('#home_location').val(profile_details.home_address);
@@ -43,26 +45,30 @@ Template.bp_navbar.onRendered(function(){
         $('#office_location').val(profile_details.office_address);
         $('#pin_location').val("pin_location");
       } else if (!profile_details.home_address) {
-        $('#home_location').hide();
+        $('#home_location').prop('disabled', true);
         $('select').material_select();
         $('#office_location').val(profile_details.office_address);
         $('#pin_location').val("pin_location");
       } else if (!profile_details.office_address){
-        $('#office_location').hide();
+        $('#office_location').prop('disabled', true);
         this.$('select').material_select();
         $('#home_location').val(profile_details.home_address);
         $('#pin_location').val("pin_location");
       } else {
-        $('#home_location').hide();
-        $('#office_location').hide();
+        $('#home_location').prop('disabled', true);
+        $('#office_location').prop('disabled', true);
         this.$('select').material_select();
         $('#pin_location').val("pin_location");
       }
     } else {
-      $('#home_location').hide();
-      $('#office_location').hide();
+      $('#home_location').prop('disabled', true);
+      $('#office_location').prop('disabled', true);
       this.$('select').material_select();
       $('#pin_location').val("pin_location");
+    }
+    if (!navigator.geolocation) {
+      $('#current_location').prop('disabled', true);
+      this.$('select').material_select();
     }
   });
 });
@@ -71,7 +77,8 @@ Template.bp_navbar.helpers ({
  location_option_list:[
    {location_option: 'Home', option:'Home', id:'home_location'},
    {location_option: 'Office', option:'Office', id:'office_location'},
-   {location_option: 'Pin a location', option:'Pin a location', id:'pin_location'},
+   {location_option: 'Current location', option:'current_location', id:'current_location'},
+   {location_option: 'Input custom location', option:'Input custom location', id:'pin_location'},
  ],
  service_option_list:[
    { service_option: 'Pick-up', option:'Pick-up'},
@@ -112,10 +119,15 @@ Template.bp_navbar.events({
      if ($('#location_search_input_card').length < 1) {
        Blaze.render(Template.location_search_card,$('#nav_sarch')[0]);
      };
-     $('#location_search_input').focus();
-   } else {
+     $('#location_search_input').focus(function(){
+       $(this).select();
+     });
+    } else if (location_value === "current_location") {
+      get_current_location();
+    } else {
      Session.set('address', location_value);
    }
+
  },
  'change #by_method': function(event, template){
    Session.set('method', $(event.currentTarget).val());

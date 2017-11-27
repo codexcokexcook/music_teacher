@@ -15,19 +15,29 @@ Template.show_room.onRendered(function(){
 
 Template.show_room_dish.helpers ({
   'find_dishes_by': function(){
-    return navbar_find_by("Dishes")
-      }
-})
+    var kitchen_info = Session.get('searched_result');
+    var kitchen_id = [];
+    for (i = 0; i < kitchen_info.length; i++) {
+      kitchen_id[i] = kitchen_info[i]._id;
+    }
+    return Dishes.find({kitchen_id: {$in: kitchen_id}});
+  }
+});
 
 Template.show_room_menu.helpers ({
   'find_menu_by': function(){
-    return navbar_find_by("Menu")
-
-      }
+    var kitchen_info = Session.get('searched_result');
+    var kitchen_id = [];
+    for (i = 0; i < kitchen_info.length; i++) {
+      kitchen_id[i] = kitchen_info[i]._id;
+    }
+    return Menu.find({kitchen_id: {$in: kitchen_id}});
+  }
 })
 
 Template.show_room_chef.helpers ({
   'find_kitchen_by': function(){
-    return navbar_find_by("Kitchen_details")
-      }
+    navbar_find_by("Kitchen_details")
+    return Session.get('searched_result');
+  }
 })
