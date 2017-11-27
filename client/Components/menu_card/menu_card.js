@@ -16,9 +16,13 @@ Template.menu_card.onRendered(function(){
     alignment: 'right', // Displays dropdown with edge aligned to the left of button
     stopPropagation: false // Stops event propagation
   });
+  this.$('.carousel.carousel-slider').carousel({fullWidth: true});
   if (this.view.parentView.parentView.parentView.name == "Template.show_room_menu") {
     $('.card').addClass('hoverable');
-    $('.dropdown_element').remove();
+    remove_dropdown = $('.dropdown_element').detach();
+  }
+  if (this.view.parentView.parentView.parentView.name == "Template.view_menu") {
+    remove_order = $('.card-action').detach();
   }
 });
 
@@ -49,13 +53,15 @@ Template.menu_card.helpers({
   'edit_current_menu': function() {
     return Menu.findOne({"_id": this._id});
   },
-  'multi_images_menu': function() {
-    if (this.image_id.length) {
-      var random_limit = this.image_id.length;
-      var random_number = Math.floor(Math.random()*(random_limit-1)+1);
-      return Images.findOne({_id: this.image_id[random_number]});
-    } else {
-      return true;
+  'image_retreival': function() {
+    var image_id = String(this);
+    var find_images = Images.findOne({"_id": image_id})
+    return find_images;
+  },
+  'get_homecook_image': function() {
+    var homecook_image = profile_images.findOne({userId: this.user_id, meta:{purpose: "homecook_profile_picture"}});
+    if (homecook_image) {
+      return homecook_image._id + homecook_image.extensionWithDot;
     }
   }
 });

@@ -67,15 +67,15 @@ Template.mapping.onRendered(function(){
   // Reactive markers on google map to reflect search results
 
   Tracker.autorun(function() {
+    if (!Session.get('address') || Session.get('address').length < 1) {
+      //return to default position
+      marker.setMap(null);
+      map.instance.setCenter(new google.maps.LatLng(22.3964, 114.1095));
+      map.instance.setZoom(10);
+    }
     try {
       var kitchen_details = Session.get('searched_result');
       //console.log(kitchen_details);
-      if (!Session.get('address') || Session.get('address').length < 1) {
-        //return to default position
-        marker.setMap(null);
-        map.instance.setCenter(new google.maps.LatLng(22.3964, 114.1095));
-        map.instance.setZoom(10);
-      }
     }
     catch (err) {
       //console.log(err);

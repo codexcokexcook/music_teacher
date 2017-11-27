@@ -8,12 +8,23 @@
 </template>
 
 <template name = "dishes_thumbnails">
-      <a class = "grey-text modal-trigger dish_thumbnail" id="{{_id}}" href="#large_dish_display">
-        <div class = "card dish_thumbnail_card z-depth-0">
-          <div id="thumbnail_img_wrapper">{{> get_dish_image}}</div>
-          <div class = "center-align">{{dish_name}}</div>
+  <a class = "grey-text modal-trigger dish_thumbnail" id="{{_id}}" href="#large_dish_display">
+    <div class = "card dish_thumbnail_card">
+      <div class = "card-image">
+        <div id="thumbnail_img_wrapper">{{> get_dish_image}}</div>
+        <a class="btn-floating halfway-fab homecook_image" style="background-image: url(/profile_upload/{{get_homecook_image}})"></a>
+      </div>
+      <div class = "card-content">
+        <h6 class = "black-text">{{dish_name}}</h6>
+        <h6>${{dish_selling_price}}</h6>
+      </div>
+      <div class = "card-action">
+        <div class = "center">
+          <a class="waves-effect waves-light btn red lighten-2" style="width:65%;">Order</a>
         </div>
-    </a>
+      </div>
+    </div>
+  </a>
 </template>
 
 <template name = "dishes_card">
