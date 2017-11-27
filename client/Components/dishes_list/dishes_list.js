@@ -37,6 +37,15 @@ Template.dishes_thumbnails.onRendered(function(){
   Session.set('dish_id',first_dish_id);
 });
 
+Template.dishes_thumbnails.helpers({
+  'get_homecook_image': function() {
+    var homecook_image = profile_images.findOne({userId: this.user_id, meta:{purpose: "homecook_profile_picture"}});
+    if (homecook_image) {
+      return homecook_image._id + homecook_image.extensionWithDot;
+    }
+  }
+})
+
 Template.dishes_thumbnails.events({
   'click .dish_thumbnail': function () {
     var dish_id = this._id;
