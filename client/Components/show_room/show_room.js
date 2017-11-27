@@ -39,5 +39,5 @@ Template.show_room_chef.helpers ({
   'find_kitchen_by': function(){
     navbar_find_by("Kitchen_details")
     return Session.get('searched_result');
-      }
+  }
 })
