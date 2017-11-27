@@ -8,9 +8,7 @@
       {{#if check_shopping_cart}}
         {{#each shopping_cart}}
         <div class="row col l12 valign">
-          <div class="text-field col l3 m6 s6 valign">
-          </div>
-          <div class="col l4 m2 s2 valign">
+          <div class="col l4 m2 s2 offset-l3 valign">
               <h6>{{product_name}}</h6>
                 By {{seller_name}}
           </div>
@@ -34,11 +32,13 @@
           </div>
           {{/if}}
         <li class="divider"></li>
-        {{>sc_serving_details}}
-        <li class="divider"></li>
         <br>
         {{>sc_cost_summary}}
         <li class="divider"></li>
+        <br>
+        {{>sc_serving_details}}
+        <li class="divider"></li>
+        <br>
         {{>sc_payment}}
         </div>
 </template>
@@ -46,68 +46,82 @@
 <template name='sc_cost_summary'>
   <div class="row col l12 valign">
       <div class="text-field col l2 m1 s2 offset-l8 valign center">Subtotal</div>
-      <div class="text-field col l1 m1 s2 valign center">${{total_food_price}}</div>
+      <div class="text-field col l2 m1 s2 valign right">${{total_food_price}}</div>
     </div>
     <div class="row col l12 valign">
         <div class="text-field col l2 m1 s2 offset-l8 valign center">Delivery</div>
-        <div class="text-field col l1 m1 s2 valign center">${{total_delivery_cost}}</div>
+        <div class="text-field col l2 m1 s2 valign right">${{total_delivery_cost}}</div>
       </div>
       <div class="row col l12 valign">
           <div class="text-field col l2 m1 s2 offset-l8 valign center">Total</div>
-          <div class="text-field col l1 m1 s2 valign center">${{total_price}}</div>
+          <div class="text-field col l2 m1 s2 valign right">${{total_price}}</div>
         </div>
 </template>
 
 
 <template name = 'sc_serving_details'>
-  <div class="row col l12 valign">
-    <div class="input-field col l2 m6 s6 offset-l3 valign">
-      <select class='material_select' id="sc_select_serving_option">
-        <option value=''>Serving Option</option>
+    {{#if check_shopping_cart}}
+    <div class="row col l12 valign">
+      <div class='row col l3 m3 s3 offset-l3 valign'>
+        <h6>Address:</h6>
+      </div>
+      <div class='text-field row col l4 m3 s3 valign' id="serving_address">{{get_serving_address}}</div>
+        <div class='row col l2 m1 s1 valign'>
+          <select class='material_select' id="serving_address_select">
+            <option value='' disabled>Serving</option>
+              <option value='home_address'>Home</option>
+              <option value='office_address'>Office</option>
+              <option value='current_address'>Current Address</option>
+          </select>
+          </div>
+    </div>
+    {{#each single_address}}
+    <div class="row col l12 valign">
+      <div class='row col l3 m3 s3 offset-l3 valign'>
+        <h6>{{#each single_dish}}{{product_name}} {{/each}}</h6>{{get_chef_name}}
+      </div>
+      <div class='row col l4 m3 s3 valign' style="padding-top:12px;">
+      {{get_kitchen_address}}
+    </div>
+    <div class='row col l2 m3 s3 valign'>
+      <select class='material_select option_select' id="{{seller_id}}_option_select">
+        <option value='' disabled>Serving</option>
         {{#each service_option_list}}
           <option value={{option}}>{{service_option}}</option>
         {{/each}}
       </select>
-      </div>
     </div>
-
-
-  {{> Template.dynamic template = serving_details}}
-
-
-</template>
-
-<template name='sc_serving_details_pick_up'>
-  <div class="row col l12 valign">
-    <div class='row col l3 m3 s3 offset-l3 valign'>
-    Kitchen Address:
-    </div>
-    asdasdkladlkasjkjaskjdklajdlkajdlak
   </div>
+  {{/each}}
+    {{else}}
+    <div class="row col l12 valign"></div>
+    {{/if}}
 </template>
 
-<template name='sc_serving_details_delivery'>
-  <div class="row col l12 valign">
 
-  </div>
-</template>
-
-<template name='sc_serving_details_dine_in'>
-  <div class="row col l12 valign">
-
-  </div>
-</template>
 
 
 <template name='sc_payment'>
-  <div class="row col l12 valign">
-  <div class="text-field col l3 m6 s6 valign">
-    </div>
-    <div class="text-field col l3 m6 s6 valign">
+  <form class="row col l12 valign" action="/charge" method="post" id="payment-form">
+    <div class="text-field col l3 m6 s6 offset-l3 valign ">
       Pay with <i class="payment_card_logo" src=""></i>
       </div>
-      <div class="text-field col l5 m6 s6 valign">
+      <div class="text-field col l2 m6 s6 valign">
         {{get_credit_card}}
+      </div>
+      <div class="text-field col l2 m6 s6 valign">
+        cvv/cvc no.: {{get_cvc}}
+      </div>
+      <div class='text-field col l2 m3 s3 valign'>
+        Exp: {{get_exp_month}} / {{get_exp_year}}
+      </div>
+      <br>
+      <br>
+        <div class="row col l12 valign">
+          <a class="col l2 offset-l8 waves-effect waves-red btn-flat center">More dish</a>
+          <a class="col l2 waves-effect waves-red btn-flat center">Place order</a>
         </div>
-        </div>
+        </form>
 </template>
+
+<!---->
