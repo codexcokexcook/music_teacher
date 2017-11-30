@@ -35,7 +35,7 @@ Template.sc_cost_summary.helpers({
 'total_delivery_cost':function(){
 
  var total_delivery_cost = 0
- var no_destination = search_distinct_for_delivery_in_shopping_cart(Shopping_cart, 'seller_id').length
+ var no_destination = search_distinct_for_delivery_in_shopping_cart('seller_id').length
  var delivery_cost_per_place = 50
  var total_delivery_cost = no_destination * delivery_cost_per_place
  return total_delivery_cost
@@ -43,7 +43,7 @@ Template.sc_cost_summary.helpers({
 
 'total_price':function(){
   var total_food_price = 0;
-  var no_destination = search_distinct_for_delivery_in_shopping_cart(Shopping_cart, 'seller_id').length
+  var no_destination = search_distinct_for_delivery_in_shopping_cart('seller_id').length
   var delivery_cost_per_place = 50
   var total_price = 0
 
@@ -52,6 +52,8 @@ Template.sc_cost_summary.helpers({
   });
 
   total_price = no_destination * delivery_cost_per_place + total_food_price
+
+  Session.set('cart_total_price', total_price)
   return total_price
 }
 
@@ -60,6 +62,30 @@ Template.sc_cost_summary.helpers({
 
 Template.sc_serving_details.onRendered(function() {
   this.$('select').material_select();
+
+  //activate datepicker
+    this.$('.datepicker').pickadate({
+    selectMonths: 1, // Creates a dropdown to control month
+    selectYears: 0, // Creates a dropdown of 15 years to control year,
+    today: 'TODAY',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: true, // Close upon selecting a date,
+    format: 'dd/mm/yyyy'
+  });
+
+  $('.timepicker').pickatime({
+   default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+   fromnow: 1800000,       // set default time to * milliseconds from now (using with default = 'now')
+   twelvehour: true, // Use AM/PM or 24-hour format
+   donetext: 'OK', // text for done-button
+   cleartext: 'Clear', // text for clear-button
+   canceltext: 'Cancel', // Text for cancel-button
+   autoclose: false, // automatic close timepicker
+   ampmclickable: true, // make AM PM clickable
+   aftershow: function(){} //Function for after opening timepicker
+ });
+
 })
 
 Template.sc_serving_details.helpers({
@@ -112,7 +138,24 @@ service_option_list:[
 
     var kitchen = Kitchen_details.findOne({"user_id": this.seller_id})
     return kitchen.kitchen_address
+},
+
+'get_today': function(){
+  var date = new Date()
+  // GET YYYY, MM AND DD FROM THE DATE OBJECT
+  var yyyy = date.getFullYear().toString();
+  var mm = (date.getMonth()+1).toString();
+  var dd  = date.getDate().toString();
+  return dd+'/'+mm+'/'+yyyy
+},
+
+'get_now30': function(){
+var date = new Date()
+var hh = (date.getHours());
+var mm = (date.getMinutes()+30);
+  return hh+':'+mm
 }
+
 })
 
 
@@ -191,11 +234,14 @@ Template.shopping_cart_card.events({
 
 
 Template.sc_payment.events({
-'submit form':function(event){
-  ccNum = '4000003440000004'
-  cvc = '666'
-  expMo = '03'
-  expYr = '24'
+'click  #place_order':function(event){
+  ccNum = $('#card_no').val()
+  cvc = $('#cvc_no').val()
+  expMo = $('#exp_month').val()
+  expYr = $('#exp_year').val()
+  amount = Session.get('cart_total_price')*100
+  profile_details = Profile_details.findOne({user_id: Meteor.userId()})
+  description = 'Blueplate.co - Charge for '+ profile_details.foodie_name;
 
   Stripe.card.createToken({
   	number: ccNum,
@@ -204,7 +250,35 @@ Template.sc_payment.events({
   	exp_year: expYr,
   }, function(status, response) {
   	stripeToken = response.id;
-  	Meteor.call('chargeCard', stripeToken);
+  	Meteor.call('chargeCard', stripeToken, amount, description);
   });
+
+
+    var shopping_cart = search_distinct_in_shopping_cart('product_id')
+
+
+
+    function order_record_insert(array_value, index){
+
+      var product_id = array_value
+      var cart_details = Shopping_cart.findOne({'product_id': product_id})
+
+
+      var cart_id = cart_details._id
+      var buyer_id = cart_details.buyer_id;
+      var seller_id = cart_details.seller_id;
+      var address = cart_details.address;
+      var quantity = cart_details.quantity;
+      var serving_option = cart_details.serving_option;
+      var serve_date = $('#serve_date').val();
+      var serve_time = $('#serve_time').val();
+
+
+      Meteor.call('order_record.insert', buyer_id, seller_id, product_id, quantity, address, serving_option, serve_date, serve_time)
+
+      Meteor.call('shopping_cart.remove',cart_id)
+  }
+    shopping_cart.forEach(order_record_insert)
+
 }
 })

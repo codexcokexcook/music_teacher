@@ -68,7 +68,7 @@
       <div class='text-field row col l4 m3 s3 valign' id="serving_address">{{get_serving_address}}</div>
         <div class='row col l2 m1 s1 valign'>
           <select class='material_select' id="serving_address_select">
-            <option value='' disabled>Serving</option>
+            <option value='' disabled selected>Serving</option>
               <option value='home_address'>Home</option>
               <option value='office_address'>Office</option>
               <option value='current_address'>Current Address</option>
@@ -85,7 +85,7 @@
     </div>
     <div class='row col l2 m3 s3 valign'>
       <select class='material_select option_select' id="{{seller_id}}_option_select">
-        <option value='' disabled>Serving</option>
+        <option value='' disabled selected>Serving</option>
         {{#each service_option_list}}
           <option value={{option}}>{{service_option}}</option>
         {{/each}}
@@ -93,8 +93,20 @@
     </div>
   </div>
   {{/each}}
+  <div class="row col l12 valign">
+    <div class ='row col l3 offset-l3 valign'>
+      <h6>Ready Time:</h6>
+    </div>
+    <div class="text-field col l3 m3 s6 valign">
+        <input class ="datepicker" id="serve_date" name="serve_date" type="text" style='format: dd/mm/yyyy; text-align: center;' value={{get_today}}>
+      </div>
+      <div class="text-field col l3 m3 s6 valign">
+          <input class ="timepicker" id="serve_time" name="serve_time" type="text" style='text-align: center;' value="{{get_now30}}">
+        </div>
+  </div>
     {{else}}
-    <div class="row col l12 valign"></div>
+    <div class="row col l12 valign">
+    </div>
     {{/if}}
 </template>
 
@@ -103,23 +115,27 @@
 
 <template name='sc_payment'>
   <form class="row col l12 valign" action="/charge" method="post" id="payment-form">
-    <div class="text-field col l3 m6 s6 offset-l3 valign ">
+    <div class="input-field col l3 m6 s6 offset-l3 valign ">
       Pay with <i class="payment_card_logo" src=""></i>
       </div>
-      <div class="text-field col l2 m6 s6 valign">
-        {{get_credit_card}}
+      <div class="input-field col l2 m6 s6 valign">
+        <input id="card_no" name="card_no" type="text" placeholder="Credit Card Number">
       </div>
-      <div class="text-field col l2 m6 s6 valign">
-        cvv/cvc no.: {{get_cvc}}
+      <div class='input-field col l1 m4 s6 valign'>
+        <input id="exp_month" name="exp_month" type="text" placeholder="Exp MM">
       </div>
-      <div class='text-field col l2 m3 s3 valign'>
-        Exp: {{get_exp_month}} / {{get_exp_year}}
+      <div class='input-field col l1 m4 s6 valign'>
+      <input id="exp_year" name="exp_year" type="text" placeholder="Exp YY">
       </div>
+      <div class="input-field col l2 m2 s3 valign">
+        <input id="cvc_no" name="cvc_no" type="text" placeholder="CVC/CVV Number">
+      </div>
+
       <br>
       <br>
         <div class="row col l12 valign">
           <a class="col l2 offset-l8 waves-effect waves-red btn-flat center">More dish</a>
-          <a class="col l2 waves-effect waves-red btn-flat center">Place order</a>
+          <a class="col l2 waves-effect waves-red btn-flat center" id="place_order">Place order</a>
         </div>
         </form>
 </template>

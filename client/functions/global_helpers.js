@@ -4,7 +4,7 @@ Ingredients = new Mongo.Collection('ingredients');
 Menu = new Mongo.Collection('menu');
 Messages = new Mongo.Collection('messages');
 Shopping_cart = new Mongo.Collection('shopping_cart');
-Transaction = new Mongo.Collection('transaction');
+Order_record = new Mongo.Collection('order_record');
 Profile_details = new Mongo.Collection('profile_details');
 Kitchen_details = new Mongo.Collection('kitchen_details');
 Markers = new Mongo.Collection('markers');
@@ -43,7 +43,7 @@ Collections = {
   'Messages': Messages,
   'Images': Images,
   'Shopping_cart': Shopping_cart,
-  'Transaction': Transaction,
+  'order_record': Order_record,
   'Profile_details': Profile_details,
   'Kitchen_details': Kitchen_details,
   'Markers': Markers
