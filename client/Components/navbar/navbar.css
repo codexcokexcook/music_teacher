@@ -1,11 +1,11 @@
 nav{
-  height: 90vh;
+  height: 64px;
 }
 
 .navbar-fixed {
   position: fixed;
 
-    height: 90vh;
+    height: 64px;
 
 }
 
@@ -44,4 +44,24 @@ nav{
    background-repeat: no-repeat;
    background-position: center center;
    z-index:1;
+}
+
+.cart_no{
+  width: 37px;
+  height: 37px;
+ background-color: black;
+ border-radius:50%;
+ z-index:2;
+ line-height: 40px;
+ position: absolute;
+ top: 1px;
+ right: 7.9vw;
+
+}
+
+.navbar_profile_logo{
+  margin-top: 25px;
+  margin-left: 24px;
+  margin-right: 24px;
+
 }

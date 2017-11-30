@@ -4,14 +4,14 @@
   <nav class="nav-wrapper white z-depth-0 ">
       <!--Logo-->
 
-      <div class='row col l12 m6 s6'>
+      <div class='row col l12 m12 s12'>
         <div class="col l1 m1 s1">
       <a href="" class ='nav_brand_logo left' data-activates="chatbot_nav"><img src="navbar/BPLogo_sysmbol.svg" class='navbar_logo' height="40" width="40"></a>
     </div>
            <!--Search Bar-->
 
-        <div class="nav_search_bar col l4 m6 s6" id="nav_sarch">
-          <div class="input-field grey-text col l6 m2 s2">
+        <div class="nav_search_bar col l4 m4 s4" id="nav_sarch">
+          <div class="input-field grey-text col l6 m6 s6">
             <i class="grey-text prefix"><img src="/navbar/search.svg"/></i>
             <select class='material_select' id='by_place'>
               <option value='' id="default_location">Location</option>
@@ -21,7 +21,7 @@
             </select>
           </div>
 
-          <div class="input-field grey-text col l6 m2 s2">
+          <div class="input-field grey-text col l6 m6 s6">
             <i class="grey-text prefix"><img src="/navbar/Option.svg"/></i>
             <select class=“material_select” id='by_method'>
               <option value=''>Option</option>
@@ -48,21 +48,33 @@
     </div>
 <!--Example
         <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li> -->
-          <div class='col l3 m3 s3'>
+
+
+          <div class='col l3 m0 s0'>
           </div>
-          <div class='col l2 m3 s3'>
+          <div class='start_cooking col l2 m1 s1'>
+            <div class='right'>
           <a href="start_cooking"><span class='badge navbar_logo'>Start Cooking</span></a>
           </div>
-          <div class="col l1 m6 s6">
-            <div calss='right'>
-        <a href="shopping_cart"><span class='badge navbar_logo' data-badge-caption='shopping_cart'>{{check_shopping_cart}}</span></a>
+        </div>
+          <div class="shopping_cart col l1 m1 s1">
+            <div class='right'>
+        <a href="shopping_cart">
+          <span class='white-text'>
+              <img class="navbar_logo logo_wrapper" style="background-image:url(/navbar/OrderDish_32px.svg)"/>
+            <div class='cart_no navbar_logo logo_wrapper center'>
+              {{check_shopping_cart}}
+            </div>
+          </span>
+        </a>
       </div>
       </div>
-      <div class="col l1 m6 s6">
-        <div calss='right'>
+
+      <div class="col l1 m1 s1">
+        <div class='right'>
         <a class="dropdown-button" href="" data-activates="profile_dropdown">
           {{#if profile_images 'profile_picture'}}
-            <img class="circle logo_wrapper navbar_logo" style="background-image:url(/profile_upload/{{profile_images 'profile_picture'}})"/>
+            <img class="circle logo_wrapper navbar_profile_logo" style="background-image:url(/profile_upload/{{profile_images 'profile_picture'}})"/>
           {{else}}
             <img src="/profile_upload/user.jpg" class="circle navbar_logo" height='40'/>
             {{/if}}
