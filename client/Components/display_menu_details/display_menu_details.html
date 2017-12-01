@@ -1,12 +1,33 @@
 <template name = "display_menu_details">
-  {{>homecook_profile_page}}
-  <div class = "section">
-    <div class = "container">
-      <div class = "row">
-        {{#each get_menu_id}}
-          {{> dishes_list}}
-        {{/each}}
+  <div class = "card display_menu_details" id="display_menu_details">
+    {{#with menu_details}}
+      <div class = "section">
+        <div class = "row" style="margin-bottom: 0px;">
+          <div class = "col l6 m6 s6">
+            <div class = "carousel" style = "height: 103px">
+              {{#each image_id}}
+                {{#each image_details}}
+                  <a class="btn-floating menu_dishes_images carousel-item active" id={{_id}} style="background-image: url(/dishes_upload/{{_id}}{{extensionWithDot}})"></a>
+                {{/each}}
+              {{/each}}
+            </div>
+          </div>
+          <div class = "col l6 m6 s6">
+            <h5 class = "black-text">{{menu_name}}</h5>
+            <h6>${{menu_selling_price}} for {{min_order}} people | ready: {{#if lead_days}}{{lead_days}}{{/if}} days {{#if lead_hours}}{{lead_hours}}{{/if}} hours</h6>
+            <img src="/dish_cards/rating/0_of_5_hearts.svg" style="margin: 6px 0px 6px 0px;" alt="heart">
+          </div>
+        </div>
+        <div class = "divider"></div>
+        <div class = "menu_dish_card_wrapper">
+
+        </div>
+        <div class = "card-action">
+          <div class = "center">
+            <a class="waves-effect waves-light btn red lighten-2" style="width:65%;" id="menu_confirm_order">Order</a>
+          </div>
+        </div>
       </div>
-    </div>
+    {{/with}}
   </div>
 </template>

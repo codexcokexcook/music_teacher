@@ -2,20 +2,11 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
 import { FilesCollection } from 'meteor/ostrio:files';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Meteor } from 'meteor/meteor';
+import { Blaze } from 'meteor/blaze';
 
 Template.dishes_list.onRendered(function(){
-  $('.modal').modal({
-      dismissible: true, // Modal can be dismissed by clicking outside of the modal
-      opacity: .5, // Opacity of modal background
-      inDuration: 300, // Transition in duration
-      outDuration: 200, // Transition out duration
-      startingTop: '4%', // Starting top style attribute
-      endingTop: '10%', // Ending top style attribute
-      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-        $('ul.tabs').tabs();
-      },
-      complete: function() {} // Callback for Modal close
-    });
+
 });
 
 Template.dishes_card.helpers ({
@@ -32,6 +23,20 @@ Template.info_tabs.onRendered(function(){
 
 
 Template.dishes_thumbnails.onRendered(function(){
+  $('.modal').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%', // Ending top style attribute
+      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+        $('#info_tabs').tabs();
+      },
+      complete: function() {
+        $('#dish_card_large').remove();
+      } // Callback for Modal close
+    });
   var first_dish_display = Dishes.findOne({});
   var first_dish_id = first_dish_display._id;
   Session.set('dish_id',first_dish_id);
@@ -50,7 +55,8 @@ Template.dishes_thumbnails.events({
   'click .dish_thumbnail': function () {
     var dish_id = this._id;
     Session.set('dish_id', dish_id);
-    $('ul.tabs').tabs();
+    dish_card = Blaze.render(Template.dishes_card, $('#large_dish_display')[0]);
+    $('#info_tabs').tabs();
   }
 });
 
@@ -67,6 +73,10 @@ var serving_option = this.serving_option;
 /**  if this.serving_option.value = "Delivery" {
     document.getSVGDocument().getElementById("pick_up_option").style.color=rgba(0,0,0,0.18);
   } **/
+});
+
+Template.dishes_card_layout.onRendered(function(){
+
 });
 
 //Action for template dishes_card_layout (Ordering)

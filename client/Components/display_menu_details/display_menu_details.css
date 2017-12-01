@@ -1,0 +1,19 @@
+#profile_banner_wrapper {
+  height: 230px;
+  overflow-y: hidden;
+}
+
+.menu_dishes_images {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: absolute;
+  width: 50px !important;
+  height: 50px !important;
+  display: inline-block;
+  position: relative;
+}
+
+.menu_dish_card_wrapper {
+  padding-left: 19px;
+}

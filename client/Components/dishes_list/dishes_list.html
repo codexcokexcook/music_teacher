@@ -1,40 +1,33 @@
 <template name="dishes_list">
   {{> dishes_thumbnails}}
-  <div class = "modal" id="large_dish_display">
-    <div class = "modal-content">
-      {{> dishes_card}}
+</template>
+
+<template name = "dishes_thumbnails">
+  <div class = "card dish_thumbnail_card">
+    <div class = "card-image">
+      <div id="thumbnail_img_wrapper">{{> get_dish_image}}</div>
+      <a class="btn-floating halfway-fab homecook_image" style="background-image: url(/profile_upload/{{get_homecook_image}})"></a>
+    </div>
+    <div class = "card-content">
+      <h6 class = "black-text">{{dish_name}}</h6>
+      <h6>${{dish_selling_price}}</h6>
+    </div>
+    <div class = "card-action">
+      <div class = "center">
+        <a class="waves-effect waves-light btn red lighten-2 dish_thumbnail modal-trigger" id="{{_id}}" href="#large_dish_display" style="width:65%;">Order</a>
+      </div>
     </div>
   </div>
 </template>
 
-<template name = "dishes_thumbnails">
-  <a class = "grey-text modal-trigger dish_thumbnail" id="{{_id}}" href="#large_dish_display">
-    <div class = "card dish_thumbnail_card">
-      <div class = "card-image">
-        <div id="thumbnail_img_wrapper">{{> get_dish_image}}</div>
-        <a class="btn-floating halfway-fab homecook_image" style="background-image: url(/profile_upload/{{get_homecook_image}})"></a>
-      </div>
-      <div class = "card-content">
-        <h6 class = "black-text">{{dish_name}}</h6>
-        <h6>${{dish_selling_price}}</h6>
-      </div>
-      <div class = "card-action">
-        <div class = "center">
-          <a class="waves-effect waves-light btn red lighten-2" style="width:65%;">Order</a>
-        </div>
-      </div>
-    </div>
-  </a>
-</template>
-
 <template name = "dishes_card">
   {{#with dish_details}}
-    {{> dishes_card_layout}}
+      {{> dishes_card_layout}}
   {{/with}}
 </template>
 
 <template name="dishes_card_layout">
-  <div class="card horizontal" id = "dish_card_large">
+  <div class="card horizontal dish_card_large large_dish_display" id = "dish_card_large">
     <div class="card-image circle responsive-img" id = "dish_card_image">
       {{> chef_avatar}}
       <div id="dishes_card_layout_img_wrapper">{{> get_dish_image}}</div>
@@ -51,7 +44,7 @@
         </div>
       </div>
 
-      <div class = "card-action">
+      <div class = "card-action" id="dish_card_action">
         <a id='place_order' class="waves-effect waves-light btn red lighten-2" style="width:100%;">Order</a>
       </div>
     </div>
@@ -67,7 +60,7 @@
 <template name="info_tabs">
   <div class = "tabs-wrapper">
     <ul class="tabs tabs-fixed-width" id="info_tab">
-      <li class="tab"><a class="active" href="#description_{{_id}}">info</a></li>
+      <li class="tab" id="default_tab"><a class="active" href="#description_{{_id}}">info</a></li>
       <li class="tab"><a href="#dietary_info_{{_id}}">diet</a></li>
       <li class="tab"><a href="#ingredients_{{_id}}">elements</a></li>
     </ul>

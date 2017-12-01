@@ -1,12 +1,7 @@
 #dish_card_large {
   padding: 10px 0px 0px 20px;
-  height: 450px;
-  width: 685px;
 }
-#large_dish_display {
-  height: inherit;
-  width: 733px;
-}
+
 #dish_card_image {
   position: relative;
   width:45%;
@@ -38,9 +33,11 @@
 
 .card-tabs {
   margin-top:5px;
-  height: 120px;
+  height: 200px;
   overflow: auto;
   margin-bottom: 14px;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .indicator {
@@ -69,11 +66,6 @@
   /* margin: 0px 12px 12px 12px; */
   font-size: 13px;
   color: rgba(0,0,0,0.54);
-}
-.card-tabs {
-  overflow-x: hidden;
-  max-height: 128px;
-  width: 100%;
 }
 
 .dietary_info {
@@ -106,7 +98,7 @@
 
 .price_tag {
   position: absolute;
-  bottom: 75px;
+  bottom: 65px;
   right: 24px;
 }
 
@@ -117,12 +109,11 @@
 }
 
 #rating_price_info {
-  height: 100px;
+  line-height: 36px;
   padding-top: 3%;
 }
 
 .rating {
   position: absolute;
-  bottom: 92px;
   left: 24px;
 }
