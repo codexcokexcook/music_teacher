@@ -11,6 +11,7 @@ Template.menu_creation.onRendered(function(){
   var data = Menu.find({"user_id": Meteor.userId()})
   if (data.count()) {
     Blaze.render(Template.view_menu, document.getElementById('card_container'));
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
   } else {
     Blaze.render(Template.menu_initiation, document.getElementById('card_container'));
   }
@@ -112,6 +113,7 @@ Template.menu_creation_content.events({
 });
 
 Template.view_menu.onRendered(function(){
+  this.$('.carousel.carousel-slider').carousel({fullWidth: true});
   this.$('.modal').modal();
 });
 
@@ -199,6 +201,12 @@ Template.edit_content.events({
     } else {
       Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
       $('div.modal').scrollTop(0);
+    }
+    if($('.carousel').hasClass('initialized')) {
+      Meteor.setTimeout(function(){
+        $('.carousel').removeClass('initialized');
+        $('.carousel.carousel-slider').carousel({fullWidth: true});
+      },500);
     }
   }
 });

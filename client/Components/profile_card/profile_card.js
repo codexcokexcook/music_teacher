@@ -25,7 +25,9 @@ Template.profile_created_menus.helpers({
 Template.homecook_profile_page.helpers({
   'homecook_id': function() {
     var homecook_id = FlowRouter.getParam('homecook_id');
+    console.log('hi');
     Session.set('user_id', homecook_id);
+    console.log(Session.get('user_id'));
     return Kitchen_details.findOne({user_id: homecook_id});
   }
 });

@@ -6,6 +6,19 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.menu_card.onRendered(function(){
   $('div.modal').scrollTop(0);
+  $('.display_menu_details').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%', // Ending top style attribute
+      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+      },
+      complete: function() {
+        $('#display_menu_details').remove();
+      } // Callback for Modal close
+    });
   this.$('.dropdown-button').dropdown({
     inDuration: 300,
     outDuration: 225,
@@ -17,11 +30,14 @@ Template.menu_card.onRendered(function(){
     stopPropagation: false // Stops event propagation
   });
   this.$('.carousel.carousel-slider').carousel({fullWidth: true});
+
   if (this.view.parentView.parentView.parentView.name == "Template.show_room_menu") {
+    this.$('.carousel.carousel-slider').carousel({fullWidth: true});
     $('.card').addClass('hoverable');
     remove_dropdown = $('.dropdown_element').detach();
   }
   if (this.view.parentView.parentView.parentView.name == "Template.view_menu") {
+    this.$('.carousel.carousel-slider').carousel({fullWidth: true});
     remove_order = $('.card-action').detach();
   }
 });
@@ -36,11 +52,11 @@ Template.menu_card.events({
     Session.set('menu_id', this._id);
     Session.set('dishes_id', this.dishes_id);
   },
-  'click #menu_card': function() {
-    if($('.dropdown_element').length === 0) {
-      var route = '/' + this.user_id + '/menu/' + this._id;
-      FlowRouter.go(window.open(route,'_blank'));
-    }
+  'click #menu_order': function () {
+    Session.set('user_id', this.user_id);
+    Session.set('menu_id', this._id)
+
+    Blaze.render(Template.display_menu_details,$('#menu_card_display')[0]);
   }
 });
 

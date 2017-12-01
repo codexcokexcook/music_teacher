@@ -1,3 +1,21 @@
 .map_wrapper {
   width: 31.5%;
 }
+
+.large_dish_display {
+  border-radius: 20px!important;
+  width: 685px!important;
+  overflow: hidden!important;
+  margin-top: 0px!important;
+  margin-bottom: 0px!important;
+}
+
+.display_menu_details {
+  width: 707px !important;
+  height: 589px !important;
+  padding: 0px!important;
+  overflow: hidden!important;
+  border-radius: 20px!important;
+  margin-top: 0!important;
+  margin-bottom: 0;
+}

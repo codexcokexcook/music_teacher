@@ -1,9 +1,13 @@
 <template name='show_room'>
-  <div class = "row">
+  <div class = "row" id="show_room">
     <div class='col l8 m9 s9'>
       {{> show_room_dish}}
       {{> show_room_menu}}
       {{> show_room_chef}}
+    </div>
+    <div class = "modal large_dish_display" id="large_dish_display">
+    </div>
+    <div class = "modal display_menu_details" id="menu_card_display">
     </div>
     <div class ='col l4 m3 s3'>
       <div class = "map_wrapper">
@@ -33,7 +37,6 @@
         {{> menu_card}}
       {{/each}}
     </div>
-
   </div>
 </template>
 
