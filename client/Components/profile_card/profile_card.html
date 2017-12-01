@@ -1,8 +1,8 @@
 <template name="foodie_profile_card" id="foodie_profile_card">
-    <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'banner_picture'}})">
+    <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'banner_picture' 'other_user'}})">
       <div class = "container col l12 m6 s6 valign">
         <div class = "center-align">
-          <img class="circle" height="125" src="/profile_upload/{{profile_images 'profile_picture'}}" />
+          <img class="circle" height="125" src="/profile_upload/{{profile_images 'profile_picture' 'other_user'}}" />
           <br>
           <div class="col l12 m4 s4 valign">
             <h6 class = "grey-text center-align">{{profile_details.foodie_name}}</h6>
@@ -38,10 +38,10 @@
 <template name="homecook_profile_page">
 {{#with homecook_id}}
   <div class = "homecook_profile_page">
-    <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'homecook_banner_picture'}})">
+    <div class = "profile_banner_area valign-wrapper" style="background-image: url(/profile_upload/{{profile_images 'homecook_banner_picture' 'other_user'}})">
       <div class = "homecook_profile_wrapper container col l12 m6 s6 valign">
         <div class= "center-align">
-          <div class="homecook_profile_avatar" style="background-image: url(/profile_upload/{{profile_images 'homecook_profile_picture'}})"></div>
+          <div class="homecook_profile_avatar" style="background-image: url(/profile_upload/{{profile_images 'homecook_profile_picture' 'other_user'}})"></div>
           <br>
           <div class = "profile_description_wrapper">
             <div class="col l12 m4 s4">

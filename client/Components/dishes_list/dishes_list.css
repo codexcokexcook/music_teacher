@@ -1,5 +1,5 @@
 #dish_card_large {
-  padding: 10px 0px 0px 20px;
+  padding: 0px 0px 0px 20px;
 }
 
 #dish_card_image {
@@ -33,7 +33,7 @@
 
 .card-tabs {
   margin-top:5px;
-  height: 200px;
+  height: 186px;
   overflow: auto;
   margin-bottom: 14px;
   overflow-x: hidden;

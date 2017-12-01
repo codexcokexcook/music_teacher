@@ -14,7 +14,7 @@ Template.display_menu_details.onRendered(function(){
     $('.menu_dish_card_wrapper #dish_card_action').remove();
   }
   $('.dish_card_large').addClass('z-depth-0');
-  $('.dish_card_large').css("height", "403px");
+  $('.dish_card_large').css("height", "393px");
   $('.price_tag').detach();
   $('#dish_card_large .card-content h5').replaceWith(function(){
     return '<h6>'+$(this).html()+'</h6>';
