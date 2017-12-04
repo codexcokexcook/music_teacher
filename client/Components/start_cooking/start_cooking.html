@@ -1,0 +1,49 @@
+<template name="cooking_screen">
+    {{> Template.dynamic template = navbar}}
+  <br>
+  <div class = "render_component">
+    {{> Template.dynamic template = render_component}}
+  </div>
+</template>
+
+<template name="start_cooking">
+{{#with order}}
+<div class = 'col l3 m2 s2'>
+  <h6>Cooking card 1</h6>
+</div>
+{{else}}
+<div class = 'col l3 m2 s2'>
+  <h6>Cooking card 1</h6>
+</div>
+<div class = 'col l3 m2 s2'>
+  <h6>Cooking card 2</h6>
+</div>
+<div class = 'col l3 m2 s2'>
+  <h6>Cooking card 3</h6>
+</div>
+<div class = 'col l3 m2 s2'>
+  <h6>Cooking card 4</h6>
+</div>
+<div class = 'col l3 m2 s2'>
+  <h6>New card 1</h6>
+</div>
+<div class = 'col l3 m2 s2'>
+  <h6>New card 1</h6>
+</div>
+<div class = 'col l3 m2 s2'>
+  <h6>New card 1</h6>
+</div>
+<div class = 'col l3 m2 s2'>
+  <h6>New card 1</h6>
+</div>
+{{/with}}
+</template>
+
+<template name='completed_card'>
+</template>
+
+<template name='order_card'>
+</template>
+
+<template name='request_card'>
+</template>
