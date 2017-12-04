@@ -8,6 +8,7 @@ Order_record = new Mongo.Collection('order_record');
 Profile_details = new Mongo.Collection('profile_details');
 Kitchen_details = new Mongo.Collection('kitchen_details');
 Markers = new Mongo.Collection('markers');
+Transactions = new Mongo.Collection('transactions');
 
 Images = new FilesCollection({
   collectionName: 'Images',
@@ -46,7 +47,8 @@ Collections = {
   'order_record': Order_record,
   'Profile_details': Profile_details,
   'Kitchen_details': Kitchen_details,
-  'Markers': Markers
+  'Markers': Markers,
+  'Transactions': Transactions
 }
 
 Template.registerHelper(

@@ -76,7 +76,7 @@ Template.sc_serving_details.onRendered(function() {
 
   $('.timepicker').pickatime({
    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-   fromnow: 1800000,       // set default time to * milliseconds from now (using with default = 'now')
+   fromnow: 3600*1000,       // set default time to * milliseconds from now (using with default = 'now')
    twelvehour: true, // Use AM/PM or 24-hour format
    donetext: 'OK', // text for done-button
    cleartext: 'Clear', // text for clear-button
@@ -149,15 +149,23 @@ service_option_list:[
   return dd+'/'+mm+'/'+yyyy
 },
 
-'get_now30': function(){
-var date = new Date()
-var hh = (date.getHours());
-var mm = (date.getMinutes()+30);
-  return hh+':'+mm
-}
+  'get_now30': function(){
+  var date = new Date()
+  var hh = (date.getHours());
+  var mm = (date.getMinutes()+30);
 
+  if(mm>60){
+    hh = hh + 1
+    mm = mm - 60
+
+    return hh+':'+mm
+  }else{
+
+    return hh+':'+mm
+  }
+
+  },
 })
-
 
 Template.sc_serving_details.events({
 
@@ -234,6 +242,8 @@ Template.shopping_cart_card.events({
 
 
 Template.sc_payment.events({
+
+
 'click  #place_order':function(event){
   ccNum = $('#card_no').val()
   cvc = $('#cvc_no').val()
@@ -250,35 +260,58 @@ Template.sc_payment.events({
   	exp_year: expYr,
   }, function(status, response) {
   	stripeToken = response.id;
-  	Meteor.call('chargeCard', stripeToken, amount, description);
-  });
+    console.log(stripeToken)
+    Session.set('token_no', stripeToken)
+  //hold not to charge until
+  //	Meteor.call('chargeCard', stripeToken, amount, description);
 
 
-    var shopping_cart = search_distinct_in_shopping_cart('product_id')
+  var shopping_cart = search_distinct_in_shopping_cart('product_id')
 
 
 
-    function order_record_insert(array_value, index){
+function order_record_insert(array_value){
 
-      var product_id = array_value
-      var cart_details = Shopping_cart.findOne({'product_id': product_id})
+  var product_id = array_value
+  var cart_details = Shopping_cart.findOne({'product_id': product_id})
 
+  var cart_id = cart_details._id
+  var buyer_id = cart_details.buyer_id;
+  var seller_id = cart_details.seller_id;
+  var address = cart_details.address;
+  var quantity = cart_details.quantity;
+  var serving_option = cart_details.serving_option;
+  var serve_date = $('#serve_date').val();
+  var serve_time = $('#serve_time').val();
 
-      var cart_id = cart_details._id
-      var buyer_id = cart_details.buyer_id;
-      var seller_id = cart_details.seller_id;
-      var address = cart_details.address;
-      var quantity = cart_details.quantity;
-      var serving_option = cart_details.serving_option;
-      var serve_date = $('#serve_date').val();
-      var serve_time = $('#serve_time').val();
+  var stripeToken = Session.get('token_no')
 
-
-      Meteor.call('order_record.insert', buyer_id, seller_id, product_id, quantity, address, serving_option, serve_date, serve_time)
-
-      Meteor.call('shopping_cart.remove',cart_id)
+  var transaction = Transactions.findOne({'buyer_id': buyer_id, 'seller_id': seller_id}, {sort: {transaction_no: -1}});
+  if(transaction ){
+  var transaction_no = parseInt(transaction.transaction_no) + 1
+  console.log(transaction_no)
+  }else{
+  var transaction_no = 1
+  console.log(transaction_no)
   }
-    shopping_cart.forEach(order_record_insert)
 
+
+
+  Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, address, serving_option, serve_date, serve_time, stripeToken)
+
+  Meteor.call('shopping_cart.remove',cart_id)
+}
+
+
+  setTimeout(shopping_cart.forEach(order_record_insert), 200000)
+  Session.delete('token_no')
+
+
+
+
+
+
+
+})
 }
 })
