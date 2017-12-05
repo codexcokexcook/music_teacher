@@ -15,44 +15,47 @@ Template.start_cooking.helpers({
   },
 
   'order_received': function(){
-
- var check = search_distinct_in_order_record('buyer_id')
+    var check = search_distinct_in_order_record('buyer_id')
     console.log(check)
-
-     function find_in_order_record(array_value){
-       var buyer_id = array_value
-       console.log(buyer_id)
-       var result = Order_record.find({'buyer_id': buyer_id, 'seller_id': Meteor.userId(), 'status': 'Created'})
-       console.log(result)
-       return result
-
-     }
-
-     for(i=0;i<check.length;i++){
-       var result =[]
-      result[i] = find_in_order_record(check[i])
-     }
-     console.log(result)
-     return result
-},
-
-
+    return check
+  }
 
 })
-
 
 
 Template.request_card.helpers({
 
   'foodie_profile_picture': function(){
-    console.log(this.buyer_id)
-    var foodie = profile_images.findOne({'userId': this.buyer_id, "meta": {"purpose": "profile_picture"}})
-    console.log(foodie._id + foodie.extensionWithDot)
+    var foodie = profile_images.findOne({'userId': String(this), "meta": {"purpose": "profile_picture"}})
     return foodie._id + foodie.extensionWithDot
 
   },
 
-  'order_dish': function(){
+  'get_transaction_no': function(){
+    var order = Order_record.findOne({'buyer_id': String(this), 'seller_id': Meteor.userId(), 'status': 'Created'})
+    return order.transaction_no
+  },
+
+  'ordered_dish': function(){
+
+    var order = Order_record.findOne({'buyer_id': String(this), 'seller_id': Meteor.userId(), 'status': 'Created'})
+    var trans_no = order.transaction_no
+    return Order_record.find({'buyer_id': String(this), 'seller_id': Meteor.userId(), 'transaction_no': trans_no, 'status': 'Created'})
+  },
+
+  'get_dish_name': function(){
+    return Dishes.findOne({'_id': this.product_id}).dish_name
+  },
+
+  'get_dish_image': function(){
+    var dish_image_id = Dishes.findOne({'_id': this.product_id}).image_id
+    var ext = Images.findOne({'_id': dish_image_id}).extensionWithDot
+
+    return dish_image_id + ext
+  },
+
+  'get_dish_qty': function(){
+    return Order_record.findOne({'product_id': this.product_id}).quantity
 
   }
 
