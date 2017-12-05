@@ -65,9 +65,9 @@ Template.mapping.onRendered(function(){
   });
 
   // Reactive markers on google map to reflect search results
-
   Tracker.autorun(function() {
-    if (!Session.get('address') || Session.get('address').length < 1) {
+    if (!Session.get('address') || Session.get('address').length < 1 || Session.get('address') === "") {
+      //console.log('no address');
       //return to default position
       marker.setMap(null);
       map.instance.setCenter(new google.maps.LatLng(22.3964, 114.1095));
@@ -99,6 +99,7 @@ Template.mapping.onRendered(function(){
     }
     //console.log('total kitchens display on map:' + kitchen_details.length);
     for (i=0; i < kitchen_details.length; i++) {
+      //console.log(kitchen_details[i].kitchen_address_conversion.lat)
       kitchen_marker[i] = new google.maps.Marker({
         position: {
           lat: kitchen_details[i].kitchen_address_conversion.lat,
