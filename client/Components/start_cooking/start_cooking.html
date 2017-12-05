@@ -7,36 +7,38 @@
 </template>
 
 <template name="start_cooking">
-{{#with order}}
-<div class = 'col l3 m2 s2'>
-  <h6>Cooking card 1</h6>
-</div>
-{{else}}
-<div class = 'col l3 m2 s2'>
-  <h6>Cooking card 1</h6>
-</div>
-<div class = 'col l3 m2 s2'>
-  <h6>Cooking card 2</h6>
-</div>
-<div class = 'col l3 m2 s2'>
-  <h6>Cooking card 3</h6>
-</div>
-<div class = 'col l3 m2 s2'>
-  <h6>Cooking card 4</h6>
-</div>
-<div class = 'col l3 m2 s2'>
-  <h6>New card 1</h6>
-</div>
-<div class = 'col l3 m2 s2'>
-  <h6>New card 1</h6>
-</div>
-<div class = 'col l3 m2 s2'>
-  <h6>New card 1</h6>
-</div>
-<div class = 'col l3 m2 s2'>
-  <h6>New card 1</h6>
-</div>
-{{/with}}
+    {{#if order}}
+      {{#each order_received}}
+        {{>request_card}}
+      {{/each}}
+    {{else}}
+    <div class ='row l12 m12 s12'>
+    <div class = 'col l3 m3 s3'>
+      <h6>Cooking card 1</h6>
+    </div>
+    <div class = 'col l3 m3 s3'>
+      <h6>Cooking card 2</h6>
+    </div>
+    <div class = 'col l3 m3 s3'>
+      <h6>Cooking card 3</h6>
+    </div>
+    <div class = 'col l3 m3 s3'>
+      <h6>Cooking card 4</h6>
+    </div>
+    <div class = 'col l3 m3 s3'>
+      <h6>New card 1</h6>
+    </div>
+    <div class = 'col l3 m3 s3'>
+      <h6>New card 2</h6>
+    </div>
+    <div class = 'col l3 m3 s3'>
+      <h6>New card 3</h6>
+    </div>
+    <div class = 'col l3 m3 s3'>
+      <h6>New card 4</h6>
+    </div>
+    </div>
+    {{/if}}
 </template>
 
 <template name='completed_card'>
@@ -46,4 +48,16 @@
 </template>
 
 <template name='request_card'>
+  <div class ='card request_card'>
+
+  <div class = 'row col l12'>
+    <div class = 'col l6'>
+      <img class ='cooking_card_profile_picture' src='/profile_upload/{{foodie_profile_picture}}'/>
+    </div>
+    <div class = 'col l6' style='margin-top:12px;'>
+      #: {{transaction_no}}
+    </div>
+  </div>
+  
+  </div>
 </template>
