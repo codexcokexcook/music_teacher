@@ -73,7 +73,7 @@
       <div class="col l1 m1 s1">
         <div class='right'>
         <a class="dropdown-button" href="" data-activates="profile_dropdown">
-          {{#if profile_images 'profile_picture'}}
+          {{#if profile_images 'profile_picture' 'own_user'}}
             <img class="circle logo_wrapper navbar_profile_logo" style="background-image:url(/profile_upload/{{profile_images 'profile_picture' 'own_user'}})"/>
           {{else}}
             <img src="/profile_upload/user.jpg" class="circle navbar_logo" height='40'/>

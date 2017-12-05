@@ -1,50 +1,34 @@
 <template name='show_room'>
-  <div class = "row" id="show_room">
-    <div class='col l8 m9 s9'>
+  <div class = "show_room_wrapper">
+    <div class="card_container" id="show_room">
       {{> show_room_dish}}
       {{> show_room_menu}}
       {{> show_room_chef}}
     </div>
-    <div class = "modal large_dish_display" id="large_dish_display">
+    <div class = "map_wrapper">
+      {{> mapcard}}
     </div>
-    <div class = "modal display_menu_details" id="menu_card_display">
-    </div>
-    <div class ='col l4 m3 s3'>
-      <div class = "map_wrapper">
-        {{> mapcard}}
-      </div>
-    </div>
+  </div>
+  <div class = "modal large_dish_display" id="large_dish_display">
+  </div>
+  <div class = "modal display_menu_details" id="menu_card_display">
   </div>
 </template>
 
 <template name='show_room_dish'>
-
-  <div class = "section">
-    <h5>Dishes</h5>
-    <div class = "row">
-      {{#each find_dishes_by}}
-        {{> dishes_list}}
-      {{/each}}
-    </div>
-  </div>
+  {{#each find_dishes_by}}
+    {{> dishes_list}}
+  {{/each}}
 </template>
 
 <template name='show_room_menu'>
-  <div class = "section">
-    <h5>Menu</h5>
-    <div class = "menu_card_wrapper">
-      {{#each find_menu_by}}
-        {{> menu_card}}
-      {{/each}}
-    </div>
-  </div>
+  {{#each find_menu_by}}
+    {{> menu_card}}
+  {{/each}}
 </template>
 
 <template name='show_room_chef'>
-  <div class = "section">
-    <h5>Chef</h5>
-      {{#each find_kitchen_by}}
-        {{> kitchen_card}}
-      {{/each}}
-    </div>
+  {{#each find_kitchen_by}}
+    {{> kitchen_card}}
+  {{/each}}
 </template>
