@@ -53,6 +53,9 @@ Template.menu_card.events({
     Session.set('dishes_id', this.dishes_id);
   },
   'click #menu_order': function () {
+    if ($('#dish_card_large')){
+      $('#dish_card_large').remove();
+    }
     Session.set('user_id', this.user_id);
     Session.set('menu_id', this._id)
 

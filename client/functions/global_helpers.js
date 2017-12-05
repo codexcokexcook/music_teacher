@@ -59,9 +59,10 @@ Template.registerHelper(
 
 Template.registerHelper(
   'profile_images', (type, user_id) => {
-    if (user_id = 'own_user') {
+    if (user_id === 'own_user') {
       var user_id = Meteor.userId();//Session.get('user_id'); or Meteor.userId();
-    } else if (user_id = 'other_user') {
+    } else if (user_id === 'other_user') {
+      console.log('hi');
       var user_id = Session.get('user_id');
     }
     var get_profile_images = profile_images.findOne({'userId': user_id,'meta':{"purpose": type}});

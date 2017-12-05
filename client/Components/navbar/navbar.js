@@ -127,7 +127,6 @@ Template.bp_navbar.events({
     } else {
      Session.set('address', location_value);
    }
-
  },
  'change #by_method': function(event, template){
    Session.set('method', $(event.currentTarget).val());

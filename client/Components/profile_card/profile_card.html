@@ -45,11 +45,11 @@
           <br>
           <div class = "profile_description_wrapper">
             <div class="col l12 m4 s4">
-              <h5 class = "grey-text">{{kitchen_name}}</h5>
+              <h5 class = "white-text">{{kitchen_name}}</h5>
             </div>
           <div class = "divider"></div>
             <div class="col l12 m4 s4">
-              <p class = "grey-text">{{homecook_profile_keywords}}</p>
+              <p class = "white-text center-align">{{homecook_profile_keywords}}</p>
             </div>
           </div>
         </div>
@@ -61,7 +61,11 @@
       </div>
       {{> profile_created_dishes}}
       {{> profile_created_menus}}
-      {{> profile_recently_exploered}}
+    <!--  {{> profile_recently_exploered}} -->
+    </div>
+    <div class = "modal large_dish_display" id="large_dish_display">
+    </div>
+    <div class = "modal display_menu_details" id="menu_card_display">
     </div>
   </div>
 {{/with}}

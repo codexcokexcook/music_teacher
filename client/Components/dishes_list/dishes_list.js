@@ -2,12 +2,9 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
 import { FilesCollection } from 'meteor/ostrio:files';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
 import { Blaze } from 'meteor/blaze';
-
-Template.dishes_list.onRendered(function(){
-
-});
 
 Template.dishes_card.helpers ({
   'dish_details': function () {
@@ -55,6 +52,9 @@ Template.dishes_thumbnails.events({
   'click .dish_thumbnail': function () {
     var dish_id = this._id;
     Session.set('dish_id', dish_id);
+    if($('#dish_card_large')) {
+      $('#dish_card_large').remove();
+    }
     dish_card = Blaze.render(Template.dishes_card, $('#large_dish_display')[0]);
     $('#info_tabs').tabs();
   }
