@@ -17,28 +17,28 @@ export function navbar_find_by(collection){
         }
         if (method) {
           //location: T, method: T
-          console.log(collection + 'location: T, method: T');
+          //console.log(collection + 'location: T, method: T');
           var kitchen_id = [];
           kitchen_id = result.map(function(kitchen){return kitchen._id});
-          console.log(kitchen_id);
+          //console.log(kitchen_id);
           if (collection === "Kitchen_details") {
             var searched_result = Collections[collection].find({'_id': {$in: kitchen_id}, 'serving_option': method, 'user_id':{$ne: Meteor.userId()}});
-            console.log(searched_result);
+            //console.log(searched_result);
             Session.set('searched_result', searched_result.fetch());
           } else {
             var searched_result =  Collections[collection].find({'kitchen_id': {$in: kitchen_id}, 'serving_option': method, 'user_id':{$ne: Meteor.userId()}});
-            console.log(searched_result);
+            //console.log(searched_result);
             Session.set('searched_result', searched_result.fetch());
           }
         } else if (!method) {
           //location: T, method: F
-          console.log(collection + 'location: T, method: F');
+          //console.log(collection + 'location: T, method: F');
           var kitchen_id = [];
           kitchen_id = result.map(function(kitchen){return kitchen._id});
-          console.log(kitchen_id);
+          //console.log(kitchen_id);
           if (collection === "Kitchen_details") {
               var searched_result = Collections[collection].find({'_id': {$in: kitchen_id},'user_id':{$ne: Meteor.userId()}});
-              console.log(searched_result);
+              //console.log(searched_result);
               Session.set('searched_result', searched_result.fetch());
           } else {
             var searched_result = Collections[collection].find({'kitchen_id': {$in: kitchen_id}, 'user_id':{$ne: Meteor.userId()}})
@@ -48,12 +48,12 @@ export function navbar_find_by(collection){
       });
     } else if (method) {
       //location: F, method: T
-      console.log(collection + 'location: F, method: T');
+      //console.log(collection + 'location: F, method: T');
       var searched_result = Collections[collection].find({'serving_option': method, 'user_id':{$ne: Meteor.userId()}})
       Session.set('searched_result', searched_result.fetch());
     } else {
       //location: F, method: F
-      console.log(collection + 'location: F, method: F');
+      //console.log(collection + 'location: F, method: F');
       var searched_result = Collections[collection].find({'user_id':{$ne: Meteor.userId()}})
       Session.set('searched_result', searched_result.fetch());
     }

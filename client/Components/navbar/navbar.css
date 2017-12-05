@@ -1,67 +1,77 @@
-nav{
+nav {
   height: 64px;
 }
 
 .navbar-fixed {
-  position: fixed;
+  height: 64px;
+}
 
-    height: 64px;
-
+.nvarbar-fixed li {
+  height: 40px !important;
 }
 
 .navbar_logo {
-  margin-top: 25px;
-  margin-left: 15px;
-  margin-right: 0px;
+  margin: 0px 44px 0px 12px;
 }
 
 .nav-wrapper{
-  position: fixed;
-
-  height: 90px;
-
+  height: 64px;
+  padding:12px;
 }
 
-
-.nav_search_bar {
-  margin-top:  20px;
-
-
+.nav_brand_logo {
+  height: 40px;
 }
 
-.textbox_adj {
-  margin-top: -10px;
-  margin-left: 42px;
+.search_bar > div {
+  height: 40px;
+}
+
+.search_bar_icons {
+  margin: 8px 12px 22px 12px;
+}
+
+.search_bar {
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .logo_wrapper {
    border-radius: 50%;
    width: 40px;
    height: 40px;
-   margin-left: auto;
-   margin-right: auto;
    background-size:cover;
    background-repeat: no-repeat;
    background-position: center center;
    z-index:1;
+   top: -13px;
+   margin: 0px !important;
+}
+
+.profile_shopping_wrapper {
+  padding-right: 12px;
+}
+
+.shopping_cart_wrapper {
+  padding: 0px;
+  height: 40px;
+  width: 85px;
+}
+
+.profile_icon_wrapper {
+  height: 40px;
+  width: 40px;
 }
 
 .cart_no{
   width: 37px;
   height: 37px;
- background-color: black;
- border-radius:50%;
- z-index:2;
- line-height: 40px;
- position: absolute;
- top: 1px;
- right: 7.9vw;
-
-}
-
-.navbar_profile_logo{
-  margin-top: 25px;
-  margin-left: 24px;
-  margin-right: 24px;
-
+  background-color: black;
+  border-radius:50%;
+  z-index:2;
+  line-height: 40px;
+  position: relative;
+  top: -13px;
+  right: 24px;
+  display: inline-block;
 }
