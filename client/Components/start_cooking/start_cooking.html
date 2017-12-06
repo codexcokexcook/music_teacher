@@ -49,20 +49,25 @@
 
 <template name='request_card'>
   <div class ='card request_card'>
-  <div class = 'row col l12'>
-    <div class = 'col l6'>
-      <img class ='cooking_card_profile_picture' src='/profile_upload/{{foodie_profile_picture}}'/>
+    <div class = 'card-image'>
+      <a class ='btn-floating cooking_card_profile_picture' style="background-image: url(profile_upload/{{foodie_profile_picture}})"></a>
+      <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_foodie_name}}</h6>
+      <!-- #: {{get_transaction_no}} -->
     </div>
-    <div class = 'col l6' style='margin-top:12px;'>
-      #: {{get_transaction_no}}
+    <div class = 'card-content'>
+      {{#each ordered_dish}}
+        <div class = 'row'>
+          <div class ='col l3'><img src='/dishes_upload/{{get_dish_image}}' style='height:40px;weight:40px;border-radius:50%;'/></div>
+          <div class ='col l6'><strong>{{get_dish_name}}</strong></div>
+          <div class ='col l3'><strong>x {{get_dish_qty}}</strong></div>
+        </div>
+      {{/each}}
     </div>
-  </div>
-  {{#each ordered_dish}}
-    <div class = 'row col l12'>
-      <div class ='col l3'><img src='/dishes_upload/{{get_dish_image}}' style='height:40px;weight:40px;border-radius:50%;'/></div>
-      <div class ='col l7'>{{get_dish_name}}</div>
-      <div class ='col l2'>{{get_dish_qty}}</div>
+    <div class = 'card-action'>
+      <div class = 'center'>
+      <a class="waves-effect waves-light btn-floating blue darken-4"><i class="material-icons">done</i></a>
+      <a class="waves-effect waves-light btn-floating blue darken-4"><i class="material-icons">clear</i></a>
     </div>
-    {{/each}}
+    </div>
   </div>
 </template>

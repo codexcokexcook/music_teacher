@@ -31,6 +31,11 @@ Template.request_card.helpers({
 
   },
 
+  'get_foodie_name': function() {
+    var foodie = Profile_details.findOne({'user_id': String(this)})
+    return foodie.foodie_name;
+  },
+
   'get_transaction_no': function(){
     var order = Order_record.findOne({'buyer_id': String(this), 'seller_id': Meteor.userId(), 'status': 'Created'})
     return order.transaction_no
