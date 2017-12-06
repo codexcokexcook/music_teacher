@@ -33,6 +33,7 @@ Template.start_cooking.helpers({
 
 })
 
+
 Template.order_card.helpers({
 
   'foodie_profile_picture': function(){
@@ -75,6 +76,14 @@ Template.order_card.helpers({
     return Order_record.findOne({'product_id': dish_id}).quantity
   },
 })
+
+Template.request_card.events({
+  'click .cooking_card_profile_picture': function() {
+    var route = '/foodies/' + String(this);
+    FlowRouter.go(window.open(route,'_blank'));
+  }
+});
+
 
 
 Template.request_card.helpers({
