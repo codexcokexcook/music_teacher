@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 
 Order_record = new Mongo.Collection('order_record');
-Transactions = new Mongo.Collection('transactions');
+
 
 Meteor.methods({
   'chargeCard': function(stripeToken, amount, description) {
@@ -47,5 +47,19 @@ Meteor.methods({
 
     })
 
-  }
+  },
+
+  'order_record.accepted'(
+    order_id
+  ){Order_record.update(
+    {_id: order_id},
+    {$set:{status: 'Cooking',
+           updatedAt: new Date()
+          }
+    }
+
+  )}
+
+
+
 });

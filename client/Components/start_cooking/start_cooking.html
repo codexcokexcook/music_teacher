@@ -7,37 +7,35 @@
 </template>
 
 <template name="start_cooking">
+    {{#if cooking}}
+      {{#each order_cooking}}
+      {{>order_card}}
+      {{/each}}
+    {{else}}
+    <br>
+    <br>
+    <br>
+    <br>
+    <h5>"|-----NO CURRENT COOKING-----|_____|-----NO CURRENT COOKING-----|_____|-----NO CURRENT COOKING-----|_____|-----NO CURRENT COOKING-----|"</h5>
+    <br>
+    <br>
+    <br>
+    <br>
+    {{/if}}
     {{#if order}}
       {{#each order_received}}
         {{>request_card}}
       {{/each}}
     {{else}}
-    <div class ='row l12 m12 s12'>
-    <div class = 'col l3 m3 s3'>
-      <h6>Cooking card 1</h6>
-    </div>
-    <div class = 'col l3 m3 s3'>
-      <h6>Cooking card 2</h6>
-    </div>
-    <div class = 'col l3 m3 s3'>
-      <h6>Cooking card 3</h6>
-    </div>
-    <div class = 'col l3 m3 s3'>
-      <h6>Cooking card 4</h6>
-    </div>
-    <div class = 'col l3 m3 s3'>
-      <h6>New card 1</h6>
-    </div>
-    <div class = 'col l3 m3 s3'>
-      <h6>New card 2</h6>
-    </div>
-    <div class = 'col l3 m3 s3'>
-      <h6>New card 3</h6>
-    </div>
-    <div class = 'col l3 m3 s3'>
-      <h6>New card 4</h6>
-    </div>
-    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h5>"|----------NO NEW ORDER----------|_____|----------NO NEW ORDER----------|_____|----------NO NEW ORDER----------|_____|----------NO NEW ORDER----------|"</h5>
+    <br>
+    <br>
+    <br>
+    <br>
     {{/if}}
 </template>
 
@@ -45,6 +43,30 @@
 </template>
 
 <template name='order_card'>
+  <div class ='card request_card'>
+    <div class = 'card-image'>
+      <a class ='btn-floating cooking_card_profile_picture' style="background-image: url(profile_upload/{{foodie_profile_picture}})"></a>
+      <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_foodie_name}}</h6>
+       <h6>Trans#: {{get_transaction_no}}</h6>
+    </div>
+    <div class = 'card-content'>
+        <div class = 'row'>
+          <div class ='col l3'><img src='/dishes_upload/{{get_dish_image}}' style='height:40px;weight:40px;border-radius:50%;'/></div>
+          <div class ='col l6'><strong>{{get_dish_name}}</strong></div>
+          <div class ='col l3'><strong>x {{get_dish_qty}}</strong></div>
+        </div>
+        <div class = 'row'>
+          <div class ='col l3'>ready in</div>
+          <div class ='col l6'>30:00</div>
+          <div class ='col l3'>mins</div>
+        </div>
+    </div>
+    <div class = 'card-action'>
+      <div class = 'center'>
+        <a class="waves-effect waves-light btn-floating blue darken-4" id='ready_{{this}}' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
+      </div>
+    </div>
+    </div>
 </template>
 
 <template name='request_card'>
@@ -65,8 +87,8 @@
     </div>
     <div class = 'card-action'>
       <div class = 'center'>
-      <a class="waves-effect waves-light btn-floating blue darken-4" style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
-      <a class="waves-effect waves-light btn-floating blue darken-4" style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
+        <a class="waves-effect waves-light btn-floating blue darken-4" id='accept' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
+        <a class="waves-effect waves-light btn-floating blue darken-4" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
     </div>
     </div>
   </div>
