@@ -22,6 +22,10 @@ Template.profile_created_menus.helpers({
   }
 });
 
+Template.foodie_profile_card.onRendered(function(){
+  $('body').css('overflow-y','auto');
+})
+
 Template.homecook_profile_page.onRendered(function(){
   $('body').css('overflow-y','auto');
   $('a.homecook_image').remove();
@@ -33,6 +37,14 @@ Template.profile_created_menus.onRendered(function(){
 
 Template.profile_created_dishes.onRendered(function(){
   $('a.homecook_image').remove();
+})
+
+Template.foodie_profile_card.helpers({
+  'user_id': function() {
+    var user_id = FlowRouter.getParam('user_id');
+    Session.set('user_id', user_id);
+    return Profile_details.findOne({user_id: user_id});
+  }
 })
 
 Template.homecook_profile_page.helpers({

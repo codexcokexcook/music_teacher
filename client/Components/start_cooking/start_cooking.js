@@ -22,6 +22,13 @@ Template.start_cooking.helpers({
 
 })
 
+Template.request_card.events({
+  'click .cooking_card_profile_picture': function() {
+    var route = '/foodies/' + String(this);
+    FlowRouter.go(window.open(route,'_blank'));
+  }
+});
+
 
 Template.request_card.helpers({
 
