@@ -84,7 +84,7 @@
       {{get_kitchen_address}}
     </div>
     <div class='row col l2 m3 s3 valign'>
-      <select class='material_select option_select' id="{{seller_id}}_option_select">
+      <select class='material_select option_select' id="{{this}}_option_select">
         <option value='' disabled selected>Serving</option>
         {{#each service_option_list}}
           <option value={{option}}>{{service_option}}</option>
@@ -95,15 +95,25 @@
   {{/each}}
   <div class="row col l12 valign">
     <div class ='row col l3 offset-l3 valign'>
-      <h6>Ready Time:</h6>
+      <h6>Earliest Ready Time:</h6>
     </div>
     <div class="text-field col l3 m3 s6 valign">
-        <input class ="datepicker" id="serve_date" name="serve_date" type="text" style='format: dd/mm/yyyy; text-align: center;' value={{get_today}}>
+        {{get_ready_date}} 
+        {{get_ready_time}}
+      </div>
+  </div>
+  <div class="row col l12 valign">
+    <div class ='row col l3 offset-l3 valign'>
+      <h6>Prefered Ready Time:</h6>
+    </div>
+    <div class="text-field col l3 m3 s6 valign">
+        <input class ="datepicker" id="serve_date" name="serve_date" type="text" style='format: dd/mm/yyyy; text-align: center;' value={{get_ready_date}}>
       </div>
       <div class="text-field col l3 m3 s6 valign">
-          <input class ="timepicker" id="serve_time" name="serve_time" type="text" style='text-align: center;' value="{{get_now30}}">
+          <input class ="timepicker" id="serve_time" name="serve_time" type="text" style='text-align: center;' value="{{get_ready_time}}">
         </div>
   </div>
+
     {{else}}
     <div class="row col l12 valign">
     </div>
