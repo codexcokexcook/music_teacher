@@ -35,5 +35,8 @@ Meteor.methods({
         updatedAt: new Date()
       }}
     );
+  },
+  'menu.online'(menu_id, status) {
+    Menu.update({_id: menu_id},{$set:{online_status: status}});
   }
 });

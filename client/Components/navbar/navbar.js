@@ -33,7 +33,6 @@ Template.bp_navbar.onRendered(function(){
 
   // activate location dropdown based on addresses available in profile details
   Tracker.autorun(()=> {
-    this.$('select').material_select();
     var profile_details = Profile_details.findOne({user_id: Meteor.userId()});
     if (profile_details) {
       $('#home_location').val(profile_details.home_address);
@@ -68,7 +67,6 @@ Template.bp_navbar.onRendered(function(){
     }
     if (!navigator.geolocation) {
       $('#current_location').prop('disabled', true);
-      this.$('select').material_select();
     }
   });
 });
@@ -117,7 +115,7 @@ Template.bp_navbar.events({
    var location_value = $(event.currentTarget).val();
    if (location_value === "pin_location") {
      if ($('#location_search_input_card').length < 1) {
-       Blaze.render(Template.location_search_card,$('#nav_sarch')[0]);
+       Blaze.render(Template.location_search_card,$('.navbar_options_wrapper')[0]);
      };
      $('#location_search_input').focus(function(){
        $(this).select();
