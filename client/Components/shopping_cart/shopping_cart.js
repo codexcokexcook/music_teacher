@@ -5,6 +5,8 @@ import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { search_distinct_in_shopping_cart } from '/imports/functions/shopping_cart.js'
 import { search_distinct_for_delivery_in_shopping_cart } from '/imports/functions/shopping_cart.js'
+import { search_distinct_in_shopping_cart_seller_specific } from '/imports/functions/shopping_cart.js'
+
 
 Template.shopping_cart_card.helpers({
 
@@ -67,6 +69,7 @@ Template.sc_serving_details.onRendered(function() {
     this.$('.datepicker').pickadate({
     selectMonths: 1, // Creates a dropdown to control month
     selectYears: 0, // Creates a dropdown of 15 years to control year,
+    default: 'TODAY',
     today: 'TODAY',
     clear: 'Clear',
     close: 'Ok',
@@ -76,7 +79,7 @@ Template.sc_serving_details.onRendered(function() {
 
   $('.timepicker').pickatime({
    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-   fromnow: 3600*1000,       // set default time to * milliseconds from now (using with default = 'now')
+   fromnow: Session.get('max_cooking_time')*1000*60,       // set default time to * milliseconds from now (using with default = 'now')
    twelvehour: true, // Use AM/PM or 24-hour format
    donetext: 'OK', // text for done-button
    cleartext: 'Clear', // text for clear-button
@@ -100,27 +103,23 @@ service_option_list:[
 },
 
 'single_address': function() {
-    return _.uniq(Shopping_cart.find({'buyer_id': Meteor.userId()},{sort: {
-      project: 1}
-    }).fetch(), true, doc => {
-      return doc.seller_id;
-    });
+    return search_distinct_in_shopping_cart('seller_id')
 },
 
 'single_dish': function(){
-    return Shopping_cart.find({"buyer_id": Meteor.userId(), "seller_id": this.seller_id})
+    return Shopping_cart.find({"buyer_id": Meteor.userId(), "seller_id": String(this)})
 
 },
 
 'get_chef_name':function(){
-    var kitchen = Kitchen_details.findOne({"user_id": this.seller_id})
+    var kitchen = Kitchen_details.findOne({"user_id": String(this)})
     return kitchen.chef_name
 },
 
 'get_serving_address':function(){
     var address_option = Session.get('serving_address')
     var profile_details = Profile_details.findOne({'user_id': Meteor.userId()})
-    var kitchen_details = Kitchen_details.findOne({'user_id': this.seller_id})
+    var kitchen_details = Kitchen_details.findOne({'user_id': String(this)})
     var shopping_cart = Shopping_cart.findOne({'buyer_id': Meteor.userId()})
 
     if(address_option === 'home_address'){
@@ -136,35 +135,53 @@ service_option_list:[
 
 'get_kitchen_address': function(){
 
-    var kitchen = Kitchen_details.findOne({"user_id": this.seller_id})
+    var kitchen = Kitchen_details.findOne({"user_id": String(this)})
     return kitchen.kitchen_address
 },
 
-'get_today': function(){
-  var date = new Date()
-  // GET YYYY, MM AND DD FROM THE DATE OBJECT
-  var yyyy = date.getFullYear().toString();
-  var mm = (date.getMonth()+1).toString();
-  var dd  = date.getDate().toString();
-  return dd+'/'+mm+'/'+yyyy
-},
+  'get_ready_time': function(){
+    var shopping_cart = Shopping_cart.find({'buyer_id':Meteor.userId()}).fetch()
+    var max_cooking_time = 0
+    for(i=0;i<shopping_cart.length;i++){
+      if(shopping_cart[i].ready_time > max_cooking_time){
+        max_cooking_time = shopping_cart[i].ready_time
 
-  'get_now30': function(){
-  var date = new Date()
-  var hh = (date.getHours());
-  var mm = (date.getMinutes()+30);
+      }else{
+        max_cooking_time = max_cooking_time
 
-  if(mm>60){
-    hh = hh + 1
-    mm = mm - 60
+      }
+    }
 
-    return hh+':'+mm
-  }else{
+    Session.set('max_cooking_time', max_cooking_time)
 
-    return hh+':'+mm
-  }
+    Meteor.setInterval(function(max_cooking_time){
+      var max_cooking_time = Session.get('max_cooking_time')
+      var ready_time = Date.now()
 
+      ready_time += max_cooking_time*1000*60
+
+      ready_time = new Date(ready_time)
+
+      var yyyy = ready_time.getFullYear().toString();
+      var mm = (ready_time.getMonth()+1).toString();
+      var dd  = ready_time.getDate().toString();
+      var hh = ready_time.getHours().toString();
+      var min = ready_time.getMinutes();
+      if(min<10){
+        min = '0'+min.toString()
+      }
+      ready_time = hh+':'+min
+      ready_date = dd+'/'+mm+'/'+yyyy
+      Session.set('ready_time',ready_time)
+      Session.set('ready_date',ready_date)
+
+    }, 1000)
+      return Session.get('ready_time')
   },
+
+    'get_ready_date': function(){
+      return Session.get('ready_date')
+    }
 })
 
 Template.sc_serving_details.events({
@@ -178,13 +195,11 @@ Template.sc_serving_details.events({
 },
 
   'change .option_select':function(event){
-    var field_name = '#'+this.seller_id+"_option_select"
+    var field_name = '#'+String(this)+"_option_select"
     var serving_option = $(field_name).val()
     var address = $('#serving_address').text()
-    var seller_id = this.seller_id
+    var seller_id = String(this)
     var buyer_id = Meteor.userId()
-
-     console.log(buyer_id, seller_id, serving_option, address)
 
     Meteor.call('shopping_cart.update_serving',
       buyer_id,
@@ -245,39 +260,58 @@ Template.sc_payment.events({
 
 
 'click  #place_order':function(event){
+
+  //hold not to charge until
+  //	Meteor.call('chargeCard', stripeToken, amount, description);
+
+  console.log(1)
+  var sellers = search_distinct_in_shopping_cart('seller_id')
+  console.log(sellers)
+
+  console.log(2)
+  setTimeout(sellers.forEach(order_record_insert), 200000)
+
+
+}
+})
+function order_record_insert(array_value){
+  console.log(3)
   ccNum = $('#card_no').val()
   cvc = $('#cvc_no').val()
   expMo = $('#exp_month').val()
   expYr = $('#exp_year').val()
-  amount = Session.get('cart_total_price')*100
+  amount = Session.get('cart_total_price')*100 /**need modify**/
   profile_details = Profile_details.findOne({user_id: Meteor.userId()})
   description = 'Blueplate.co - Charge for '+ profile_details.foodie_name;
 
   Stripe.card.createToken({
-  	number: ccNum,
-  	cvc: cvc,
-  	exp_month: expMo,
-  	exp_year: expYr,
+    number: ccNum,
+    cvc: cvc,
+    exp_month: expMo,
+    exp_year: expYr,
   }, function(status, response) {
-  	stripeToken = response.id;
+    stripeToken = response.id;
     console.log(stripeToken)
     Session.set('token_no', stripeToken)
-  //hold not to charge until
-  //	Meteor.call('chargeCard', stripeToken, amount, description);
 
+    console.log(4)
+  var seller_id = array_value
+  var products = search_distinct_in_shopping_cart_seller_specific('product_id', seller_id)
+  console.log(5)
+  setTimeout(products.forEach(to_order_record_insert), 200000)
+  Session.delete('token_no')
+})}
 
-  var shopping_cart = search_distinct_in_shopping_cart('product_id')
-
-
-
-function order_record_insert(array_value){
-
-  var product_id = array_value
-  var cart_details = Shopping_cart.findOne({'product_id': product_id})
+function to_order_record_insert(array_value){
+  console.log(6)
+  var product_id = array_value;
+  var dish = Dishes.findOne({_id: product_id})
+  var seller_id = dish.user_id
+  var cart_details = Shopping_cart.findOne({'product_id': product_id, 'seller_id': seller_id, 'buyer_id': Meteor.userId()})
 
   var cart_id = cart_details._id
-  var buyer_id = cart_details.buyer_id;
-  var seller_id = cart_details.seller_id;
+  var buyer_id = Meteor.userId()
+
   var address = cart_details.address;
   var quantity = cart_details.quantity;
   var serving_option = cart_details.serving_option;
@@ -290,28 +324,17 @@ function order_record_insert(array_value){
   if(transaction ){
   var transaction_no = parseInt(transaction.transaction_no) + 1
   console.log(transaction_no)
+  console.log(7)
   }else{
   var transaction_no = 1
   console.log(transaction_no)
+  console.log(8)
   }
 
 
-
+  console.log(9)
   Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, address, serving_option, serve_date, serve_time, stripeToken)
-
+  console.log(10)
   Meteor.call('shopping_cart.remove',cart_id)
+
 }
-
-
-  setTimeout(shopping_cart.forEach(order_record_insert), 200000)
-  Session.delete('token_no')
-
-
-
-
-
-
-
-})
-}
-})

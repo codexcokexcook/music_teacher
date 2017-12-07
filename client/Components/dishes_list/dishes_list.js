@@ -97,13 +97,14 @@ Template.dishes_card_layout.events({
     var dish_id = dish_details._id;
     var dish_price = dish_details.dish_selling_price;
     var dish_name = dish_details.dish_name;
+    var ready_time = dish_details.cooking_time;
     var quantity = 1;
 
 
     var serving_option = Session.get('method')
     var address = Session.get('address')
     //check if the dish has been put in shopping check_shopping_cart
-    var order = Shopping_cart.findOne({"product_id":this._id, "serving_option": serving_option, "address": address});
+    var order = Shopping_cart.findOne({"product_id":this._id, 'buyer_id':foodie_id});
     var total_price_per_dish = 0;
 
     if (order)
@@ -125,6 +126,7 @@ Template.dishes_card_layout.events({
       homecook_name,
       address,
       serving_option,
+      ready_time,
       dish_id,
       dish_name,
       quantity,
