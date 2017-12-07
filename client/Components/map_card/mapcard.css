@@ -5,7 +5,11 @@
 }
 
 #location_search_input_card {
-  top: -10px;
+  position: absolute;
+  display: inline;
+  top: -5px;
+  margin: 6px;
+  width: 300px;
   height: 60px;
 }
 

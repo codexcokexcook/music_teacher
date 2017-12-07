@@ -6,6 +6,7 @@
         <th>Dish Name</th>
         <th>Cost</th>
         <th>Selling price</th>
+        <th>Take dish online</th>
         <th></th>
         <th></th>
       </tr>
@@ -20,6 +21,9 @@
           <td>{{dish_name}}</td>
           <td>{{dish_cost}}</td>
           <td>{{dish_selling_price}}</td>
+          <td>
+            {{> online_switch}}
+          </td>
           <td><div id="dish_image_list_display">{{> get_dish_image}}</div></td>
           <td>
             <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent btn_edit_dish" id="edit_dish">

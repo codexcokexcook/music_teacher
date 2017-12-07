@@ -23,7 +23,7 @@ Template.show_room_dish.helpers ({
         kitchen_id[i] = kitchen_info[i]._id;
       }
     }
-    return Dishes.find({kitchen_id: {$in: kitchen_id}});
+    return Dishes.find({kitchen_id: {$in: kitchen_id}, online_status: true});
   }
 });
 
@@ -36,7 +36,7 @@ Template.show_room_menu.helpers ({
         kitchen_id[i] = kitchen_info[i]._id;
       }
     }
-    return Menu.find({kitchen_id: {$in: kitchen_id}});
+    return Menu.find({kitchen_id: {$in: kitchen_id}, online_status: true});
   }
 });
 

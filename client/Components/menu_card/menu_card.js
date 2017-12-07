@@ -35,6 +35,7 @@ Template.menu_card.onRendered(function(){
     this.$('.carousel.carousel-slider').carousel({fullWidth: true});
     $('.card').addClass('hoverable');
     remove_dropdown = $('.dropdown_element').detach();
+    remove_status_switch = $('.online_status').detach();
   }
   if (this.view.parentView.parentView.parentView.name == "Template.view_menu") {
     this.$('.carousel.carousel-slider').carousel({fullWidth: true});

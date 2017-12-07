@@ -37,5 +37,8 @@ Meteor.methods({
         updatedAt: new Date()
       }}
     );
+  },
+  'dish.online'(dish_id, status) {
+    Dishes.update({_id: dish_id},{$set:{online_status: status}});
   }
 });

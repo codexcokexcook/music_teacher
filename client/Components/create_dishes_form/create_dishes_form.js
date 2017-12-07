@@ -505,7 +505,8 @@ Template.create_dishes_form.events({
               condiments_tags: Session.get('condiments_tags'),
               serving_temperature_tags: Session.get('serving_temperature_tags'),
               createdAt: new Date(),
-              updatedAt: new Date()
+              updatedAt: new Date(),
+              online_status: false
            });
            Materialize.toast('Nice! You have created a dish!', 2000, "round red lighten-2");
            Ingredients_temporary.remove({});
