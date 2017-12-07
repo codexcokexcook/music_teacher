@@ -23,11 +23,11 @@ Template.profile_created_menus.helpers({
 });
 
 Template.foodie_profile_card.onRendered(function(){
-  $('body').css('overflow-y','auto');
+  $('body').css('overflow-y','scroll');
 })
 
 Template.homecook_profile_page.onRendered(function(){
-  $('body').css('overflow-y','auto');
+  $('body').css('overflow-y','scroll');
   $('a.homecook_image').remove();
 });
 

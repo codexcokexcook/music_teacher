@@ -7,58 +7,65 @@
 </template>
 
 <template name="start_cooking">
-    {{#if cooking}}
-      {{#each order_cooking}}
-      {{>order_card}}
-      {{/each}}
-    {{else}}
-    <br>
-    <br>
-    <br>
-    <br>
-    <h5>"|-----NO CURRENT COOKING-----|_____|-----NO CURRENT COOKING-----|_____|-----NO CURRENT COOKING-----|_____|-----NO CURRENT COOKING-----|"</h5>
-    <br>
-    <br>
-    <br>
-    <br>
-    {{/if}}
-    {{#if order}}
-      {{#each order_received}}
-        {{>request_card}}
-      {{/each}}
-    {{else}}
-    <br>
-    <br>
-    <br>
-    <br>
-    <h5>"|----------NO NEW ORDER----------|_____|----------NO NEW ORDER----------|_____|----------NO NEW ORDER----------|_____|----------NO NEW ORDER----------|"</h5>
-    <br>
-    <br>
-    <br>
-    <br>
-    {{/if}}
+  <div class = 'section'>
+    <h5>Confirmed Orders</h5>
+    <div class = 'orders_wrapper light-blue lighten-5 valign-wrapper card' id='confirmed_order_wrapper'>
+      {{#if cooking}}
+        {{#each order_cooking}}
+          {{>order_card}}
+        {{/each}}
+      {{else}}
+      <div class = 'row'>
+        <div class = 'col l12 m12 s12 offset-l4'>
+          <h5 class ='center-align white-text'>no pending dishes</h5>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+  <div class = 'section'>
+    <h5>Pending Orders</h5>
+    <div class = 'orders_wrapper light-blue lighten-5 valign-wrapper card' id='pending_order_wrapper'>
+      {{#if order}}
+        {{#each order_received}}
+          {{>request_card}}
+        {{/each}}
+      {{else}}
+        <div class = 'row'>
+          <div class = 'col l12 m12 s12 offset-l4'>
+            <h5 class ='center-align white-text'>no new orders</h5>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
 </template>
 
 <template name='completed_card'>
 </template>
 
 <template name='order_card'>
+  {{set_timer}}
   <div class ='card request_card'>
     <div class = 'card-image'>
       <a class ='btn-floating cooking_card_profile_picture' style="background-image: url(profile_upload/{{foodie_profile_picture}})"></a>
       <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_foodie_name}}</h6>
-       <h6>Trans#: {{get_transaction_no}}</h6>
+      <!--<span id = 'transaction_no' style='line-height: 12px;'><small><strong>Transaction no.:</strong> {{get_transaction_no}}</small></span>-->
+      <div class = 'divider'></div>
     </div>
     <div class = 'card-content'>
+      <div class = 'row'>
+
+      </div>
         <div class = 'row'>
           <div class ='col l3'><img src='/dishes_upload/{{get_dish_image}}' style='height:40px;weight:40px;border-radius:50%;'/></div>
           <div class ='col l6'><strong>{{get_dish_name}}</strong></div>
           <div class ='col l3'><strong>x {{get_dish_qty}}</strong></div>
         </div>
-        <div class = 'row'>
-          <div class ='col l3'>ready in</div>
-          <div class ='col l6'>30:00</div>
-          <div class ='col l3'>mins</div>
+        <div id= 'cooking_timer'>
+          <span style='vertical-align: top;'>ready in </span>
+          <strong style='font-size: 50px;'>{{getCountdown.hours}}</strong><span>hrs </span>
+          <strong style='font-size: 50px;'>{{getCountdown.minutes}}</strong><span>mins </span>
         </div>
     </div>
     <div class = 'card-action'>
@@ -74,6 +81,7 @@
     <div class = 'card-image'>
       <a class ='btn-floating cooking_card_profile_picture' style="background-image: url(profile_upload/{{foodie_profile_picture}})"></a>
       <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_foodie_name}}</h6>
+      <div class = 'divider'></div>
       <!-- #: {{get_transaction_no}} -->
     </div>
     <div class = 'card-content'>

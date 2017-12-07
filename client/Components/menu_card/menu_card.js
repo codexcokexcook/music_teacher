@@ -31,7 +31,7 @@ Template.menu_card.onRendered(function(){
   });
   this.$('.carousel.carousel-slider').carousel({fullWidth: true});
 
-  if (this.view.parentView.parentView.parentView.name == "Template.show_room_menu") {
+  if (this.view.parentView.parentView.parentView.name == "Template.show_room_menu" || this.view.parentView.parentView.parentView.name == "Template.profile_created_menus") {
     this.$('.carousel.carousel-slider').carousel({fullWidth: true});
     $('.card').addClass('hoverable');
     remove_dropdown = $('.dropdown_element').detach();

@@ -1,9 +1,12 @@
 import { Accounts } from 'meteor/accounts-base';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { ReactiveVar } from 'meteor/reactive-var'
 import { search_distinct_in_order_record } from '/imports/functions/shopping_cart.js';
+import { get_time_remaining } from '/imports/functions/get_time_remaining.js';
 
 Template.start_cooking.helpers({
   'cooking': function(){
@@ -33,8 +36,27 @@ Template.start_cooking.helpers({
 
 })
 
+Template.order_card.onDestroyed(function() {
+  var name = String(this);
+  Session.delete(name);
+})
 
 Template.order_card.helpers({
+  'set_timer': function() {
+    var name = String(this);
+    var initial_value  = [];
+    Session.set(name, initial_value);
+
+    Meteor.setInterval(function(){
+      var countdown = get_time_remaining('September 8 2018 14:50:30 UTC-0400');
+      Session.set(name,countdown)
+    },1000)
+  },
+
+  'getCountdown': function(template) {
+    var name = String(this)
+    return Session.get(name);
+  },
 
   'foodie_profile_picture': function(){
     var order = Order_record.findOne({'_id': String(this)})
