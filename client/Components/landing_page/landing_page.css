@@ -4,6 +4,7 @@
   background-image: url("/landing_page/landing_page_background.jpg");
   background-size:cover;
   background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 .top_wrapper {

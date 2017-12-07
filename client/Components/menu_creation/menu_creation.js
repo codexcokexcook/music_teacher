@@ -27,6 +27,7 @@ Template.menu_initiation.events({
 Template.menu_creation_content.onRendered(function(){
   this.$('select').material_select();
   this.$('.modal').modal();
+  $('.create_menu_dishes_selection .switch').remove();
 });
 
 Template.menu_creation_content.events({
@@ -67,7 +68,6 @@ Template.menu_creation_content.events({
     var dishes_details = [];
     var image_id = [];
     for (i=0; i < dishes_id.length; i++){
-      alert('for loop working');
       dishes_details[i] = Dishes.findOne({_id: dishes_id[i]});
       image_id[i] = dishes_details[i].image_id;
     }

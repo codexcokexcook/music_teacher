@@ -9,7 +9,6 @@ h1, h2, h3, h4, h5, h6 {
 body {
   font-family: 'Quicksand', sans-serif;
   color: rgba(0,0,0,0.54);
-  overflow: hidden;
   margin:0;
   padding:0;
 }
@@ -20,7 +19,6 @@ body {
   overflow: hidden !important;
 }
 
-/** Pinterest way to display card **/
 @media (max-width: 869px) {
   .card_container {
     -webkit-column-count: 1;
@@ -31,7 +29,7 @@ body {
     column-gap:           6px;
   }
 }
-/** Pinterest way to display card **/
+
 @media(min-width: 870px) {
   .card_container {
     -webkit-column-count: 2;
