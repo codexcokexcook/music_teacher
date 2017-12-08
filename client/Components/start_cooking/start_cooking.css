@@ -2,7 +2,7 @@
   overflow: hidden;
   display: inline-block;
   height: auto;
-  width: 290px;
+  width: 290px !important;
   margin: 6px !important;
 }
 
@@ -16,11 +16,17 @@
   background-position: center center;
 }
 
+
+
 #foodie_name {
   display: inline-block;
 }
 
 .orders_wrapper {
+  border-radius: 20px;
   min-height: 375px;
   padding: 12px;
+  overflow-x: scroll;
+  width: auto;
+  vertical-align: top;
 }

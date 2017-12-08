@@ -7,36 +7,38 @@
 </template>
 
 <template name="start_cooking">
-  <div class = 'section'>
-    <h5>Confirmed Orders</h5>
-    <div class = 'orders_wrapper light-blue lighten-5 valign-wrapper card' id='confirmed_order_wrapper'>
-      {{#if cooking}}
-        {{#each order_cooking}}
-          {{>order_card}}
-        {{/each}}
-      {{else}}
-      <div class = 'row'>
-        <div class = 'col l12 m12 s12 offset-l4'>
-          <h5 class ='center-align white-text'>no pending dishes</h5>
-        </div>
-      </div>
-      {{/if}}
-    </div>
-  </div>
-  <div class = 'section'>
-    <h5>Pending Orders</h5>
-    <div class = 'orders_wrapper light-blue lighten-5 valign-wrapper card' id='pending_order_wrapper'>
-      {{#if order}}
-        {{#each order_received}}
-          {{>request_card}}
-        {{/each}}
-      {{else}}
+  <div class = 'container'>
+    <div class = 'section'>
+      <h5>Confirmed Orders</h5>
+      <div class = 'orders_wrapper red lighten-5 valign-wrapper' id='confirmed_order_wrapper'>
+        {{#if cooking}}
+          {{#each order_cooking}}
+            {{>order_card}}
+          {{/each}}
+        {{else}}
         <div class = 'row'>
           <div class = 'col l12 m12 s12 offset-l4'>
-            <h5 class ='center-align white-text'>no new orders</h5>
+            <h5 class ='center-align white-text'>no pending dishes</h5>
           </div>
         </div>
-      {{/if}}
+        {{/if}}
+      </div>
+    </div>
+    <div class = 'section'>
+      <h5>Pending Orders</h5>
+      <div class = 'orders_wrapper red lighten-5 valign-wrapper' id='pending_order_wrapper'>
+        {{#if order}}
+          {{#each order_received}}
+            {{>request_card}}
+          {{/each}}
+        {{else}}
+          <div class = 'row'>
+            <div class = 'col l12 m12 s12 offset-l4'>
+              <h5 class ='center-align white-text'>no new orders</h5>
+            </div>
+          </div>
+        {{/if}}
+      </div>
     </div>
   </div>
 </template>
@@ -54,26 +56,32 @@
       <div class = 'divider'></div>
     </div>
     <div class = 'card-content'>
-      <div class = 'row'>
-
-      </div>
         <div class = 'row'>
-          <div class ='col l3'><img src='/dishes_upload/{{get_dish_image}}' style='height:40px;weight:40px;border-radius:50%;'/></div>
-          <div class ='col l6'><strong>{{get_dish_name}}</strong></div>
-          <div class ='col l3'><strong>x {{get_dish_qty}}</strong></div>
+          <table>
+            <tbody>
+              <td><a class ='cooking_card_profile_picture' style="background-image: url(dishes_upload/{{get_dish_image}}"></a></td>
+              <td><strong>{{get_dish_name}}</strong></td>
+              <td><strong>x{{get_dish_qty}}</strong></td>
+            </tbody>
+          </table>
         </div>
         <div id= 'cooking_timer'>
-          <span style='vertical-align: top;'>ready in </span>
-          <strong style='font-size: 50px;'>{{getCountdown.hours}}</strong><span>hrs </span>
-          <strong style='font-size: 50px;'>{{getCountdown.minutes}}</strong><span>mins </span>
+          <p>Service in:</p>
+          <div class = 'center'>
+            {{#if getCountdown.days}}
+              <strong style='font-size: 40px;'>{{this}}</strong><span>days </span>
+            {{/if}}
+            <strong style='font-size: 40px;'>{{getCountdown.hours}}</strong><span>hrs </span>
+            <strong style='font-size: 40px;'>{{getCountdown.minutes}}</strong><span>mins </span>
+          </div>
         </div>
     </div>
     <div class = 'card-action'>
       <div class = 'center'>
-        <a class="waves-effect waves-light btn-floating blue darken-4" id='ready_{{this}}' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='ready_{{this}}' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <template name='request_card'>
@@ -86,17 +94,19 @@
     </div>
     <div class = 'card-content'>
       {{#each ordered_dish}}
-        <div class = 'row'>
-          <div class ='col l3'><img src='/dishes_upload/{{get_dish_image}}' style='height:40px;weight:40px;border-radius:50%;'/></div>
-          <div class ='col l6'><strong>{{get_dish_name}}</strong></div>
-          <div class ='col l3'><strong>x {{get_dish_qty}}</strong></div>
-        </div>
+        <table>
+          <tbody>
+            <td><a class ='cooking_card_profile_picture' style="background-image: url(dishes_upload/{{get_dish_image}}"></a></td>
+            <td><strong>{{get_dish_name}}</strong></td>
+            <td><strong>x{{get_dish_qty}}</strong></td>
+          </tbody>
+        </table>
       {{/each}}
     </div>
     <div class = 'card-action'>
       <div class = 'center'>
-        <a class="waves-effect waves-light btn-floating blue darken-4" id='accept' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
-        <a class="waves-effect waves-light btn-floating blue darken-4" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='accept' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
     </div>
     </div>
   </div>

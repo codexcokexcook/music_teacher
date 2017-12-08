@@ -39,7 +39,7 @@ Template.menu_card.onRendered(function(){
   }
   if (this.view.parentView.parentView.parentView.name == "Template.view_menu") {
     this.$('.carousel.carousel-slider').carousel({fullWidth: true});
-    remove_order = $('.card-action').detach();
+    remove_order = $('#menu_card .card-action').detach();
   }
 });
 

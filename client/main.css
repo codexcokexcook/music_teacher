@@ -19,6 +19,11 @@ body {
   overflow: hidden !important;
 }
 
+.card-action {
+  border-radius: 0px 0px 20px 20px !important;
+  z-index: 0;
+}
+
 @media (max-width: 869px) {
   .card_container {
     -webkit-column-count: 1;

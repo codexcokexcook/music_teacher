@@ -6,7 +6,7 @@ import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { ReactiveVar } from 'meteor/reactive-var'
 import { search_distinct_in_order_record } from '/imports/functions/shopping_cart.js';
-import { get_time_remaining } from '/imports/functions/get_time_remaining.js';
+import { date_time_conversion } from '/imports/functions/date_time_conversion.js';
 
 Template.start_cooking.helpers({
   'cooking': function(){
@@ -46,9 +46,13 @@ Template.order_card.helpers({
     var name = String(this);
     var initial_value  = [];
     Session.set(name, initial_value);
+    var order = Order_record.findOne({'_id': String(this)});
+    var date_time = Date.parse(order.serve_date +'T'+ order.serve_time);
+    console.log(date_time);
 
     Meteor.setInterval(function(){
-      var countdown = get_time_remaining('September 8 2018 14:50:30 UTC-0400');
+      var time_remaining = new Date() - date_time;
+      var countdown = date_time_conversion(time_remaining);
       Session.set(name,countdown)
     },1000)
   },

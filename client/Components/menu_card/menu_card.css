@@ -1,10 +1,7 @@
 #menu_card {
   overflow: hidden;
   width: 290px;
-  min-height: inherit;
   display: inline-block;
-  border-radius: 20px;
-  z-index: 3;
 }
 
 .dropdown_element {
