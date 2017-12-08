@@ -24,10 +24,10 @@ Meteor.methods({
     seller_id,
     product_id,
     quantity,
+    total_price,
     address,
     serving_option,
-    serve_date,
-    serve_time,
+    ready_time,
     stripeToken
   ){
     Order_record.insert({
@@ -36,10 +36,10 @@ Meteor.methods({
       seller_id: seller_id,
       product_id: product_id,
       quantity: quantity,
+      total_price: total_price,
       address: address,
       serving_option: serving_option,
-      serve_date: serve_date,
-      serve_time: serve_time,
+      ready_time: ready_time,
       stripeToken: stripeToken,
       status: 'Created',
       createdAt: new Date(),

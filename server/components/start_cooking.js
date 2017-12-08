@@ -7,6 +7,7 @@ Meteor.methods({
     buyer_id,
     seller_id,
     order_id,
+    price_of_cart,
     stripeToken
   ){
     Transactions.insert({
@@ -15,6 +16,7 @@ Meteor.methods({
       seller_id: seller_id,
       'order': [order_id],
       status: 'Received',
+      amount: price_of_cart,
       stripeToken: stripeToken,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -27,6 +29,7 @@ Meteor.methods({
     buyer_id,
     seller_id,
     order_id,
+    total_price_of_transaction,
     stripeToken
   ){Transactions.update(
     { transaction_no: trans_no,
@@ -34,7 +37,9 @@ Meteor.methods({
       seller_id: seller_id,
       stripeToken: stripeToken},
     {'$push':{'order': order_id},
-     '$set': {'updatedAt': new Date()}
+     '$set': {
+       'amount': total_price_of_transaction,
+       'updatedAt': new Date()}
 
   })
   }

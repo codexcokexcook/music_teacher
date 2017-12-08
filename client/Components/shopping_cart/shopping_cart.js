@@ -156,17 +156,17 @@ service_option_list:[
 
     Meteor.setInterval(function(max_cooking_time){
       var max_cooking_time = Session.get('max_cooking_time')
-      var ready_time = Date.now()
+      var ready_time_ms = Date.now()
 
-      ready_time += max_cooking_time*1000*60
+      ready_time_ms += max_cooking_time*1000*60
+      Session.set('ready_time_ms',ready_time_ms)
 
-      ready_time = new Date(ready_time)
-
-      var yyyy = ready_time.getFullYear().toString();
-      var mm = (ready_time.getMonth()+1).toString();
-      var dd  = ready_time.getDate().toString();
-      var hh = ready_time.getHours().toString();
-      var min = ready_time.getMinutes();
+      var ready_time_string = new Date(ready_time_ms)
+      var yyyy = ready_time_string.getFullYear().toString();
+      var mm = (ready_time_string.getMonth()+1).toString();
+      var dd  = ready_time_string.getDate().toString();
+      var hh = ready_time_string.getHours().toString();
+      var min = ready_time_string.getMinutes();
       if(min<10){
         min = '0'+min.toString()
       }
@@ -282,7 +282,7 @@ function order_record_insert(array_value){
   expYr = $('#exp_year').val()
   amount = Session.get('cart_total_price')*100 /**need modify**/
   profile_details = Profile_details.findOne({user_id: Meteor.userId()})
-  description = 'Blueplate.co - Charge for '+ profile_details.foodie_name;
+  
 
   Stripe.card.createToken({
     number: ccNum,
@@ -315,8 +315,11 @@ function to_order_record_insert(array_value){
   var address = cart_details.address;
   var quantity = cart_details.quantity;
   var serving_option = cart_details.serving_option;
-  var serve_date = $('#serve_date').val();
-  var serve_time = $('#serve_time').val();
+
+  var ready_time = Session.get('ready_time_ms')
+  console.log(ready_time)
+
+  var total_price = cart_details.total_price_per_dish
 
   var stripeToken = Session.get('token_no')
 
@@ -333,7 +336,7 @@ function to_order_record_insert(array_value){
 
 
   console.log(9)
-  Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, address, serving_option, serve_date, serve_time, stripeToken)
+  Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken)
   console.log(10)
   Meteor.call('shopping_cart.remove',cart_id)
 

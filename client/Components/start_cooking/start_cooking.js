@@ -163,50 +163,72 @@ Template.request_card.events({
 
     var buyer_id = String(this)
     var seller_id = Meteor.userId()
-    var trans_no = Order_record.findOne({'buyer_id': buyer_id, 'seller_id': seller_id, 'status': 'Created'}).transaction_no
+    var order = Order_record.findOne({'buyer_id': buyer_id, 'seller_id': seller_id, 'status': 'Created'})
+    var trans_no = parseInt(order.transaction_no)
     var product =  Order_record.find({'buyer_id': buyer_id, 'seller_id': seller_id, 'transaction_no': trans_no, 'status': 'Created'}).fetch()
 
     product.forEach(add_order_to_transaction)
+
+    charge_card(buyer_id, seller_id, trans_no)//used timeout to make sure transaction insert finished before charing card
+
+
 
     function add_order_to_transaction(array_value, index){
 
 setTimeout(function(){
       var order = array_value
       console.log(order)
-      var trans_no = String(order.transaction_no)
+      var trans_no = parseInt(String(order.transaction_no))
       var order_id = String(order._id)
       var buyer_id = String(order.buyer_id)
       var seller_id = String(order.seller_id)
       var product_id = String(order.product_id)
       var quantity = String(order.quantity)
-      var serve_date = String(order.serve_date)
-      var serve_time = String(order.serve_time)
+      var ready_time = String(order.ready_time)
       var serving_option = String(order.serving_option)
+
+      //get the price of each cart and calculating a total for this transaction
+      var price_of_cart = parseInt(String(order.total_price))
+      console.log(price_of_cart)
+
       var status = String(order.status)
       var stripeToken = String(order.stripeToken)
 
 
-
-      var check = Transactions.find({'buyer_id': buyer_id, 'seller_id': seller_id, 'transaction_no': trans_no}).fetch()
-      console.log(check.length)
-      if(check.length >0){
+      //check if transactions inserted already, if yes, just insert the order into array
+      var check = Transactions.findOne({'buyer_id': buyer_id, 'seller_id': seller_id, 'transaction_no': trans_no})
+      console.log(check)
+      if(check){
         console.log(1)
-        Meteor.call('transactions.update', trans_no, buyer_id, seller_id, order_id, stripeToken)
-        Meteor.call('order_record.accepted', order_id)
+        var total_price_of_transaction = parseInt(check.amount)//check the amount in the transaction collection
+        total_price_of_transaction += parseInt(price_of_cart)//add the cart_price into the transaction table
+        Meteor.call('transactions.update', trans_no, buyer_id, seller_id, order_id, total_price_of_transaction, stripeToken)//update the transaction
+        Meteor.call('order_record.accepted', order_id)//update the order to cooking
       }else{
         console.log(2)
-
-        Meteor.call('transactions.insert', trans_no, buyer_id, seller_id, order_id, stripeToken)
-        Meteor.call('order_record.accepted', order_id)
+        if(serving_option === 'Delivery'){price_of_cart += 50}//delivery cost, should have a variable table
+        Meteor.call('transactions.insert', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken)//insert to transaction
+        Meteor.call('order_record.accepted', order_id)//update the order to cooking
       }
 
 
 
-  },1000*index)
+  },100*index)
 
 }
-
-
+    function charge_card (buyer_id, seller_id, trans_no){
+      setTimeout(function (){
+        console.log(buyer_id, seller_id, trans_no)
+    var transaction = Transactions.findOne({'buyer_id': buyer_id, 'seller_id': seller_id, 'transaction_no': trans_no})
+        console.log(transaction)
+    var homecook = Kitchen_details.findOne({'user_id':Meteor.userId()})
+    var stripeToken = transaction.stripeToken
+    var amount = transaction.amount
+    var description = 'Blueplate.co - Charge for '+ homecook.kitchen_name;
+    console.log(stripeToken, amount, description)
+    Meteor.call('chargeCard', stripeToken, amount, description);
+  }, 3*1000)
+  }
   },
 
   'click #reject': function(){
