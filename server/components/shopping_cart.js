@@ -9,7 +9,7 @@ Meteor.methods({
     var Stripe = StripeAPI('sk_test_K51exlBQovfRkYAag2TKbzjl');
 
     Stripe.charges.create({
-      amount: amount,
+      amount: amount*100,
       currency: 'hkd',
       source: stripeToken,
       description: description
