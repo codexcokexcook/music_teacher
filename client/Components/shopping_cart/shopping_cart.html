@@ -98,7 +98,7 @@
       <h6>Earliest Ready Time:</h6>
     </div>
     <div class="text-field col l3 m3 s6 valign">
-        {{get_ready_date}} 
+        {{get_ready_date}}
         {{get_ready_time}}
       </div>
   </div>
@@ -106,12 +106,14 @@
     <div class ='row col l3 offset-l3 valign'>
       <h6>Prefered Ready Time:</h6>
     </div>
+    <div class = 'col l6'  id="pefered_time">
     <div class="text-field col l3 m3 s6 valign">
-        <input class ="datepicker" id="serve_date" name="serve_date" type="text" style='format: dd/mm/yyyy; text-align: center;' value={{get_ready_date}}>
+        <input class ="datepicker" id="serve_date" name="serve_date" type="text" style='format: dd/mm/yyyy; text-align: center;'>
       </div>
       <div class="text-field col l3 m3 s6 valign">
-          <input class ="timepicker" id="serve_time" name="serve_time" type="text" style='text-align: center;' value="{{get_ready_time}}">
+          <input class ="timepicker" id="serve_time" name="serve_time" type="text" style='format: 24hh:mm; text-align: center;'>
         </div>
+      </div>
   </div>
 
     {{else}}

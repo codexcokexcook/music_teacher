@@ -80,14 +80,17 @@ Template.sc_serving_details.onRendered(function() {
   $('.timepicker').pickatime({
    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
    fromnow: Session.get('max_cooking_time')*1000*60,       // set default time to * milliseconds from now (using with default = 'now')
-   twelvehour: true, // Use AM/PM or 24-hour format
+   twelvehour: false, // Use AM/PM or 24-hour format
    donetext: 'OK', // text for done-button
    cleartext: 'Clear', // text for clear-button
    canceltext: 'Cancel', // Text for cancel-button
    autoclose: false, // automatic close timepicker
    ampmclickable: true, // make AM PM clickable
-   aftershow: function(){} //Function for after opening timepicker
+   aftershow: function(){
+
+   } //Function for after opening timepicker
  });
+
 
 })
 
@@ -161,6 +164,8 @@ service_option_list:[
       ready_time_ms += max_cooking_time*1000*60
       Session.set('ready_time_ms',ready_time_ms)
 
+
+
       var ready_time_string = new Date(ready_time_ms)
       var yyyy = ready_time_string.getFullYear().toString();
       var mm = (ready_time_string.getMonth()+1).toString();
@@ -208,6 +213,35 @@ Template.sc_serving_details.events({
       serving_option,
       )
     },
+
+    'click #pefered_time':function(event){
+      var serve_date = $('#serve_date').val()
+      var serve_time = $('#serve_time').val()
+      var yyyy = serve_date[6]+serve_date[7]+serve_date[8]+serve_date[9]
+      var mm = parseInt(serve_date[3]+serve_date[4]) - 1
+      var dd = serve_date[0]+serve_date[1]
+      var hh = serve_time[0]+serve_time[1]
+      var min = serve_time[3]+serve_time[4]
+      serve_date = new Date(yyyy, mm, dd, hh, min)
+      serve_date = Date.parse(serve_date)
+      Session.set('perfered_time_ms', serve_date)
+
+    },
+
+    'change #serve_date':function(event){
+      var serve_date = $('#serve_date').val()
+      var serve_time = $('#serve_time').val()
+      var yyyy = serve_date[6]+serve_date[7]+serve_date[8]+serve_date[9]
+      var mm = parseInt(serve_date[3]+serve_date[4]) - 1
+      var dd = serve_date[0]+serve_date[1]
+      var hh = serve_time[0]+serve_time[1]
+      var min = serve_time[3]+serve_time[4]
+      serve_date = new Date(yyyy, mm, dd, hh, min)
+      serve_date = Date.parse(serve_date)
+      Session.set('perfered_time_ms', serve_date)
+
+    }
+
 
 })
 
@@ -318,7 +352,6 @@ function to_order_record_insert(array_value){
   var serving_option = cart_details.serving_option;
 
   var ready_time = Session.get('ready_time_ms')
-  console.log(ready_time)
 
   var total_price = cart_details.total_price_per_dish
 
@@ -336,10 +369,18 @@ function to_order_record_insert(array_value){
   }
 
 
-  console.log(9)
-  Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken)
-  console.log(10)
-  Meteor.call('shopping_cart.remove',cart_id)
-  console.log(11)
-  Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
+  if(parseInt(Session.get('perfered_time')) > parseInt(Session.get('ready_time'))){
+    var ready_time = Session.get('perfered_time_ms')
+
+    console.log(9)
+    Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken)
+    console.log(10)
+    Meteor.call('shopping_cart.remove',cart_id)
+    console.log(11)
+    Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
+
+  }else{
+    Bert.alert("Perfered Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
+  }
+
 }
