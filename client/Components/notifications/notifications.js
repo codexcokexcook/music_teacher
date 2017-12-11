@@ -9,7 +9,7 @@ Template.notifications.helpers({
           notification.onclick = function(event) {
           event.preventDefault(); // prevent the browser from focusing the Notification's tab
           if (doc.title === 'New incoming order') {
-            window.open('http://localhost:3000/cooking/', '_blank');
+            window.open('/cooking/orders', '_blank');
           }
           Meteor.call('notification.update', id);
         }
