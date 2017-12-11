@@ -47,11 +47,11 @@ Template.order_card.helpers({
     var initial_value  = [];
     Session.set(name, initial_value);
     var order = Order_record.findOne({'_id': String(this)});
-    var date_time = Date.parse(order.serve_date +'T'+ order.serve_time);
+    var date_time = order.ready_time;
     console.log(date_time);
 
     Meteor.setInterval(function(){
-      var time_remaining = new Date() - date_time;
+      var time_remaining = date_time - new Date();
       var countdown = date_time_conversion(time_remaining);
       Session.set(name,countdown)
     },1000)
@@ -210,9 +210,6 @@ setTimeout(function(){
         Meteor.call('transactions.insert', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken)//insert to transaction
         Meteor.call('order_record.accepted', order_id)//update the order to cooking
       }
-
-
-
   },100*index)
 
 }
@@ -229,15 +226,13 @@ setTimeout(function(){
     Meteor.call('chargeCard', stripeToken, amount, description);
   }, 3*1000)
   }
+  Meteor.call('notification.confirm_order',seller_id, buyer_id);
   },
 
   'click #reject': function(){
 
     var buyer_id = String(this)
     console.log(buyer_id)
-
-
-
 
   }
 

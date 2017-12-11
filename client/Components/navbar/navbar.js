@@ -39,35 +39,36 @@ Template.bp_navbar.onRendered(function(){
       $('#office_location').val(profile_details.office_address);
       $('#pin_location').val("pin_location");
       if (profile_details.home_address && profile_details.office_address) {
-        this.$('select').material_select();
+        //this.$('select').material_select();
         $('#home_location').val(profile_details.home_address);
         $('#office_location').val(profile_details.office_address);
         $('#pin_location').val("pin_location");
       } else if (!profile_details.home_address) {
         $('#home_location').prop('disabled', true);
-        $('select').material_select();
+        //$('select').material_select();
         $('#office_location').val(profile_details.office_address);
         $('#pin_location').val("pin_location");
       } else if (!profile_details.office_address){
         $('#office_location').prop('disabled', true);
-        this.$('select').material_select();
+        //this.$('select').material_select();
         $('#home_location').val(profile_details.home_address);
         $('#pin_location').val("pin_location");
       } else {
         $('#home_location').prop('disabled', true);
         $('#office_location').prop('disabled', true);
-        this.$('select').material_select();
+        //this.$('select').material_select();
         $('#pin_location').val("pin_location");
       }
     } else {
       $('#home_location').prop('disabled', true);
       $('#office_location').prop('disabled', true);
-      this.$('select').material_select();
+      //this.$('select').material_select();
       $('#pin_location').val("pin_location");
     }
     if (!navigator.geolocation) {
       $('#current_location').prop('disabled', true);
     }
+    this.$('select').material_select();
   });
 });
 

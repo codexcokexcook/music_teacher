@@ -271,9 +271,10 @@ Template.sc_payment.events({
   console.log(2)
   setTimeout(sellers.forEach(order_record_insert), 200000)
 
-
 }
 })
+
+
 function order_record_insert(array_value){
   console.log(3)
   ccNum = $('#card_no').val()
@@ -282,7 +283,7 @@ function order_record_insert(array_value){
   expYr = $('#exp_year').val()
   amount = Session.get('cart_total_price')*100 /**need modify**/
   profile_details = Profile_details.findOne({user_id: Meteor.userId()})
-  
+
 
   Stripe.card.createToken({
     number: ccNum,
@@ -339,5 +340,6 @@ function to_order_record_insert(array_value){
   Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken)
   console.log(10)
   Meteor.call('shopping_cart.remove',cart_id)
-
+  console.log(11)
+  Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
 }

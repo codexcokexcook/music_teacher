@@ -3,7 +3,6 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 Order_record = new Mongo.Collection('order_record');
 
-
 Meteor.methods({
   'chargeCard': function(stripeToken, amount, description) {
     var Stripe = StripeAPI('sk_test_K51exlBQovfRkYAag2TKbzjl');
@@ -44,22 +43,23 @@ Meteor.methods({
       status: 'Created',
       createdAt: new Date(),
       updatedAt: new Date()
-
     })
-
   },
 
-  'order_record.accepted'(
-    order_id
-  ){Order_record.update(
+  'order_record.accepted'(order_id){
+    Order_record.update(
     {_id: order_id},
-    {$set:{status: 'Cooking',
-           updatedAt: new Date()
-          }
-    }
+    {$set:{status: 'Cooking', updatedAt: new Date()}}
+    )
+  },
 
-  )}
-
-
-
+  'order_record.notify_buyer'(buyer_id){
+    Order_record.find(
+      {buyer_id: buyer_id, status: "Created"},
+      { sort: { _id: -1 }, limit: 1 }).observeChanges({
+        added: function(id, order_details) {
+          console.log('test');
+        }
+      })
+  }
 });
