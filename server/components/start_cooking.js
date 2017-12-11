@@ -24,7 +24,7 @@ Meteor.methods({
   },
 
 
-  'transactions.update'(
+  'transactions.accepted'(
     trans_no,
     buyer_id,
     seller_id,
