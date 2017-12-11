@@ -48,13 +48,21 @@ Template.order_card.helpers({
     Session.set(name, initial_value);
     var order = Order_record.findOne({'_id': String(this)});
     var date_time = order.ready_time;
-    console.log(date_time);
 
-    Meteor.setInterval(function(){
-      var time_remaining = date_time - new Date();
-      var countdown = date_time_conversion(time_remaining);
-      Session.set(name,countdown)
+    countdown = Meteor.setInterval(function(){
+      var time_remaining = date_time_conversion(date_time, new Date().getTime());
+      Session.set(name,time_remaining)
     },1000)
+  },
+
+  'time_is_up': function() {
+    var time = Session.get(this);
+    if (parseInt(time.days) < 0 || parseInt(time.hours) < 0 || parseInt(time.minutes) < 0) {
+      Meteor.clearInterval(this.countdown);
+      return true;
+    } else {
+      return false;
+    }
   },
 
   'getCountdown': function(template) {

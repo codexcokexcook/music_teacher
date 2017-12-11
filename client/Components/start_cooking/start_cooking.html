@@ -1,43 +1,46 @@
-<template name="cooking_screen">
-    {{> Template.dynamic template = navbar}}
-  <br>
-  <div class = "render_component">
-    {{> Template.dynamic template = render_component}}
-  </div>
-</template>
-
 <template name="start_cooking">
+  {{> check_kitchen_profile}}
   <div class = 'container'>
-    <div class = 'section'>
-      <h5>Confirmed Orders</h5>
-      <div class = 'orders_wrapper red lighten-5 valign-wrapper' id='confirmed_order_wrapper'>
-        {{#if cooking}}
-          {{#each order_cooking}}
-            {{>order_card}}
-          {{/each}}
-        {{else}}
-        <div class = 'row'>
-          <div class = 'col l12 m12 s12 offset-l4'>
-            <h5 class ='center-align white-text'>no pending dishes</h5>
+    <div class = 'row'>
+      <div class = 'col l12 m12 s12'>
+        <div class = 'section'>
+          <h5>Pending Orders</h5>
+          <div class = 'orders_wrapper red lighten-5 valign-wrapper' id='pending_order_wrapper'>
+            {{#if order}}
+              <div class = 'row'>
+                {{#each order_received}}
+                  {{>request_card}}
+                {{/each}}
+              </div>
+            {{else}}
+              <div class = 'row'>
+                <div class = 'col l12 m12 s12 offset-l4'>
+                  <h5 class ='center-align white-text'>no new orders</h5>
+                </div>
+              </div>
+            {{/if}}
           </div>
         </div>
-        {{/if}}
       </div>
-    </div>
-    <div class = 'section'>
-      <h5>Pending Orders</h5>
-      <div class = 'orders_wrapper red lighten-5 valign-wrapper' id='pending_order_wrapper'>
-        {{#if order}}
-          {{#each order_received}}
-            {{>request_card}}
-          {{/each}}
-        {{else}}
-          <div class = 'row'>
-            <div class = 'col l12 m12 s12 offset-l4'>
-              <h5 class ='center-align white-text'>no new orders</h5>
+      <div class = 'col l12 m12 s12'>
+        <div class = 'section'>
+          <h5>Confirmed Orders</h5>
+          <div class = 'orders_wrapper red lighten-5 valign-wrapper' id='confirmed_order_wrapper'>
+            {{#if cooking}}
+              <div class = 'row'>
+                {{#each order_cooking}}
+                  {{>order_card}}
+                {{/each}}
+              </div>
+            {{else}}
+            <div class = 'row'>
+              <div class = 'col l12 m12 s12 offset-l4'>
+                <h5 class ='center-align white-text'>no pending dishes</h5>
+              </div>
             </div>
+            {{/if}}
           </div>
-        {{/if}}
+        </div>
       </div>
     </div>
   </div>
@@ -65,16 +68,22 @@
             </tbody>
           </table>
         </div>
-        <div id= 'cooking_timer'>
-          <p>Service in:</p>
-          <div class = 'center'>
-            {{#if getCountdown.days}}
-              <strong style='font-size: 40px;'>{{this}}</strong><span>days </span>
-            {{/if}}
-            <strong style='font-size: 40px;'>{{getCountdown.hours}}</strong><span>hrs </span>
-            <strong style='font-size: 40px;'>{{getCountdown.minutes}}</strong><span>mins </span>
+        {{#if time_is_up}}
+          <div id = 'times_up_display center'>
+            <strong style='font-size: 40px;'>Time is up</strong>
           </div>
-        </div>
+        {{else}}
+          <div id= 'cooking_timer'>
+            <p>Service in:</p>
+            <div class = 'center'>
+              {{#if getCountdown.days}}
+                <strong style='font-size: 40px;'>{{this}}</strong><span>days </span>
+              {{/if}}
+              <strong style='font-size: 40px;'>{{getCountdown.hours}}</strong><span>hrs </span>
+              <strong style='font-size: 40px;'>{{getCountdown.minutes}}</strong><span>mins </span>
+            </div>
+          </div>
+        {{/if}}
     </div>
     <div class = 'card-action'>
       <div class = 'center'>

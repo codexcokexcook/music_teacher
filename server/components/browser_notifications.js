@@ -4,7 +4,6 @@ Notifications = new Mongo.Collection('notifications');
 
 Meteor.methods({
   'notification.place_order'(seller_id, buyer_id, product_id, quantity){
-
     var buyer_name = Profile_details.findOne({user_id: buyer_id}).foodie_name;
     var dish_name = Dishes.findOne({_id: product_id}).dish_name;
     var title = 'New incoming order';
@@ -39,6 +38,16 @@ Meteor.methods({
     var seller_name = Kitchen_details.findOne({user_id: seller_id}).chef_name;
     var title = 'Your order is rejected';
     var message = 'Unfortunately, ' + seller_name + ' has just rejected your order.';
+
+    Notifications.insert({
+      receiver_id: buyer_id,
+      sender_id: seller_id,
+      title: title,
+      content: message,
+      read: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
   },
   'notification.update'(id) {
     Notifications.update(

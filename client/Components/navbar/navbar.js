@@ -6,30 +6,31 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import { Tracker } from 'meteor/tracker';
 import { get_current_location } from '/imports/functions/get_current_location.js';
 
+Template.navbar.onRendered(function(){
+  //activate slideNav
+  this.$(".nav_brand_logo").sideNav({
+     menuWidth: 300, // Default is 300
+     edge: 'left', // Choose the horizontal origin
+     closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+     draggable: true // Choose whether you can drag to open on touch screens,
+     //onOpen: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is opened
+     //onClose: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is closed
+   });
+});
+
 Template.bp_navbar.onRendered(function(){
   //dropdown options
-  this.$('.dropdown-button').dropdown({
-     inDuration: 300,
-     outDuration: 225,
-     constrainWidth: false, // Does not change width of dropdown to that of the activator
-     hover: false, // Activate on hover
-     gutter: 0, // Spacing from edge
-     belowOrigin: true, // Displays dropdown below the button
-     alignment: 'left', // Displays dropdown with edge aligned to the left of button
-     stopPropagation: true // Stops event propagation
+/*  this.$('.dropdown-button').dropdown({
+    inDuration: 300,
+    outDuration: 225,
+    constrainWidth: false, // Does not change width of dropdown to that of the activator
+    hover: false, // Activate on hover
+    gutter: 0, // Spacing from edge
+    belowOrigin: true, // Displays dropdown below the button
+    alignment: 'left', // Displays dropdown with edge aligned to the left of button
+    stopPropagation: true // Stops event propagation
    }
- );
-
- //activate slideNav
- this.$(".nav_brand_logo").sideNav({
-      menuWidth: 300, // Default is 300
-      edge: 'left', // Choose the horizontal origin
-      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-      draggable: false // Choose whether you can drag to open on touch screens,
-      //onOpen: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is opened
-      //onClose: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is closed
-    });
-
+ ); */
 
   // activate location dropdown based on addresses available in profile details
   Tracker.autorun(()=> {
@@ -73,6 +74,14 @@ Template.bp_navbar.onRendered(function(){
 });
 
 Template.bp_navbar.helpers ({
+  "check_shopping_cart": function(){
+    var total_item_in_cart = 0;
+    Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
+      total_item_in_cart += parseInt(doc.quantity);
+    });
+    return total_item_in_cart;
+  },
+
  location_option_list:[
    {location_option: 'Home', option:'Home', id:'home_location'},
    {location_option: 'Office', option:'Office', id:'office_location'},
@@ -83,28 +92,49 @@ Template.bp_navbar.helpers ({
    { service_option: 'Pick-up', option:'Pick-up'},
    { service_option: 'Delivery', option:'Delivery'},
    { service_option: 'Dine-in', option:'Dine-in'},
- ],
-   "check_shopping_cart": function(){
-     var total_item_in_cart = 0;
-     Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
-       total_item_in_cart += parseInt(doc.quantity);
-     });
-     return total_item_in_cart;
-   }
+ ]
 });
 
-Template.bp_navbar.events({
-  'click .dropdown-button': function() {
-    $('.dropdown-button').dropdown('open');
+Template.navbar.events({
+  'click .navbar_profile_logo': function() {
+    FlowRouter.go('/profile');
   },
- 'click #profile_link': function () {
-   FlowRouter.go('/profile');
- },
- 'click #all_link': function () {
+ 'click #food_search': function () {
    FlowRouter.go('/main');
  },
- 'click #i_wanna_cook': function () {
-   FlowRouter.go('/cooking');
+ 'click #shopping_cart': function() {
+   FlowRouter.go('/shopping_cart');
+ },
+ 'click #cooking_dashboard': function () {
+   FlowRouter.go('/cooking/dashboard');
+   $('#top_nav_cooking_dashboard').addClass('active');
+   $('#top_nav_manage_dishes').removeClass('active');
+   $('#top_nav_manage_menus').removeClass('active');
+   $('#top_nav_manage_orders').removeClass('active');
+ },
+ 'click #manage_dishes': function() {
+   FlowRouter.go('/cooking/dishes');
+   $('#top_nav_cooking_dashboard').removeClass('active');
+   $('#top_nav_manage_dishes').addClass('active');
+   $('#top_nav_manage_menus').removeClass('active');
+   $('#top_nav_manage_orders').removeClass('active');
+ },
+ 'click #manage_menus': function() {
+   FlowRouter.go('/cooking/menus');
+   $('#top_nav_cooking_dashboard').removeClass('active');
+   $('#top_nav_manage_dishes').removeClass('active');
+   $('#top_nav_manage_menus').addClass('active');
+   $('#top_nav_manage_orders').removeClass('active');
+ },
+ 'click #manage_orders': function() {
+   FlowRouter.go('/cooking/orders');
+   $('#top_nav_cooking_dashboard').removeClass('active');
+   $('#top_nav_manage_dishes').removeClass('active');
+   $('#top_nav_manage_menus').removeClass('active');
+   $('#top_nav_manage_orders').addClass('active');
+ },
+ 'click #profile_link': function () {
+   FlowRouter.go('/profile');
  },
  'click #logout_link': function () {
    Meteor.call('messages.clear',Meteor.userId());
@@ -112,6 +142,9 @@ Template.bp_navbar.events({
    Meteor.logout();
    FlowRouter.go('/');
  },
+});
+
+Template.bp_navbar.events({
  'change #by_place': function(event, template){
    var location_value = $(event.currentTarget).val();
    if (location_value === "pin_location") {
@@ -136,3 +169,37 @@ Template.bp_navbar.events({
    }
  }
 });
+
+Template.cooking_navbar.onRendered(function(){
+})
+
+Template.cooking_navbar.events({
+  'click #top_nav_cooking_dashboard': function () {
+    FlowRouter.go('/cooking/dashboard');
+    $('#top_nav_cooking_dashboard').addClass('active');
+    $('#top_nav_manage_dishes').removeClass('active');
+    $('#top_nav_manage_menus').removeClass('active');
+    $('#top_nav_manage_orders').removeClass('active');
+  },
+  'click #top_nav_manage_dishes': function() {
+    FlowRouter.go('/cooking/dishes');
+    $('#top_nav_cooking_dashboard').removeClass('active');
+    $('#top_nav_manage_dishes').addClass('active');
+    $('#top_nav_manage_menus').removeClass('active');
+    $('#top_nav_manage_orders').removeClass('active');
+  },
+  'click #top_nav_manage_menus': function() {
+    FlowRouter.go('/cooking/menus');
+    $('#top_nav_cooking_dashboard').removeClass('active');
+    $('#top_nav_manage_dishes').removeClass('active');
+    $('#top_nav_manage_menus').addClass('active');
+    $('#top_nav_manage_orders').removeClass('active');
+  },
+  'click #top_nav_manage_orders': function() {
+    FlowRouter.go('/cooking/orders');
+    $('#top_nav_cooking_dashboard').removeClass('active');
+    $('#top_nav_manage_dishes').removeClass('active');
+    $('#top_nav_manage_menus').removeClass('active');
+    $('#top_nav_manage_orders').addClass('active');
+  },
+})
