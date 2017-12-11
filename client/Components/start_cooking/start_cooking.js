@@ -278,7 +278,7 @@ setTimeout(function(){
 
 
   },100*index)
-
+  Meteor.call('notification.reject_order',seller_id, buyer_id);
 }
   }
 
