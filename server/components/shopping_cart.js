@@ -46,12 +46,29 @@ Meteor.methods({
     })
   },
 
-  'order_record.accepted'(order_id){
-    Order_record.update(
-    {_id: order_id},
-    {$set:{status: 'Cooking', updatedAt: new Date()}}
-    )
+  'order_record.accepted'(
+    order_id
+  ){
+    Order_record.update({
+      _id: order_id}, {
+        $set:{
+          status: 'Cooking',
+           updatedAt: new Date()
+          }
+    })
   },
+
+  'order_record.rejected'(
+    order_id
+  ){
+    Order_record.update({
+      _id: order_id}, {
+        $set:{
+          status: 'Rejected',
+          updatedAt: new Date()
+        }
+      })
+    },
 
   'order_record.notify_buyer'(buyer_id){
     Order_record.find(

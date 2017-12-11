@@ -2,7 +2,7 @@ Transactions = new Mongo.Collection('transactions');
 
 Meteor.methods({
 
-  'transactions.insert'(
+  'transactions.accepted'(
     trans_no,
     buyer_id,
     seller_id,
@@ -15,7 +15,7 @@ Meteor.methods({
       buyer_id: buyer_id,
       seller_id: seller_id,
       'order': [order_id],
-      status: 'Received',
+      status: 'Accepted',
       amount: price_of_cart,
       stripeToken: stripeToken,
       createdAt: new Date(),
@@ -42,6 +42,27 @@ Meteor.methods({
        'updatedAt': new Date()}
 
   })
-  }
+},
+
+  'transactions.rejected'(
+    trans_no,
+    buyer_id,
+    seller_id,
+    order_id,
+    price_of_cart,
+    stripeToken
+  ){
+    Transactions.insert({
+      transaction_no: trans_no,
+      buyer_id: buyer_id,
+      seller_id: seller_id,
+      'order': [order_id],
+      status: 'Rejected',
+      amount: price_of_cart,
+      stripeToken: stripeToken,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+  },
 
 })

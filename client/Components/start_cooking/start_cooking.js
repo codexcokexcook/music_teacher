@@ -177,7 +177,6 @@ Template.request_card.events({
 
 setTimeout(function(){
       var order = array_value
-      console.log(order)
       var trans_no = parseInt(String(order.transaction_no))
       var order_id = String(order._id)
       var buyer_id = String(order.buyer_id)
@@ -207,7 +206,7 @@ setTimeout(function(){
       }else{
         console.log(2)
         if(serving_option === 'Delivery'){price_of_cart += 50}//delivery cost, should have a variable table
-        Meteor.call('transactions.insert', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken)//insert to transaction
+        Meteor.call('transactions.accepted', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken)//insert to transaction
         Meteor.call('order_record.accepted', order_id)//update the order to cooking
       }
   },100*index)
@@ -232,8 +231,55 @@ setTimeout(function(){
   'click #reject': function(){
 
     var buyer_id = String(this)
-    console.log(buyer_id)
+    var seller_id = Meteor.userId()
+    var order = Order_record.findOne({'buyer_id': buyer_id, 'seller_id': seller_id, 'status': 'Created'})
+    var trans_no = parseInt(order.transaction_no)
+    var product =  Order_record.find({'buyer_id': buyer_id, 'seller_id': seller_id, 'transaction_no': trans_no, 'status': 'Created'}).fetch()
 
+    product.forEach(reject_order)
+
+    function reject_order(array_value, index){
+
+setTimeout(function(){
+      var order = array_value
+      var trans_no = parseInt(String(order.transaction_no))
+      var order_id = String(order._id)
+      var buyer_id = String(order.buyer_id)
+      var seller_id = String(order.seller_id)
+      var product_id = String(order.product_id)
+      var quantity = String(order.quantity)
+      var ready_time = String(order.ready_time)
+      var serving_option = String(order.serving_option)
+
+      //get the price of each cart and calculating a total for this transaction
+      var price_of_cart = parseInt(String(order.total_price))
+      console.log(price_of_cart)
+
+      var status = String(order.status)
+      var stripeToken = String(order.stripeToken)
+
+
+      //check if transactions inserted already, if yes, just insert the order into array
+      var check = Transactions.findOne({'buyer_id': buyer_id, 'seller_id': seller_id, 'transaction_no': trans_no})
+      console.log(check)
+      if(check){
+        console.log(1)
+        var total_price_of_transaction = parseInt(check.amount)//check the amount in the transaction collection
+        total_price_of_transaction += parseInt(price_of_cart)//add the cart_price into the transaction table
+        Meteor.call('transactions.update', trans_no, buyer_id, seller_id, order_id, total_price_of_transaction, stripeToken)//update the transaction
+        Meteor.call('order_record.rejected', order_id)//update the order to cooking
+      }else{
+        console.log(2)
+        if(serving_option === 'Delivery'){price_of_cart += 50}//delivery cost, should have a variable table
+        Meteor.call('transactions.rejected', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken)//insert to transaction
+        Meteor.call('order_record.rejected', order_id)//update the order to cooking
+      }
+
+
+
+  },100*index)
+
+}
   }
 
 
