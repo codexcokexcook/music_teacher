@@ -70,6 +70,18 @@ Meteor.methods({
       })
     },
 
+  'order_record.ready'(
+    order_id
+  ){
+    Order_record.update({
+      _id: order_id}, {
+        $set:{
+          status: 'Ready',
+          updatedAt: new Date()
+        }
+      })
+    },
+
   'order_record.notify_buyer'(buyer_id){
     Order_record.find(
       {buyer_id: buyer_id, status: "Created"},
@@ -78,5 +90,7 @@ Meteor.methods({
           console.log('test');
         }
       })
-  }
+  },
+
+
 });

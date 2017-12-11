@@ -284,3 +284,16 @@ setTimeout(function(){
 
 
 })
+
+Template.order_card.events({
+
+  'click #ready': function(){
+    var order_id = String(this)
+    Meteor.call('order_record.ready', order_id)
+
+
+}
+
+
+
+})
