@@ -23,7 +23,20 @@
 <template name = "dishes_card">
   {{#with dish_details}}
       {{> dishes_card_layout}}
+      {{> confirm_foodie}}
   {{/with}}
+</template>
+
+<template name="confirm_foodie">
+  <div id="confirm_foodie" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h6>Attention</h6>
+      <p>Before order dishes or menu. Please create your profile.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
 </template>
 
 <template name="dishes_card_layout">

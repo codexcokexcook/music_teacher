@@ -20,7 +20,7 @@ Template.info_tabs.onRendered(function(){
 
 
 Template.dishes_thumbnails.onRendered(function(){
-  $('.modal').modal({
+  $('#large_dish_display').modal({
       dismissible: true, // Modal can be dismissed by clicking outside of the modal
       opacity: .5, // Opacity of modal background
       inDuration: 300, // Transition in duration
@@ -87,25 +87,42 @@ Template.dishes_card_layout.events({
     FlowRouter.go(window.open(route,'_blank'));
   },
   'click #place_order': function () {
-    var dish_details = Dishes.findOne({"_id":this._id});
     var foodie_details = Profile_details.findOne({"user_id": Meteor.userId()});
-    var foodie_id = Meteor.userId();
-    var homecook_id = dish_details.user_id;
-    var homecook_details = Kitchen_details.findOne({"user_id": homecook_id});
-    var foodie_name = foodie_details.foodie_name;
-    var homecook_name =  homecook_details.chef_name;
-    var dish_id = dish_details._id;
-    var dish_price = dish_details.dish_selling_price;
-    var dish_name = dish_details.dish_name;
-    var ready_time = dish_details.cooking_time;
-    var quantity = 1;
+    if (typeof foodie_details == 'undefined') {
+      $('#confirm_foodie').modal({
+          dismissible: true, // Modal can be dismissed by clicking outside of the modal
+          opacity: .5, // Opacity of modal background
+          inDuration: 300, // Transition in duration
+          outDuration: 200, // Transition out duration
+          startingTop: '4%', // Starting top style attribute
+          endingTop: '10%', // Ending top style attribute
+          ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+            $('.modal-overlay').last().remove();
+          },
+          complete: function() { FlowRouter.go('/profile') } // Callback for Modal close
+        }
+      );
+      $('#confirm_foodie').modal('open');
+    } else {
+      var dish_details = Dishes.findOne({"_id":this._id});
+      var foodie_id = Meteor.userId();
+      var homecook_id = dish_details.user_id;
+      var homecook_details = Kitchen_details.findOne({"user_id": homecook_id});
+      var foodie_name = foodie_details.foodie_name;
+      var homecook_name =  homecook_details.chef_name;
+      var dish_id = dish_details._id;
+      var dish_price = dish_details.dish_selling_price;
+      var dish_name = dish_details.dish_name;
+      var ready_time = dish_details.cooking_time;
+      var quantity = 1;
 
 
-    var serving_option = Session.get('method')
-    var address = Session.get('address')
-    //check if the dish has been put in shopping check_shopping_cart
-    var order = Shopping_cart.findOne({"product_id":this._id, 'buyer_id':foodie_id});
-    var total_price_per_dish = 0;
+      var serving_option = Session.get('method')
+      var address = Session.get('address')
+      //check if the dish has been put in shopping check_shopping_cart
+      var order = Shopping_cart.findOne({"product_id":this._id, 'buyer_id':foodie_id});
+      var total_price_per_dish = 0;
+    }
 
     if (order)
     {
