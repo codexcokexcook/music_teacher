@@ -1,4 +1,5 @@
 <template name = "dishes_selection">
+  {{> confirm_delete}}
   <table class = "bordered" id="menu_dishes_table">
     <thead>
       <tr>
@@ -37,4 +38,17 @@
       {{/each}}
     </tbody>
   </table>
+</template>
+
+<template name="confirm_delete">
+  <div id="confirm_delete" class="modal">
+    <div class="modal-content">
+      <h6>Are you sure?</h6>
+      <p>Are you sure to delete this dish?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a id="confirm" class="modal-action modal-close waves-effect waves-green btn-flat">Sure</a>
+    </div>
+  </div>
 </template>

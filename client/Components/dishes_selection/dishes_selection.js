@@ -11,9 +11,24 @@ Template.dishes_selection.events({
   Session.set('selected_dishes_id', checked_values);
   },
   'click #delete_dish': function () {
-    Meteor.call('dish.remove', this._id);
-    Meteor.call('dish_image.remove', this.image_id);
-    return false;
+    $('#confirm_delete').modal({
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%' // Ending top style attribute
+      }
+    );
+    $('#confirm_delete').modal('open');
+    sessionStorage.setItem("deletedDishID", this._id);
+    sessionStorage.setItem("deletedDishImagesID", this.image_id);
+  },
+  'click #confirm': function() {
+    Meteor.call('dish.remove', sessionStorage.getItem("deletedDishID"));
+    Meteor.call('dish_image.remove', sessionStorage.getItem("deletedDishImagesID"));
+    sessionStorage.clear();
+    Materialize.toast('The dish has been deleted', 4000);
   },
   'click #edit_dish': function() {
     var get_dish_id = this._id;
