@@ -130,10 +130,13 @@ Template.dishes_card_layout.events({
       quantity = parseInt(order.quantity) + 1;
       total_price_per_dish = parseInt(dish_price) * quantity
       Meteor.call('shopping_cart.update',
-      order_id,
-      quantity,
-      total_price_per_dish
-    )
+        order_id,
+        quantity,
+        total_price_per_dish
+      )
+      Materialize.toast('Dish has been added into shopping cart!', 4000);
+      $('.modal').modal('close');
+      $('.modal-overlay').last().remove();
     }
     else{
       Meteor.call('shopping_cart.insert',
@@ -149,6 +152,9 @@ Template.dishes_card_layout.events({
       quantity,
       dish_price,
       );
+      Materialize.toast('Dish has been added into shopping cart!', 4000);
+      $('.modal').modal('close');
+      $('.modal-overlay').last().remove();
     }
 
     }
