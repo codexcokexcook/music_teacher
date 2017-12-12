@@ -101,9 +101,11 @@ Template.navbar.events({
   },
  'click #food_search': function () {
    FlowRouter.go('/main');
+  $(".nav_brand_logo").sideNav('hide');
  },
  'click #shopping_cart': function() {
    FlowRouter.go('/shopping_cart');
+  $(".nav_brand_logo").sideNav('hide');
  },
  'click #cooking_dashboard': function () {
    FlowRouter.go('/cooking/dashboard');
@@ -111,6 +113,7 @@ Template.navbar.events({
    $('#top_nav_manage_dishes').removeClass('active');
    $('#top_nav_manage_menus').removeClass('active');
    $('#top_nav_manage_orders').removeClass('active');
+   $(".nav_brand_logo").sideNav('hide');
  },
  'click #manage_dishes': function() {
    FlowRouter.go('/cooking/dishes');
@@ -118,6 +121,7 @@ Template.navbar.events({
    $('#top_nav_manage_dishes').addClass('active');
    $('#top_nav_manage_menus').removeClass('active');
    $('#top_nav_manage_orders').removeClass('active');
+   $(".nav_brand_logo").sideNav('hide');
  },
  'click #manage_menus': function() {
    FlowRouter.go('/cooking/menus');
@@ -125,6 +129,7 @@ Template.navbar.events({
    $('#top_nav_manage_dishes').removeClass('active');
    $('#top_nav_manage_menus').addClass('active');
    $('#top_nav_manage_orders').removeClass('active');
+   $(".nav_brand_logo").sideNav('hide');
  },
  'click #manage_orders': function() {
    FlowRouter.go('/cooking/orders');
@@ -132,9 +137,11 @@ Template.navbar.events({
    $('#top_nav_manage_dishes').removeClass('active');
    $('#top_nav_manage_menus').removeClass('active');
    $('#top_nav_manage_orders').addClass('active');
+   $(".nav_brand_logo").sideNav('hide');
  },
  'click #profile_link': function () {
    FlowRouter.go('/profile');
+   $(".nav_brand_logo").sideNav('hide');
  },
  'click #logout_link': function () {
    Meteor.call('messages.clear',Meteor.userId());

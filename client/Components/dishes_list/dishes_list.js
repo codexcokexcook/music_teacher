@@ -156,6 +156,7 @@ Template.dishes_card_layout.events({
       $('.modal').modal('close');
       $('.modal-overlay').last().remove();
     }
-
+    $('.modal').modal('close');
+    Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
     }
 });
