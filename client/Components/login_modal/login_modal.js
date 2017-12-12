@@ -25,8 +25,35 @@ Template.login_modal.events({
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
-        FlowRouter.go("/main");
-        $('#login_modal').modal('close');
+        var loggedEmail = Meteor.user().services.google.email
+        Meteor.call('checkIfUserExists', loggedEmail, function (err, result) {
+            if (err) {
+                alert('There is an error while checking username');
+            } else {
+                if (result === false) {
+                    // delete the current users with ID
+                    var currentID = Meteor.user()._id;
+                    Meteor.call('removeExistedUser', currentID, function(err, result) {
+                        if (err) {
+                          Materialize.toast('An error occur. Please try again.', 4000);
+                        } else {
+                          FlowRouter.go("/main");
+                          $('#login_modal').modal('close');
+                        }
+                    });
+                } else {
+                    Materialize.toast('This email is already in use. Please try another!', 4000);
+                    // make sure everything are reseted before user continue using app
+                    Meteor.logout(function(err){
+                       if (err) {
+                         Bert.alert(err.reason, "danger", "growl-top-right");
+                       } else {
+                         Session.clear();
+                       }
+                     });
+                }
+            }
+        });
       }
     });
   },
