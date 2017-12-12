@@ -4,16 +4,16 @@
   <nav class = "z-depth-0">
     <div class="nav-wrapper white z-depth-0">
       <!--Logo-->
-      <a href="" class ='nav_brand_logo left' data-activates="chatbot_nav"><img src="navbar/BPLogo_sysmbol.svg" class='navbar_logo' height="40" width="40"></a>
+      <a href="" class ='nav_brand_logo left' data-activates="chatbot_nav"><img src="/navbar/BPLogo_sysmbol.svg" class='navbar_logo' height="40" width="40"></a>
       <!--Search Bar-->
       {{> Template.dynamic template = navbar}}
   <!--    {{> bp_navbar}} -->
       <ul class = "right">
         <li class = "profile_icon_wrapper">
           {{#if profile_images 'profile_picture' 'own_user'}}
-            <a class="btn-floating logo_wrapper navbar_profile_logo" href="" data-activates="profile_dropdown" style="background-image:url(/profile_upload/{{profile_images 'profile_picture' 'own_user'}})"></a>
+            <a class="btn-floating grey lighten-1 logo_wrapper navbar_profile_logo" href="" data-activates="profile_dropdown" style="background-image:url(/profile_upload/{{profile_images 'profile_picture' 'own_user'}})"></a>
           {{else}}
-            <a class="btn-floating logo_wrapper navbar_profile_logo" href="" data-activates="profile_dropdown" style="background-image:url(/profile_upload/user.jpg)"></a>
+            <a class="btn-floating grey lighten-1 logo_wrapper navbar_profile_logo" href="" data-activates="profile_dropdown" style="background-image:url(/profile_upload/user.jpg)"></a>
           {{/if}}
         </li>
       </ul>
@@ -34,12 +34,12 @@
 
 <!--Dropdown setting for the slidenav-->
 <ul id="chatbot_nav" class="side-nav">
-  <li><img src='/navbar/sidenav_bp_logo.png' width="300" /></li>
-  <li><h5 style = "margin-left: 24px;">Eating</h5></li>
+  <li><img src='/navbar/sidenav_bp_logo.svg' width="300" /></li>
+  <li><span style = "margin-left: 24px;">Eating</span></li>
   <li><a href="" id="food_search"><i class="material-icons">local_pizza</i>Search for food</a></li>
   <li><a href="" id="shopping_cart"><i class="material-icons">shopping_basket</i>Shopping Cart</a></li>
   <li class="divider"></li>
-  <li><h5 style = "margin-left: 24px;">Cooking</h5></li>
+  <li><span style = "margin-left: 24px;">Cooking</span></li>
   <li><a href="" id="cooking_dashboard"><i class="material-icons">dashboard</i>Dashboard</a></li>
   <li><a href="" id="manage_dishes"><i class="material-icons">restaurant</i>Manage Dishes</a></li>
   <li><a href="" id="manage_menus"><i class="material-icons">map</i>Manage Menus</a></li>
