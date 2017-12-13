@@ -35,14 +35,14 @@ Template.signup_modal.events({
                 if (result === false) {
                     // delete the current users with ID
                     var currentID = Meteor.user()._id;
-                    Meteor.call('removeExistedUser', currentID, function(err, result) {
-                        if (err) {
-                          Materialize.toast('An error occur. Please try again.', 4000);
-                        } else {
+                    // Meteor.call('removeExistedUser', currentID, function(err, result) {
+                    //     if (err) {
+                    //       Materialize.toast('An error occur. Please try again.', 4000);
+                    //     } else {
                           FlowRouter.go("/main");
                           $('#login_modal').modal('close');
-                        }
-                    });
+                    //     }
+                    // });
                 } else {
                     Materialize.toast('This email is already in use. Please try another!', 4000);
                     // make sure everything are reseted before user continue using app
