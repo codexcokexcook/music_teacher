@@ -8,6 +8,10 @@ Meteor.methods({
     var dish_name = Dishes.findOne({_id: product_id}).dish_name;
     var title = 'New incoming order';
     var message = buyer_name + ' has just placed ' + quantity + 'x '+ dish_name + ' from you.'
+    if (!dish_name) {
+      var menu_name = Menu.findOne({_id: product_id}).menu_name;
+      var message = buyer_name + ' has just placed ' + quantity + 'x '+ menu_name + ' from you.'
+    }
 
     Notifications.insert({
       receiver_id: seller_id,

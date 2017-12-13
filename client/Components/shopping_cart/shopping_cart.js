@@ -224,7 +224,7 @@ Template.sc_serving_details.events({
       var min = serve_time[3]+serve_time[4]
       serve_date = new Date(yyyy, mm, dd, hh, min)
       serve_date = Date.parse(serve_date)
-      Session.set('perfered_time_ms', serve_date)
+      Session.set('preferred_time_ms', serve_date)
 
     },
 
@@ -238,7 +238,7 @@ Template.sc_serving_details.events({
       var min = serve_time[3]+serve_time[4]
       serve_date = new Date(yyyy, mm, dd, hh, min)
       serve_date = Date.parse(serve_date)
-      Session.set('perfered_time_ms', serve_date)
+      Session.set('preferred_time_ms', serve_date)
 
     }
 
@@ -341,7 +341,12 @@ function to_order_record_insert(array_value){
   console.log(6)
   var product_id = array_value;
   var dish = Dishes.findOne({_id: product_id})
-  var seller_id = dish.user_id
+  if (!dish) {
+    var menu = Menu.findOne({_id: product_id})
+    var seller_id = menu.user_id;
+  } else {
+    var seller_id = dish.user_id;
+  }
   var cart_details = Shopping_cart.findOne({'product_id': product_id, 'seller_id': seller_id, 'buyer_id': Meteor.userId()})
 
   var cart_id = cart_details._id
@@ -369,8 +374,8 @@ function to_order_record_insert(array_value){
   }
 
 
-  if(parseInt(Session.get('perfered_time')) > parseInt(Session.get('ready_time'))){
-    var ready_time = Session.get('perfered_time_ms')
+  if(parseInt(Session.get('preferred_time_ms')) > parseInt(Session.get('ready_time_ms'))){
+    var ready_time = Session.get('preferred_time_ms')
 
     console.log(9)
     Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken)
@@ -380,7 +385,7 @@ function to_order_record_insert(array_value){
     Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
 
   }else{
-    Bert.alert("Perfered Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
+    Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
   }
 
 }
