@@ -134,7 +134,7 @@ Template.edit_content.helpers({
     return Menu.findOne({"_id": menu_id});
   },
   'user_dishes': function() {
-    var user_dishes = Dishes.find({"user_id": Meteor.userId()});
+    var user_dishes = Dishes.find({"user_id": Meteor.userId(), "deleted": false});
     return user_dishes;
   },
   'is_checked': function() {

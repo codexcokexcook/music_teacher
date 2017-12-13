@@ -67,7 +67,7 @@ Template.menu_card.events({
 Template.menu_card.helpers({
   'dishes_retreival': function() {
     var dishes_id = String(this); //converted single object of dish id to string ***important***
-    var find_dishes = Dishes.findOne({"_id": dishes_id});
+    var find_dishes = Dishes.findOne({"_id": dishes_id, "deleted": false});
     return find_dishes;
   },
   'edit_current_menu': function() {

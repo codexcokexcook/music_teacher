@@ -47,7 +47,7 @@ Template.dishes_selection.helpers({
   },
   'user_dishes': function() {
     var current_user = Meteor.userId();
-    var user_dishes = Dishes.find({"user_id": current_user});
+    var user_dishes = Dishes.find({"user_id": current_user, "deleted": false});
     return user_dishes;
   }
 });
