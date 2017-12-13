@@ -88,7 +88,7 @@ Template.dishes_card_layout.events({
   },
   'click #place_order': function () {
     var foodie_details = Profile_details.findOne({"user_id": Meteor.userId()});
-    if (typeof foodie_details == 'undefined') {
+    if ((typeof foodie_details == 'undefined')) {
       $('#confirm_foodie').modal({
           dismissible: true, // Modal can be dismissed by clicking outside of the modal
           opacity: .5, // Opacity of modal background
@@ -122,41 +122,39 @@ Template.dishes_card_layout.events({
       //check if the dish has been put in shopping check_shopping_cart
       var order = Shopping_cart.findOne({"product_id":this._id, 'buyer_id':foodie_id});
       var total_price_per_dish = 0;
-    }
 
-    if (order)
-    {
-      var order_id = order._id;
-      quantity = parseInt(order.quantity) + 1;
-      total_price_per_dish = parseInt(dish_price) * quantity
-      Meteor.call('shopping_cart.update',
-        order_id,
-        quantity,
-        total_price_per_dish
-      )
-      Materialize.toast('Dish has been added into shopping cart!', 4000);
-      $('.modal').modal('close');
-      $('.modal-overlay').last().remove();
-    }
-    else{
-      Meteor.call('shopping_cart.insert',
-      foodie_id,
-      homecook_id,
-      foodie_name,
-      homecook_name,
-      address,
-      serving_option,
-      ready_time,
-      dish_id,
-      dish_name,
-      quantity,
-      dish_price,
-      );
-      Materialize.toast('Dish has been added into shopping cart!', 4000);
-      $('.modal').modal('close');
-      $('.modal-overlay').last().remove();
-    }
-    $('.modal').modal('close');
-    Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
+      if (order)
+      {
+        var order_id = order._id;
+        quantity = parseInt(order.quantity) + 1;
+        total_price_per_dish = parseInt(dish_price) * quantity
+        Meteor.call('shopping_cart.update',
+          order_id,
+          quantity,
+          total_price_per_dish
+        )
+        $('.modal').remove();
+        $('.modal-overlay').remove();
+        Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
+      }
+      else{
+          Meteor.call('shopping_cart.insert',
+            foodie_id,
+            homecook_id,
+            foodie_name,
+            homecook_name,
+            address,
+            serving_option,
+            ready_time,
+            dish_id,
+            dish_name,
+            quantity,
+            dish_price,
+          );
+        }
+        $('.modal').remove();
+        $('.modal-overlay').remove();
+        Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
+      }
     }
 });
