@@ -27,8 +27,15 @@ Template.dishes_selection.events({
   'click #confirm': function() {
     Meteor.call('dish.remove', sessionStorage.getItem("deletedDishID"));
     Meteor.call('dish_image.remove', sessionStorage.getItem("deletedDishImagesID"));
-    sessionStorage.clear();
-    Materialize.toast('The dish has been deleted', 4000);
+    Meteor.call('menu.checkDish', sessionStorage.getItem("deletedDishID"), function(err, result) {
+      if (result) {
+          var $toastContent = $('<span>This dish is already in menu. Please update your menu.</span>');
+          Materialize.toast($toastContent, 12000);
+      } else {
+          Materialize.toast('The dish has been deleted', 4000);
+      }
+    });
+    sessionStorage.clear(); //clear all things to make sure everything is clean before use it again
   },
   'click #edit_dish': function() {
     var get_dish_id = this._id;

@@ -40,3 +40,9 @@ Meteor.methods({
     Menu.update({_id: menu_id},{$set:{online_status: status}});
   }
 });
+
+Meteor.methods({
+  'menu.checkDish': function(dish_id) {
+    return (Menu.findOne({'dishes_id': dish_id})) ? true : false;
+  }
+})
