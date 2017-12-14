@@ -1,5 +1,5 @@
 <template name = "login_modal">
-  <form id="login_modal" class="modal" style="width: 600px; border-radius: 20px;">
+  <div id="login_modal" class="modal" style="width: 600px; border-radius: 20px;">
     <div class = "modal-content" id="login_content">
       <div class="login_form col l12 m12 s12">
         <!-- Row No.1 - API Signin button -->
@@ -24,15 +24,15 @@
           </div>
           <p><small>Click <a href="" id="forgot_password">here </a> if you forgot your password.</small></p>
         </div>
-      </div>
-      <div class="row">
-        <div class="right">
-          <div class="modal_buttons">
-            <button class="waves-effect waves-red btn-flat right login_submit_btn" id="login" type="submit">Submit</button>
-            <button class="modal-close waves-effect waves-red btn-flat right login_cancel_btn" id="cancel_login">Cancel</button>
+        <div class="row">
+          <div class="right">
+            <div class="modal_buttons">
+              <button class="waves-effect waves-red btn-flat right login_submit_btn" id="login" type="submit">Submit</button>
+              <button class="modal-close waves-effect waves-red btn-flat right login_cancel_btn" id="cancel_login">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </template>

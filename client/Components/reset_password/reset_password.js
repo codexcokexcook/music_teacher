@@ -4,7 +4,8 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Accounts } from 'meteor/accounts-base';
 
 Template.reset_password.events({
-  'click #reset_button': function() {
+  'click #reset_button': function(event) {
+    event.preventDefault();
     var reset_token = FlowRouter.getParam('token'),
         password = $('#password').val(),
         confirm_password = $('#confirm_password').val();
@@ -14,7 +15,7 @@ Template.reset_password.events({
       Accounts.resetPassword(reset_token,password, function(err){
         if (err) {
           var text = err.message;
-          Materialize.toast(text);
+          Materialize.toast('Sorry, ' + text,4000,"round red lighten-2");
         } else {
           FlowRouter.go('/reset_redirect');
         }
