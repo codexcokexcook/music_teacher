@@ -468,14 +468,13 @@ Template.create_dishes_form.events({
          var kitchen_id = kitchen._id;
          var user_id = Meteor.userId();
          var dish_name = event.target.dish_name.value;
-         if (!dish_name) {
-           Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name to save",3000);
+         var dish_cost = event.target.dish_cost.value;
+         var dish_selling_price = event.target.dish_selling_price.value;
+         if (dish_name.trim().length == "" || dish_cost.trim().length == "" ||  dish_selling_price.trim().length == "") {
+           Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name, dish cost and selling price to save",6000);
          } else {
            var dish_description = event.target.dish_description.value;
            var cooking_time = event.target.cooking_time.value;
-
-           var dish_cost = event.target.dish_cost.value;
-           var dish_selling_price = event.target.dish_selling_price.value;
            var dish_profit = dish_selling_price - dish_cost;
            Ingredients_temporary.find({}).forEach(function(doc){Ingredients.insert(doc);});
            Dishes.insert({
@@ -529,7 +528,7 @@ Template.create_dishes_form.events({
            };
            // hide popup
            $('#add_dish_modal').modal('close');
-           $('.modal-overlay').last().remove();
+           $('.modal-overlay').remove();
            return false;
          }
     },
