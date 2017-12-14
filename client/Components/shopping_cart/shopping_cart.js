@@ -291,21 +291,22 @@ Template.shopping_cart_card.events({
 
 
 Template.sc_payment.events({
+  'click  #place_order':function(event){
 
+    //hold not to charge until
+    //	Meteor.call('chargeCard', stripeToken, amount, description);
 
-'click  #place_order':function(event){
+    console.log(1)
+    var sellers = search_distinct_in_shopping_cart('seller_id')
+    console.log(sellers)
 
-  //hold not to charge until
-  //	Meteor.call('chargeCard', stripeToken, amount, description);
+    console.log(2)
+    setTimeout(sellers.forEach(order_record_insert), 200000)
 
-  console.log(1)
-  var sellers = search_distinct_in_shopping_cart('seller_id')
-  console.log(sellers)
-
-  console.log(2)
-  setTimeout(sellers.forEach(order_record_insert), 200000)
-
-}
+  },
+  'click #more_dish': function(event) {
+    FlowRouter.go('/main');
+  }
 })
 
 

@@ -5,7 +5,7 @@
       <div class = 'col l12 m12 s12'>
         <div class = 'section'>
           <h5>Pending Orders</h5>
-          <div class = 'orders_wrapper grey lighten-3 valign-wrapper' id='pending_order_wrapper'>
+          <div class = 'orders_wrapper valign-wrapper' id='pending_order_wrapper'>
             {{#if order}}
               <div class = 'row'>
                 {{#each order_received}}
@@ -25,7 +25,7 @@
       <div class = 'col l12 m12 s12'>
         <div class = 'section'>
           <h5>Confirmed Orders</h5>
-          <div class = 'orders_wrapper grey lighten-3 valign-wrapper' id='confirmed_order_wrapper'>
+          <div class = 'orders_wrapper valign-wrapper' id='confirmed_order_wrapper'>
             {{#if cooking}}
               <div class = 'row'>
                 {{#each order_cooking}}
@@ -105,7 +105,7 @@
     </div>
     <div class = 'card-action'>
       <div class = 'center'>
-        <a class="waves-effect waves-light btn-floating grey lighten-1 red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
       </div>
     </div>
   </div>
@@ -144,8 +144,8 @@
     </div>
     <div class = 'card-action'>
       <div class = 'center'>
-        <a class="waves-effect waves-light btn-floating grey lighten-1 red lighten-2" id='accept' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
-        <a class="waves-effect waves-light btn-floating grey lighten-1 red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='accept' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
     </div>
     </div>
   </div>
