@@ -8,7 +8,7 @@ Template.menu_creation.onRendered(function(){
   this.$('select').material_select();
   this.$('.tooltipped').tooltip({delay: 500});
   //Check if menu has data instance
-  var data = Menu.find({"user_id": Meteor.userId()})
+  var data = Menu.find({"user_id": Meteor.userId(), "deleted": false})
   if (data.count()) {
     Blaze.render(Template.view_menu, document.getElementById('card_container'));
     $('.carousel.carousel-slider').carousel({fullWidth: true});
@@ -30,6 +30,7 @@ Template.menu_initiation.events({
               Blaze.remove(Template.instance().view);
             } else {
               Materialize.toast('Please create your profile before do this action.', 4000);
+              $('.modal-overlay').click(); // trick close popup modal
             }
           } else {
             console.log('Error when get user ID: ' + err);
