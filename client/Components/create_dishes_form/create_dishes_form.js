@@ -485,7 +485,7 @@ Template.create_dishes_form.events({
               dish_name: dish_name,
               dish_description: dish_description,
 
-              serving_option: Session.get('serving_option_tags'),
+              serving_option: Session.get('serving_option_tag`s'),
               cooking_time: cooking_time,
 
               dish_cost: dish_cost,
@@ -522,6 +522,11 @@ Template.create_dishes_form.events({
            };
            Session.keys = {}; /** clear Session.get for image upload to reset back to original **/
            Materialize.updateTextFields();
+           // uncheck all checkbox when complete create dishes
+           var checkboxes = document.getElementsByClassName("dishes_checkbox");
+           for (var i = 0; i < checkboxes.length; i++) {
+               checkboxes[i].checked = false;
+           };
            return false;
          }
     },

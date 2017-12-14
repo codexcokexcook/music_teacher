@@ -150,10 +150,6 @@ Template.dishes_summary.events({
   'click #modal_add_btn': function() {
     $('.modal-content').scrollTop(0);
     $('.create_dish_submit_btn').click();
-    var checkboxes = document.getElementsByClassName("dishes_checkbox");
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
-    };
   },
   'click #modal_update_btn': function() {
     $('.modal-content').scrollTop(0);

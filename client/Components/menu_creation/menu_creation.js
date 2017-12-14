@@ -82,6 +82,15 @@ Template.menu_creation_content.events({
     var dishes_id = Session.get('selected_dishes_id');
     var dishes_details = [];
     var image_id = [];
+    if (typeof dishes_id !== 'undefined') {
+      if (dishes_id.length == 0) {
+          Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000);
+      }
+      return;
+    } else {
+      Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000);
+      return;
+    }
     for (i=0; i < dishes_id.length; i++){
       dishes_details[i] = Dishes.findOne({_id: dishes_id[i]});
       image_id[i] = dishes_details[i].image_id;

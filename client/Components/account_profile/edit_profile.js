@@ -88,6 +88,7 @@ Template.edit_foodie_profile.events({
   'click #edit_foodie_button': function(event, template){
     event.preventDefault();
 
+
 /**      if( isNotEmpty(kitchen_name)           &&
           isNotEmpty(profile_keywords)       &&
           isNotEmpty(last_name)              &&
@@ -247,56 +248,59 @@ Template.edit_foodie_profile.events({
               isNotEmpty(bank_account_no)           )**/
 
               {
+                if (typeof foodie_name == 'undefined' || foodie_name.trim().length == 0) {
+                    Materialize.toast('Make sure your profile name is not blank.', 4000);
+                    return false;
+                }
 
                 Meteor.call('profile_details.update',
-                foodie_profile_id,
-                foodie_name,
-                email,
-                date_of_birth,
-                mobile_dial_code,
-                mobile,
-                profile_keywords,
-                gender,
-                about_myself,
-                home_address_country,
-                home_address,
-                home_address_conversion,
-                office_address_country,
-                office_address,
-                office_address_conversion,
-                allergy_tags,
-                dietary_tags,
-                card_number,
-                card_fullname,
-                card_exp_month,
-                card_exp_year,
-                cvv_code,
-                billing_address_country,
-                billing_address
+                  foodie_profile_id,
+                  foodie_name,
+                  email,
+                  date_of_birth,
+                  mobile_dial_code,
+                  mobile,
+                  profile_keywords,
+                  gender,
+                  about_myself,
+                  home_address_country,
+                  home_address,
+                  home_address_conversion,
+                  office_address_country,
+                  office_address,
+                  office_address_conversion,
+                  allergy_tags,
+                  dietary_tags,
+                  card_number,
+                  card_fullname,
+                  card_exp_month,
+                  card_exp_year,
+                  cvv_code,
+                  billing_address_country,
+                  billing_address
                 );
 
                 Meteor.call('kitchen_details.update',
-                kitchen_profile_id,
-                kitchen_name,
-                chef_name,
-                homecook_profile_keywords,
-                kitchen_address_country,
-                kitchen_address,
-                kitchen_address_conversion,
-                about_homecook_myself,
-                serving_option,
-                bank_fullname,
-                bank_name,
-                bank_account_no,
-                bank_address_country,
-                bank_address
-
+                  kitchen_profile_id,
+                  kitchen_name,
+                  chef_name,
+                  homecook_profile_keywords,
+                  kitchen_address_country,
+                  kitchen_address,
+                  kitchen_address_conversion,
+                  about_homecook_myself,
+                  serving_option,
+                  bank_fullname,
+                  bank_name,
+                  bank_account_no,
+                  bank_address_country,
+                  bank_address
                 );
 
-Materialize.toast('Profile updated!', 4000)
+                Materialize.toast('Profile updated!', 4000)
 
-        //divert to the profile page
-BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})          }
+                //divert to the profile page
+                BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})          }
         /**  else{
 
           return false;
