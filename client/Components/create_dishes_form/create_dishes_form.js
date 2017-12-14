@@ -527,6 +527,9 @@ Template.create_dishes_form.events({
            for (var i = 0; i < checkboxes.length; i++) {
                checkboxes[i].checked = false;
            };
+           // hide popup
+           $('#add_dish_modal').modal('close');
+           $('.modal-overlay').last().remove();
            return false;
          }
     },

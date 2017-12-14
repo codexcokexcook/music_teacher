@@ -85,8 +85,8 @@ Template.menu_creation_content.events({
     if (typeof dishes_id !== 'undefined') {
       if (dishes_id.length == 0) {
           Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000);
+          return;
       }
-      return;
     } else {
       Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000);
       return;

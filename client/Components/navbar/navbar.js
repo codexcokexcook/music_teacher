@@ -149,6 +149,7 @@ Template.navbar.events({
    localStorage.setItem("loggedIn", false);
    Meteor.logout();
    FlowRouter.go('/');
+   $('#sidenav-overlay').remove();
  },
 });
 

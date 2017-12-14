@@ -18,7 +18,8 @@ Meteor.methods({
       lead_days: lead_days,
       dishes_id: dishes_id,
       image_id: image_id,
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      deleted: false
     });
   },
   'menu.update'(menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id) {
