@@ -119,7 +119,7 @@ Template.view_menu.onRendered(function(){
 
 Template.view_menu.helpers({
   'menu_retreival': function() {
-    return Menu.find({"user_id": Meteor.userId()});
+    return Menu.find({"user_id": Meteor.userId(), deleted: false});
   }
 });
 

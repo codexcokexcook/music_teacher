@@ -40,3 +40,16 @@ Meteor.methods({
     Menu.update({_id: menu_id},{$set:{online_status: status}});
   }
 });
+
+
+Meteor.methods({
+  'menu.delete': function(menu_id) {
+    return (Menu.update(
+        {_id: menu_id},
+        {$set: {
+            deleted: true
+        }}
+      )
+    ) ? true : false;
+  }
+});

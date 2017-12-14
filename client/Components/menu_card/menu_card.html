@@ -1,4 +1,5 @@
 <template name = "menu_card">
+  {{> delete_confirmation_popup}}
   <div id="menu_card" class = "card card_on_display">
     <div class = "card-image">
       <div class="carousel carousel-slider center" id="carousel_wrapper" data-indicators="true">
@@ -40,6 +41,20 @@
       <div class = "center">
         <a class="waves-effect waves-light btn red lighten-2 modal-trigger" style="width:65%;" href="#menu_card_display" id="menu_order">Order</a>
       </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="delete_confirmation_popup">
+  <div id="delete_confirmation_menu" class="modal">
+    <div class="modal-content">
+      <h6>Are you sure?</h6>
+      <p>Are you sure to delete this menu?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a id="confirm_delete_menu" class="modal-action modal-close waves-effect waves-green btn-flat">Sure</a>
     </div>
   </div>
 </template>
