@@ -20,16 +20,33 @@ Template.dishes_summary.onRendered(function(){
 
 Template.dishes_summary.events({
   'click #btn_add_dish': function() {
-    event.preventDefault()
-
-    Session.keys = {};
-
-    if (Blaze.getView($("#add_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
-      $('.create_dishes_form_container').remove();
-    };
-    Blaze.render(Template.create_dishes_form,$("#add_dish_modal_content")[0]);
-    $(".create_dish_submit_btn").hide()
-    $(".update_dish_submit_btn").hide()
+    event.preventDefault();
+    Meteor.call('getUserProfileByID', function (err, result) {
+        if (err) {
+          console.log('Error when get user ID: ' + err);
+        } else {
+          if (result) {
+            if (typeof result.foodie_name !== undefined && result.foodie_name.trim().length > 0) {
+              Session.keys = {};
+              if (Blaze.getView($("#add_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
+                $('.create_dishes_form_container').remove();
+              };
+              Blaze.render(Template.create_dishes_form,$("#add_dish_modal_content")[0]);
+              $(".create_dish_submit_btn").hide()
+              $(".update_dish_submit_btn").hide()
+            } else {
+              $('#add_dish_modal').modal('close');
+              Materialize.toast('Please create your profile before do this action.', 4000);
+              setTimeout(function(){
+                  $('.modal-overlay').last().fadeOut();
+                  $('.modal-overlay').last().remove();
+              }, 300);
+            }
+          } else {
+            console.log('Error when get user ID: ' + err);
+          }
+        }
+    });
   },
 
   'click .btn_edit_dish': function(event,template) {

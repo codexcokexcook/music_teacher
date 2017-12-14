@@ -19,8 +19,23 @@ Template.menu_creation.onRendered(function(){
 
 Template.menu_initiation.events({
   'click #add_menu': function(template) {
-    Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
-    Blaze.remove(Template.instance().view);
+    Meteor.call('getUserProfileByID', function (err, result) {
+        if (err) {
+          console.log('Error when get user ID: ' + err);
+        } else {
+          if (result) {
+            if (typeof result.foodie_name !== undefined && result.foodie_name.trim().length > 0) {
+              $('#menu_creation_container').hide();
+              Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
+              Blaze.remove(Template.instance().view);
+            } else {
+              Materialize.toast('Please create your profile before do this action.', 4000);
+            }
+          } else {
+            console.log('Error when get user ID: ' + err);
+          }
+        }
+    });
   }
 });
 
