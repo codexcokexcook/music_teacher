@@ -15,3 +15,7 @@ Template.landing_page.onRendered(function() {
       endingTop: '10%', // Ending top style attribute
     });
 });
+
+Template.registerHelper('isCurrentUser',function(){
+  return (localStorage.getItem("loggedIn").toLowerCase() === 'true');
+});

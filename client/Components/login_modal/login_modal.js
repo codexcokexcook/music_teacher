@@ -14,6 +14,7 @@ Template.login_modal.events({
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
+        localStorage.setItem("loggedIn", true);
         FlowRouter.go("/main");
         $('#login_modal').modal('close');
       }
@@ -25,7 +26,8 @@ Template.login_modal.events({
       if (err) {
         console.log('Handle errors here: ', err);
       } else {
-        var loggedEmail = Meteor.user().services.google.email
+        var loggedEmail = Meteor.user().services.google.email;
+        localStorage.setItem("loggedIn", true);
         // Meteor.call('checkIfUserExists', loggedEmail, function (err, result) {
         //     if (err) {
         //         alert('There is an error while checking username');
@@ -69,6 +71,7 @@ Template.login_modal.events({
           return false;
         }
         else if (Meteor.user().emails[0].verified === true){
+          localStorage.setItem("loggedIn", true);
           Bert.alert( 'Welcome!', 'success' );
           FlowRouter.go("/main");
           $('#login_modal').modal('close');
