@@ -1,0 +1,14 @@
+.timer {
+    display: block;
+    height: 300px;
+    width: 300px;
+    line-height: 300px;
+
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin: auto;
+    background-color: #e57373;
+    color: white;
+    text-align: center;
+    font-size: 14em;
+}

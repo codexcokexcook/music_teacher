@@ -59,7 +59,6 @@ Template.login_modal.events({
   },
   'click #login, keypress': function(event){
     if (event.which === 1||event.which === 13){
-      console.log(event.which);
       var email = $('#login_email').val();
       var password = $('#login_password').val();
 
@@ -86,6 +85,10 @@ Template.login_modal.events({
       });
       return false;
     }
+  },
+  'click #forgot_password': function() {
+    login_content = $('#login_content').detach();
+    Blaze.render(Template.forgot_password, $('#login_modal')[0]);
   }
 });
 
@@ -114,7 +117,7 @@ isEmail = function(value){
 //Check Password fields
 isValidPassword=function(password){
   if(password.length <8){
-  Bert.alert("Password must be a least 8 charaters", "danger","growl-top-right");
+  Bert.alert("Password must be a least 8 characters", "danger","growl-top-right");
     return false;
   }
     return true;

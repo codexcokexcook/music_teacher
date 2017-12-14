@@ -1,12 +1,12 @@
-<template name="sent_verification">
+<template name="reset_redirect">
   <div class="row valign-wrapper" style="height:100vh; background-color: #c7c7c7;">
     <div class ="col s12 m12 l6 offset-l3">
       <div class = "center">
         {{#if currentUser}}
-          <div style="font-size: 2em; font-weight: bold; margin-bottom: 36px">Account verified. Redirecting you in...</div>
+          <div style="font-size: 2em; font-weight: bold; margin-bottom: 36px">Password has been reset. Redirecting you in...</div>
           <div class="center-align timer">{{getCountdown}}</div>
         {{else}}
-          <div style="font-size: 2em; font-weight: bold; margin-bottom: 36px">You haven't signed up yet. Redirect you back to our homepage in...</div>
+          <div style="font-size: 2em; font-weight: bold; margin-bottom: 36px">Opss.. Something's wrong. Redirect you back to our homepage in...</div>
           <div class="center-align timer">{{getCountdown}}</div>
         {{/if}}
       </div>
