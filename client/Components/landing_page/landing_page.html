@@ -19,7 +19,7 @@
             {{#if currentUser.emails.[0].verified}}
               <a class ="waves-effect waves-red btn-flat white-text right" href="/main">LOGGED IN</a>
             {{else}}
-              <a class ="waves-effect waves-red btn-flat white-text right modal-trigger" href="#login_modal">LOG IN</a>
+              <a class ="waves-effect waves-red btn-flat white-text right modal-trigger" id="login_modal_button" href="#login_modal">LOG IN</a>
             {{/if}}
           </div>
         </div>

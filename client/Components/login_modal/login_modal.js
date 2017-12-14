@@ -57,35 +57,35 @@ Template.login_modal.events({
       }
     });
   },
-  'click #login, keypress': function(event){
-    if (event.which === 1||event.which === 13){
-      console.log(event.which);
-      var email = $('#login_email').val();
-      var password = $('#login_password').val();
+  'click #login': function(event){
+    var email = $('#login_email').val();
+    var password = $('#login_password').val();
 
-      Meteor.loginWithPassword(email, password, function(error){
-        if (error) {
-          Bert.alert( error.reason, 'danger','growl-top-right');
-          return false;
-        }
-        else if (Meteor.user().emails[0].verified === true){
-          Bert.alert( 'Welcome!', 'success' );
-          FlowRouter.go("/main");
-          $('#login_modal').modal('close');
-        }
-        else {
-          Meteor.logout(function(err){
-           if (err) {
-             Bert.alert(err.reason, "danger", "growl-top-right");
-           } else {
-             Session.clear();
-             Bert.alert( 'Please verify your email before login!', 'danger','growl-top-right' );
-           }
-         });
-        }
-      });
-      return false;
-    }
+    Meteor.loginWithPassword(email, password, function(error){
+      if (error) {
+        Bert.alert( error.reason, 'danger','growl-top-right');
+        return false;
+      }
+      else if (Meteor.user().emails[0].verified === true){
+        Bert.alert( 'Welcome!', 'success' );
+        FlowRouter.go("/main");
+        $('#login_modal').modal('close');
+      }
+      else {
+        Meteor.logout(function(err){
+         if (err) {
+           Bert.alert(err.reason, "danger", "growl-top-right");
+         } else {
+           Session.clear();
+           Bert.alert( 'Please verify your email before login!', 'danger','growl-top-right' );
+         }
+       });
+      }
+    });
+  },
+  'click #forgot_password': function() {
+    login_content = $('#login_content').remove();
+    Blaze.render(Template.forgot_password, $('#login_modal')[0]);
   }
 });
 
@@ -114,7 +114,7 @@ isEmail = function(value){
 //Check Password fields
 isValidPassword=function(password){
   if(password.length <8){
-  Bert.alert("Password must be a least 8 charaters", "danger","growl-top-right");
+  Bert.alert("Password must be a least 8 characters", "danger","growl-top-right");
     return false;
   }
     return true;

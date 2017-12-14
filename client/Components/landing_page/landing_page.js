@@ -15,3 +15,12 @@ Template.landing_page.onRendered(function() {
       endingTop: '10%', // Ending top style attribute
     });
 });
+
+Template.login_modal.events({
+  'click #login_modal_button': function() {
+    if (login_content) {
+      $('.forgot_password').remove();
+      $('#login_modal').append(login_content);
+    }
+  }
+})
