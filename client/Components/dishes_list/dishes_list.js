@@ -149,7 +149,7 @@ Template.dishes_card_layout.events({
             dish_price,
           );
         }
-        $('.modal').remove();
+        $('#large_dish_display').modal('close');
         $('.modal-overlay').remove();
         Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
       }
