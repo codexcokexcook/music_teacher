@@ -471,7 +471,7 @@ Template.create_dishes_form.events({
          var dish_cost = event.target.dish_cost.value;
          var dish_selling_price = event.target.dish_selling_price.value;
          if (dish_name.trim().length == "" || dish_cost.trim().length == "" ||  dish_selling_price.trim().length == "") {
-           Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name, dish cost and selling price to save",6000);
+           Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name, dish cost and selling price to save", 6000, 'rounded red lighten-2');
          } else {
            var dish_description = event.target.dish_description.value;
            var cooking_time = event.target.cooking_time.value;

@@ -29,7 +29,7 @@ Template.menu_initiation.events({
               Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
               Blaze.remove(Template.instance().view);
             } else {
-              Materialize.toast('Please create your profile before do this action.', 4000);
+              Materialize.toast('Please create your profile before do this action.', 4000, 'rounded red lighten-2');
               $('.modal-overlay').click(); // trick close popup modal
             }
           } else {
@@ -85,11 +85,11 @@ Template.menu_creation_content.events({
     var image_id = [];
     if (typeof dishes_id !== 'undefined') {
       if (dishes_id.length == 0) {
-          Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000);
+          Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded red lighten-2');
           return;
       }
     } else {
-      Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000);
+      Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded red lighten-2');
       return;
     }
     for (i=0; i < dishes_id.length; i++){
@@ -110,7 +110,7 @@ Template.menu_creation_content.events({
         image_id
       );
     } else {
-      Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
+      Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');
     }
     // this template is reused in a modal setting, the followig is the check
     // whether this template render location is on a modal or not.
@@ -224,7 +224,7 @@ Template.edit_content.events({
       Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id);
       $('div.modal').scrollTop(0);
     } else {
-      Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
+      Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');
       $('div.modal').scrollTop(0);
     }
     if($('.carousel').hasClass('initialized')) {

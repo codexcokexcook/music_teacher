@@ -28,7 +28,7 @@ Template.dishes_selection.events({
     Meteor.call('dish.remove', sessionStorage.getItem("deletedDishID"));
     Meteor.call('dish_image.remove', sessionStorage.getItem("deletedDishImagesID"));
     sessionStorage.clear();
-    Materialize.toast('The dish has been deleted', 4000);
+    Materialize.toast('The dish has been deleted', 4000, 'rounded red lighten-2');
   },
   'click #edit_dish': function() {
     var get_dish_id = this._id;

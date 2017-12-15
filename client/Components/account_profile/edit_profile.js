@@ -249,7 +249,7 @@ Template.edit_foodie_profile.events({
 
               {
                 if (typeof foodie_name == 'undefined' || foodie_name.trim().length == 0) {
-                    Materialize.toast('Make sure your profile name is not blank.', 4000);
+                    Materialize.toast('Make sure your profile name is not blank.', 4000, 'rounded red lighten-2');
                     return false;
                 }
 

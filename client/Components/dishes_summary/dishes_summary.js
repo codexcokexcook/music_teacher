@@ -36,7 +36,7 @@ Template.dishes_summary.events({
               $(".update_dish_submit_btn").hide()
             } else {
               $('#add_dish_modal').modal('close');
-              Materialize.toast('Please create your profile before do this action.', 4000);
+              Materialize.toast('Please create your profile before do this action.', 4000, 'rounded red lighten-2');
               setTimeout(function(){
                   $('.modal-overlay').last().fadeOut();
                   $('.modal-overlay').last().remove();
@@ -60,10 +60,10 @@ Template.dishes_summary.events({
 
     //Validation of dish selection checkbox
     if (!selected_dishes || selected_dishes.length === 0) {
-      Materialize.toast("Please select a dish you'd like to edit", 4000);
+      Materialize.toast("Please select a dish you'd like to edit", 4000, 'rounded red lighten-2');
       return false;
     } else if (selected_dishes.length > 1 )  {
-      Materialize.toast("Ops! You can't choose more than 1 dish to edit, please try again", 4000);
+      Materialize.toast("Ops! You can't choose more than 1 dish to edit, please try again", 4000, 'rounded red lighten-2');
       return false;
     } else {
       var selected_dishes = Session.get('selected_dishes_id');
@@ -124,7 +124,7 @@ Template.dishes_summary.events({
     event.preventDefault();
     var selected_dishes = Session.get('selected_dishes_id');
     if (!selected_dishes || selected_dishes.length === 0) {
-      Materialize.toast("Please select a dish you'd like to delete", 4000);
+      Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded red lighten-2');
     } else {
       for (i = 0; i < selected_dishes.length; i++) {
         var dish_details = Dishes.findOne({_id: selected_dishes[i]});
