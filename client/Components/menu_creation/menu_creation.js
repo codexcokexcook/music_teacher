@@ -8,13 +8,18 @@ Template.menu_creation.onRendered(function(){
   this.$('select').material_select();
   this.$('.tooltipped').tooltip({delay: 500});
   //Check if menu has data instance
-  var data = Menu.find({"user_id": Meteor.userId(), "deleted": false})
-  if (data.count()) {
-    Blaze.render(Template.view_menu, document.getElementById('card_container'));
-    $('.carousel.carousel-slider').carousel({fullWidth: true});
-  } else {
-    Blaze.render(Template.menu_initiation, document.getElementById('card_container'));
-  }
+  Meteor.call('checkAlreadyMenu', function(err, result){
+    if (err) {
+      console.log('error when get available menu from user');
+    } else {
+      if (result) {
+        Blaze.render(Template.view_menu, document.getElementById('card_container'));
+        $('.carousel.carousel-slider').carousel({fullWidth: true});
+      } else {
+        Blaze.render(Template.menu_initiation, document.getElementById('card_container'));
+      }
+    }
+  })
 });
 
 Template.menu_initiation.events({
