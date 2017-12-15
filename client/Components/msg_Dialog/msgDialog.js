@@ -7,12 +7,14 @@ import { Blaze } from 'meteor/blaze';
 
 Template.screen.onRendered(function(){
   if(Meteor.userId()){
-    FlowRouter.go('/main');
+    // FlowRouter.go('/main');
     // ** Use this to remove modal overlay that left behind
     $(".modal-overlay").remove();
     // ** //
   } else {
     FlowRouter.go('/');
+    localStorage.setItem("loggedIn", false);
+    Materialize.toast('Please login before access.', 4000, 'rounded red lighten-2');
   }
 });
 
