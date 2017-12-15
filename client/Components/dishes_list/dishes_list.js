@@ -149,7 +149,7 @@ Template.dishes_card_layout.events({
             dish_price,
           );
         }
-                Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
+        Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
         $('.modal').modal('close')
       }
     }

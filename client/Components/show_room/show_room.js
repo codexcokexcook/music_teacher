@@ -36,7 +36,7 @@ Template.show_room_menu.helpers ({
         kitchen_id[i] = kitchen_info[i]._id;
       }
     }
-    return Menu.find({kitchen_id: {$in: kitchen_id}, online_status: true});
+    return Menu.find({kitchen_id: {$in: kitchen_id}, online_status: true, deleted: false});
   }
 });
 

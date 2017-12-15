@@ -146,8 +146,10 @@ Template.navbar.events({
  'click #logout_link': function () {
    Meteor.call('messages.clear',Meteor.userId());
    Session.keys = {}
+   localStorage.setItem("loggedIn", false);
    Meteor.logout();
    FlowRouter.go('/');
+   $('#sidenav-overlay').remove();
  },
 });
 

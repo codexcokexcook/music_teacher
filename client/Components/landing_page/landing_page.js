@@ -23,4 +23,8 @@ Template.login_modal.events({
       $('#login_modal').append(login_content);
     }
   }
-})
+});
+
+Template.registerHelper('isCurrentUser',function(){
+  return (localStorage.getItem("loggedIn").toLowerCase() === 'true');
+});

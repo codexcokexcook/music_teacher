@@ -45,8 +45,33 @@ Template.menu_card.onRendered(function(){
 
 Template.menu_card.events({
   'click #delete_menu': function () {
-    Menu.remove(this._id);
+      $('#delete_confirmation_menu').modal({
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%', // Ending top style attribute
+      });
+      $('#delete_confirmation_menu').modal('open');
+      sessionStorage.setItem("deletedMenuID", this._id);
+  },
+  'click #confirm_delete_menu': function() {
+    Meteor.call('menu.delete', sessionStorage.getItem("deletedMenuID"), function(err, result){
+      if (err) {
+          Materialize.toast('Error occur when delete the menu. Please try again.', 4000, 'rounded red lighten-2');
+      } else {
+          if (result) { //delete done
+            Materialize.toast('Delete success!', 4000, 'rounded red lighten-2');
+          } else { //delete undone
+            Materialize.toast('Error occur when delete the menu. Please try again.', 4000, 'rounded red lighten-2');
+          }
+      }
+    })
+    // Menu.remove(this._id);
     $('edit_menu_modal').modal('close');
+    $('#delete_confirmation_menu').modal('close');
+    sessionStorage.clear();
   },
   'click #edit_menu': function () {
     $('edit_menu_modal').modal('open')

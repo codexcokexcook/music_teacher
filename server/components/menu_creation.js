@@ -18,7 +18,8 @@ Meteor.methods({
       lead_days: lead_days,
       dishes_id: dishes_id,
       image_id: image_id,
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      deleted: false
     });
   },
   'menu.update'(menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id) {
@@ -45,4 +46,16 @@ Meteor.methods({
   'menu.checkDish': function(dish_id) {
     return (Menu.findOne({'dishes_id': dish_id})) ? true : false;
   }
-})
+});
+
+Meteor.methods({
+  'menu.delete': function(menu_id) {
+    return (Menu.update(
+        {_id: menu_id},
+        {$set: {
+            deleted: true
+        }}
+      )
+    ) ? true : false;
+  }
+});

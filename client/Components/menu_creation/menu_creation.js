@@ -8,7 +8,7 @@ Template.menu_creation.onRendered(function(){
   this.$('select').material_select();
   this.$('.tooltipped').tooltip({delay: 500});
   //Check if menu has data instance
-  var data = Menu.find({"user_id": Meteor.userId()})
+  var data = Menu.find({"user_id": Meteor.userId(), "deleted": false})
   if (data.count()) {
     Blaze.render(Template.view_menu, document.getElementById('card_container'));
     $('.carousel.carousel-slider').carousel({fullWidth: true});
@@ -19,8 +19,24 @@ Template.menu_creation.onRendered(function(){
 
 Template.menu_initiation.events({
   'click #add_menu': function(template) {
-    Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
-    Blaze.remove(Template.instance().view);
+    Meteor.call('getUserProfileByID', function (err, result) {
+        if (err) {
+          console.log('Error when get user ID: ' + err);
+        } else {
+          if (result) {
+            if (typeof result.foodie_name !== undefined && result.foodie_name.trim().length > 0) {
+              $('#menu_creation_container').hide();
+              Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
+              Blaze.remove(Template.instance().view);
+            } else {
+              Materialize.toast('Please create your profile before do this action.', 4000, 'rounded red lighten-2');
+              $('.modal-overlay').click(); // trick close popup modal
+            }
+          } else {
+            console.log('Error when get user ID: ' + err);
+          }
+        }
+    });
   }
 });
 
@@ -67,6 +83,15 @@ Template.menu_creation_content.events({
     var dishes_id = Session.get('selected_dishes_id');
     var dishes_details = [];
     var image_id = [];
+    if (typeof dishes_id !== 'undefined') {
+      if (dishes_id.length == 0) {
+          Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded red lighten-2');
+          return;
+      }
+    } else {
+      Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded red lighten-2');
+      return;
+    }
     for (i=0; i < dishes_id.length; i++){
       dishes_details[i] = Dishes.findOne({_id: dishes_id[i]});
       image_id[i] = dishes_details[i].image_id;
@@ -85,7 +110,7 @@ Template.menu_creation_content.events({
         image_id
       );
     } else {
-      Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
+      Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');
     }
     // this template is reused in a modal setting, the followig is the check
     // whether this template render location is on a modal or not.
@@ -119,7 +144,7 @@ Template.view_menu.onRendered(function(){
 
 Template.view_menu.helpers({
   'menu_retreival': function() {
-    return Menu.find({"user_id": Meteor.userId()});
+    return Menu.find({"user_id": Meteor.userId(), deleted: false});
   }
 });
 
@@ -199,7 +224,7 @@ Template.edit_content.events({
       Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id);
       $('div.modal').scrollTop(0);
     } else {
-      Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000);
+      Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');
       $('div.modal').scrollTop(0);
     }
     if($('.carousel').hasClass('initialized')) {

@@ -5,9 +5,8 @@ Meteor.methods({
     }
 });
 
-// remove existed user when check it already existed in db
 Meteor.methods({
-    'removeExistedUser': function (id) {
-        return (Meteor.users.remove({_id: id})) ? true : false;
+    'getUserProfileByID': function() {
+        return (Profile_details.findOne({'user_id': Meteor.userId()}));
     }
 })
