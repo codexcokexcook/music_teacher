@@ -2,7 +2,6 @@
   width: 290px;
   display: inline-block;
   border-radius: 20px 20px 20px 20px;
-  z-index: 10;
 }
 
 .kitchen_card_image {
@@ -11,7 +10,6 @@
   background-size:cover;
   background-repeat: no-repeat;
   background-position: center center;
-  z-index: -1;
   border-radius: 20px 20px 0 0;
 }
 
