@@ -26,7 +26,9 @@ Template.dishes_summary.events({
           console.log('Error when get user ID: ' + err);
         } else {
           if (result) {
-            if (typeof result.foodie_name !== undefined && result.foodie_name.trim().length > 0) {
+            if (typeof result.kitchen_name !== undefined && result.kitchen_name.trim().length > 0 &&
+                typeof result.chef_name !== undefined && result.chef_name.trim().length > 0
+              ) {
               Session.keys = {};
               if (Blaze.getView($("#add_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
                 $('.create_dishes_form_container').remove();
@@ -36,7 +38,7 @@ Template.dishes_summary.events({
               $(".update_dish_submit_btn").hide()
             } else {
               $('#add_dish_modal').modal('close');
-              Materialize.toast('Please create your profile before do this action.', 4000, 'rounded red lighten-2');
+              Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
               setTimeout(function(){
                   $('.modal-overlay').last().fadeOut();
                   $('.modal-overlay').last().remove();

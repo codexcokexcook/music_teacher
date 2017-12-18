@@ -45,3 +45,4 @@ random                      # Random function
 flyandi:reactive-countdown
 mrgalaxy:stripe             #Stripe payment gateway
 oaf:html5-desktop-notifications  #HTML5 notification package
+u2622:persistent-session

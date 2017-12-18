@@ -7,6 +7,6 @@ Meteor.methods({
 
 Meteor.methods({
     'getUserProfileByID': function() {
-        return (Profile_details.findOne({'user_id': Meteor.userId()}));
+        return (Kitchen_details.findOne({'user_id': Meteor.userId()}));
     }
 })

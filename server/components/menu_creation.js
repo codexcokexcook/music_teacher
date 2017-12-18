@@ -59,3 +59,13 @@ Meteor.methods({
     ) ? true : false;
   }
 });
+
+Meteor.methods({
+  'checkAlreadyMenu': function() {
+    var count = Menu.find({'user_id': Meteor.userId(), "deleted": false}).count();
+    if (count > 0){
+      return true;
+    }
+    return false;
+  }
+});
