@@ -29,8 +29,7 @@ Template.menu_initiation.events({
           console.log('Error when get user ID: ' + err);
         } else {
           if (result) {
-            if (typeof result.kitchen_name !== undefined && result.kitchen_name.trim().length > 0 &&
-                typeof result.chef_name !== undefined && result.chef_name.trim().length > 0) {
+            if (typeof result.kitchen_name !== 'undefined' && typeof result.chef_name !== 'undefined' && result.kitchen_name !== null && result.chef_name !== null) {
               $('#menu_creation_container').hide();
               Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
               Blaze.remove(Template.instance().view);

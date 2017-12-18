@@ -26,9 +26,7 @@ Template.dishes_summary.events({
           console.log('Error when get user ID: ' + err);
         } else {
           if (result) {
-            if (typeof result.kitchen_name !== undefined && result.kitchen_name.trim().length > 0 &&
-                typeof result.chef_name !== undefined && result.chef_name.trim().length > 0
-              ) {
+            if (typeof result.kitchen_name !== 'undefined' && typeof result.chef_name !== 'undefined' && result.kitchen_name !== null && result.chef_name !== null) {
               Session.keys = {};
               if (Blaze.getView($("#add_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
                 $('.create_dishes_form_container').remove();
@@ -37,7 +35,8 @@ Template.dishes_summary.events({
               $(".create_dish_submit_btn").hide()
               $(".update_dish_submit_btn").hide()
             } else {
-              $('#add_dish_modal').modal('close');
+              $('#add_dish_modal').hide();
+              $('.modal-overlay').last().remove();
               Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
               setTimeout(function(){
                   $('.modal-overlay').last().fadeOut();
