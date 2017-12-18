@@ -1,10 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { Match } from 'meteor/check';
+import { check } from 'meteor/check';
 
 Order_record = new Mongo.Collection('order_record');
 
 Meteor.methods({
   'chargeCard': function(stripeToken, amount, description) {
+    check(stripeToken, String);
+    check(amount, Match.any);
+    check(description, Match.any);
+
     var Stripe = StripeAPI('sk_test_K51exlBQovfRkYAag2TKbzjl');
 
     Stripe.charges.create({
@@ -29,6 +35,17 @@ Meteor.methods({
     ready_time,
     stripeToken
   ){
+    check(transaction_no, String);
+    check(buyer_id, String);
+    check(seller_id, String);
+    check(product_id, String);
+    check(quantity, Match.any);
+    check(total_price, Match.any);
+    check(address, Match.any);
+    check(serving_option, Match.any);
+    check(ready_time, Match.any);
+    check(stripeToken, String);
+
     Order_record.insert({
       transaction_no: transaction_no,
       buyer_id: buyer_id,
@@ -49,6 +66,8 @@ Meteor.methods({
   'order_record.accepted'(
     order_id
   ){
+    check(order_id, String);
+
     Order_record.update({
       _id: order_id}, {
         $set:{
@@ -61,6 +80,7 @@ Meteor.methods({
   'order_record.rejected'(
     order_id
   ){
+    check(order_id, String);
     Order_record.update({
       _id: order_id}, {
         $set:{
@@ -73,6 +93,7 @@ Meteor.methods({
   'order_record.ready'(
     order_id
   ){
+    check(order_id, String);
     Order_record.update({
       _id: order_id}, {
         $set:{
@@ -83,6 +104,7 @@ Meteor.methods({
     },
 
   'order_record.notify_buyer'(buyer_id){
+    check(buyer_id, String);
     Order_record.find(
       {buyer_id: buyer_id, status: "Created"},
       { sort: { _id: -1 }, limit: 1 }).observeChanges({

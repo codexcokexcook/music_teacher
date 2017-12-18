@@ -130,11 +130,15 @@ Template.dishes_summary.events({
       for (i = 0; i < selected_dishes.length; i++) {
         var dish_details = Dishes.findOne({_id: selected_dishes[i]});
         if (dish_details.image_id) {
-          Meteor.call('dish_image.remove',dish_details.image_id);
+          Meteor.call('dish_image.remove',dish_details.image_id, function(err) {
+              if (err) Materialize.toast('Oops! Error when remove dish images. Please try again.', 4000, "rounded red lighten-2");
+          });
         }
         var delete_message = dish_details.dish_name + " deleted";
         Materialize.toast(delete_message, 3000);
-        Meteor.call('dish.remove', selected_dishes[i]);
+        Meteor.call('dish.remove', selected_dishes[i], function(){
+          Materialize.toast('Oops! Error when delete dish. Please try again.', 4000, "rounded red lighten-2");
+        });
       }
       Session.set('selected_dishes_id',"");
     }

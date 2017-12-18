@@ -155,7 +155,9 @@ Template.ingredient_input.events({
     var ingredient_name= $('#ingredient_name').val();
     var ingredient_quantity = $('#ingredient_quantity').val();
     var ingredient_unit = $('#ingredient_unit').val();
-    Meteor.call('ingredient.update',dish_name,Meteor.userId(),ingredient_name,ingredient_quantity,ingredient_unit);
+    Meteor.call('ingredient.update',dish_name,Meteor.userId(),ingredient_name,ingredient_quantity,ingredient_unit, function(err){
+      if (err) Materialize.toast('Oops! Error when update ingredient. Please try again.', 4000, 'rounded red lighten-2');
+    });
 
     $('#ingredient_name').val("");
     $('#ingredient_quantity').val("");
@@ -163,7 +165,9 @@ Template.ingredient_input.events({
   },
 
   'click #delete_perm_ingredient': function(event) {
-    Meteor.call('ingredient.remove',this._id);
+    Meteor.call('ingredient.remove',this._id, function(err){
+      if (err) Materialize.toast('Oops! Error when remove ingredient. Please try again.', 4000, 'rounded red lighten-2');
+    });
   },
 
   'click #delete_temp_ingredient': function(event) {
@@ -567,7 +571,10 @@ Template.create_dishes_form.events({
          Session.get('vegetables_tags'),
          Session.get('condiments_tags'),
          Session.get('serving_temperature_tags'),
-         new Date()
+         new Date(),
+         function(err) {
+           if (err) Materialize.toast('Oops! Error update dish. Please try again.', 4000, "rounded red lighten-2");
+         }
        );
 
        Ingredients_temporary.find({}).forEach(function(doc){Ingredients.insert(doc);});

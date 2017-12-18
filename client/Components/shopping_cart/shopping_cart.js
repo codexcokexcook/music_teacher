@@ -211,6 +211,9 @@ Template.sc_serving_details.events({
       seller_id,
       address,
       serving_option,
+      function(err) {
+        if (err) Materialize.toast('Oops! Error when serving in shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+      }
       )
     },
 
@@ -277,7 +280,11 @@ Template.shopping_cart_card.events({
     Meteor.call('shopping_cart.update',
       cart_id,
       quantity,
-      total_price_per_dish)
+      total_price_per_dish,
+      function(err) {
+        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+      }
+    )
     },
 
 'click .remove_button': function(event){
@@ -379,7 +386,11 @@ function to_order_record_insert(array_value){
     var ready_time = Session.get('preferred_time_ms')
 
     console.log(9)
-    Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken)
+    Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
+      if (err) {
+        Materialize.toast('Oops! Error occur. Please try again.', 4000, 'rounded red lighten-2');
+      }
+    });
     console.log(10)
     Meteor.call('shopping_cart.remove',cart_id)
     console.log(11)

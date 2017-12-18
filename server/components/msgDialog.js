@@ -13,6 +13,11 @@ Messages.deny({
 Meteor.methods({
   'messages.insert'(text, owner, channel, chips, component) {
     check(text, String);
+    check(owner, Match.any);
+    check(channel, Match.any);
+    check(chips, Match.any);
+    check(component, Match.any);
+
     // Check if user is logged in
     //    if(!Meteor.userId()){
     //      throw new Meteor.Error('not-authorized');
@@ -65,6 +70,8 @@ Meteor.methods({
     },
 
   'messages.clear'(channel){
+      check(channel, Match.any);
+      
       Messages.remove({channel: channel});
   }
 });

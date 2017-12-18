@@ -59,7 +59,9 @@ Template.chips.events({
     const target = event.target;
     const chips_input = target.value;
 
-    Meteor.call('messages.insert', chips_input, Meteor.userId(), Meteor.userId());
+    Meteor.call('messages.insert', chips_input, Meteor.userId(), Meteor.userId(), function(err) {
+      if (err) Materialize.toast('Oops! Error when send message. Please try again.', 4000, 'rounded red lighten-2');
+    });
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
 
@@ -79,7 +81,9 @@ Template.add.events({
     var message_window = $("#messages_wrap").height();
     $(".conversation-screen").animate({scrollTop:message_window},500);
 
-    Meteor.call('messages.insert', text,Meteor.userId(), Meteor.userId());
+    Meteor.call('messages.insert', text,Meteor.userId(), Meteor.userId(), function(err) {
+      if (err) Materialize.toast('Oops! Error when send message. Please try again.', 4000, 'rounded red lighten-2');
+    });
     // Clear form
     target.new_message.value = '';
     // Get message dialog to move to the bottom after message submitted
