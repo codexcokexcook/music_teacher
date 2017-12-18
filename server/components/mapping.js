@@ -2,6 +2,12 @@ import { Meteor } from 'meteor/meteor';
 
 Markers = new Mongo.Collection('markers');
 
+// set permission for Markers collection
+Markers.deny({
+  update() { return true; },
+  remove() { return true; }
+});
+
 Meteor.methods({
   'mapping.check_radius'(center_location, radius) {
     console.log(center_location);

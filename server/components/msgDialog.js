@@ -5,6 +5,11 @@ import { check } from 'meteor/check';
 
 Messages = new Mongo.Collection('messages');
 
+// set permission about Messages
+Messages.deny({
+  remove() { return true }
+});
+
 Meteor.methods({
   'messages.insert'(text, owner, channel, chips, component) {
     check(text, String);

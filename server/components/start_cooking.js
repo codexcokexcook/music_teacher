@@ -1,5 +1,9 @@
 Transactions = new Mongo.Collection('transactions');
 
+Transactions.deny({
+  remove() { return true }
+})
+
 Meteor.methods({
 
   'transactions.accepted'(

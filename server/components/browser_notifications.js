@@ -2,6 +2,13 @@ import { Meteor } from 'meteor/meteor';
 
 Notifications = new Mongo.Collection('notifications');
 
+
+// set permission for Notifications collection
+Notifications.deny({
+  update() { return true; },
+  remove() { return true; }
+});
+
 Meteor.methods({
   'notification.place_order'(seller_id, buyer_id, product_id, quantity){
     var buyer_name = Profile_details.findOne({user_id: buyer_id}).foodie_name;

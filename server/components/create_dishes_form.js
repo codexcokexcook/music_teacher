@@ -19,6 +19,16 @@ Images = new FilesCollection({
   }
 });
 
+// set permission for Dishes collection
+Dishes.deny({
+  remove() { return true; }
+});
+
+// set permission for Dishes collection
+Images.deny({
+  remove() { return true; }
+});
+
 Meteor.publish('files.images.all', function () {
     return Images.find().cursor;
 });

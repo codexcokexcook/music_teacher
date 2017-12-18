@@ -18,6 +18,16 @@ profile_images = new FilesCollection({
   }
 });
 
+// set permission for Profile Details collection
+Profile_details.deny({
+  remove() { return true; }
+});
+
+// set permission for Kitchen Datails collection
+Profile_details.deny({
+  remove() { return true; }
+});
+
 Meteor.publish('files.profile_images.all', function () {
     return profile_images.find().cursor;
 });

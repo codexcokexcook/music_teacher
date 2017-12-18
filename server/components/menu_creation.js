@@ -5,6 +5,11 @@ import { check } from 'meteor/check';
 
 Menu = new Mongo.Collection('menu');
 
+// set permission about Menu
+Menu.deny({
+  remove() { return true; }
+});
+
 Meteor.methods({
   'menu.insert'(menu_name, user_id, kitchen_id, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id) {
     Menu.insert({
