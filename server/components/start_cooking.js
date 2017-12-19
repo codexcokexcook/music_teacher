@@ -23,8 +23,8 @@ Meteor.methods({
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
-    check(price_of_cart, Match.any);
-    check(stripeToken, Match.any);
+    check(price_of_cart, Match.Any);
+    check(stripeToken, Match.Any);
 
     Transactions.insert({
       transaction_no: trans_no,
@@ -52,7 +52,7 @@ Meteor.methods({
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
-    check(total_price_of_transaction, Match.any);
+    check(total_price_of_transaction, Match.Any);
 
     Transactions.update({
       transaction_no: trans_no,
@@ -83,7 +83,7 @@ Meteor.methods({
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
-    check(price_of_cart, Match.any);
+    check(price_of_cart, Match.Any);
     check(stripeToken, String);
 
     Transactions.insert({

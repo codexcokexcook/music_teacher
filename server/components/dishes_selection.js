@@ -37,22 +37,22 @@ Meteor.methods({
     check(kitchen_id, String);
     check(dish_name, String);
     check(dish_description, String);
-    check(serving_option, Match.any);
+    check(serving_option, Match.Any);
     check(cooking_time, String);
     check(dish_cost, String);
     check(dish_selling_price, String);
     check(dish_profit, Number);
-    check(allergy_tags, Match.any);
-    check(dietary_tags, Match.any);
-    check(cuisines_tags, Match.any);
-    check(proteins_tags, Match.any);
-    check(categories_tags, Match.any);
-    check(cooking_methods_tags, Match.any);
-    check(tastes_tags, Match.any);
-    check(textures_tags, Match.any);
-    check(vegetables_tags, Match.any);
-    check(condiments_tags, Match.any);
-    check(serving_temperature_tags, Match.any);
+    check(allergy_tags, Match.Any);
+    check(dietary_tags, Match.Any);
+    check(cuisines_tags, Match.Any);
+    check(proteins_tags, Match.Any);
+    check(categories_tags, Match.Any);
+    check(cooking_methods_tags, Match.Any);
+    check(tastes_tags, Match.Any);
+    check(textures_tags, Match.Any);
+    check(vegetables_tags, Match.Any);
+    check(condiments_tags, Match.Any);
+    check(serving_temperature_tags, Match.Any);
 
     Dishes.update({
       _id: dish_id

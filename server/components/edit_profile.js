@@ -50,28 +50,28 @@ Meteor.methods({
   ) {
     check(foodie_profile_id, String);
     check(foodie_name, String);
-    check(email, Match.any);
-    check(date_of_birth, Match.any);
-    check(mobile_dial_code, Match.any);
-    check(mobile, Match.any);
-    check(profile_keywords, Match.any);
-    check(gender, Match.any);
-    check(about_myself, Match.any);
-    check(home_address_country, Match.any);
-    check(home_address, Match.any);
-    check(home_address_conversion, Match.any);
-    check(office_address_country, Match.any);
-    check(office, Match.any);
-    check(office_address_conversion, Match.any);
-    check(allergy_tags, Match.any);
-    check(dietary_tags, Match.any);
-    check(card_number, Match.any);
-    check(card_fullname, Match.any);
-    check(card_exp_month, Match.any);
-    check(card_exp_year, Match.any);
-    check(billing_address_country, Match.any);
-    check(cvv_code, Match.any);
-    check(billing_address, Match.any);
+    check(email, Match.Any);
+    check(date_of_birth, Match.Any);
+    check(mobile_dial_code, Match.Any);
+    check(mobile, Match.Any);
+    check(profile_keywords, Match.Any);
+    check(gender, Match.Any);
+    check(about_myself, Match.Any);
+    check(home_address_country, Match.Any);
+    check(home_address, Match.Any);
+    check(home_address_conversion, Match.Any);
+    check(office_address_country, Match.Any);
+    check(office, Match.Any);
+    check(office_address_conversion, Match.Any);
+    check(allergy_tags, Match.Any);
+    check(dietary_tags, Match.Any);
+    check(card_number, Match.Any);
+    check(card_fullname, Match.Any);
+    check(card_exp_month, Match.Any);
+    check(card_exp_year, Match.Any);
+    check(billing_address_country, Match.Any);
+    check(cvv_code, Match.Any);
+    check(billing_address, Match.Any);
 
     Profile_details.update({
       _id: foodie_profile_id
@@ -126,17 +126,17 @@ Meteor.methods({
     check(kitchen_profile_id, String);
     check(kitchen_name, String);
     check(chef_name, String);
-    check(homecook_profile_keywords, Match.any);
-    check(kitchen_address_country, Match.any);
-    check(kitchen_address, Match.any);
-    check(kitchen_address_conversion, Match.any);
-    check(about_homecook_myself, Match.any);
-    check(serving_option, Match.any);
-    check(bank_fullname, Match.any);
-    check(bank_name, Match.any);
-    check(bank_account_no, Match.any);
-    check(bank_address_country, Match.any);
-    check(bank_address, Match.any);
+    check(homecook_profile_keywords, Match.Any);
+    check(kitchen_address_country, Match.Any);
+    check(kitchen_address, Match.Any);
+    check(kitchen_address_conversion, Match.Any);
+    check(about_homecook_myself, Match.Any);
+    check(serving_option, Match.Any);
+    check(bank_fullname, Match.Any);
+    check(bank_name, Match.Any);
+    check(bank_account_no, Match.Any);
+    check(bank_address_country, Match.Any);
+    check(bank_address, Match.Any);
 
     Kitchen_details.update({
       _id: kitchen_profile_id

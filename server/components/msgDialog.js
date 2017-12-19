@@ -13,10 +13,10 @@ Messages.deny({
 Meteor.methods({
   'messages.insert'(text, owner, channel, chips, component) {
     check(text, String);
-    check(owner, Match.any);
-    check(channel, Match.any);
-    check(chips, Match.any);
-    check(component, Match.any);
+    check(owner, Match.Any);
+    check(channel, Match.Any);
+    check(chips, Match.Any);
+    check(component, Match.Any);
 
     // Check if user is logged in
     //    if(!Meteor.userId()){
@@ -70,8 +70,7 @@ Meteor.methods({
     },
 
   'messages.clear'(channel){
-      check(channel, Match.any);
-      
+      check(channel, String);
       Messages.remove({channel: channel});
   }
 });

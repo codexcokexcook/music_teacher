@@ -6,8 +6,8 @@ Meteor.methods({
   'markers.insert'(user_id, kitchen_id, lat, lng) {
     check(user_id, String);
     check(kitchen_id, String);
-    check(lat, Match.any);
-    check(lng, Match.any);
+    check(lat, Match.Any);
+    check(lng, Match.Any);
 
     Markers.insert({
       user_id: user_id,
@@ -21,8 +21,8 @@ Meteor.methods({
   'markers.update'(user_id, kitchen_id, lat, lng) {
     check(user_id, String);
     check(kitchen_id, String);
-    check(lat, Match.any);
-    check(lng, Match.any);
+    check(lat, Match.Any);
+    check(lng, Match.Any);
     
     Markers.update({
       user_id: user_id

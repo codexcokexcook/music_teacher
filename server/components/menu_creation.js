@@ -23,12 +23,12 @@ Meteor.methods({
     check(menu_name, String);
     check(user_id, String);
     check(kitchen_id, String);
-    check(menu_selling_price, Match.any);
-    check(min_order, Match.any);
-    check(lead_hours, Match.any);
-    check(lead_days, Match.any);
-    check(dishes_id, Match.any);
-    check(image_id, Match.any);
+    check(menu_selling_price, Match.Any);
+    check(min_order, Match.Any);
+    check(lead_hours, Match.Any);
+    check(lead_days, Match.Any);
+    check(dishes_id, Match.Any);
+    check(image_id, Match.Any);
 
     Menu.insert({
       menu_name: menu_name,
@@ -48,12 +48,12 @@ Meteor.methods({
   'menu.update' (menu_id, menu_name, menu_selling_price, min_order, lead_hours, lead_days, dishes_id, image_id) {
     check(menu_id, String);
     check(menu_name, String);
-    check(menu_selling_price, Match.any);
-    check(min_order, Match.any);
-    check(lead_hours, Match.any);
-    check(lead_days, Match.any);
-    check(dishes_id, Match.any);
-    check(image_id, Match.any);
+    check(menu_selling_price, Match.Any);
+    check(min_order, Match.Any);
+    check(lead_hours, Match.Any);
+    check(lead_days, Match.Any);
+    check(dishes_id, Match.Any);
+    check(image_id, Match.Any);
 
     Menu.update({
       _id: menu_id
@@ -110,7 +110,7 @@ Meteor.methods({
 
 Meteor.methods({
   'checkAlreadyMenu': function() {
-    
+
     var count = Menu.find({
       'user_id': Meteor.userId(),
       "deleted": false

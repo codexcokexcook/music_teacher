@@ -8,8 +8,8 @@ Order_record = new Mongo.Collection('order_record');
 Meteor.methods({
   'chargeCard': function(stripeToken, amount, description) {
     check(stripeToken, String);
-    check(amount, Match.any);
-    check(description, Match.any);
+    check(amount, Match.Any);
+    check(description, Match.Any);
 
     var Stripe = StripeAPI('sk_test_K51exlBQovfRkYAag2TKbzjl');
 
@@ -39,11 +39,11 @@ Meteor.methods({
     check(buyer_id, String);
     check(seller_id, String);
     check(product_id, String);
-    check(quantity, Match.any);
-    check(total_price, Match.any);
-    check(address, Match.any);
-    check(serving_option, Match.any);
-    check(ready_time, Match.any);
+    check(quantity, Match.Any);
+    check(total_price, Match.Any);
+    check(address, Match.Any);
+    check(serving_option, Match.Any);
+    check(ready_time, Match.Any);
     check(stripeToken, String);
 
     Order_record.insert({

@@ -531,7 +531,7 @@ Template.create_dishes_form.events({
                checkboxes[i].checked = false;
            };
            // hide popup
-           $('#add_dish_modal').modal('close');
+           $('#add_dish_modal').hide();
            $('.modal-overlay').remove();
            return false;
          }

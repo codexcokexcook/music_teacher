@@ -12,8 +12,8 @@ Markers.deny({
 
 Meteor.methods({
   'mapping.check_radius'(center_location, radius) {
-    check(center_location, Match.any);
-    check(radius, Match.any);
+    check(center_location, Match.Any);
+    check(radius, Match.Any);
     var searched_kitchen = Kitchen_details.find({
       kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[center_location.lng,center_location.lat], radius/6371]}}
     }).fetch();

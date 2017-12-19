@@ -26,7 +26,7 @@ Meteor.methods({
     check(seller_id, String);
     check(buyer_id, String);
     check(product_id, String);
-    check(quantity, Match.any);
+    check(quantity, Match.Any);
 
     var buyer_name = Profile_details.findOne({
       user_id: buyer_id

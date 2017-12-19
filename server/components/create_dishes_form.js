@@ -27,20 +27,6 @@ Images = new FilesCollection({
   }
 });
 
-// set permission for Dishes collection
-Dishes.deny({
-  remove() {
-    return true;
-  }
-});
-
-// set permission for Dishes collection
-Images.deny({
-  remove() {
-    return true;
-  }
-});
-
 Meteor.publish('files.images.all', function() {
   return Images.find().cursor;
 });
@@ -64,7 +50,7 @@ Meteor.methods({
     check(foodie_name, String);
     check(homecook_name, String);
     check(address, String);
-    check(serving_option, Match.any);
+    check(serving_option, Match.Any);
     check(ready_time, String);
     check(dish_id, String);
     check(dish_name, String);
@@ -97,7 +83,7 @@ Meteor.methods({
 
     check(order_id, String);
     check(quantity, Number);
-    check(total_price_per_dish, Match.any);
+    check(total_price_per_dish, Match.Any);
 
     Shopping_cart.update({
       _id: order_id
@@ -132,7 +118,7 @@ Meteor.methods({
     check(buyer_id, String);
     check(seller_id, String);
     check(address, String);
-    check(serving_option, Match.any);
+    check(serving_option, Match.Any);
 
     Shopping_cart.update({
       buyer_id: buyer_id,
@@ -152,8 +138,8 @@ Meteor.methods({
   'ingredient.update' (dish_name, user_id, ingredient_name, ingredient_quantity, ingredient_unit) {
     check(dish_name, String);
     check(user_id, String);
-    check(ingredient_quantity, Match.any);
-    check(ingredient_unit, Match.any);
+    check(ingredient_quantity, Match.Any);
+    check(ingredient_unit, Match.Any);
 
     Ingredients.insert({
       dish_name: dish_name,
