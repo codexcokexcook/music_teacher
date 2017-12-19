@@ -129,6 +129,9 @@ Template.dishes_summary.events({
   'click #btn_delete_dish': function(event) {
     event.preventDefault();
     var selected_dishes = Session.get('selected_dishes_id');
+    if (typeof selected_dishes !== "undefined"){
+      selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
+    }
     if (!selected_dishes || selected_dishes.length === 0) {
       Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded red lighten-2');
     } else {
