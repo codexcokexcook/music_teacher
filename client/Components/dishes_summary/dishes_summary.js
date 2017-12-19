@@ -58,16 +58,21 @@ Template.dishes_summary.events({
     };
 
     var selected_dishes = Session.get('selected_dishes_id');
+    // remove all "on" element in value
+
+    if (typeof selected_dishes !== "undefined"){
+      selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
+    }
 
     //Validation of dish selection checkbox
     if (!selected_dishes || selected_dishes.length === 0) {
       Materialize.toast("Please select a dish you'd like to edit", 4000, 'rounded red lighten-2');
       return false;
-    } else if (selected_dishes.length > 1 )  {
+    } else if ( selected_dishes.length > 1 )  {
       Materialize.toast("Ops! You can't choose more than 1 dish to edit, please try again", 4000, 'rounded red lighten-2');
       return false;
     } else {
-      var selected_dishes = Session.get('selected_dishes_id');
+      // var selected_dishes = Session.get('selected_dishes_id');
       var get_dish = Dishes.findOne({_id: selected_dishes[0]});
 
       // Below parameters will be passed to create_dishes_form template using Blaze.renderWithData
