@@ -1,5 +1,9 @@
 import { Match } from 'meteor/check';
 
+Meteor.users.deny({
+  update() { return true; }
+});
+
 // check the user with email address is already in db or not
 Meteor.methods({
     'checkIfUserExists': function (email) {
