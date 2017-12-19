@@ -49,13 +49,13 @@ Meteor.methods({
     check(homecook_id, String);
     check(foodie_name, String);
     check(homecook_name, String);
-    check(address, String);
+    check(address, Match.Any);
     check(serving_option, Match.Any);
-    check(ready_time, String);
-    check(dish_id, String);
-    check(dish_name, String);
-    check(quantity, Number);
-    check(dish_price, String);
+    check(ready_time, Match.Any);
+    check(dish_id, Match.Any);
+    check(dish_name, Match.Any);
+    check(quantity, Match.Any);
+    check(dish_price, Match.Any);
 
     Shopping_cart.insert({
       buyer_id: foodie_id,
@@ -143,7 +143,7 @@ Meteor.methods({
 
     Ingredients.insert({
       dish_name: dish_name,
-      user_id: user_id,
+      user_id: Meteor.userId(),
       ingredient_name: ingredient_name,
       ingredient_quantity: ingredient_quantity,
       ingredient_unit: ingredient_unit,

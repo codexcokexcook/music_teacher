@@ -32,7 +32,7 @@ Meteor.methods({
 
     Menu.insert({
       menu_name: menu_name,
-      user_id: user_id,
+      user_id: Meteor.userId(),
       kitchen_id: kitchen_id,
       createdAt: new Date(),
       menu_selling_price: menu_selling_price,

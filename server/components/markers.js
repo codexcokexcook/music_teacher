@@ -10,7 +10,7 @@ Meteor.methods({
     check(lng, Match.Any);
 
     Markers.insert({
-      user_id: user_id,
+      user_id: Meteor.userId(),
       kitchen_id: kitchen_id,
       lat: lat,
       lng: lng,
@@ -23,9 +23,9 @@ Meteor.methods({
     check(kitchen_id, String);
     check(lat, Match.Any);
     check(lng, Match.Any);
-    
+
     Markers.update({
-      user_id: user_id
+      user_id: Meteor.userId()
     },{$set: {
       kitchen_id: kitchen_id,
       lat: lat,

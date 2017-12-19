@@ -109,7 +109,7 @@ Meteor.methods({
     check(billing_address, Match.Any);
 
     Profile_details.insert({
-      user_id: user_id,
+      user_id: Meteor.userId(),
       foodie_name: foodie_name,
       email: email,
       date_of_birth: date_of_birth,
@@ -172,7 +172,7 @@ Meteor.methods({
     check(bank_address, Match.Any);
 
     Kitchen_details.insert({
-      user_id: user_id,
+      user_id: Meteor.userId(),
       kitchen_name: kitchen_name,
       chef_name: chef_name,
       homecook_profile_keywords: homecook_profile_keywords,
