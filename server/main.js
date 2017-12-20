@@ -1,4 +1,4 @@
-//initiate webhook when the website render to allow api.ai send over GET request
+``//initiate webhook when the website render to allow api.ai send over GET request
 import '/imports/api/public/api.js';
 
 ServiceConfiguration.configurations.remove({
@@ -21,10 +21,10 @@ ServiceConfiguration.configurations.insert({
   secret: 'uDpIjX3dsylPJ5PJP2lwSFtm',
 });
 
-Meteor.publish('theProfileImages', function(){
-    var currentUserId = this.userId;
-    return profile_images.findOne();
-});
+// Meteor.publish('theProfileImages', function(){
+//     var currentUserId = this.userId;
+//     return profile_images.findOne();
+// });
 
 Meteor.publish('theIngredients', function(){
     var currentUserId = this.userId;
@@ -86,7 +86,7 @@ Meteor.publish('theMenu', function(){
     return Menu.find();
 });
 
-Meteor.publish('theImages', function(){
-    var currentUserId = this.userId;
-    return Images.find();
-});
+// Meteor.publish('theImages', function(){
+//     var currentUserId = this.userId;
+//     return Images.find();
+// });
