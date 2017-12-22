@@ -186,7 +186,7 @@ Template.upload_profile.helpers({
         "purpose": "profile_picture"
       }
     });
-    profile_url = "/profile_upload/" + profile_id_location._id + profile_id_location.extensionWithDot;
+    profile_url = '/cdn/storage/profile_images/' + profile_id_location._id + '/original/' + profile_id_location._id + profile_id_location.extensionWithDot;
     return profile_url;
   }
 });
