@@ -492,10 +492,11 @@ Template.create_foodie_profile.events({
         } else {
           Materialize.toast('Profile created!', 4000);
           //divert to the profile page
-          BlazeLayout.render('screen', {
-            navbar: "bp_navbar",
-            render_component: "show_room"
-          });
+          // BlazeLayout.render('screen', {
+          //   navbar: "bp_navbar",
+          //   render_component: "show_room"
+          // });
+          FlowRouter.go('/main');
         }
       }
     );
@@ -556,10 +557,11 @@ Template.create_homecook_profile.events({
         } else  {
           Materialize.toast('Profile created!', 4000);
           //divert to the profile page
-          BlazeLayout.render('screen', {
-            navbar: "bp_navbar",
-            render_component: "show_room"
-          });
+          // BlazeLayout.render('screen', {
+          //   navbar: "bp_navbar",
+          //   render_component: "show_room"
+          // });
+          FlowRouter.go('/main');
         }
       }
     );

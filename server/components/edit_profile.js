@@ -61,7 +61,7 @@ Meteor.methods({
     check(home_address, Match.Any);
     check(home_address_conversion, Match.Any);
     check(office_address_country, Match.Any);
-    check(office, Match.Any);
+    check(office_address, Match.Any);
     check(office_address_conversion, Match.Any);
     check(allergy_tags, Match.Any);
     check(dietary_tags, Match.Any);
