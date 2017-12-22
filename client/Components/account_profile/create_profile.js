@@ -58,7 +58,7 @@ Template.profile_banner.onRendered(function() {
     }
   });
   if (check_profile_banner) {
-    var banner_url = "/profile_upload/" + check_profile_banner._id + check_profile_banner.extensionWithDot;
+    var banner_url = '/cdn/storage/profile_images/' + check_profile_banner._id + '/original/' + check_profile_banner._id + check_profile_banner.extensionWithDot;
     $(".profile_banner_area").css("background-image", "url(" + banner_url + ")");
     $("#banner_upload_button").text("Change Banner Image");
   } else {
