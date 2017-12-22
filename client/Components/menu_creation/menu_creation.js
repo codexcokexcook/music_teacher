@@ -38,7 +38,8 @@ Template.menu_initiation.events({
               $('.modal-overlay').click(); // trick close popup modal
             }
           } else {
-            console.log('Error when get user ID: ' + err);
+            Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
+            $('.modal-overlay').click(); // trick close popup modal
           }
         }
     });

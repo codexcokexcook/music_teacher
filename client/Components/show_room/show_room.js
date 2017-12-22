@@ -7,11 +7,13 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import { navbar_find_by } from '/imports/functions/find_by.js'
 
 Template.show_room.onRendered(function(){
-  $('.map_wrapper').pushpin({
-    top: 0,
-    bottom: 2000,
-    offset: 65
-  });
+  Meteor.setTimeout( function() {
+    $('.map_wrapper').pushpin({
+      top: 0,
+      bottom: 2000,
+      offset: 65
+    });
+  }, 0);
 });
 
 Template.show_room_dish.helpers ({

@@ -44,7 +44,13 @@ Template.dishes_summary.events({
               }, 300);
             }
           } else {
-            console.log('Error when get user ID: ' + err);
+            $('#add_dish_modal').hide();
+            $('.modal-overlay').last().remove();
+            Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
+            setTimeout(function(){
+                $('.modal-overlay').last().fadeOut();
+                $('.modal-overlay').last().remove();
+            }, 300);
           }
         }
     });
