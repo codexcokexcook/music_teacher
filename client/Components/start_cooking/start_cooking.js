@@ -177,8 +177,7 @@ Template.order_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-
-    return dish_image_id + ext
+    return '/cdn/storage/Images/' + dish_image_id + '/original/' + dish_image_id + ext;
   },
 
   'get_dish_name': function() {
@@ -277,7 +276,7 @@ Template.request_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-    return dish_image_id + ext
+    return '/cdn/storage/Images/' + dish_image_id + '/original/' + dish_image_id + ext;
   },
   'get_dish_qty': function() {
     return Order_record.findOne({
@@ -296,7 +295,7 @@ Template.request_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-    return dish_image_id + ext
+    return '/cdn/storage/Images/' + dish_image_id + '/original/' + dish_image_id + ext;
   },
   'get_menu_qty': function() {
     return Order_record.findOne({

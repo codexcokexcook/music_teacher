@@ -39,7 +39,7 @@ Template.uploadForm.helpers({
   },
 
   load_dish: function() {
-    dish_url = "/dishes_upload/" + Images._id + Images.extensionWithDot;
+    dish_url =     '/cdn/storage/Images/' + Images._id + '/original/' + Images._id + Images.extensionWithDot;
     return dish_url;
   }
 });
@@ -67,7 +67,7 @@ Template.uploadForm.events({
           alert('Error during upload: ' + error);
         } else {
           Meteor.setTimeout(function() {
-            var dish_url = "/dishes_upload/" + Images._id + Images.extensionWithDot;
+            var dish_url = '/cdn/storage/Images/' + Images._id + '/original/' + Images._id + Images.extensionWithDot;
             $(".circle_base").css("background-image", "url(" + dish_url + ")");
           }, 500);
           Session.set('image_id', Images._id);
