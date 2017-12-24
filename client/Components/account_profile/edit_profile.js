@@ -272,21 +272,24 @@ Template.edit_homecook_profile.helpers({
 
 Template.edit_homecook_profile.onRendered(function() {
 
-  var get_homecook_profile = Kitchen_details.findOne({
-    'user_id': Meteor.userId()
-  });
+  Meteor.setTimeout(function(){
+      var get_homecook_profile = Kitchen_details.findOne({
+        'user_id': Meteor.userId()
+      });
 
-  //activate dropdown
-  this.$('select').material_select();
+      checkboxes_recall(get_homecook_profile.serving_option);
 
-  //activate characterCounter
-  this.$('input#input_text, textarea#about_myself').characterCounter();
+      //activate dropdown
+      this.$('select').material_select();
 
-  //activate the selection tabs
-  this.$(document).ready(function() {
-    $('ul.tabs').tabs();
-  });
-  checkboxes_recall(get_homecook_profile.serving_option);
+      //activate characterCounter
+      this.$('input#input_text, textarea#about_myself').characterCounter();
+
+      //activate the selection tabs
+      this.$(document).ready(function() {
+        $('ul.tabs').tabs();
+      });
+  }, 100);
 });
 
 

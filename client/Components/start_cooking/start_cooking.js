@@ -106,8 +106,8 @@ Template.order_card.helpers({
       "meta": {
         "purpose": "profile_picture"
       }
-    })
-    return foodie._id + foodie.extensionWithDot
+    });
+    return     '/cdn/storage/profile_images/' + foodie._id + '/original/' + foodie._id + foodie.extensionWithDot;
   },
   'product_is_dish': function() {
     var order = Order_record.findOne({
@@ -220,8 +220,8 @@ Template.request_card.helpers({
       "meta": {
         "purpose": "profile_picture"
       }
-    })
-    return foodie._id + foodie.extensionWithDot
+    });
+    return     '/cdn/storage/profile_images/' + foodie._id + '/original/' + foodie._id + foodie.extensionWithDot;
 
   },
 
