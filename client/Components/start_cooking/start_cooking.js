@@ -107,7 +107,7 @@ Template.order_card.helpers({
         "purpose": "profile_picture"
       }
     });
-    return     '/cdn/storage/profile_images/' + foodie._id + '/original/' + foodie._id + foodie.extensionWithDot;
+    return foodie.meta.base64;
   },
   'product_is_dish': function() {
     var order = Order_record.findOne({
@@ -177,7 +177,10 @@ Template.order_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-    return '/cdn/storage/Images/' + dish_image_id + '/original/' + dish_image_id + ext;
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
 
   'get_dish_name': function() {
@@ -220,7 +223,7 @@ Template.request_card.helpers({
         "purpose": "profile_picture"
       }
     });
-    return     '/cdn/storage/profile_images/' + foodie._id + '/original/' + foodie._id + foodie.extensionWithDot;
+    return  foodie.meta.base64;
 
   },
 
@@ -276,7 +279,11 @@ Template.request_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-    return '/cdn/storage/Images/' + dish_image_id + '/original/' + dish_image_id + ext;
+
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
   'get_dish_qty': function() {
     return Order_record.findOne({
@@ -295,7 +302,10 @@ Template.request_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-    return '/cdn/storage/Images/' + dish_image_id + '/original/' + dish_image_id + ext;
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
   'get_menu_qty': function() {
     return Order_record.findOne({

@@ -60,7 +60,7 @@ Template.profile_banner.onRendered(function() {
     });
 
     if (check_profile_banner) {
-      var banner_url = '/cdn/storage/profile_images/' + check_profile_banner._id + '/original/' + check_profile_banner._id + check_profile_banner.extensionWithDot;
+      var banner_url = check_profile_banner.meta.base64;
       $(".profile_banner_area").css("background-image", "url(" + banner_url + ")");
       $("#banner_upload_button").text("Change Banner Image");
     } else {
@@ -86,7 +86,7 @@ Template.profile_banner.helpers({
     }
   },
   'load_banner': function() {
-    banner_url = '/cdn/storage/profile_images/' + this._id + '/original/' + this._id + this.extensionWithDot;
+    banner_url = this.meta.base64;
     $(".profile_banner_area").css("background-color", "");
     $(".profile_banner_area").css("background-image", "url(" + banner_url + ")");
   },
@@ -125,37 +125,43 @@ Template.profile_banner.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = profile_images.insert({
-        file: e.currentTarget.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
-        meta: {
-          purpose: "banner_picture"
-        }
-      }, false);
-      Meteor.call('profile_images.remove', "banner_picture");
-
-      upload.on('start', function() {
-        template.currentUpload.set(this);
-      });
-
-      upload.on('end', function(error, profile_images) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          Meteor.setTimeout(function() {
-            var banner_url = '/cdn/storage/profile_images/' + profile_images._id + '/original/' + profile_images._id + profile_images.extensionWithDot;
-            $(".profile_banner_area").css("background-color", "");
-            $(".profile_banner_area").css("background-image", "url(" + banner_url + ")");
-          }, 3000);
-          /** below is the line that prevents meteor from reloading **/
-        }
-        Meteor._reload.onMigrate(function() {
-          return [false];
+      var upload;
+      var reader = new FileReader();
+      reader.readAsDataURL(e.currentTarget.files[0]);
+      reader.onloadend = function () {
+        upload = profile_images.insert({
+          file: e.currentTarget.files[0],
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+          meta: {
+            base64: reader.result,
+            purpose: "banner_picture"
+          }
+        }, false);
+        Meteor.call('profile_images.remove', "banner_picture");
+  
+        upload.on('start', function() {
+          template.currentUpload.set(this);
         });
-        template.currentUpload.set(false);
-      });
-      upload.start();
+  
+        upload.on('end', function(error, profile_images) {
+          if (error) {
+            alert('Error during upload: ' + error);
+          } else {
+            Meteor.setTimeout(function() {
+              var banner_url = profile_images.meta.base64;
+              $(".profile_banner_area").css("background-color", "");
+              $(".profile_banner_area").css("background-image", "url(" + banner_url + ")");
+            }, 3000);
+            /** below is the line that prevents meteor from reloading **/
+          }
+          Meteor._reload.onMigrate(function() {
+            return [false];
+          });
+          template.currentUpload.set(false);
+        });
+        upload.start();
+      };
     }
   }
 });
@@ -189,7 +195,7 @@ Template.upload_profile.helpers({
         "purpose": "profile_picture"
       }
     });
-    profile_url = '/cdn/storage/profile_images/' + profile_id_location._id + '/original/' + profile_id_location._id + profile_id_location.extensionWithDot;
+    profile_url = profile_id_location.meta.base64;
     return profile_url;
   }
 });
@@ -199,35 +205,42 @@ Template.upload_profile.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = profile_images.insert({
-        file: e.currentTarget.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
-        meta: {
-          purpose: "profile_picture"
-        }
-      }, false);
+      var upload;
+      var reader = new FileReader();
+      reader.readAsDataURL(e.currentTarget.files[0]);
+      reader.onloadend = function () {
+        upload = profile_images.insert({
+          file: e.currentTarget.files[0],
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+          meta: {
+            base64: reader.result,
+            purpose: "profile_picture"
+          }
+        }, false);
 
-      upload.on('start', function() {
-        template.currentUpload.set(this);
-      });
-
-      upload.on('end', function(error, profile_images) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          Meteor.setTimeout(function() {
-            var profile_url = '/cdn/storage/profile_images/' + profile_images._id + '/original/' + profile_images._id + profile_images.extensionWithDot;
-            $(".profile_upload_wrapper").css("background-image", "url(" + profile_url + ")");
-          }, 3000);
-          /** above is the line that prevents meteor from reloading **/
-        }
-        Meteor._reload.onMigrate(function() {
-          return [false];
+        upload.on('start', function() {
+          template.currentUpload.set(this);
         });
-        template.currentUpload.set(false);
-      });
-      upload.start();
+
+        upload.on('end', function(error, profile_images) {
+          if (error) {
+            alert('Error during upload: ' + error);
+          } else {
+            Meteor.setTimeout(function() {
+              var profile_url = profile_images.meta.base64;
+              $(".profile_upload_wrapper").css("background-image", "url(" + profile_url + ")");
+              $(".profile_icon_img_upload").hide();
+            }, 3000);
+            /** above is the line that prevents meteor from reloading **/
+          }
+          Meteor._reload.onMigrate(function() {
+            return [false];
+          });
+          template.currentUpload.set(false);
+        });
+        upload.start();
+      };
     }
   }
 });
@@ -260,7 +273,7 @@ Template.homecook_profile_banner.onRendered(function() {
     }
   });
   if (check_profile_banner) {
-    var banner_url = '/cdn/storage/profile_images/' + check_profile_banner._id + '/original/' + check_profile_banner._id + check_profile_banner.extensionWithDot;
+    var banner_url = check_profile_banner.meta.base64;
     $(".homecook_profile_banner_area").css("background-image", "url(" + banner_url + ")");
     $("#homecook_banner_upload_button").text("Change Banner Image");
   } else {
@@ -284,7 +297,7 @@ Template.homecook_profile_banner.helpers({
     }
   },
   load_banner: function() {
-    banner_url = '/cdn/storage/profile_images/' + this._id + '/original/' + this._id + this.extensionWithDot;
+    banner_url = this.meta.base64;
     $(".homecook_profile_banner_area").css("background-color", "");
     $(".homecook_profile_banner_area").css("background-image", "url(" + banner_url + ")");
   },
@@ -322,37 +335,43 @@ Template.homecook_profile_banner.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = profile_images.insert({
-        file: e.currentTarget.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
-        meta: {
-          purpose: "homecook_banner_picture"
-        }
-      }, false);
-
-      Meteor.call('profile_images.remove', "homecook_banner_picture");
-
-      upload.on('start', function() {
-        template.currentUpload.set(this);
-      });
-
-      upload.on('end', function(error, profile_images) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          Meteor.setTimeout(function() {
-            var banner_url = '/cdn/storage/profile_images/' + profile_images._id + '/original/' + profile_images._id + this.extensionWithDot;
-            $(".homecook_profile_banner_area").css("background-color", "");
-            $(".homecook_profile_banner_area").css("background-image", "url(" + banner_url + ")");
-          }, 100);
-        }
-        Meteor._reload.onMigrate(function() {
-          return [false];
+      var upload;
+      var reader = new FileReader();
+      reader.readAsDataURL(e.currentTarget.files[0]);
+      reader.onloadend = function () {
+        upload = profile_images.insert({
+          file: e.currentTarget.files[0],
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+          meta: {
+            base64: reader.result,
+            purpose: "homecook_banner_picture"
+          }
+        }, false);
+  
+        Meteor.call('profile_images.remove', "homecook_banner_picture");
+  
+        upload.on('start', function() {
+          template.currentUpload.set(this);
         });
-        template.currentUpload.set(false);
-      });
-      upload.start();
+  
+        upload.on('end', function(error, profile_images) {
+          if (error) {
+            alert('Error during upload: ' + error);
+          } else {
+            Meteor.setTimeout(function() {
+              var banner_url = profile_images.meta.base64;
+              $(".homecook_profile_banner_area").css("background-color", "");
+              $(".homecook_profile_banner_area").css("background-image", "url(" + banner_url + ")");
+            }, 100);
+          }
+          Meteor._reload.onMigrate(function() {
+            return [false];
+          });
+          template.currentUpload.set(false);
+        });
+        upload.start();
+      };
     }
   }
 });
@@ -385,7 +404,7 @@ Template.upload_homecook_profile.helpers({
         "purpose": "homecook_profile_picture"
       }
     });
-    profile_url = '/cdn/storage/profile_images/' + profile_id_location._id + '/original/' + profile_id_location._id + profile_id_location.extensionWithDot;
+    profile_url = profile_id_location.meta.base64;
     return profile_url;
   }
 });
@@ -395,35 +414,41 @@ Template.upload_homecook_profile.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = profile_images.insert({
-        file: e.currentTarget.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
-        meta: {
-          purpose: "homecook_profile_picture"
-        }
-      }, false);
-
-      upload.on('start', function() {
-        template.currentUpload.set(this);
-      });
-
-      upload.on('end', function(error, profile_images) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          Meteor.setTimeout(function() {
-            var profile_url = '/cdn/storage/profile_images/' + profile_images._id + '/original/' + profile_images._id + profile_images.extensionWithDot;
-            $(".profile_upload_wrapper").css("background-image", "url(" + profile_url + ")");
-          }, 3000);
-        }
-        /** above is the line that prevents meteor from reloading **/
-        Meteor._reload.onMigrate(function() {
-          return [false];
+      var upload;
+      var reader = new FileReader();
+      reader.readAsDataURL(e.currentTarget.files[0]);
+      reader.onloadend = function () {
+        upload = profile_images.insert({
+          file: e.currentTarget.files[0],
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+          meta: {
+            base64: reader.result,
+            purpose: "homecook_profile_picture"
+          }
+        }, false);
+  
+        upload.on('start', function() {
+          template.currentUpload.set(this);
         });
-        template.currentUpload.set(false);
-      });
-      upload.start();
+  
+        upload.on('end', function(error, profile_images) {
+          if (error) {
+            alert('Error during upload: ' + error);
+          } else {
+            Meteor.setTimeout(function() {
+              var profile_url = profile_images.meta.base64;
+              $(".profile_upload_wrapper").css("background-image", "url(" + profile_url + ")");
+            }, 3000);
+          }
+          /** above is the line that prevents meteor from reloading **/
+          Meteor._reload.onMigrate(function() {
+            return [false];
+          });
+          template.currentUpload.set(false);
+        });
+        upload.start();
+      };
     }
   }
 });

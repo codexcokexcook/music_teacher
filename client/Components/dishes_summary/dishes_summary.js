@@ -96,7 +96,7 @@ Template.dishes_summary.events({
       Tracker.autorun(function(){
         if (get_dish.image_id) {
           var dish_image = Images.findOne({_id:get_dish.image_id});
-          var dish_image_url = '/cdn/storage/Images/' + dish_image._id + '/original/' + dish_image._id + dish_image.extensionWithDot;
+          var dish_image_url = dish_image.meta.base64;
           $('.circle_base').css("background-image", "url("+dish_image_url+")");
           $('.image_upload').hide();
         }

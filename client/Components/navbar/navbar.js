@@ -27,7 +27,7 @@ Template.navbar.helpers ({
           }
         });
         if (check_profile_picture) {
-          images_url = '/cdn/storage/profile_images/' + check_profile_picture._id + '/original/' + check_profile_picture._id + check_profile_picture.extensionWithDot;
+          images_url = check_profile_picture.meta.base64;
           return images_url;
         }
     }
