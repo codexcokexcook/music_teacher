@@ -140,11 +140,11 @@ Template.profile_banner.events({
           }
         }, false);
         Meteor.call('profile_images.remove', "banner_picture");
-  
+
         upload.on('start', function() {
           template.currentUpload.set(this);
         });
-  
+
         upload.on('end', function(error, profile_images) {
           if (error) {
             alert('Error during upload: ' + error);
@@ -181,7 +181,7 @@ Template.upload_profile.helpers({
       'userId': Meteor.userId(),
       'meta.purpose': 'profile_picture'
     });
-    
+
     if (check_profile_picture) {
       return true;
     }
@@ -349,13 +349,13 @@ Template.homecook_profile_banner.events({
             purpose: "homecook_banner_picture"
           }
         }, false);
-  
+
         Meteor.call('profile_images.remove', "homecook_banner_picture");
-  
+
         upload.on('start', function() {
           template.currentUpload.set(this);
         });
-  
+
         upload.on('end', function(error, profile_images) {
           if (error) {
             alert('Error during upload: ' + error);
@@ -424,11 +424,11 @@ Template.upload_homecook_profile.events({
             purpose: "homecook_profile_picture"
           }
         }, false);
-  
+
         upload.on('start', function() {
           template.currentUpload.set(this);
         });
-  
+
         upload.on('end', function(error, profile_images) {
           if (error) {
             alert('Error during upload: ' + error);
@@ -618,8 +618,8 @@ Template.create_foodie_profile.events({
         card_exp_year,
         function(err) {
           if (err) Materialize.toast('Oops! Error when create profile. Please try again.', 4000, 'rounded red lighten-2');
-        }
-     
+
+
 else  {
           Materialize.toast('Profile created!', 4000);
           //divert to the profile page
