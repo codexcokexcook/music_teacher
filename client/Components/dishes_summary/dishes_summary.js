@@ -21,6 +21,7 @@ Template.dishes_summary.onRendered(function(){
 Template.dishes_summary.events({
   'click #btn_add_dish': function() {
     event.preventDefault();
+    Session.set('image_id',null);
     Meteor.call('getUserProfileByID', function (err, result) {
         if (err) {
           console.log('Error when get user ID: ' + err);
@@ -35,7 +36,7 @@ Template.dishes_summary.events({
               $(".create_dish_submit_btn").hide()
               $(".update_dish_submit_btn").hide()
             } else {
-              $('#add_dish_modal').hide();
+              //$('#add_dish_modal').hide();
               $('.modal-overlay').last().remove();
               Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
               setTimeout(function(){
