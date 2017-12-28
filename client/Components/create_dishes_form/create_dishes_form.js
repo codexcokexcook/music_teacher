@@ -56,7 +56,10 @@ Template.uploadForm.events({
         upload = Images.insert({
           file: e.currentTarget.files[0],
           streams: 'dynamic',
-          chunkSize: 'dynamic'
+          chunkSize: 'dynamic',
+          meta: {
+            base64: reader.result
+          }
         }, false);
   
         upload.on('start', function() {

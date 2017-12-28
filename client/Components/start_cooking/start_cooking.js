@@ -373,8 +373,20 @@ Template.request_card.events({
           if (serving_option === 'Delivery') {
             price_of_cart += 50
           } //delivery cost, should have a variable table
-          Meteor.call('transactions.accepted', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken) //insert to transaction
-          Meteor.call('order_record.accepted', order_id) //update the order to cooking
+          Meteor.call('transactions.accepted', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken, function (err, result) {
+            if (err) {
+              Materialize.toast("An error occur, please try again later", 4000, 'rounded red lighten-2');
+            } else {
+              Materialize.toast("Transaction has been accepted", 4000, 'rounded red lighten-2');
+            }
+          }) //insert to transaction
+          Meteor.call('order_record.accepted', order_id, function(){
+            if (err) {
+              Materialize.toast("An error occur, please try again later", 4000, 'rounded red lighten-2');
+            } else {
+              Materialize.toast("Ready to cook!", 5000, 'rounded red lighten-2');
+            }
+          }) //update the order to cooking
         }
       }, 100 * index)
 
