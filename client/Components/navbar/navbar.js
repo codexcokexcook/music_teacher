@@ -22,13 +22,13 @@ Template.navbar.helpers ({
     "load_avatar": function(){
         var check_profile_picture = profile_images.findOne({
           'userId': Meteor.userId(),
-          "meta": {
-            "purpose": "profile_picture"
-          }
+          'meta.purpose': 'profile_picture'
         });
         if (check_profile_picture) {
           images_url = check_profile_picture.meta.base64;
           return images_url;
+        } else {
+          return '/profile_upload/user.jpg';
         }
     }
 });
