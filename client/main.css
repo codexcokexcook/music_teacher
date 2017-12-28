@@ -17,7 +17,7 @@ body {
 .card {
   border-radius: 20px   !important;
   display: inline-block;
-  overflow: hidden !important;
+  overflow: visible !important;
 }
 
 .card-action {

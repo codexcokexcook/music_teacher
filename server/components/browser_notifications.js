@@ -5,13 +5,15 @@ Notifications = new Mongo.Collection('notifications');
 Meteor.methods({
   'notification.place_order'(seller_id, buyer_id, product_id, quantity){
     var buyer_name = Profile_details.findOne({user_id: buyer_id}).foodie_name;
-    var dish_name = Dishes.findOne({_id: product_id}).dish_name;
-    var title = 'New incoming order';
-    var message = buyer_name + ' has just placed ' + quantity + 'x '+ dish_name + ' from you.'
-    if (!dish_name) {
+    var dish_details = Dishes.findOne({_id: product_id});
+    if (!dish_details) {
       var menu_name = Menu.findOne({_id: product_id}).menu_name;
       var message = buyer_name + ' has just placed ' + quantity + 'x '+ menu_name + ' from you.'
+    } else {
+      var dish_name = dish_details.dish_name;
+      var message = buyer_name + ' has just placed ' + quantity + 'x '+ dish_name + ' from you.'
     }
+    var title = 'New incoming order';
 
     Notifications.insert({
       receiver_id: seller_id,
