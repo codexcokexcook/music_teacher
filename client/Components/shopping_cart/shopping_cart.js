@@ -394,7 +394,13 @@ function to_order_record_insert(array_value){
     console.log(10)
     Meteor.call('shopping_cart.remove',cart_id)
     console.log(11)
-    Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
+    Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity, function(err, result){
+      if (err) {
+        Materialize.toast('Oops! Error occur. Please try again.', 4000, 'rounded red lighten-2');
+      } else {
+        Materialize.toast('Order has been place. Please wait for response from the cook.', 4000, 'rounded red lighten-2');
+      }
+    })
 
   }else{
     Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")

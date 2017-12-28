@@ -104,9 +104,12 @@ Template.menu_card.helpers({
     return find_images;
   },
   'get_homecook_image': function() {
-    var homecook_image = profile_images.findOne({userId: this.user_id, meta:{purpose: "homecook_profile_picture"}});
+    var homecook_image = profile_images.findOne({
+      'userId': this.user_id,
+      'meta.purpose': 'homecook_profile_picture'
+    });
     if (homecook_image) {
-      return homecook_image._id + homecook_image.extensionWithDot;
+      return homecook_image.meta.base64;
     }
   }
 });

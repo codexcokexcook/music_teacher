@@ -103,9 +103,7 @@ Template.order_card.helpers({
     var buyer_id = order.buyer_id
     var foodie = profile_images.findOne({
       'userId': buyer_id,
-      "meta": {
-        "purpose": "profile_picture"
-      }
+      "meta.purpose": "profile_picture"
     });
     return foodie.meta.base64;
   },
@@ -139,11 +137,11 @@ Template.order_card.helpers({
     var dish_image_id = Dishes.findOne({
       '_id': String(this)
     }).image_id
-    var ext = Images.findOne({
+    var base64 = Images.findOne({
       '_id': dish_image_id
-    }).extensionWithDot
+    }).meta.base64
 
-    return dish_image_id + ext
+    return base64;
   },
   'get_menu_qty': function() {
     return dish_qty;
@@ -219,9 +217,7 @@ Template.request_card.helpers({
   'foodie_profile_picture': function() {
     var foodie = profile_images.findOne({
       'userId': String(this),
-      "meta": {
-        "purpose": "profile_picture"
-      }
+      "meta.purpose": "profile_picture"
     });
     return  foodie.meta.base64;
 
@@ -276,9 +272,6 @@ Template.request_card.helpers({
     var dish_image_id = Dishes.findOne({
       '_id': this.product_id
     }).image_id
-    var ext = Images.findOne({
-      '_id': dish_image_id
-    }).extensionWithDot
 
     var base64 = Images.findOne({
       '_id': dish_image_id
