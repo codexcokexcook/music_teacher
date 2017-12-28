@@ -11,14 +11,14 @@ Template.profile_created_menus.onRendered(function(){
 Template.profile_created_dishes.helpers({
   'created_dishes': function() {
     var user_id = this.user_id;
-    return Dishes.find({user_id: user_id});
+    return Dishes.find({user_id: user_id, online_status: true, deleted: false});
   }
 });
 
 Template.profile_created_menus.helpers({
   'created_menus': function() {
     var user_id = this.user_id;
-    return Menu.find({user_id: user_id});
+    return Menu.find({user_id: user_id, online_status: true, deleted: false});
   }
 });
 
