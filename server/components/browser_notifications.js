@@ -42,6 +42,7 @@ Meteor.methods({
       }).menu_name;
       var message = buyer_name + ' has just placed ' + quantity + 'x ' + menu_name + ' from you.'
     }
+    var title = 'New incoming order';
 
     Notifications.insert({
       receiver_id: seller_id,

@@ -33,7 +33,7 @@ Template.menu_card.onRendered(function(){
 
   if (this.view.parentView.parentView.parentView.name == "Template.show_room_menu" || this.view.parentView.parentView.parentView.name == "Template.profile_created_menus") {
     this.$('.carousel.carousel-slider').carousel({fullWidth: true});
-    $('.card').addClass('hoverable');
+    //$('.card').addClass('hoverable');
     remove_dropdown = $('.dropdown_element').detach();
     remove_status_switch = $('.online_status').detach();
   }

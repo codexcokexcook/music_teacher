@@ -73,7 +73,6 @@
 }
 
 .dish_thumbnail_card {
-  overflow: hidden;
   display: inline-block;
   height: inherit;
   width: 290px;

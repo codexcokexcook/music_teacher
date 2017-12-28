@@ -95,6 +95,7 @@ Template.display_menu_details.events({
       );
     }
     Materialize.toast(menu_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "rounded red lighten-2")
+    $('.modal').modal();
     $('.modal').modal('close');
   }
 })

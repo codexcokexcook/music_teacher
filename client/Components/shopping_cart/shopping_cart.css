@@ -1,4 +1,16 @@
 .bill_board{
-
  margin-top: 12px;
+}
+
+.order_summary_card {
+  width: 100%;
+}
+
+.empty_cart {
+  height: 85vh;
+  width: 100%;
+}
+
+#confirm_order_modal {
+  height: 200px;
 }

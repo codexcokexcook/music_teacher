@@ -107,6 +107,10 @@ Template.navbar.events({
    FlowRouter.go('/shopping_cart');
   $(".nav_brand_logo").sideNav('hide');
  },
+ 'click #foodies_orders_tracking': function() {
+   FlowRouter.go('/orders_tracking');
+   $('.nav_brand_logo').sideNav('hide');
+ },
  'click #cooking_dashboard': function () {
    FlowRouter.go('/cooking/dashboard');
    $('#top_nav_cooking_dashboard').addClass('active');

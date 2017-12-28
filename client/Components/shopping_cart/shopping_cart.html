@@ -1,16 +1,18 @@
 <template name="shopping_cart_card">
-  <div class = "container col l12 m6 s6 valign">
-    <div class="row col l12 valign">
-      <div class="text-field col l3 m6 s6 valign">
-        <h6>Order summary</h6>
-        </div>
-      </div>
-      {{#if check_shopping_cart}}
-        {{#each shopping_cart}}
-        <div class="row col l12 valign">
-          <div class="col l4 m2 s2 offset-l3 valign">
-              <h6>{{product_name}}</h6>
-                By {{seller_name}}
+  <div class = "container">
+    {{#if check_shopping_cart}}
+      <div class = "card order_summary_card">
+        <div class = "card-content">
+          <div class="col l12 valign">
+            <div class="text-field col l3 m6 s6 valign">
+              <h6>Order summary</h6>
+            </div>
+          </div>
+          {{#each shopping_cart}}
+          <div class="row col l12 valign">
+            <div class="col l4 m2 s2 offset-l3 valign">
+            <h6>{{product_name}}</h6>
+              By {{seller_name}}
           </div>
           <div class="text-field col l1 m1 s1 valign">
                <input class="quantity center" id="{{_id}}_quantity" name="quantity" type="text" value='{{quantity}}' min='1'>
@@ -26,21 +28,26 @@
             </div>
           </div>
           {{/each}}
-          {{else}}
-          <div class="row col l12 valign">
-            <h5 class='center'>Shopping Cart is Currently Empty</h5>
-          </div>
-          {{/if}}
-        <li class="divider"></li>
-        <br>
-        {{>sc_cost_summary}}
-        <li class="divider"></li>
-        <br>
-        {{>sc_serving_details}}
-        <li class="divider"></li>
-        <br>
-        {{>sc_payment}}
+          <li class="divider"></li>
+          <br>
+          {{>sc_cost_summary}}
+          <li class="divider"></li>
+          <br>
+          {{>sc_serving_details}}
+          <li class="divider"></li>
+          <br>
+          {{>sc_payment}}
         </div>
+      </div>
+    {{else}}
+      <div class="card valign-wrapper empty_cart">
+        <div class = 'card-content center valign'>
+          <h5>Shopping cart is currently empty</h5>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+  {{> confirm_order_modal}}
 </template>
 
 <template name='sc_cost_summary'>
@@ -122,9 +129,6 @@
     {{/if}}
 </template>
 
-
-
-
 <template name='sc_payment'>
   <form class="row col l12 valign" action="/charge" method="post" id="payment-form">
     <div class="input-field col l3 m6 s6 offset-l3 valign ">
@@ -145,11 +149,20 @@
 
       <br>
       <br>
-        <div class="row col l12 valign">
-          <a class="btn waves-effect waves-red red lighten-2 right" id="place_order">Place order</a>
-          <a class="btn-flat waves-effect waves-red right" id = "more_dish">More dish</a>
-        </div>
-        </form>
+      <div class="row col l12 valign">
+        <a class="btn waves-effect waves-red red lighten-2 right" id="place_order">Place order</a>
+        <a class="btn-flat waves-effect waves-red right" id = "more_dish">More dish</a>
+      </div>
+    </form>
 </template>
 
-<!---->
+<template name = 'confirm_order_modal'>
+  <div class = 'modal modal-fixed-footer' id='confirm_order_modal'>
+    <div class = 'modal-content'>
+      Thank you for placing your order. Our chefs will confirm your order in few minutes.
+    </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-red btn-flat" id='go_track_order'>OK</a>
+    </div>
+  </div>
+</template>

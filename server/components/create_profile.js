@@ -71,7 +71,7 @@ Meteor.methods({
     home_address_conversion,
     office_address_country,
     office_address,
-    office_address,
+    office_address_conversion,
     allergy_tags,
     dietary_tags,
     card_number,
@@ -97,6 +97,7 @@ Meteor.methods({
     check(home_address_conversion, Match.Any);
     check(office_address_country, Match.Any);
     check(office_address, Match.Any);
+    check(office_address_conversion, Match.Any);
     check(home_address, Match.Any);
     check(allergy_tags, Match.Any);
     check(dietary_tags, Match.Any);
