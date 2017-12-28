@@ -41,13 +41,10 @@ Meteor.methods({
     allergy_tags,
     dietary_tags,
     card_number,
-    card_fullname,
     card_exp_month,
-    card_exp_year,
-    cvv_code,
-    billing_address_country,
-    billing_address
+    card_exp_year
   ) {
+/**
     check(foodie_profile_id, String);
     check(foodie_name, String);
     check(email, Match.Any);
@@ -61,17 +58,14 @@ Meteor.methods({
     check(home_address, Match.Any);
     check(home_address_conversion, Match.Any);
     check(office_address_country, Match.Any);
-    check(office, Match.Any);
+    check(office_address, Match.Any);
     check(office_address_conversion, Match.Any);
     check(allergy_tags, Match.Any);
     check(dietary_tags, Match.Any);
     check(card_number, Match.Any);
-    check(card_fullname, Match.Any);
     check(card_exp_month, Match.Any);
     check(card_exp_year, Match.Any);
-    check(billing_address_country, Match.Any);
-    check(cvv_code, Match.Any);
-    check(billing_address, Match.Any);
+**/
 
     Profile_details.update({
       _id: foodie_profile_id
@@ -94,12 +88,8 @@ Meteor.methods({
         allergy_tags: allergy_tags,
         dietary_tags: dietary_tags,
         card_number: card_number,
-        card_fullname: card_fullname,
         card_exp_month: card_exp_month,
         card_exp_year: card_exp_year,
-        cvv_code: cvv_code,
-        billing_address_country: billing_address_country,
-        billing_address: billing_address,
         updatedAt: new Date()
       }
     })
@@ -122,7 +112,7 @@ Meteor.methods({
     bank_address
   ) {
 
-
+/**
     check(kitchen_profile_id, String);
     check(kitchen_name, String);
     check(chef_name, String);
@@ -137,6 +127,7 @@ Meteor.methods({
     check(bank_account_no, Match.Any);
     check(bank_address_country, Match.Any);
     check(bank_address, Match.Any);
+**/
 
     Kitchen_details.update({
       _id: kitchen_profile_id

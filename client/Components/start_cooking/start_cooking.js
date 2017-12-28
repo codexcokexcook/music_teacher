@@ -104,11 +104,9 @@ Template.order_card.helpers({
     var buyer_id = order.buyer_id
     var foodie = profile_images.findOne({
       'userId': buyer_id,
-      "meta": {
-        "purpose": "profile_picture"
-      }
-    })
-    return foodie._id + foodie.extensionWithDot
+      "meta.purpose": "profile_picture"
+    });
+    return foodie.meta.base64;
   },
   'product_is_dish': function() {
     var order = Order_record.findOne({
@@ -140,11 +138,11 @@ Template.order_card.helpers({
     var dish_image_id = Dishes.findOne({
       '_id': String(this)
     }).image_id
-    var ext = Images.findOne({
+    var base64 = Images.findOne({
       '_id': dish_image_id
-    }).extensionWithDot
+    }).meta.base64
 
-    return dish_image_id + ext
+    return base64;
   },
   'get_menu_qty': function() {
     return dish_qty;
@@ -178,8 +176,10 @@ Template.order_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-
-    return dish_image_id + ext
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
 
   'get_dish_name': function() {
@@ -218,11 +218,9 @@ Template.request_card.helpers({
   'foodie_profile_picture': function() {
     var foodie = profile_images.findOne({
       'userId': String(this),
-      "meta": {
-        "purpose": "profile_picture"
-      }
-    })
-    return foodie._id + foodie.extensionWithDot
+      "meta.purpose": "profile_picture"
+    });
+    return  foodie.meta.base64;
 
   },
 
@@ -275,10 +273,11 @@ Template.request_card.helpers({
     var dish_image_id = Dishes.findOne({
       '_id': this.product_id
     }).image_id
-    var ext = Images.findOne({
+
+    var base64 = Images.findOne({
       '_id': dish_image_id
-    }).extensionWithDot
-    return dish_image_id + ext
+    }).meta.base64
+    return base64;
   },
   'get_dish_qty': function() {
     return Order_record.findOne({
@@ -297,7 +296,10 @@ Template.request_card.helpers({
     var ext = Images.findOne({
       '_id': dish_image_id
     }).extensionWithDot
-    return dish_image_id + ext
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
   'get_menu_qty': function() {
     return Order_record.findOne({
@@ -372,8 +374,20 @@ Template.request_card.events({
           if (serving_option === 'Delivery') {
             price_of_cart += 50
           } //delivery cost, should have a variable table
-          Meteor.call('transactions.accepted', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken) //insert to transaction
-          Meteor.call('order_record.accepted', order_id) //update the order to cooking
+          Meteor.call('transactions.accepted', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken, function (err, result) {
+            if (err) {
+              Materialize.toast("An error occur, please try again later", 4000, 'rounded red lighten-2');
+            } else {
+              Materialize.toast("Transaction has been accepted", 4000, 'rounded red lighten-2');
+            }
+          }) //insert to transaction
+          Meteor.call('order_record.accepted', order_id, function(){
+            if (err) {
+              Materialize.toast("An error occur, please try again later", 4000, 'rounded red lighten-2');
+            } else {
+              Materialize.toast("Ready to cook!", 5000, 'rounded red lighten-2');
+            }
+          }) //update the order to cooking
         }
       }, 100 * index)
 

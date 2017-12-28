@@ -39,7 +39,7 @@ Template.uploadForm.helpers({
   },
 
   load_dish: function() {
-    dish_url = "/dishes_upload/" + Images._id + Images.extensionWithDot;
+    dish_url = Images.meata.base64;
     return dish_url;
   }
 });
@@ -49,37 +49,45 @@ Template.uploadForm.events({
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // multiple files were selected
-      const upload = Images.insert({
-        file: e.currentTarget.files[0],
-        streams: 'dynamic',
-        chunkSize: 'dynamic'
-      }, false);
-
-      upload.on('start', function() {
-        Meteor._reload.onMigrate(function() {
-          return [false];
+      var upload;
+      var reader = new FileReader();
+      reader.readAsDataURL(e.currentTarget.files[0]);
+      reader.onloadend = function () {
+        upload = Images.insert({
+          file: e.currentTarget.files[0],
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+          meta: {
+            base64: reader.result
+          }
+        }, false);
+  
+        upload.on('start', function() {
+          Meteor._reload.onMigrate(function() {
+            return [false];
+          });
+          template.currentUpload.set(this);
         });
-        template.currentUpload.set(this);
-      });
-
-      upload.on('end', function(error, Images) {
-        if (error) {
-          alert('Error during upload: ' + error);
-        } else {
-          Meteor.setTimeout(function() {
-            var dish_url = "/dishes_upload/" + Images._id + Images.extensionWithDot;
-            $(".circle_base").css("background-image", "url(" + dish_url + ")");
-          }, 500);
-          Session.set('image_id', Images._id);
-          /** above is the line that prevents meteor from reloading **/
-        }
-        Meteor._reload.onMigrate(function() {
-          return [false];
+  
+        upload.on('end', function(error, Images) {
+          if (error) {
+            alert('Error during upload: ' + error);
+          } else {
+            Meteor.setTimeout(function() {
+              var dish_url = Images.meta.base64;
+              $(".circle_base").css("background-image", "url(" + dish_url + ")");
+            }, 500);
+            Session.set('image_id', Images._id);
+            /** above is the line that prevents meteor from reloading **/
+          }
+          Meteor._reload.onMigrate(function() {
+            return [false];
+          });
+          template.currentUpload.set(false);
         });
-        template.currentUpload.set(false);
-      });
-
-      upload.start();
+  
+        upload.start();
+      };
     }
   }
 });

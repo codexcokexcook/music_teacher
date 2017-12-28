@@ -18,19 +18,22 @@ Template.navbar.onRendered(function(){
    });
 });
 
+Template.navbar.helpers ({
+    "load_avatar": function(){
+        var check_profile_picture = profile_images.findOne({
+          'userId': Meteor.userId(),
+          'meta.purpose': 'profile_picture'
+        });
+        if (check_profile_picture) {
+          images_url = check_profile_picture.meta.base64;
+          return images_url;
+        } else {
+          return '/profile_upload/user.jpg';
+        }
+    }
+});
+
 Template.bp_navbar.onRendered(function(){
-  //dropdown options
-/*  this.$('.dropdown-button').dropdown({
-    inDuration: 300,
-    outDuration: 225,
-    constrainWidth: false, // Does not change width of dropdown to that of the activator
-    hover: false, // Activate on hover
-    gutter: 0, // Spacing from edge
-    belowOrigin: true, // Displays dropdown below the button
-    alignment: 'left', // Displays dropdown with edge aligned to the left of button
-    stopPropagation: true // Stops event propagation
-   }
- ); */
 
   // activate location dropdown based on addresses available in profile details
   Tracker.autorun(()=> {

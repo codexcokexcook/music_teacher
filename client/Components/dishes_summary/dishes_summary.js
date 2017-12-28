@@ -44,7 +44,13 @@ Template.dishes_summary.events({
               }, 300);
             }
           } else {
-            console.log('Error when get user ID: ' + err);
+            $('#add_dish_modal').hide();
+            $('.modal-overlay').last().remove();
+            Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
+            setTimeout(function(){
+                $('.modal-overlay').last().fadeOut();
+                $('.modal-overlay').last().remove();
+            }, 300);
           }
         }
     });
@@ -90,7 +96,7 @@ Template.dishes_summary.events({
       Tracker.autorun(function(){
         if (get_dish.image_id) {
           var dish_image = Images.findOne({_id:get_dish.image_id});
-          var dish_image_url = "/dishes_upload/" + dish_image._id + dish_image.extensionWithDot;
+          var dish_image_url = dish_image.meta.base64;
           $('.circle_base').css("background-image", "url("+dish_image_url+")");
           $('.image_upload').hide();
         }

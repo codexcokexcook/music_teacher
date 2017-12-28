@@ -10,11 +10,7 @@
   <!--    {{> bp_navbar}} -->
       <ul class = "right">
         <li class = "profile_icon_wrapper">
-          {{#if profile_images 'profile_picture' 'own_user'}}
-            <a class="btn-floating grey lighten-1 logo_wrapper navbar_profile_logo" href="" data-activates="profile_dropdown" style="background-image:url(/profile_upload/{{profile_images 'profile_picture' 'own_user'}})"></a>
-          {{else}}
-            <a class="btn-floating grey lighten-1 logo_wrapper navbar_profile_logo" href="" data-activates="profile_dropdown" style="background-image:url(/profile_upload/user.jpg)"></a>
-          {{/if}}
+          <a class="btn-floating grey lighten-1 logo_wrapper navbar_profile_logo" href="" data-activates="profile_dropdown" style="background-image:url({{load_avatar}})"></a>
         </li>
       </ul>
     </div>
