@@ -23,6 +23,7 @@
   }
   .map_wrapper {
     width: calc(100% - 290px - 48px);
+    z-index: 1;
     display: inline-block;
   }
 }
@@ -35,6 +36,7 @@
   }
   #show_room {
     width: 592px;
+    z-index: 1;
     display: inline-block;
   }
   .map_wrapper {
@@ -55,6 +57,7 @@
   }
   .map_wrapper {
     width: calc(100% - 930px - 48px);
+    z-index: 1;
     display: inline-block;
   }
 }
@@ -71,6 +74,7 @@
   }
   .map_wrapper {
     width: calc(100% - 1232px - 48px);
+    z-index: 1;
     display: inline-block;
   }
 }
@@ -87,6 +91,7 @@
   }
   .map_wrapper {
     width: calc(100% - 1534px - 48px);
+    z-index: 1;
     display: inline-block;
   }
 }

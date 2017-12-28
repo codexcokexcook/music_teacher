@@ -74,6 +74,7 @@ Template.order_card.helpers({
       '_id': String(this)
     });
     var date_time = order.ready_time;
+    console.log(date_time);
 
     countdown = Meteor.setInterval(function() {
       var time_remaining = date_time_conversion(date_time, new Date().getTime());

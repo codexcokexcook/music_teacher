@@ -306,10 +306,8 @@ Template.sc_payment.events({
     console.log(1)
     var sellers = search_distinct_in_shopping_cart('seller_id')
     console.log(sellers)
-
     console.log(2)
     setTimeout(sellers.forEach(order_record_insert), 200000)
-
   },
   'click #more_dish': function(event) {
     FlowRouter.go('/main');
@@ -394,10 +392,20 @@ function to_order_record_insert(array_value){
     console.log(10)
     Meteor.call('shopping_cart.remove',cart_id)
     console.log(11)
+
     Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
+    if (Shopping_cart.findOne({"buyer_id": Meteor.userId()})) {
+      $('#confirm_order_modal').modal();
+      $('#confirm_order_modal').modal('open');
+    }
 
   }else{
     Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
   }
-
 }
+
+Template.confirm_order_modal.events({
+  'click #go_track_order': function() {
+    FlowRouter.go('/orders_tracking');
+  }
+})
