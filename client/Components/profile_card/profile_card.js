@@ -22,9 +22,36 @@ Template.profile_created_menus.helpers({
   }
 });
 
-Template.foodie_profile_card.onRendered(function(){
-  $('body').css('overflow-y','scroll');
-})
+Template.foodie_profile_card.onRendered(function() {
+  $('body').css('overflow-y', 'scroll');
+});
+
+Template.foodie_profile_card.helpers({
+  "load_homecook_banner": function() {
+    var check_profile_picture = profile_images.findOne({
+      'userId': Meteor.userId(),
+      "meta": {
+        "purpose": "homecook_banner_picture"
+      }
+    });
+    if (check_profile_picture) {
+      images_url = check_profile_picture.meta.base64;
+      return images_url;
+    }
+  },
+  "load_homecook_profile": function() {
+    var check_profile_picture = profile_images.findOne({
+      'userId': Meteor.userId(),
+      "meta": {
+        "purpose": "homecook_profile_picture"
+      }
+    });
+    if (check_profile_picture) {
+      images_url = check_profile_picture.meta.base64;
+      return images_url;
+    }
+  }
+});
 
 Template.homecook_profile_page.onRendered(function(){
   $('body').css('overflow-y','scroll');

@@ -19,7 +19,7 @@ Meteor.methods({
     price_of_cart,
     stripeToken
   ) {
-    check(trans_no, Match.Any);
+    check(trans_no, Number);
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
@@ -48,7 +48,7 @@ Meteor.methods({
     total_price_of_transaction,
     stripeToken
   ) {
-    check(trans_no, Match.Any);
+    check(trans_no, String);
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
@@ -79,7 +79,7 @@ Meteor.methods({
     price_of_cart,
     stripeToken
   ) {
-    check(trans_no, Match.Any);
+    check(trans_no, String);
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
@@ -98,17 +98,5 @@ Meteor.methods({
       updatedAt: new Date()
     })
   },
-
-  'transactions.ready' (
-    trans_no
-  ){
-    Transactions.update({
-    order: [order_id]}, {
-      $set:{
-        status: 'Ready',
-        updatedAt: new Date()
-      }
-    })
-},
 
 })
