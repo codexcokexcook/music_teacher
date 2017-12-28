@@ -470,6 +470,8 @@ Template.request_card.events({
 Template.order_card.events({
   'click #ready': function() {
     var order_id = String(this)
+
     Meteor.call('order_record.ready', order_id)
+    Meteor.call('transactions.ready', order_id)
   }
 })

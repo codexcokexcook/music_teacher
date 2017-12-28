@@ -8,7 +8,9 @@
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "chart.js": "^2.7.1",
     "materialize-css": "^0.99.0",
-    "meteor-node-stubs": "~0.2.4"
+    "meteor-node-stubs": "~0.2.4",
+    "react-chartjs-2": "^2.6.4"
   }
 }

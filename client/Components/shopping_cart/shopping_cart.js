@@ -91,6 +91,7 @@ Template.sc_serving_details.onRendered(function() {
    } //Function for after opening timepicker
  });
 
+ Session.set(perferred_time_ms,"")
 
 })
 
@@ -381,23 +382,37 @@ function to_order_record_insert(array_value){
   console.log(8)
   }
 
+  if(parseInt(Session.get('preferred_time_ms')) > 0){
+    if(parseInt(Session.get('preferred_time_ms')) > parseInt(Session.get('ready_time_ms'))){
+      var ready_time = Session.get('preferred_time_ms')
 
-  if(parseInt(Session.get('preferred_time_ms')) > parseInt(Session.get('ready_time_ms'))){
-    var ready_time = Session.get('preferred_time_ms')
 
-    console.log(9)
+      Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
+        if (err) {
+          Materialize.toast('Oops! Error occur. Please try again.', 4000, 'rounded red lighten-2');
+        }
+      });
+
+      Meteor.call('shopping_cart.remove',cart_id)
+      Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
+
+    }else{
+      Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
+    }
+  }else{
+
+    var ready_time = Session.get('ready_time_ms')
+
+
     Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
       if (err) {
         Materialize.toast('Oops! Error occur. Please try again.', 4000, 'rounded red lighten-2');
       }
     });
-    console.log(10)
-    Meteor.call('shopping_cart.remove',cart_id)
-    console.log(11)
-    Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
 
-  }else{
-    Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
+    Meteor.call('shopping_cart.remove',cart_id)
+    Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
   }
+
 
 }
