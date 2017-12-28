@@ -1,12 +1,19 @@
+import { Match } from 'meteor/check';
+
+Meteor.users.deny({
+  update() { return true; }
+});
+
 // check the user with email address is already in db or not
 Meteor.methods({
     'checkIfUserExists': function (email) {
+        check(email, String);
         return (Meteor.users.findOne({'emails.0.address': email})) ? true : false;
     }
 });
 
 Meteor.methods({
     'getUserProfileByID': function() {
-        return (Profile_details.findOne({'user_id': Meteor.userId()}));
+        return (Kitchen_details.findOne({'user_id': Meteor.userId()}));
     }
 })

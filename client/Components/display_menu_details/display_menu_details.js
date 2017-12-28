@@ -70,7 +70,10 @@ Template.display_menu_details.events({
       Meteor.call('shopping_cart.update',
       order_id,
       quantity,
-      total_price_per_dish
+      total_price_per_dish,
+      function(err) {
+        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+      }
     )
     }
     else{
@@ -86,6 +89,9 @@ Template.display_menu_details.events({
       menu_name,
       quantity,
       menu_price,
+      function(err) {
+        if (err) Materialize.toast('Oops! Error when add into shopping cart. Please try again.', 4000, "rounded red lighten-2");
+      }
       );
     }
     Materialize.toast(menu_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "rounded red lighten-2")

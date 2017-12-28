@@ -8,13 +8,18 @@ Template.menu_creation.onRendered(function(){
   this.$('select').material_select();
   this.$('.tooltipped').tooltip({delay: 500});
   //Check if menu has data instance
-  var data = Menu.find({"user_id": Meteor.userId(), "deleted": false})
-  if (data.count()) {
-    Blaze.render(Template.view_menu, document.getElementById('card_container'));
-    $('.carousel.carousel-slider').carousel({fullWidth: true});
-  } else {
-    Blaze.render(Template.menu_initiation, document.getElementById('card_container'));
-  }
+  Meteor.call('checkAlreadyMenu', function(err, result){
+    if (err) {
+      console.log('error when get available menu from user');
+    } else {
+      if (result) {
+        Blaze.render(Template.view_menu, document.getElementById('card_container'));
+        $('.carousel.carousel-slider').carousel({fullWidth: true});
+      } else {
+        Blaze.render(Template.menu_initiation, document.getElementById('card_container'));
+      }
+    }
+  })
 });
 
 Template.menu_initiation.events({
@@ -24,12 +29,12 @@ Template.menu_initiation.events({
           console.log('Error when get user ID: ' + err);
         } else {
           if (result) {
-            if (typeof result.foodie_name !== undefined && result.foodie_name.trim().length > 0) {
+            if (typeof result.kitchen_name !== 'undefined' && typeof result.chef_name !== 'undefined' && result.kitchen_name !== null && result.chef_name !== null) {
               $('#menu_creation_container').hide();
               Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
               Blaze.remove(Template.instance().view);
             } else {
-              Materialize.toast('Please create your profile before do this action.', 4000, 'rounded red lighten-2');
+              Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
               $('.modal-overlay').click(); // trick close popup modal
             }
           } else {
@@ -107,7 +112,10 @@ Template.menu_creation_content.events({
         lead_hours,
         lead_days,
         dishes_id,
-        image_id
+        image_id,
+        function(err) {
+            if (err) Materialize.toast('Oops! Error when create your menu. Please try again.', 4000, 'rounded red lighten-2');
+        }
       );
     } else {
       Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');
@@ -221,7 +229,9 @@ Template.edit_content.events({
     };
 
     if (menu_name && menu_selling_price && dishes_id) {
-      Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id);
+      Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id, function(err){
+          if (err) Materialize.toast('Oops! Error when update your menu. Please try again.', 4000, 'rounded red lighten-2');
+      });
       $('div.modal').scrollTop(0);
     } else {
       Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');

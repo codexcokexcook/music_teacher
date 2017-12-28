@@ -1,11 +1,19 @@
-import { Meteor } from 'meteor/meteor';
+import {
+  Meteor
+} from 'meteor/meteor';
+import {
+  Match
+} from 'meteor/check';
+import {
+  check
+} from 'meteor/check';
 
 Shopping_cart = new Mongo.Collection('shopping_cart');
 Dishes = new Mongo.Collection('dishes');
 Ingredients = new Mongo.Collection('ingredients');
 Images = new FilesCollection({
   storagePath: () => {
-      return process.env.PWD + '/public/dishes_upload/';
+    return process.env.PWD + '/public/dishes_upload/';
   },
   collectionName: 'Images',
   allowClientCode: false,
@@ -19,14 +27,12 @@ Images = new FilesCollection({
   }
 });
 
-Meteor.publish('files.images.all', function () {
-    return Images.find().cursor;
+Meteor.publish('files.images.all', function() {
+  return Images.find().cursor;
 });
 
 Meteor.methods({
-
-
-  'shopping_cart.insert'(
+  'shopping_cart.insert' (
     foodie_id,
     homecook_id,
     foodie_name,
@@ -38,78 +44,199 @@ Meteor.methods({
     dish_name,
     quantity,
     dish_price,
-  ){
-  Shopping_cart.insert({
-    buyer_id: foodie_id,
-    seller_id: homecook_id,
-    buyer_name: foodie_name,
-    seller_name: homecook_name,
-    address: address,
-    serving_option: serving_option,
-    ready_time: ready_time,
-    product_id: dish_id,
-    product_name: dish_name,
-    quantity: quantity,
-    product_price: dish_price,
-    total_price_per_dish: dish_price,
-    updatedAt: new Date(),
-    createdAt: new Date()
-  })
-},
+  ) {
+    check(foodie_id, String);
+    check(homecook_id, String);
+    check(foodie_name, String);
+    check(homecook_name, String);
+    check(address, Match.Any);
+    check(serving_option, Match.Any);
+    check(ready_time, Match.Any);
+    check(dish_id, Match.Any);
+    check(dish_name, Match.Any);
+    check(quantity, Match.Any);
+    check(dish_price, Match.Any);
 
-  'shopping_cart.update'(
-      order_id,
-      quantity,
-      total_price_per_dish
-    ){
-    Shopping_cart.update(
-      {_id: order_id},
-      {$set: {
+    Shopping_cart.insert({
+      buyer_id: foodie_id,
+      seller_id: homecook_id,
+      buyer_name: foodie_name,
+      seller_name: homecook_name,
+      address: address,
+      serving_option: serving_option,
+      ready_time: ready_time,
+      product_id: dish_id,
+      product_name: dish_name,
       quantity: quantity,
-      total_price_per_dish: total_price_per_dish,
-      updatedAt: new Date()
-
-    }});
+      product_price: dish_price,
+      total_price_per_dish: dish_price,
+      updatedAt: new Date(),
+      createdAt: new Date()
+    })
   },
 
-  'shopping_cart.remove'(
+  'shopping_cart.update' (
+    order_id,
+    quantity,
+    total_price_per_dish
+  ) {
+
+    check(order_id, String);
+    check(quantity, Number);
+    check(total_price_per_dish, Match.Any);
+
+    Shopping_cart.update({
+      _id: order_id
+    }, {
+      $set: {
+        quantity: quantity,
+        total_price_per_dish: total_price_per_dish,
+        updatedAt: new Date()
+
+      }
+    });
+  },
+
+  'shopping_cart.remove' (
     cart_id
-  ){
+  ) {
+
+    check(cart_id, String);
+
     Shopping_cart.remove({
       _id: cart_id
     })
   },
 
-  'shopping_cart.update_serving'(
+  'shopping_cart.update_serving' (
     buyer_id,
     seller_id,
     address,
     serving_option
-    ){
+  ) {
+
+    check(buyer_id, String);
+    check(seller_id, String);
+    check(address, String);
+    check(serving_option, Match.Any);
+
     Shopping_cart.update({
       buyer_id: buyer_id,
-      seller_id: seller_id},
-    {$set: {
-    address: address,
-    serving_option: serving_option,
-    updatedAt: new Date()
-  }},
-    {multi: true});
-},
+      seller_id: seller_id
+    }, {
+      $set: {
+        address: address,
+        serving_option: serving_option,
+        updatedAt: new Date()
+      }
+    }, {
+      multi: true
+    });
+  },
 
 
-  'ingredient.update'(dish_name,user_id,ingredient_name,ingredient_quantity,ingredient_unit){
+  'ingredient.update' (dish_name, user_id, ingredient_name, ingredient_quantity, ingredient_unit) {
+    check(dish_name, String);
+    check(user_id, String);
+    check(ingredient_quantity, Match.Any);
+    check(ingredient_unit, Match.Any);
+
     Ingredients.insert({
       dish_name: dish_name,
-      user_id: user_id,
+      user_id: Meteor.userId(),
       ingredient_name: ingredient_name,
       ingredient_quantity: ingredient_quantity,
       ingredient_unit: ingredient_unit,
     });
   },
-  'ingredient.remove'(_id) {
+  'ingredient.remove' (_id) {
+    check(_id, String);
     Ingredients.remove({
       _id: _id
     })
+  }
+});
+
+// insert Dish into db
+Meteor.methods({
+  'dish.insert': function(
+    image_id,
+    user_id,
+    kitchen_id,
+    dish_name,
+    dish_description,
+    serving_option,
+    cooking_time,
+    dish_cost,
+    dish_selling_price,
+    dish_profit,
+    allergy_tags,
+    dietary_tags,
+    cuisines_tags,
+    proteins_tags,
+    categories_tags,
+    cooking_methods_tags,
+    tastes_tags,
+    textures_tags,
+    vegetables_tags,
+    condiments_tags,
+    serving_temperature_tags,
+    createdAt,
+    updatedAt,
+    online_status,
+    deleted
+  ) {
+    // check it before insert
+    check(image_id, String);
+    check(user_id, String); //unessesary, check per-per args but not ever exist
+    check(kitchen_id, String);
+    check(dish_name, String);
+    check(dish_description, Match.Any);
+    check(serving_option, Match.Any);
+    check(cooking_time, Match.Any);
+    check(dish_cost, Match.Any);
+    check(dish_selling_price, Match.Any);
+    check(dish_profit, Match.Any);
+    check(allergy_tags, Match.Any);
+    check(dietary_tags, Match.Any);
+    check(cuisines_tags, Match.Any);
+    check(proteins_tags, Match.Any);
+    check(categories_tags, Match.Any);
+    check(cooking_methods_tags, Match.Any);
+    check(tastes_tags, Match.Any);
+    check(textures_tags, Match.Any);
+    check(vegetables_tags, Match.Any);
+    check(condiments_tags, Match.Any);
+    check(serving_temperature_tags, Match.Any);
+    check(createdAt, Date);
+    check(updatedAt, Date);
+
+    Dishes.insert({
+      image_id: image_id,
+      user_id: Meteor.userId(),
+      kitchen_id: kitchen_id,
+      dish_name: dish_name,
+      dish_description: dish_description,
+      serving_option: serving_option,
+      cooking_time: cooking_time,
+      dish_cost: dish_cost,
+      dish_selling_price: dish_selling_price,
+      dish_profit: dish_profit,
+      allergy_tags: allergy_tags,
+      dietary_tags: dietary_tags,
+      cuisines_tags: cuisines_tags,
+      proteins_tags: proteins_tags,
+      categories_tags: categories_tags,
+      cooking_methods_tags: cooking_methods_tags,
+      tastes_tags: tastes_tags,
+      textures_tags: textures_tags,
+      vegetables_tags: vegetables_tags,
+      condiments_tags: condiments_tags,
+      serving_temperature_tags: serving_temperature_tags,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      online_status: false,
+      deleted: false
+    });
   }
 });

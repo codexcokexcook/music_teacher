@@ -26,7 +26,7 @@ Template.dishes_summary.events({
           console.log('Error when get user ID: ' + err);
         } else {
           if (result) {
-            if (typeof result.foodie_name !== undefined && result.foodie_name.trim().length > 0) {
+            if (typeof result.kitchen_name !== 'undefined' && typeof result.chef_name !== 'undefined' && result.kitchen_name !== null && result.chef_name !== null) {
               Session.keys = {};
               if (Blaze.getView($("#add_dish_modal_content")[0])._templateInstance.lastNode.children.length > 1) {
                 $('.create_dishes_form_container').remove();
@@ -35,8 +35,9 @@ Template.dishes_summary.events({
               $(".create_dish_submit_btn").hide()
               $(".update_dish_submit_btn").hide()
             } else {
-              $('#add_dish_modal').modal('close');
-              Materialize.toast('Please create your profile before do this action.', 4000, 'rounded red lighten-2');
+              $('#add_dish_modal').hide();
+              $('.modal-overlay').last().remove();
+              Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
               setTimeout(function(){
                   $('.modal-overlay').last().fadeOut();
                   $('.modal-overlay').last().remove();
@@ -57,16 +58,21 @@ Template.dishes_summary.events({
     };
 
     var selected_dishes = Session.get('selected_dishes_id');
+    // remove all "on" element in value
+
+    if (typeof selected_dishes !== "undefined"){
+      selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
+    }
 
     //Validation of dish selection checkbox
     if (!selected_dishes || selected_dishes.length === 0) {
       Materialize.toast("Please select a dish you'd like to edit", 4000, 'rounded red lighten-2');
       return false;
-    } else if (selected_dishes.length > 1 )  {
+    } else if ( selected_dishes.length > 1 )  {
       Materialize.toast("Ops! You can't choose more than 1 dish to edit, please try again", 4000, 'rounded red lighten-2');
       return false;
     } else {
-      var selected_dishes = Session.get('selected_dishes_id');
+      // var selected_dishes = Session.get('selected_dishes_id');
       var get_dish = Dishes.findOne({_id: selected_dishes[0]});
 
       // Below parameters will be passed to create_dishes_form template using Blaze.renderWithData
@@ -123,17 +129,24 @@ Template.dishes_summary.events({
   'click #btn_delete_dish': function(event) {
     event.preventDefault();
     var selected_dishes = Session.get('selected_dishes_id');
+    if (typeof selected_dishes !== "undefined"){
+      selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
+    }
     if (!selected_dishes || selected_dishes.length === 0) {
       Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded red lighten-2');
     } else {
       for (i = 0; i < selected_dishes.length; i++) {
         var dish_details = Dishes.findOne({_id: selected_dishes[i]});
         if (dish_details.image_id) {
-          Meteor.call('dish_image.remove',dish_details.image_id);
+          Meteor.call('dish_image.remove',dish_details.image_id, function(err) {
+              if (err) Materialize.toast('Oops! Error when remove dish images. Please try again.', 4000, "rounded red lighten-2");
+          });
         }
         var delete_message = dish_details.dish_name + " deleted";
         Materialize.toast(delete_message, 3000);
-        Meteor.call('dish.remove', selected_dishes[i]);
+        Meteor.call('dish.remove', selected_dishes[i], function(){
+          Materialize.toast('Oops! Error when delete dish. Please try again.', 4000, "rounded red lighten-2");
+        });
       }
       Session.set('selected_dishes_id',"");
     }

@@ -26,7 +26,11 @@ Template.dishes_selection.events({
   },
   'click #confirm': function() {
     Meteor.call('dish.remove', sessionStorage.getItem("deletedDishID"));
-    Meteor.call('dish_image.remove', sessionStorage.getItem("deletedDishImagesID"));
+    Meteor.call('dish_image.remove', sessionStorage.getItem("deletedDishImagesID"), function(err) {
+      if (err) {
+        Materialize.toast('Oops! Error when remove dish images. Please try again.', 4000, "rounded red lighten-2");
+      }
+    });
     Meteor.call('menu.checkDish', sessionStorage.getItem("deletedDishID"), function(err, result) {
       if (result) {
           var $toastContent = $('<span>This dish is already in menu. Please update your menu.</span>');
@@ -43,6 +47,15 @@ Template.dishes_selection.events({
     session_object[0] = get_dish_id; //Convert this._id (string) to an object
     Session.set('selected_dishes_id', session_object);
     $('.btn_edit_dish').click();
+    $('#edit_dish_modal').modal({
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%', // Ending top style attribute
+      }
+    );
     $('#edit_dish_modal').modal('open'); //Need to trigger modal thru js to make it work
   }
 });

@@ -506,7 +506,10 @@ Template.create_foodie_profile.events({
         bank_name,
         bank_account_no,
         bank_address_country,
-        bank_address
+        bank_address,
+        function(err) {
+          if (err) Materialize.toast('Oops! Error when create kitchen profile. Please try again.', 4000, 'rounded red lighten-2');
+        }
         );
 
         Meteor.call('profile_details.insert',
@@ -533,7 +536,10 @@ Template.create_foodie_profile.events({
         card_exp_year,
         cvv_code,
         billing_address_country,
-        billing_address
+        billing_address,
+        function(err) {
+          if (err) Materialize.toast('Oops! Error when create profile. Please try again.', 4000, 'rounded red lighten-2');
+        }
         );
 
 //        const kitchen_details = Kitchen_details.findOne({user_id: Meteor.userId()});
@@ -544,9 +550,6 @@ Template.create_foodie_profile.events({
         Materialize.toast('Profile created!', 4000)
          //divert to the profile page
         BlazeLayout.render('screen',{navbar:"bp_navbar", render_component:"show_room"})
-
-
-
 
     }
     });

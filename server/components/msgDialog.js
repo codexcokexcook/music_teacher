@@ -5,9 +5,19 @@ import { check } from 'meteor/check';
 
 Messages = new Mongo.Collection('messages');
 
+// set permission about Messages
+Messages.deny({
+  remove() { return true }
+});
+
 Meteor.methods({
   'messages.insert'(text, owner, channel, chips, component) {
     check(text, String);
+    check(owner, Match.Any);
+    check(channel, Match.Any);
+    check(chips, Match.Any);
+    check(component, Match.Any);
+
     // Check if user is logged in
     //    if(!Meteor.userId()){
     //      throw new Meteor.Error('not-authorized');
@@ -60,6 +70,7 @@ Meteor.methods({
     },
 
   'messages.clear'(channel){
+      check(channel, String);
       Messages.remove({channel: channel});
   }
 });

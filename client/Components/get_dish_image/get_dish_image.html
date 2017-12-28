@@ -3,7 +3,7 @@ to make this work ,also, remember height = width to make perfect circle!!-->
 
 <template name="get_dish_image">
   {{#if image_id}}
-    <div class="img_wrapper circle responsive-img" style="background-image:url('/dishes_upload/{{image_id}}{{get_image_extension}}'" width={{width}} id="dish_image" alt="{{dishes_name}}"></div>
+    <div class="img_wrapper circle responsive-img" style="background-image:url('/dishes_upload/{{image_id}}{{get_image_extension}}')" width={{width}} id="dish_image" alt="{{dishes_name}}"></div>
   {{else}}
     <div class = "valign-wrapper no_display grey lighten-4">
       <p class = "center-align truncate">no image to display</p>

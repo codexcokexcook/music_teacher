@@ -1,15 +1,31 @@
+import { Match } from 'meteor/check';
+import { check } from 'meteor/check';
+
 Transactions = new Mongo.Collection('transactions');
+
+Transactions.deny({
+  remove() {
+    return true
+  }
+})
 
 Meteor.methods({
 
-  'transactions.accepted'(
+  'transactions.accepted' (
     trans_no,
     buyer_id,
     seller_id,
     order_id,
     price_of_cart,
     stripeToken
-  ){
+  ) {
+    check(trans_no, String);
+    check(buyer_id, String);
+    check(seller_id, String);
+    check(order_id, String);
+    check(price_of_cart, Match.Any);
+    check(stripeToken, Match.Any);
+
     Transactions.insert({
       transaction_no: trans_no,
       buyer_id: buyer_id,
@@ -24,34 +40,52 @@ Meteor.methods({
   },
 
 
-  'transactions.update'(
+  'transactions.update' (
     trans_no,
     buyer_id,
     seller_id,
     order_id,
     total_price_of_transaction,
     stripeToken
-  ){Transactions.update(
-    { transaction_no: trans_no,
+  ) {
+    check(trans_no, String);
+    check(buyer_id, String);
+    check(seller_id, String);
+    check(order_id, String);
+    check(total_price_of_transaction, Match.Any);
+
+    Transactions.update({
+      transaction_no: trans_no,
       buyer_id: buyer_id,
       seller_id: seller_id,
-      stripeToken: stripeToken},
-    {'$push':{'order': order_id},
-     '$set': {
-       'amount': total_price_of_transaction,
-       'updatedAt': new Date()}
+      stripeToken: stripeToken
+    }, {
+      '$push': {
+        'order': order_id
+      },
+      '$set': {
+        'amount': total_price_of_transaction,
+        'updatedAt': new Date()
+      }
 
-  })
-},
+    })
+  },
 
-  'transactions.rejected'(
+  'transactions.rejected' (
     trans_no,
     buyer_id,
     seller_id,
     order_id,
     price_of_cart,
     stripeToken
-  ){
+  ) {
+    check(trans_no, String);
+    check(buyer_id, String);
+    check(seller_id, String);
+    check(order_id, String);
+    check(price_of_cart, Match.Any);
+    check(stripeToken, String);
+
     Transactions.insert({
       transaction_no: trans_no,
       buyer_id: buyer_id,

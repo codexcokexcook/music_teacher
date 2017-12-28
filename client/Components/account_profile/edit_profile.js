@@ -277,7 +277,10 @@ Template.edit_foodie_profile.events({
                   card_exp_year,
                   cvv_code,
                   billing_address_country,
-                  billing_address
+                  billing_address,
+                  function(err) {
+                    if (err) Materialize.toast('Oops! Error when update your profile. Please try again.', 4000, 'rounded red lighten-2');
+                  }
                 );
 
                 Meteor.call('kitchen_details.update',
@@ -294,7 +297,10 @@ Template.edit_foodie_profile.events({
                   bank_name,
                   bank_account_no,
                   bank_address_country,
-                  bank_address
+                  bank_address,
+                  function(err) {
+                    if (err) Materialize.toast('Oops! Error when update your profile. Please try again.', 4000, 'rounded red lighten-2');
+                  }
                 );
 
                 Materialize.toast('Profile updated!', 4000)

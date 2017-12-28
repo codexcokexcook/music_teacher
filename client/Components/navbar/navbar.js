@@ -148,7 +148,9 @@ Template.navbar.events({
    $(".nav_brand_logo").sideNav('hide');
  },
  'click #logout_link': function () {
-   Meteor.call('messages.clear',Meteor.userId());
+   Meteor.call('messages.clear', Meteor.userId(), function(err) {
+     if (err) Materialize.toast('Oops! Error when clear message. Please try again.', 4000, 'rounded red lighten-2');
+   });
    Session.keys = {}
    localStorage.setItem("loggedIn", false);
    Meteor.logout();

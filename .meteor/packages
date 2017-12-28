@@ -17,7 +17,6 @@ es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers
 ecmascript@0.8.1              # Enable ECMAScript2015+ syntax in app code
 shell-server@0.2.4            # Server-side component of the `meteor shell` command
 
-autopublish@1.0.7             # Publish all data to the clients (for prototyping)
 insecure@1.0.7                # Allow all DB writes from clients (for prototyping)
 materialize:materialize       # Material design framework
 cfs:ejson-file                # Upload images
@@ -33,7 +32,6 @@ accounts-ui
 accounts-password
 accounts-facebook
 accounts-google
-meteortoys:allthings
 themeteorchef:bert
 email
 http
@@ -45,3 +43,5 @@ random                      # Random function
 flyandi:reactive-countdown
 mrgalaxy:stripe             #Stripe payment gateway
 oaf:html5-desktop-notifications  #HTML5 notification package
+u2622:persistent-session
+check
