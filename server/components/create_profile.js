@@ -75,15 +75,11 @@ Meteor.methods({
     allergy_tags,
     dietary_tags,
     card_number,
-    card_fullname,
     card_exp_month,
-    card_exp_year,
-    cvv_code,
-    billing_address_country,
-    billing_address
+    card_exp_year
   ) {
 
-    // check format of these fields
+/**    // check format of these fields (Not necessary at this stage)
     check(user_id, String);
     check(foodie_name, String);
     check(email, Match.Any);
@@ -108,7 +104,7 @@ Meteor.methods({
     check(cvv_code, Match.Any);
     check(billing_address_country, Match.Any);
     check(billing_address, Match.Any);
-
+**/
     Profile_details.insert({
       user_id: Meteor.userId(),
       foodie_name: foodie_name,
@@ -128,12 +124,8 @@ Meteor.methods({
       allergy_tags: allergy_tags,
       dietary_tags: dietary_tags,
       card_number: card_number,
-      card_fullname: card_fullname,
       card_exp_month: card_exp_month,
       card_exp_year: card_exp_year,
-      cvv_code: cvv_code,
-      billing_address_country: billing_address_country,
-      billing_address: billing_address,
       createdAt: new Date(),
       updatedAt: new Date()
 
@@ -157,6 +149,8 @@ Meteor.methods({
     bank_address
   ) {
 
+
+/** Not necessary to check at this stage
     check(user_id, String);
     check(kitchen_name, String);
     check(chef_name, String);
@@ -167,10 +161,11 @@ Meteor.methods({
     check(about_homecook_myself, Match.Any);
     check(serving_option, Match.Any);
     check(bank_fullname, Match.Any);
-    check(bank_name, Match.Any);
+    check(bank_name, Match.Any);g
     check(bank_account_no, Match.Any);
     check(bank_address_country, Match.Any);
     check(bank_address, Match.Any);
+**/
 
     Kitchen_details.insert({
       user_id: Meteor.userId(),

@@ -115,10 +115,6 @@
         <div class="text-field col l3 m3 s3 valign">
           <h6>Payment details</h6>
           </div>
-          <div class="input-field col l3 m3 s3 valign">
-            <input id="card_fullname" name="card_fullname" type="text" value="{{get_foodie_profile.card_fullname}}">
-            <label class="active" for="card_fullname">Full Name on Card</label>
-          </div>
         <div class="input-field col l2 m3 s3 valign">
           <input id="card_number" name="card_number" type="text" value="{{get_foodie_profile.card_number}}">
           <label class="active" for="card_number">Card Number</label>
@@ -139,24 +135,6 @@
               {{/each}}
               </select>
             </div>
-          <div class="input-field col l2 m4 s4 valign">
-            <input id="cvv_code" name="cvv_code" type="text" value="{{get_foodie_profile.cvv_code}}">
-            <label class="active" for="cvv_code">cvv2/cvc2 code</label>
-            </div>
-        </div>
-        <div class="row col l12 valign">
-          <div class="input-field col l6 m6 s6 offset-l3 valign">
-            <input id="billing_address" name="billing_address" type="text">
-            <label for="billing_address">Billing Address</label>
-            </div>
-            <div class="input-field col l3 m2 s2 valign">
-              <select class="material_select" id="billing_address_country">
-                <option value={{get_foodie_profile.billing_address_country}} selected>{{get_foodie_profile.billing_address_country}}</option>
-                {{#each country_list}}
-                <option value={{name}}>{{name}}</option>
-                {{/each}}
-                </select>
-              </div>
         </div>
       <br>
       {{>profile_food_allergies}}
