@@ -35,7 +35,7 @@ Meteor.methods({
     ready_time,
     stripeToken
   ){
-    check(transaction_no, String);
+    check(transaction_no, Match.Any);
     check(buyer_id, String);
     check(seller_id, String);
     check(product_id, String);
