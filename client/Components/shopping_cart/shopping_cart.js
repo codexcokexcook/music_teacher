@@ -310,6 +310,7 @@ Template.sc_payment.events({
     console.log(2)
     setTimeout(sellers.forEach(order_record_insert), 200000)
   },
+
   'click #more_dish': function(event) {
     FlowRouter.go('/main');
   }
@@ -415,12 +416,11 @@ function to_order_record_insert(array_value){
     if (Shopping_cart.findOne({"buyer_id": Meteor.userId()})) {
       $('#confirm_order_modal').modal();
       $('#confirm_order_modal').modal('open');
-    }
 
   }else{
     Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
   }
-}
+}}
 
 Template.confirm_order_modal.events({
   'click #go_track_order': function() {
