@@ -19,7 +19,7 @@ Meteor.methods({
     price_of_cart,
     stripeToken
   ) {
-    check(trans_no, String);
+    check(trans_no, Number);
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);

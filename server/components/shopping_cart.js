@@ -35,7 +35,7 @@ Meteor.methods({
     ready_time,
     stripeToken
   ){
-    check(transaction_no, String);
+    check(transaction_no, Number);
     check(buyer_id, String);
     check(seller_id, String);
     check(product_id, String);
@@ -44,7 +44,6 @@ Meteor.methods({
     check(address, Match.Any);
     check(serving_option, Match.Any);
     check(ready_time, Match.Any);
-    check(stripeToken, String);
 
     Order_record.insert({
       transaction_no: transaction_no,
