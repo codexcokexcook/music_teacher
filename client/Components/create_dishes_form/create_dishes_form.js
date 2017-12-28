@@ -964,7 +964,7 @@ Template.create_dishes_form.events({
               checkboxes[i].checked = false;
             };
             // hide popup
-            $('#add_dish_modal').hide();
+            //$('#add_dish_modal').modal('close');
             $('.modal-overlay').remove();
             return false;
           } else {
@@ -972,6 +972,8 @@ Template.create_dishes_form.events({
           }
         })
     }
+    Session.set('image_id',null);
+    Session.keys = {}
   },
   'click .update_dish_submit_btn': function(event) {
     event.preventDefault();

@@ -17,3 +17,8 @@
 .menu_dish_card_wrapper {
   padding-left: 19px;
 }
+
+.display_menu_details {
+  margin-bottom: 0px;
+  overflow: hidden !important;
+}

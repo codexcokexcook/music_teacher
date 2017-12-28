@@ -455,6 +455,7 @@ Template.create_foodie_profile.events({
   'click #create_foodie_button': function(event, template) {
     event.preventDefault();
 
+
     const foodie_name = $('#foodie_name').val();
     const email = $('#email').val();
     const date_of_birth = $('#date_of_birth').val();
@@ -480,6 +481,7 @@ Template.create_foodie_profile.events({
     const billing_address = $('#billing_address').val();
 
     const user_id = Meteor.userId();
+
 
     if (typeof foodie_name == 'undefined' || typeof foodie_name == null || foodie_name == '') {
       Materialize.toast('Please enter at least Foodie Name to complete save your profile.', 4000, 'rounded red lighten-2');
@@ -530,7 +532,7 @@ Template.create_foodie_profile.events({
 });
 
 //Kitchen Database
-<<<<<<< HEAD
+
   Template.create_homecook_profile.events({
     'click #create_homecook_button': function(event, template){
 
@@ -572,28 +574,6 @@ Template.create_foodie_profile.events({
       const bank_address = $('#bank_address').val();
 
       const user_id = Meteor.userId();
-
-  /**      if( isNotEmpty(kitchen_name)           &&
-            isNotEmpty(profile_keywords)       &&
-            isNotEmpty(last_name)              &&
-            isNotEmpty(first_name)             &&
-            isNotEmpty(date_of_birth)          &&
-            isNotEmpty(gender)                 &&
-            isNotEmpty(about_myself)           &&
-            isNotEmpty(address_name_1)         &&
-            isNotEmpty(address_details_1)      &&
-            isNotEmpty(mobile_no_1)            &&
-            isNotEmpty(address_name_2)         &&
-            isNotEmpty(address_details_2)      &&
-            isNotEmpty(mobile_no_2)            &&
-            isNotEmpty(card_number)            &&
-            isNotEmpty(card_fullname)          &&
-            isNotEmpty(card_exp_month)         &&
-            isNotEmpty(card_exp_year)          &&
-            isNotEmpty(cvv_code)               &&
-            isNotEmpty(bank_fullname)          &&
-            isNotEmpty(bank_name)              &&
-            isNotEmpty(bank_account_no)           )**/
 
         Meteor.call('kitchen_details.insert',
         user_id,
@@ -639,59 +619,8 @@ Template.create_foodie_profile.events({
         function(err) {
           if (err) Materialize.toast('Oops! Error when create profile. Please try again.', 4000, 'rounded red lighten-2');
         }
-        );
-=======
-Template.create_homecook_profile.events({
-  'click #create_homecook_button': function(event, template) {
->>>>>>> cf8c97e53e4d55648b065a56f822bdb7c2f49606
-
-    event.preventDefault();
-
-    const kitchen_name = $('#kitchen_name').val();
-    const chef_name = $('#chef_name').val();
-    const homecook_profile_keywords = $('#homecook_profile_keywords').val();
-    const kitchen_address_country = $('#kitchen_address_country').val();
-    const kitchen_address = $('#kitchen_address').val();
-    const kitchen_address_conversion = Session.get('kitchen_address_conversion');
-    const about_homecook_myself = $('#about_homecook_myself').val();
-    const serving_option = Session.get('serving_option_tags');
-    const bank_fullname = $('#bank_fullname').val();
-    const bank_name = $('#bank_name').val();
-    const bank_account_no = $('#bank_account_no').val();
-    const bank_address_country = $('#bank_address_country').val();
-    const bank_address = $('#bank_address').val();
-
-    const user_id = Meteor.userId();
-
-    if (typeof kitchen_name == 'undefined' || typeof kitchen_name == null || kitchen_name == '') {
-      Materialize.toast('Please enter at least Kitchen Name to complete save your profile.', 4000, 'rounded red lighten-2');
-      return false;
-    }
-
-    if (typeof chef_name == 'undefined' || typeof chef_name == null || chef_name == '') {
-      Materialize.toast('Please enter at least Chef Name to complete save your profile.', 4000, 'rounded red lighten-2');
-      return false;
-    }
-
-    Meteor.call('kitchen_details.insert',
-      user_id,
-      kitchen_name,
-      chef_name,
-      homecook_profile_keywords,
-      kitchen_address_country,
-      kitchen_address,
-      kitchen_address_conversion,
-      about_homecook_myself,
-      serving_option,
-      bank_fullname,
-      bank_name,
-      bank_account_no,
-      bank_address_country,
-      bank_address,
-      function(err) {
-        if (err) {
-          Materialize.toast('Oops! Error when create kitchen profile. Please try again.', 4000, 'rounded red lighten-2');
-        } else  {
+     
+else  {
           Materialize.toast('Profile created!', 4000);
           //divert to the profile page
           // BlazeLayout.render('screen', {
