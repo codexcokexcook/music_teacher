@@ -185,3 +185,11 @@ Meteor.methods({
     });
   }
 });
+
+Meteor.methods({
+  'checkExistedInformation'() {
+    var data = Profile_details.find({'user_id': Meteor.userId()});
+    if (data)
+      return data.count();
+  }
+});

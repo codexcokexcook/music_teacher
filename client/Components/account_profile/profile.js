@@ -7,15 +7,19 @@ import './create_profile.html';
 
 Template.profile.onRendered(function(){
   //Check if user created profile
-  var data = Profile_details.find({'user_id': Meteor.userId()});
-
-  if(data.count()){
-    Blaze.render(Template.edit_profile, document.getElementById('profile'));
-  }
-  else {
-    Blaze.render(Template.create_profile, document.getElementById('profile'));
-  };
-  this.$(document).ready(function(){
-    $('ul.tabs').tabs();
+  Meteor.call('checkExistedInformation', function(err, result){
+    if (err) {
+      console.log('Error when checked user has already information');
+    } else {
+      if (result > 0) { // profile has found
+        Blaze.render(Template.edit_profile, document.getElementById('profile'));
+      } else {
+        Blaze.render(Template.create_profile, document.getElementById('profile'));
+      }
+    }
+    this.$(document).ready(function(){
+      $('ul.tabs').tabs();
+    });
   });
+
 });
