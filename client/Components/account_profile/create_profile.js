@@ -53,7 +53,8 @@ Template.profile_banner.onCreated(function() {
 Template.profile_banner.onRendered(function() {
   Meteor.setTimeout(function(){
     var check_profile_banner = profile_images.findOne({
-      "userId": Meteor.userId()
+      "userId": Meteor.userId(),
+      "meta.purpose": 'banner_picture'
     });
 
     if (check_profile_banner) {
@@ -81,12 +82,12 @@ Template.profile_banner.helpers({
     }
   },
   'load_banner': function() {
-    var checkupload = profile_images.findOne({
+    var checkuploadBannerprofile = profile_images.findOne({
       'userId': Meteor.userId(),
       'meta.purpose': 'banner_picture'
     });
-    if (checkupload) {
-      banner_url = checkupload.meta.base64;
+    if (checkuploadBannerprofile) {
+      banner_url = checkuploadBannerprofile.meta.base64;
       $(".profile_banner_area").css("background-color", "");
       $(".profile_banner_area").css("background-image", "url(" + banner_url + ")");
     }
@@ -292,12 +293,12 @@ Template.homecook_profile_banner.helpers({
     }
   },
   load_banner: function() {
-    var checkupload = profile_images.findOne({
+    var checkuploadBannerHomeCook = profile_images.findOne({
       'userId': Meteor.userId(),
       'meta.purpose': 'homecook_banner_picture'
     });
-    if (checkupload) {
-      banner_url = checkupload.meta.base64;
+    if (checkuploadBannerHomeCook) {
+      banner_url = checkuploadBannerHomeCook.meta.base64;
       $(".homecook_profile_banner_area").css("background-color", "");
       $(".homecook_profile_banner_area").css("background-image", "url(" + banner_url + ")");
     }
