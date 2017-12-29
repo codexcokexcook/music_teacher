@@ -49,10 +49,8 @@ Meteor.methods({
   'profile_images.remove' (purpose) {
     check(purpose, String); // check format of purpose
     profile_images.remove({
-      userId: Meteor.userId(),
-      meta: {
-        purpose: purpose
-      }
+      'userId': Meteor.userId(),
+      'meta.purpose': purpose
     });
   },
 
