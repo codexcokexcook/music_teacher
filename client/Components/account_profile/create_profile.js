@@ -560,11 +560,11 @@ Template.create_foodie_profile.events({
       const card_exp_year = $('#card_exp_year').val();
 
 
-      const kitchen_name = $('#create_kitchen_name').val();
+      const kitchen_name = $('#kitchen_name').val();
       const chef_name = $('#chef_name').val();
       const homecook_profile_keywords = $('#homecook_profile_keywords').val();
       const kitchen_address_country = $('#kitchen_address_country').val();
-      const kitchen_address = $('#kitchen_address').val();
+      const kitchen_address = $('#create_kitchen_address').val();
       const kitchen_address_conversion = Session.get('kitchen_address_conversion');
       const about_homecook_myself = $('#about_homecook_myself').val();
       const serving_option = Session.get('serving_option_tags');
