@@ -151,11 +151,11 @@ Template.dishes_summary.events({
         }
         var delete_message = dish_details.dish_name + " deleted";
         Materialize.toast(delete_message, 3000);
-        Meteor.call('dish.remove', selected_dishes[i], function(){
-          Materialize.toast('Oops! Error when delete dish. Please try again.', 4000, "rounded red lighten-2");
+        Meteor.call('dish.remove', selected_dishes[i], function(err){
+          if (err) Materialize.toast('Oops! Error when delete dish. Please try again.', 4000, "rounded red lighten-2");
         });
       }
-      Session.set('selected_dishes_id',"");
+      Session.set('selected_dishes_id', null);
     }
   },
 
@@ -166,6 +166,8 @@ Template.dishes_summary.events({
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = false;
     };
+    Ingredients_temporary.remove({});
+    Session.set('selected_dishes_id', null);
   },
   'click #modal_add_btn': function() {
     $('.modal-content').scrollTop(0);
