@@ -474,50 +474,55 @@ Template.create_foodie_profile.events({
     const allergy_tags = Session.get('allergy_tags');
     const dietary_tags = Session.get('dietary_tags');
     const card_number = $('#card_number').val();
-    const card_fullname = $('#card_fullname').val();
     const card_exp_month = $('#card_exp_month').val();
     const card_exp_year = $('#card_exp_year').val();
-    const cvv_code = $('#cvv_code').val();
-    const billing_address_country = $('#billing_address_country').val();
-    const billing_address = $('#billing_address').val();
 
     const user_id = Meteor.userId();
 
-
-    if (typeof foodie_name == 'undefined' || typeof foodie_name == null || foodie_name == '') {
-      Materialize.toast('Please enter at least Foodie Name to complete save your profile.', 4000, 'rounded red lighten-2');
-      return false;
+    Meteor.call('kitchen_details.insert',
+    user_id,
+    kitchen_name,
+    chef_name,
+    homecook_profile_keywords,
+    kitchen_address_country,
+    kitchen_address,
+    kitchen_address_conversion,
+    about_homecook_myself,
+    serving_option,
+    bank_fullname,
+    bank_name,
+    bank_account_no,
+    bank_address_country,
+    bank_address,
+    function(err) {
+      if (err) Materialize.toast('Oops! Error when create kitchen profile. Please try again.', 4000, 'rounded red lighten-2');
     }
+    );
 
     Meteor.call('profile_details.insert',
-      user_id,
-      foodie_name,
-      email,
-      date_of_birth,
-      mobile_dial_code,
-      mobile,
-      profile_keywords,
-      gender,
-      about_myself,
-      home_address_country,
-      home_address,
-      home_address_conversion,
-      office_address_country,
-      office_address,
-      office_address_conversion,
-      allergy_tags,
-      dietary_tags,
-      card_number,
-      card_fullname,
-      card_exp_month,
-      card_exp_year,
-      cvv_code,
-      billing_address_country,
-      billing_address,
-      function(err) {
-        if (err) {
-          Materialize.toast('Oops! Error when create profile. Please try again.', 4000, 'rounded red lighten-2');
-        } else {
+    user_id,
+    foodie_name,
+    email,
+    date_of_birth,
+    mobile_dial_code,
+    mobile,
+    profile_keywords,
+    gender,
+    about_myself,
+    home_address_country,
+    home_address,
+    home_address_conversion,
+    office_address_country,
+    office_address,
+    office_address_conversion,
+    allergy_tags,
+    dietary_tags,
+    card_number,
+    card_exp_month,
+    card_exp_year,
+    function(err) {
+      if (err) Materialize.toast('Oops! Error when create profile. Please try again.', 4000, 'rounded red lighten-2');
+         else {
           Materialize.toast('Profile created!', 4000);
           //divert to the profile page
           // BlazeLayout.render('screen', {
