@@ -61,14 +61,14 @@ Template.uploadForm.events({
             base64: reader.result
           }
         }, false);
-  
+
         upload.on('start', function() {
           Meteor._reload.onMigrate(function() {
             return [false];
           });
           template.currentUpload.set(this);
         });
-  
+
         upload.on('end', function(error, Images) {
           if (error) {
             alert('Error during upload: ' + error);
@@ -85,7 +85,7 @@ Template.uploadForm.events({
           });
           template.currentUpload.set(false);
         });
-  
+
         upload.start();
       };
     }
@@ -940,7 +940,7 @@ Template.create_dishes_form.events({
       Ingredients_temporary.find({}).forEach(function(doc) {
         Ingredients.insert(doc);
       });
-      Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tag`s'), cooking_time,
+      Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tags'), cooking_time,
         dish_cost, dish_selling_price, dish_profit, Session.get('allergy_tags'), Session.get('dietary_tags'), Session.get('cuisines_tags'), Session.get('proteins_tags'),
         Session.get('categories_tags'), Session.get('cooking_methods_tags'), Session.get('tastes_tags'), Session.get('textures_tags'), Session.get('vegetables_tags'),
         Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, function(err){
