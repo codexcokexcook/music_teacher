@@ -66,7 +66,7 @@ Template.mapping.onRendered(function(){
   // Reactive markers on google map to reflect search results
   Tracker.autorun(function() {
     if (!Session.get('address') || Session.get('address').length < 1 || Session.get('address') === "") {
-      //console.log('no address');
+      console.log('no address');
       //return to default position
       marker.setMap(null);
       map.instance.setCenter(new google.maps.LatLng(22.3964, 114.1095));
@@ -74,7 +74,7 @@ Template.mapping.onRendered(function(){
     }
     try {
       var kitchen_details = Session.get('searched_result');
-      //console.log(kitchen_details);
+      console.log(kitchen_details);
     }
     catch (err) {
       //console.log(err);
@@ -83,20 +83,20 @@ Template.mapping.onRendered(function(){
       }
       return true;
     }
-    //console.log(kitchen_marker);
+    console.log(kitchen_marker);
     if (kitchen_marker.length > 0) {
-      //console.log('have markers');
+      console.log('have markers');
       for (i=0; i < kitchen_marker.length; i++) {
         kitchen_marker[i].setMap(null);
       }
       kitchen_marker = [];
     } else {
-      //console.log('no markers');
+      console.log('no markers');
       for (i=0; i < kitchen_marker.length; i++) {
         kitchen_marker[i].setMap(null);
       }
     }
-    //console.log('total kitchens display on map:' + kitchen_details.length);
+    console.log('total kitchens display on map:' + kitchen_details.length);
     for (i=0; i < kitchen_details.length; i++) {
       //console.log(kitchen_details[i].kitchen_address_conversion.lat)
       kitchen_marker[i] = new google.maps.Marker({
