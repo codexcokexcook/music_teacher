@@ -340,13 +340,6 @@ Template.edit_homecook_profile.onRendered(function() {
 
         const user_id = Meteor.userId()
 
-  
-
-              {
-                if (typeof foodie_name == 'undefined' || foodie_name.trim().length == 0) {
-                    Materialize.toast('Make sure your profile name is not blank.', 4000, 'rounded red lighten-2');
-                    return false;
-                }
 
                 Meteor.call('profile_details.update',
                   foodie_profile_id,
@@ -403,7 +396,7 @@ Template.edit_homecook_profile.onRendered(function() {
       // });
       FlowRouter.go('/main');
     }
-  }
+  
 });
 
 var trimInput = function(value) {
