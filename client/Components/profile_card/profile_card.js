@@ -30,9 +30,7 @@ Template.foodie_profile_card.helpers({
   "load_homecook_banner": function() {
     var check_profile_picture = profile_images.findOne({
       'userId': Meteor.userId(),
-      "meta": {
-        "purpose": "homecook_banner_picture"
-      }
+      "meta.purpose": "homecook_banner_picture"
     });
     if (check_profile_picture) {
       images_url = check_profile_picture.meta.base64;
@@ -42,9 +40,7 @@ Template.foodie_profile_card.helpers({
   "load_homecook_profile": function() {
     var check_profile_picture = profile_images.findOne({
       'userId': Meteor.userId(),
-      "meta": {
-        "purpose": "homecook_profile_picture"
-      }
+      "meta.purpose": "homecook_profile_picture"
     });
     if (check_profile_picture) {
       images_url = check_profile_picture.meta.base64;
@@ -56,6 +52,29 @@ Template.foodie_profile_card.helpers({
 Template.homecook_profile_page.onRendered(function(){
   $('body').css('overflow-y','scroll');
   $('a.homecook_image').remove();
+});
+
+Template.homecook_profile_page.helpers({
+  "load_homecook_banner": function() {
+    var check_profile_picture = profile_images.findOne({
+      'userId': Session.get('user_id'),
+      "meta.purpose": "homecook_banner_picture"
+    });
+    if (check_profile_picture) {
+      images_url = check_profile_picture.meta.base64;
+      return images_url;
+    }
+  },
+  "load_homecook_profile": function() {
+    var check_profile_picture = profile_images.findOne({
+      'userId': Session.get('user_id'),
+      "meta.purpose": "homecook_profile_picture"
+    });
+    if (check_profile_picture) {
+      images_url = check_profile_picture.meta.base64;
+      return images_url;
+    }
+  }
 });
 
 Template.profile_created_menus.onRendered(function(){

@@ -26,7 +26,7 @@ Template.orders_tracking.helpers({
 
 Template.pending_confirmation.helpers({
   'kitchen_profile_picture': function(){
-    var foodie = profile_images.findOne({'userId': String(this), "meta": {"purpose": "homecook_profile_picture"}})
+    var foodie = profile_images.findOne({'userId': String(this), "meta.purpose": "homecook_profile_picture"})
     return foodie._id + foodie.extensionWithDot
   },
   'get_kitchen_name': function() {
@@ -103,7 +103,7 @@ Template.foodies_confirmed_order.helpers({
   'foodie_profile_picture': function(){
     var order = Order_record.findOne({'_id': String(this)})
     var buyer_id = order.buyer_id
-    var foodie = profile_images.findOne({'userId': buyer_id, "meta": {"purpose": "profile_picture"}})
+    var foodie = profile_images.findOne({'userId': buyer_id, "meta.purpose": "profile_picture"})
     return foodie._id + foodie.extensionWithDot
   },
   'product_is_dish': function() {
