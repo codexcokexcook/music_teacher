@@ -134,7 +134,28 @@ Template.dishes_summary.events({
   },
 
   'click #btn_delete_dish': function(event) {
-    event.preventDefault();
+    var selected_dishes = Session.get('selected_dishes_id');
+    if (typeof selected_dishes !== "undefined"){
+      selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
+    }
+    if (!selected_dishes || selected_dishes.length === 0) {
+      Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded red lighten-2');
+    } else {
+      event.preventDefault();
+        $('#confirm_multi_delete').modal({
+          dismissible: true, // Modal can be dismissed by clicking outside of the modal
+          opacity: .5, // Opacity of modal background
+          inDuration: 300, // Transition in duration
+          outDuration: 200, // Transition out duration
+          startingTop: '4%', // Starting top style attribute
+          endingTop: '10%' // Ending top style attribute
+        }
+      );
+      $('#confirm_multi_delete').modal('open');
+    }
+  },
+
+  'click #confirm_multi': function(event) {
     var selected_dishes = Session.get('selected_dishes_id');
     if (typeof selected_dishes !== "undefined"){
       selected_dishes = selected_dishes.filter(function(a){return a !== "on"})

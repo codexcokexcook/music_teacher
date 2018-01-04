@@ -14,7 +14,7 @@ import {
 Meteor.methods({
   'dish.remove' (dish_id) {
     // check format
-    check(dish_id, String);
+    // check(dish_id, Match.Any);
     Dishes.update({
       _id: dish_id
     }, {
@@ -25,7 +25,7 @@ Meteor.methods({
   },
   'dish_image.remove' (image_id) {
     // check format
-    check(image_id, String);
+    // check(image_id, String);
     Images.remove({
       _id: image_id
     });
