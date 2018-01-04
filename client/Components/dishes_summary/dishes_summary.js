@@ -135,7 +135,7 @@ Template.dishes_summary.events({
 
   'click #btn_delete_dish': function(event) {
     var selected_dishes = Session.get('selected_dishes_id');
-    if (typeof selected_dishes !== "undefined"){
+    if (selected_dishes !== undefined && typeof selected_dishes !== null){
       selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
     }
     if (!selected_dishes || selected_dishes.length === 0) {
@@ -173,7 +173,17 @@ Template.dishes_summary.events({
         var delete_message = dish_details.dish_name + " deleted";
         Materialize.toast(delete_message, 3000);
         Meteor.call('dish.remove', selected_dishes[i], function(err){
-          if (err) Materialize.toast('Oops! Error when delete dish. Please try again.', 4000, "rounded red lighten-2");
+          if (err) {
+            Materialize.toast('Oops! Error when delete dish. Please try again.', 4000, "rounded red lighten-2");
+          } else {
+            Meteor.call('menu.checkDish', selected_dishes[i], function(err, result) {
+              if (result) {
+                  var $toastContent = $('<span>This dish is already in menu. Please update your menu.</span>');
+                  Materialize.toast($toastContent, 12000);
+              }
+            });
+            sessionStorage.clear(); //clear all things to make sure everything is clean before use it again
+          }
         });
       }
       Session.set('selected_dishes_id', null);
