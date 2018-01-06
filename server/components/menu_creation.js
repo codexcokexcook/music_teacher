@@ -42,6 +42,8 @@ Meteor.methods({
       dishes_id: dishes_id,
       image_id: image_id,
       updatedAt: new Date(),
+      order_count: 0,
+      average_rating: 0,
       deleted: false
     });
   },
@@ -81,6 +83,25 @@ Meteor.methods({
         online_status: status
       }
     });
+  },
+  'menu.order_count_update' (menu_id, seller_id, count) {
+    check(menu_id, String);
+    check(seller_id, String);
+    check(count, Number);
+    Menu.update({
+      _id: menu_id
+    }, {
+      $inc: {
+        order_count: count
+      }
+    });
+    Kitchen_details.update({
+      user_id: seller_id
+    }, {
+      $inc: {
+        order_count: count
+      }
+    })
   }
 });
 

@@ -50,7 +50,8 @@ Collections = {
   'Kitchen_details': Kitchen_details,
   'Markers': Markers,
   'Transactions': Transactions,
-  'Notifications': Notifications
+  'Notifications': Notifications,
+  'Order_ratings': Order_ratings
 }
 
 Template.registerHelper(

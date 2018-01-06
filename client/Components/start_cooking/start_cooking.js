@@ -49,14 +49,28 @@ Template.start_cooking.helpers({
     }).count()
     console.log('Order: ' + order)
     return order
-
   },
 
   'order_received': function() {
     var order = search_distinct_in_order_record('buyer_id', 'Created')
     console.log(order)
     return order
-  }
+  },
+
+  'ready_to_serve': function() {
+    var ready_to_serve = Order_record.find({
+      'seller_id': Meteor.userId(),
+      'status': "Ready"
+    }).count()
+    console.log('Ready: ' + ready_to_serve)
+    return ready_to_serve
+  },
+
+  'order_ready': function() {
+    var ready = search_distinct_in_order_record('_id', 'Ready')
+    console.log(ready)
+    return ready
+  },
 
 })
 
@@ -376,18 +390,25 @@ Template.request_card.events({
           } //delivery cost, should have a variable table
           Meteor.call('transactions.accepted', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken, function (err, result) {
             if (err) {
-              Materialize.toast("An error occur, please try again later", 4000, 'rounded red lighten-2');
+              Materialize.toast("An error has occurred: " + err, 4000, 'rounded red lighten-2');
             } else {
               Materialize.toast("Transaction has been accepted", 4000, 'rounded red lighten-2');
             }
           }) //insert to transaction
           Meteor.call('order_record.accepted', order_id, function(){
             if (err) {
-              Materialize.toast("An error occur, please try again later", 4000, 'rounded red lighten-2');
+              Materialize.toast("An error has occurred: " + err, 4000, 'rounded red lighten-2');
             } else {
               Materialize.toast("Ready to cook!", 5000, 'rounded red lighten-2');
             }
           }) //update the order to cooking
+        }
+        console.log('quantity:' + parseInt(quantity));
+        // update order counts for either dishes or menu collection
+        if (Dishes.findOne({_id: product_id})) {
+          Meteor.call('dish.order_count_update', product_id, seller_id, parseInt(quantity))
+        } else {
+          Meteor.call('menu.order_count_update', product_id, seller_id, parseInt(quantity))
         }
       }, 100 * index)
 
