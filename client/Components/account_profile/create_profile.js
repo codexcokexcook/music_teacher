@@ -939,6 +939,10 @@ Template.profile_payment_details.helpers({
 });
 
 Template.profile_personal_details.helpers({
+  'get_foodie_email': function() {
+    // to get user email always we enter profile page
+    return Accounts.users.find().fetch()[0].emails[0].address;
+  },
   country_list: [{
       "name": "Hong Kong",
       "dial_code": "+852",
