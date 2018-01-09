@@ -89,6 +89,19 @@ Meteor.methods({
       })
     },
 
+    'order_record.cancelled'(
+      order_id
+    ){
+      check(order_id, String);
+      Order_record.update({
+        _id: order_id}, {
+          $set:{
+            status: 'Cancelled',
+            updatedAt: new Date()
+          }
+        })
+      },
+
   'order_record.ready'(
     order_id
   ){

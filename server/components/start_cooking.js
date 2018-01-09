@@ -48,7 +48,7 @@ Meteor.methods({
     total_price_of_transaction,
     stripeToken
   ) {
-    check(trans_no, String);
+    check(trans_no, Match.Any);
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
@@ -79,12 +79,12 @@ Meteor.methods({
     price_of_cart,
     stripeToken
   ) {
-    check(trans_no, String);
+    check(trans_no, Match.Any);
     check(buyer_id, String);
     check(seller_id, String);
     check(order_id, String);
     check(price_of_cart, Match.Any);
-    check(stripeToken, String);
+    check(stripeToken, Match.Any);
 
     Transactions.insert({
       transaction_no: trans_no,
@@ -99,4 +99,31 @@ Meteor.methods({
     })
   },
 
+  'transactions.cancelled' (
+    trans_no,
+    buyer_id,
+    seller_id,
+    order_id,
+    price_of_cart,
+    stripeToken
+  ) {
+    check(trans_no, Match.Any);
+    check(buyer_id, String);
+    check(seller_id, String);
+    check(order_id, String);
+    check(price_of_cart, Match.Any);
+    check(stripeToken, Match.Any);
+
+    Transactions.insert({
+      transaction_no: trans_no,
+      buyer_id: buyer_id,
+      seller_id: seller_id,
+      'order': [order_id],
+      status: 'Cancelled',
+      amount: price_of_cart,
+      stripeToken: stripeToken,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+  },
 })

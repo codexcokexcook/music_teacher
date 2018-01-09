@@ -94,6 +94,26 @@ Meteor.methods({
       updatedAt: new Date()
     });
   },
+  'notification.cancel_order' (seller_id, buyer_id) {
+    check(seller_id, String);
+    check(buyer_id, String);
+
+    var buyer_name = Profile_details.findOne({
+      user_id: buyer_id
+    }).foodie_name;
+    var title = 'Your order is cancelled';
+    var message = 'Unfortunately, ' + buyer_name + ' has just rejected your order.';
+
+    Notifications.insert({
+      receiver_id: seller_id,
+      sender_id: buyer_id,
+      title: title,
+      content: message,
+      read: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+  },
   'notification.update' (id) {
     check(id, String);
     Notifications.update({

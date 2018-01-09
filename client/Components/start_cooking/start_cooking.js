@@ -408,7 +408,6 @@ Template.request_card.events({
         var stripeToken = transaction.stripeToken
         var amount = transaction.amount
         var description = 'Blueplate.co - Charge for ' + homecook.kitchen_name;
-        console.log(stripeToken, amount, description)
         Meteor.call('chargeCard', stripeToken, amount, description);
       }, 3 * 1000)
     }
@@ -487,6 +486,17 @@ Template.order_card.events({
     var order_id = String(this)
 
     Meteor.call('order_record.ready', order_id)
-    Meteor.call('transactions.ready', order_id)
+/**    var transactions = Transactions.findOne({'order': order_id}).order.fetch()
+
+    transactions.forEach(food_ready)
+
+    function food_ready(array_value, index){
+        order_id = array_value
+        
+
+
+    }
+
+   Meteor.call('transactions.ready', order_id)**/
   }
 })
