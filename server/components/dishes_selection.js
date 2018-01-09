@@ -94,5 +94,24 @@ Meteor.methods({
         online_status: status
       }
     });
+  },
+  'dish.order_count_update' (dish_id, seller_id, count) {
+    check(dish_id, String);
+    check(seller_id, String);
+    check(count, Number);
+    Dishes.update({
+      _id: dish_id
+    }, {
+      $inc: {
+        order_count: count
+      }
+    });
+    Kitchen_details.update({
+      user_id: seller_id
+    }, {
+      $inc: {
+        order_count: count
+      }
+    });
   }
 });

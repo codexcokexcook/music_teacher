@@ -15,7 +15,7 @@
           <div class = "col l6 m6 s6">
             <h5 class = "black-text">{{menu_name}}</h5>
             <h6>${{menu_selling_price}} for {{min_order}} people | ready: {{#if lead_days}}{{lead_days}}{{/if}} days {{#if lead_hours}}{{lead_hours}}{{/if}} hours</h6>
-            <img src="/dish_cards/rating/0_of_5_hearts.svg" style="margin: 6px 0px 6px 0px;" alt="heart">
+            {{> rating_display}}
           </div>
         </div>
         <div class = "divider"></div>

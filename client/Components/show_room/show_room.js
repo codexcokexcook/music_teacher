@@ -64,3 +64,4 @@ Meteor.subscribe('theNotificationsReceiver');
 Meteor.subscribe('theDishes');
 Meteor.subscribe('theMenu');
 Meteor.subscribe('theImages');
+Meteor.subscribe('theOrderRatings');
