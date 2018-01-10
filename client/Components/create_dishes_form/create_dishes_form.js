@@ -950,6 +950,7 @@ Template.create_dishes_form.events({
         Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, function(err){
           if (!err) { // no error when create dishes
             Materialize.toast('Nice! You have created a dish!', 2000, "round red lighten-2");
+            // trigger click on close button
             Ingredients_temporary.remove({});
             event.target.dish_name.value = "";
             event.target.dish_description.value = "";
@@ -967,9 +968,8 @@ Template.create_dishes_form.events({
             for (var i = 0; i < checkboxes.length; i++) {
               checkboxes[i].checked = false;
             };
-            // hide popup
-            //$('#add_dish_modal').modal('close');
-            $('.modal-overlay').remove();
+            // hide popup with trigger click cancel button on modal
+            $('#add_dish_modal > div.modal-footer > a.modal-action.modal-close.waves-effect.waves-green.btn-flat')[0].click();
             return false;
           } else {
             Materialize.toast('Oops! Error occur when create a dish. Please try again later.', 2000, "round red lighten-2");
