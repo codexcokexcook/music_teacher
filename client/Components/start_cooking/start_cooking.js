@@ -399,7 +399,7 @@ Template.request_card.events({
             if (err) {
               Materialize.toast("An error has occurred: " + err, 4000, 'rounded red lighten-2');
             } else {
-              Materialize.toast("Transaction has been accepted", 4000, 'rounded red lighten-2');
+              Materialize.toast("Order has been accepted", 4000, 'rounded red lighten-2');
             }
           }) //insert to transaction
           Meteor.call('order_record.accepted', order_id, function(){
@@ -436,7 +436,6 @@ Template.request_card.events({
         var stripeToken = transaction.stripeToken
         var amount = transaction.amount
         var description = 'Blueplate.co - Charge for ' + homecook.kitchen_name;
-        console.log(stripeToken, amount, description)
         Meteor.call('chargeCard', stripeToken, amount, description);
       }, 3 * 1000)
     }
@@ -513,8 +512,40 @@ Template.request_card.events({
 Template.order_card.events({
   'click #ready': function() {
     var order_id = String(this)
-
     Meteor.call('order_record.ready', order_id)
-    Meteor.call('transactions.ready', order_id)
+    console.log("Order_record Ready")
+    var transactions = Transactions.findOne({'order': order_id}).order
+
+    Session.set('transaction_ready', 0)
+
+    transactions.forEach(food_ready)
+
+    function food_ready(array_value, index){
+
+      setTimeout(function(){
+        var order_id = array_value
+        var order = Order_record.findOne({'_id': order_id})
+        var status = order.status
+        var check_digit = parseInt(Session.get('transaction_ready'))
+
+        if(status === 'Ready'){
+          check_digit += 1
+        }else{
+          check_digit = check_digit
+        }
+
+        Session.set('transaction_ready', check_digit)
+
+        var check = transactions.length
+        var check_digit = parseInt(Session.get('transaction_ready'))
+        var buyer_id = order.buyer_id
+        var seller_id = order.seller_id
+
+        if(check_digit === check){
+          Meteor.call('transactions.ready', order_id)
+          Meteor.call('notification.transaction_ready', seller_id, buyer_id)
+          console.log("Transactions Ready")
+        }}, 1000)
+    }
   }
 })

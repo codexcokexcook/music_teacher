@@ -73,7 +73,6 @@
       <div class = 'divider'></div>
       <!-- #: {{get_transaction_no}} -->
     </div>
-    {{#with ordered_dish}}
     <div class = 'card-content'>
       {{#each ordered_dish}}
         {{#if product_is_dish}}
@@ -117,17 +116,15 @@
           <span class = 'valign' style = 'margin: 12px;'><strong>Waiting for confirmation...</strong></span>
         </div>
       {{/if}}
+    </div>
+    <div class = 'card-action'>
+      {{#if order_ready}}
+      {{else}}
+      <div class = 'center'>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
       </div>
-
-      <div class = 'card-action'>
-        {{#if order_ready}}
-        {{else}}
-        <div class = 'center'>
-          <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
-        </div>
-        {{/if}}
-      </div>
-    {{/with}}
+      {{/if}}
+    </div>
   </div>
 </template>
 
