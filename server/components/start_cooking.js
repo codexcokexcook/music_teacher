@@ -126,4 +126,21 @@ Meteor.methods({
       updatedAt: new Date()
     })
   },
+
+  'transactions.ready' (
+    order_id
+  ) {
+    check(order_id, String);
+
+    Transactions.update({
+      order: [order_id]
+    }, {
+      '$set': {
+        status: 'Ready',
+        updatedAt: new Date()
+      }
+
+    })
+  },
+
 })

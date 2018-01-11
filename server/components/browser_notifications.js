@@ -101,8 +101,8 @@ Meteor.methods({
     var buyer_name = Profile_details.findOne({
       user_id: buyer_id
     }).foodie_name;
-    var title = 'Your order is cancelled';
-    var message = 'Unfortunately, ' + buyer_name + ' has just rejected your order.';
+    var title = 'The order is cancelled';
+    var message = 'Unfortunately, ' + buyer_name + ' has just cancel the order.';
 
     Notifications.insert({
       receiver_id: seller_id,
@@ -124,5 +124,25 @@ Meteor.methods({
         updatedAt: new Date()
       }
     });
-  }
+  },
+  'notification.transaction_ready' (seller_id, buyer_id) {
+    check(seller_id, String);
+    check(buyer_id, String);
+
+    var seller_name = Kitchen_details.findOne({
+      user_id: seller_id
+    }).chef_name;
+    var title = 'Your food is ready';
+    var message = seller_name + 'food are ready. Please enjoy your food!!!';
+
+    Notifications.insert({
+      receiver_id: buyer_id,
+      sender_id: seller_id,
+      title: title,
+      content: message,
+      read: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+  },
 });
