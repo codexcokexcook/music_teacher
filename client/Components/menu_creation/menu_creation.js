@@ -144,6 +144,8 @@ Template.menu_creation_content.events({
     Session.keys = {};
     $('div.modal').scrollTop(0);
     Materialize.toast('Menu created', 8000, 'rounded lighten-2');
+    // trigger close modal by click action
+    $('#cancel')[0].click();
   }
 });
 
