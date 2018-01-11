@@ -42,6 +42,26 @@
           </div>
         </div>
       </div>
+      <div class = 'col l12 m12 s12'>
+        <div class = 'section'>
+          <h5>Orders Ready to Serve</h5>
+          <div class = 'orders_wrapper valign-wrapper' id='ready_to_serve_wrapper'>
+            {{#if ready_to_serve}}
+              <div class = 'row'>
+                {{#each order_ready}}
+                  {{>order_card}}
+                {{/each}}
+              </div>
+            {{else}}
+            <div class = 'row'>
+              <div class = 'col l12 m12 s12 offset-l4'>
+                <h5 class ='center-align white-text'>no dishes ready to serve</h5>
+              </div>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

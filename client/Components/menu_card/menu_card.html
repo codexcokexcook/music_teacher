@@ -29,6 +29,7 @@
     <div class = "card-content">
       <h6 class = "black-text">{{menu_name}}</h6>
       <h6>${{menu_selling_price}} for {{min_order}} | ready: {{#if lead_days}}{{lead_days}}{{/if}} days {{#if lead_hours}}{{lead_hours}}{{/if}} hours</h6>
+      {{> rating_display}}
       <ul class = "browser-default">
         {{#each dishes_id}}
           {{#with dishes_retreival}}

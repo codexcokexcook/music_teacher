@@ -11,6 +11,7 @@
     <div class = "card-content">
       <h6 class = "black-text">{{dish_name}}</h6>
       <h6>${{dish_selling_price}}</h6>
+      {{> rating_display}}
     </div>
     <div class = "card-action">
       <div class = "center">
@@ -112,8 +113,7 @@
 
 <template name = "rating_price_info">
   <div class = "rating_price_wrapper" id="rating_price_info">
-    <!-- rating and review numbers has to be adjust to dynamic in the furture-->
-    <img class = "rating left" src="/dish_cards/rating/0_of_5_hearts.svg" alt="heart">
-    <h5 class = "price_tag right">${{dish_selling_price}}</h5>
+    <span>{{> rating_display}}
+    <h5 class = "price_tag right">${{dish_selling_price}}</h5></span>
   </div>
 </template>

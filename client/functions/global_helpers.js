@@ -10,6 +10,7 @@ Kitchen_details = new Mongo.Collection('kitchen_details');
 Markers = new Mongo.Collection('markers');
 Transactions = new Mongo.Collection('transactions');
 Notifications = new Mongo.Collection('notifications');
+Order_ratings = new Mongo.Collection('order_ratings');
 
 Images = new FilesCollection({
   collectionName: 'Images',
@@ -50,7 +51,8 @@ Collections = {
   'Kitchen_details': Kitchen_details,
   'Markers': Markers,
   'Transactions': Transactions,
-  'Notifications': Notifications
+  'Notifications': Notifications,
+  'Order_ratings': Order_ratings
 }
 
 Template.registerHelper(
