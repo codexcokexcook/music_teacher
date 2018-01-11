@@ -1,6 +1,5 @@
 <template name="landing_page">
   <div class="background">
-    {{> login_loader}}
     {{> top_wrapper}}
     {{> title_wrapper}}
     {{> login_modal}}
@@ -35,24 +34,6 @@
       <h2 class = "white-text left-align" style="text-shadow: 2px 2px #ff0000;">Goodbye junk food.</h2>
       <h2 class = "white-text left-align" style="text-shadow: 2px 2px #ff0000;">Hello home cooked food.</h2>
       <a class="waves-effect waves-red red lighten-2 btn modal-trigger left" href="#signup_modal" id="foodie_signup" style = "margin-right: 12px; width: 180px;">Join us</a>
-    </div>
-  </div>
-</template>
-
-<template name = "login_loader">
-  <div class="fullscreen shadow_overlay" id="loginLoader" style="display: none">
-    <div class="spinner-wrapper center-screen">
-        <div class="preloader-wrapper active" style="margin: 22px;">
-          <div class="spinner-layer spinner-red-only">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div><div class="gap-patch">
-              <div class="circle"></div>
-            </div><div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
-        </div>
     </div>
   </div>
 </template>

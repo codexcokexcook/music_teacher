@@ -24,7 +24,7 @@
 .shadow_overlay {
   position: absolute;
   z-index: 9999;
-  background-color: rgba(4, 4, 4, 0.7686274509803922);
+  background-color: rgba(68, 66, 66, 0.7686274509803922);
 }
 
 .spinner-wrapper {
@@ -38,7 +38,7 @@
 .center-screen {
   position: fixed;
   top: 65%;
-  left: 60%;
+  left: 75%;
   margin-top: -9em;
   margin-left: -15em;
   border: 1px solid #ccc;

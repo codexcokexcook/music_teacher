@@ -10,10 +10,13 @@ import './login_modal.html';
 Template.login_modal.events({
   'click .login-facebook':function(event){
     event.preventDefault();
+    $('#loginLoader').show(); // show the loader
     Meteor.loginWithFacebook({requestPermissions:['public_profile','email']}, function(err){
       if (err) {
+        $('#loginLoader').hide(); // show the loader
         console.log('Handle errors here: ', err);
       } else {
+        $('#loginLoader').hide(); // show the loader
         localStorage.setItem("loggedIn", true);
         FlowRouter.go("/main");
         $('#login_modal').modal('close');
@@ -23,9 +26,12 @@ Template.login_modal.events({
   'click .login-google':function(event){
     event.preventDefault();
     Meteor.loginWithGoogle({}, function(err){
+      $('#loginLoader').show(); // show the loader
       if (err) {
+        $('#loginLoader').hide(); // show the loader
         console.log('Handle errors here: ', err);
       } else {
+        $('#loginLoader').hide(); // show the loader
         localStorage.setItem("loggedIn", true);
         FlowRouter.go("/main");
         $('#login_modal').modal('close');
