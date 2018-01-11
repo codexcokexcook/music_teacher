@@ -49,7 +49,7 @@
             {{#if ready_to_serve}}
               <div class = 'row'>
                 {{#each order_ready}}
-                  {{>order_card}}
+                  {{> order_card}}
                 {{/each}}
               </div>
             {{else}}
@@ -67,6 +67,7 @@
 </template>
 
 <template name='completed_card'>
+
 </template>
 
 <template name='order_card'>
@@ -106,28 +107,39 @@
           {{/each}}
         {{/with}}
       {{/if}}
-      {{#if time_is_up}}
-        <div id = 'times_up_display center'>
-          <strong style='font-size: 40px;'>Time is up</strong>
-        </div>
+      {{#if ready_to_serve}}
       {{else}}
-        <div id= 'cooking_timer'>
-          <p>Service in:</p>
-          <div class = 'center'>
-            {{#if getCountdown.days}}
-              <strong style='font-size: 40px;'>{{getCountdown.days}}</strong><span>days </span>
-            {{/if}}
-            <strong style='font-size: 40px;'>{{getCountdown.hours}}</strong><span>hrs </span>
-            <strong style='font-size: 40px;'>{{getCountdown.minutes}}</strong><span>mins </span>
+        {{#if time_is_up}}
+          <div id = 'times_up_display center'>
+            <strong style='font-size: 40px;'>Time is up</strong>
           </div>
-        </div>
+        {{else}}
+          <div id= 'cooking_timer'>
+            <p>Service in:</p>
+            <div class = 'center'>
+              {{#if getCountdown.days}}
+                <strong style='font-size: 40px;'>{{getCountdown.days}}</strong><span>days </span>
+              {{/if}}
+              <strong style='font-size: 40px;'>{{getCountdown.hours}}</strong><span>hrs </span>
+              <strong style='font-size: 40px;'>{{getCountdown.minutes}}</strong><span>mins </span>
+            </div>
+          </div>
+        {{/if}}
       {{/if}}
     </div>
-    <div class = 'card-action'>
-      <div class = 'center'>
-        <a class="waves-effect waves-light btn-floating red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
+    {{#if ready_to_serve}}
+      <div class = 'card-action'>
+        <div class = 'center'>
+          <a class="waves-effect waves-light btn-floating red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
+        </div>
       </div>
-    </div>
+    {{else}}
+      <div class = 'card-action'>
+        <div class = 'center'>
+          <a class="waves-effect waves-light btn-floating red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
+        </div>
+      </div>
+    {{/if}}
   </div>
 </template>
 
@@ -166,7 +178,7 @@
       <div class = 'center'>
         <a class="waves-effect waves-light btn-floating red lighten-2" id='accept' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
         <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
-    </div>
+      </div>
     </div>
   </div>
 </template>

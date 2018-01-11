@@ -58,7 +58,7 @@ Template.start_cooking.helpers({
   },
 
   'ready_to_serve': function() {
-    var ready_to_serve = Order_record.find({
+    var ready_to_serve = Transactions.find({
       'seller_id': Meteor.userId(),
       'status': "Ready"
     }).count()
@@ -67,9 +67,9 @@ Template.start_cooking.helpers({
   },
 
   'order_ready': function() {
-    var ready = search_distinct_in_order_record('_id', 'Ready')
-    console.log(ready)
-    return ready
+      var cooking = search_distinct_in_order_record('_id', 'Ready')
+    console.log(cooking)
+    return cooking
   },
 
 })
@@ -216,6 +216,14 @@ Template.order_card.helpers({
     }).quantity
     return dish_qty;
   },
+  'ready_to_serve': function() {
+    var ready_to_serve = Order_record.find({
+      'seller_id': Meteor.userId(),
+      'status': "Ready"
+    }).count()
+    console.log('Ready: ' + ready_to_serve)
+    return ready_to_serve
+  }
 })
 
 Template.request_card.events({
@@ -319,8 +327,7 @@ Template.request_card.helpers({
     return Order_record.findOne({
       'product_id': this.product_id
     }).quantity
-  },
-
+  }
 })
 
 

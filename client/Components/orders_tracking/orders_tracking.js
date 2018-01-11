@@ -21,6 +21,19 @@ Template.orders_tracking.helpers({
     var cooking = search_distinct_order_record_orders_tracking('_id', 'Cooking')
     console.log(cooking)
     return cooking
+  },
+  'order_ready': function() {
+    var order = search_distinct_order_record_orders_tracking('_id', 'Ready')
+    console.log(order);
+    return order
+  },
+  'ready_to_serve': function() {
+    var ready_to_serve = Order_record.find({
+      'buyer_id': Meteor.userId(),
+      'status': "Ready"
+    }).count()
+    console.log('Ready: ' + ready_to_serve)
+    return ready_to_serve
   }
 })
 
@@ -67,6 +80,13 @@ Template.pending_confirmation.helpers({
   },
   'get_menu_qty': function(){
     return Order_record.findOne({'product_id': this.product_id}).quantity
+  },
+  'order_ready': function() {
+    var order_ready = Order_record.findOne({'product_id': this.product_id})
+    console.log(order_ready);
+    if (order_ready) {
+      return true;
+    }
   }
 })
 

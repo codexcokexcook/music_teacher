@@ -41,6 +41,26 @@
           </div>
         </div>
       </div>
+      <div class = 'col l12 m12 s12'>
+        <div class = 'section'>
+          <h5>Orders Ready to Serve</h5>
+          <div class = 'orders_wrapper valign-wrapper' id='ready_to_serve_wrapper'>
+            {{#if ready_to_serve}}
+              <div class = 'row'>
+                {{#each order_ready}}
+                  {{> pending_confirmation}}
+                {{/each}}
+              </div>
+            {{else}}
+            <div class = 'row'>
+              <div class = 'col l12 m12 s12 offset-l4'>
+                <h5 class ='center-align white-text'>no dishes ready to serve</h5>
+              </div>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -53,6 +73,7 @@
       <div class = 'divider'></div>
       <!-- #: {{get_transaction_no}} -->
     </div>
+    {{#with ordered_dish}}
     <div class = 'card-content'>
       {{#each ordered_dish}}
         {{#if product_is_dish}}
@@ -75,27 +96,38 @@
           </table>
         {{/if}}
       {{/each}}
-      status:
-      <div class = "valign-wrapper">
-        <div class="preloader-wrapper small active">
-          <div class="spinner-layer spinner-red-only">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div><div class="gap-patch">
-              <div class="circle"></div>
-            </div><div class="circle-clipper right">
-              <div class="circle"></div>
+      {{#if order_ready}}
+        <div class = 'center'>
+          {{> input_rating}}
+        </div>
+      {{else}}
+        status:
+        <div class = "valign-wrapper">
+          <div class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-red-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
             </div>
           </div>
+          <span class = 'valign' style = 'margin: 12px;'><strong>Waiting for confirmation...</strong></span>
         </div>
-        <span class = 'valign' style = 'margin: 12px;'><strong>Waiting for confirmation...</strong></span>
+      {{/if}}
       </div>
-    </div>
-    <div class = 'card-action'>
-      <div class = 'center'>
-        <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
+
+      <div class = 'card-action'>
+        {{#if order_ready}}
+        {{else}}
+        <div class = 'center'>
+          <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
+        </div>
+        {{/if}}
       </div>
-    </div>
+    {{/with}}
   </div>
 </template>
 
