@@ -115,6 +115,19 @@ Meteor.methods({
       })
     },
 
+    'order_record.complete'(
+      order_id
+    ){
+      check(order_id, String);
+      Order_record.update({
+        _id: order_id}, {
+          $set:{
+            status: 'Complete',
+            updatedAt: new Date()
+          }
+        })
+      },
+
   'order_record.notify_buyer'(buyer_id){
     check(buyer_id, String);
     Order_record.find(

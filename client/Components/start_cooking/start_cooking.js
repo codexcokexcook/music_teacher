@@ -510,6 +510,7 @@ Template.request_card.events({
 })
 
 Template.order_card.events({
+
   'click #ready': function() {
     var order_id = String(this)
     Meteor.call('order_record.ready', order_id)
@@ -547,5 +548,29 @@ Template.order_card.events({
           console.log("Transactions Ready")
         }}, 1000)
     }
+  },
+
+  'click #complete': function(){
+
+      /** given you are using transaction as card **/
+      var trans_no = String(this)
+      var seller_id = Meteor.userId()
+
+      Meteor.call('transactions.complete', seller_id, buyer_id, trans_no)
+
+      var order = Transactions.findOne({transaction_no: trans_no, seller_id: seller_id, buyer_id: buyer_id}).order
+
+      order.forEach(order_complete)
+
+
+      function order_complete(array_value, index){
+        var order_id = array_value
+
+        Meteor.call('order_record.complete', order_id)
+
+      }
+
+      Meteor.call('notificaiton.transaction_complete', seller_id, buyer_id)
   }
+
 })

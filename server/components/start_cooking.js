@@ -143,4 +143,21 @@ Meteor.methods({
     })
   },
 
+  'transactions.complete'(
+    seller_id,
+    buyer_id,
+    trans_no
+  ){
+    Transactions.update({
+      seller_id: seller_id,
+      buyer_id: buyer_id,
+      transaction_no: trans_no
+    },{
+      '$set':{
+        status: 'Complete',
+        updatedAt: new Date()
+      }
+    })
+  }
+
 })
