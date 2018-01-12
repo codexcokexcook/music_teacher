@@ -551,16 +551,18 @@ Template.order_card.events({
         }}, 1000)
     }
   },
+})
 
-  'click #complete': function(){
+Template.chef_ready_card.events({
 
-      /** given you are using transaction as card **/
-      var trans_no = String(this)
-      var seller_id = Meteor.userId()
+  'click #order_complete': function(){
+      var trans_id = this._id
+      var seller_id = this.seller_id
+      var buyer_id = this.buyer_id
 
-      Meteor.call('transactions.complete', seller_id, buyer_id, trans_no)
+      Meteor.call('transactions.complete', trans_id)
 
-      var order = Transactions.findOne({transaction_no: trans_no, seller_id: seller_id, buyer_id: buyer_id}).order
+      var order = Transactions.findOne({_id: trans_id}).order
 
       order.forEach(order_complete)
 
@@ -572,7 +574,7 @@ Template.order_card.events({
 
       }
 
-      Meteor.call('notificaiton.transaction_complete', seller_id, buyer_id)
+      Meteor.call('notification.transaction_complete', seller_id, buyer_id)
   }
 
 })

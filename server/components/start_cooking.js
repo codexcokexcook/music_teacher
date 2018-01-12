@@ -152,14 +152,11 @@ Meteor.methods({
   },
 
   'transactions.complete'(
-    seller_id,
-    buyer_id,
-    trans_no
+    trans_id
+
   ){
     Transactions.update({
-      seller_id: seller_id,
-      buyer_id: buyer_id,
-      transaction_no: trans_no
+      _id: trans_id
     },{
       '$set':{
         status: 'Complete',
