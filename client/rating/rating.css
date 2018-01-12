@@ -1,0 +1,25 @@
+.rating {
+  height: 60px;
+}
+
+.order_count {
+  position: relative;
+  bottom: 17px;
+  left: 76px;
+}
+
+#rating .current-rating {
+  color: #E57373;
+}
+
+#rating .active {
+  color: #E57373;
+}
+
+#show_rating .current-rating {
+  color: #E57373;
+}
+
+.show_rating .current-rating {
+  color: #E57373;
+}

@@ -84,7 +84,6 @@ Template.foodies_confirmed_order.helpers({
       Session.set(name,time_remaining)
     },1000)
   },
-
   'time_is_up': function() {
     var time = Session.get(this);
     if (parseInt(time.days) < 0 || parseInt(time.hours) < 0 || parseInt(time.minutes) < 0) {
@@ -94,12 +93,10 @@ Template.foodies_confirmed_order.helpers({
       return false;
     }
   },
-
   'getCountdown': function(template) {
     var name = String(this)
     return Session.get(name);
   },
-
   'foodie_profile_picture': function(){
     var order = Order_record.findOne({'_id': String(this)})
     var buyer_id = order.buyer_id
@@ -164,4 +161,72 @@ Template.foodies_confirmed_order.helpers({
     dish_qty = Order_record.findOne({'product_id': dish_id}).quantity
     return dish_qty;
   },
+})
+
+Template.pending_confirmation.events({
+
+  'click #cancel': function(event, template) {
+    event.preventDefault();
+
+    var seller_id = String(this)
+    var buyer_id = Meteor.userId()
+    var order = Order_record.findOne({
+      'buyer_id': buyer_id,
+      'seller_id': seller_id,
+      'status': 'Created'
+    })
+    var trans_no = parseInt(order.transaction_no)
+    var product = Order_record.find({
+      'buyer_id': buyer_id,
+      'seller_id': seller_id,
+      'transaction_no': trans_no,
+      'status': 'Created'
+    }).fetch()
+
+    product.forEach(cancel_order)
+
+    function cancel_order(array_value, index) {
+
+      setTimeout(function() {
+        var order = array_value
+        var trans_no = parseInt(String(order.transaction_no))
+        var order_id = String(order._id)
+        var buyer_id = String(order.buyer_id)
+        var seller_id = String(order.seller_id)
+        var product_id = String(order.product_id)
+        var quantity = String(order.quantity)
+        var ready_time = String(order.ready_time)
+        var serving_option = String(order.serving_option)
+
+        //get the price of each cart and calculating a total for this transaction
+        var price_of_cart = parseInt(String(order.total_price))
+        var status = String(order.status)
+        var stripeToken = String(order.stripeToken)
+
+
+        //check if transactions inserted already, if yes, just insert the order into array
+        var check = Transactions.findOne({
+          'buyer_id': buyer_id,
+          'seller_id': seller_id,
+          'transaction_no': trans_no
+        })
+
+        if (check) {
+          var total_price_of_transaction = parseInt(check.amount) //check the amount in the transaction collection
+          total_price_of_transaction += parseInt(price_of_cart) //add the cart_price into the transaction table
+          Meteor.call('transactions.cancelled', trans_no, buyer_id, seller_id, order_id, total_price_of_transaction, stripeToken) //update the transaction
+          Meteor.call('order_record.cancelled', order_id) //update the order to cooking
+        } else {
+          if (serving_option === 'Delivery') {
+            price_of_cart += 50
+          } //delivery cost, should have a variable table
+          Meteor.call('transactions.cancelled', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken) //insert to transaction
+          Meteor.call('order_record.cancelled', order_id) //update the order to cooking
+        }
+      }, 100 * index)
+      Meteor.call('notification.cancel_order', seller_id, buyer_id);
+    }
+  },
+
+
 })

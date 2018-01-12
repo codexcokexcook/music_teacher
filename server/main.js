@@ -86,6 +86,10 @@ Meteor.publish('theMenu', function(){
     return Menu.find();
 });
 
+Meteor.publish('theOrderRatings', function() {
+  return Order_ratings.find();
+})
+
 // Meteor.publish('theImages', function(){
 //     var currentUserId = this.userId;
 //     return Images.find();

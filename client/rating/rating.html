@@ -1,0 +1,18 @@
+<template name = 'rating_input'>
+  <div class = 'card'>
+    <div class = 'card-content'>
+      <h5>Rate your experience</h5>
+      <div class = 'center'>
+        {{#if input_rating}}
+          {{> starsRating id='show_rating' mutable=false rating = input_rating size=40}}
+        {{else}}
+          {{> starsRating id='rating' mutable=true size=40 }}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name =  'rating_display'>
+  {{> starsRating class='show_rating' mutable=false rating = display_rating size=15}}
+</template>

@@ -180,6 +180,8 @@ Meteor.methods({
       bank_account_no: bank_account_no,
       bank_address_country: bank_address_country,
       bank_address: bank_address,
+      order_count: 0,
+      average_rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     });

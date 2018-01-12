@@ -236,6 +236,8 @@ Meteor.methods({
       createdAt: new Date(),
       updatedAt: new Date(),
       online_status: false,
+      order_count: 0,
+      average_rating: 0,
       deleted: false
     });
   }
