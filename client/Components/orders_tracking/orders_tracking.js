@@ -23,14 +23,12 @@ Template.orders_tracking.helpers({
     return cooking
   },
   'order_ready': function() {
-    var order = search_distinct_order_record_orders_tracking('_id', 'Ready')
-    console.log(order);
-    return order
+    return Transactions.find({'buyer_id': Meteor.userId(), $or: [{'status': 'Ready'},{'status': 'Completed'}]})
   },
   'ready_to_serve': function() {
     var ready_to_serve = Order_record.find({
       'buyer_id': Meteor.userId(),
-      'status': "Ready"
+      $or: [{'status': 'Ready'},{'status': 'Completed'}]
     }).count()
     console.log('Ready: ' + ready_to_serve)
     return ready_to_serve
@@ -48,9 +46,9 @@ Template.pending_confirmation.helpers({
   },
   'ordered_dish': function(){
 
-    var order = Order_record.findOne({'seller_id': String(this), 'buyer_id': Meteor.userId(), 'status': 'Created'})
+    var order = Order_record.findOne({'seller_id': String(this), 'buyer_id': Meteor.userId(),'status':'Created'})
     var trans_no = order.transaction_no
-    return Order_record.find({'seller_id': String(this), 'buyer_id': Meteor.userId(), 'transaction_no': trans_no, 'status': 'Created'})
+    return Order_record.find({'seller_id': String(this), 'buyer_id': Meteor.userId(), 'transaction_no': trans_no,'status': 'Created'})
   },
   'product_is_dish': function() {
     if (Dishes.findOne({'_id': this.product_id})) {
@@ -63,9 +61,14 @@ Template.pending_confirmation.helpers({
     return Dishes.findOne({'_id': this.product_id}).dish_name;
   },
   'get_dish_image': function(){
-    var dish_image_id = Dishes.findOne({'_id': this.product_id}).image_id
-    var ext = Images.findOne({'_id': dish_image_id}).extensionWithDot
-    return dish_image_id + ext
+    var dish_image_id = Dishes.findOne({
+      '_id': this.product_id
+    }).image_id
+
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
   'get_dish_qty': function(){
     return Order_record.findOne({'product_id': this.product_id}).quantity
@@ -74,19 +77,19 @@ Template.pending_confirmation.helpers({
     return Menu.findOne({'_id': this.product_id}).menu_name;
   },
   'get_menu_image': function(){
-    var dish_image_id = Menu.findOne({'_id': this.product_id}).image_id[0]
-    var ext = Images.findOne({'_id': dish_image_id}).extensionWithDot
-    return dish_image_id + ext
+    var dish_image_id = Menu.findOne({
+      '_id': this.product_id
+    }).image_id[0]
+    var ext = Images.findOne({
+      '_id': dish_image_id
+    }).extensionWithDot
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
   'get_menu_qty': function(){
     return Order_record.findOne({'product_id': this.product_id}).quantity
-  },
-  'order_ready': function() {
-    var order_ready = Order_record.findOne({'product_id': this.product_id})
-    console.log(order_ready);
-    if (order_ready) {
-      return true;
-    }
   }
 })
 
@@ -140,10 +143,14 @@ Template.foodies_confirmed_order.helpers({
     return Dishes.findOne({'_id': String(this)}).dish_name;
   },
   'get_menu_dish_image': function() {
-    var dish_image_id = Dishes.findOne({'_id': String(this)}).image_id
-    var ext = Images.findOne({'_id': dish_image_id}).extensionWithDot
+    var dish_image_id = Dishes.findOne({
+      '_id': String(this)
+    }).image_id
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
 
-    return dish_image_id + ext
+    return base64;
   },
   'get_menu_qty': function() {
     return dish_qty;
@@ -156,17 +163,20 @@ Template.foodies_confirmed_order.helpers({
   },
 
   'get_transaction_no': function(){
-    var order = Order_record.findOne({'_id': String(this)})
-    return order.buyer_id + order.transaction_no
-  },
-
-  'get_dish_image': function(){
-    var order = Order_record.findOne({'_id': String(this)})
+    var order = Order_record.findOne({
+      '_id': String(this)
+    })
     var dish_id = order.product_id
-    var dish_image_id = Dishes.findOne({'_id': dish_id}).image_id
-    var ext = Images.findOne({'_id': dish_image_id}).extensionWithDot
-
-    return dish_image_id + ext
+    var dish_image_id = Dishes.findOne({
+      '_id': dish_id
+    }).image_id
+    var ext = Images.findOne({
+      '_id': dish_image_id
+    }).extensionWithDot
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
   },
 
   'get_dish_name': function(){
@@ -181,7 +191,16 @@ Template.foodies_confirmed_order.helpers({
     dish_qty = Order_record.findOne({'product_id': dish_id}).quantity
     return dish_qty;
   },
-})
+  'ready_to_serve': function() {
+    var ready_to_serve = Order_record.findOne({
+      '_id': String(this),
+      'buyer_id': Meteor.userId(),
+      'status': "Ready"
+    })
+    console.log('Ready: ' + ready_to_serve)
+    return ready_to_serve
+  }
+});
 
 Template.pending_confirmation.events({
 
@@ -247,6 +266,72 @@ Template.pending_confirmation.events({
       Meteor.call('notification.cancel_order', seller_id, buyer_id);
     }
   },
+})
 
+Template.ready_card.helpers({
+  'kitchen_profile_picture': function(){
+    var foodie = profile_images.findOne({'userId': this.seller_id, "meta.purpose": "homecook_profile_picture"})
+    return foodie._id + foodie.extensionWithDot
+  },
+  'get_kitchen_name': function() {
+    var kitchen = Kitchen_details.findOne({'user_id': this.seller_id})
+    return kitchen.kitchen_name;
+  },
+  'ready_order': function() {
+    return this.order;
+  },
 
+  'ordered_dish': function(){
+    return Order_record.find({'_id': String(this),'buyer_id': Meteor.userId()});
+  },
+  'product_is_dish': function() {
+    if (Dishes.findOne({'_id': this.product_id})) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  'get_dish_name': function(){
+    return Dishes.findOne({'_id': this.product_id}).dish_name;
+  },
+  'get_dish_image': function(){
+    var dish_image_id = Dishes.findOne({
+      '_id': this.product_id
+    }).image_id
+
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
+  },
+  'get_dish_qty': function(){
+    return Order_record.findOne({'product_id': this.product_id}).quantity
+  },
+  'get_menu_name': function(){
+    return Menu.findOne({'_id': this.product_id}).menu_name;
+  },
+  'get_menu_image': function(){
+    var dish_image_id = Menu.findOne({
+      '_id': this.product_id
+    }).image_id[0]
+    var ext = Images.findOne({
+      '_id': dish_image_id
+    }).extensionWithDot
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
+  },
+  'get_menu_qty': function(){
+    return Order_record.findOne({'product_id': this.product_id}).quantity
+  },
+  'transaction_is_complete': function() {
+    if (Transactions.findOne({'_id': this._id,'status':'Completed'})) {
+      return true;
+    } else if (Order_record.findOne({'_id':this._id,'status':'Completed'})) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 })
