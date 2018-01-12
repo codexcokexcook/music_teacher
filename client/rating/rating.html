@@ -1,10 +1,8 @@
 <template name = 'input_rating'>
-
-  <h6>Rate your experience</h6>
     {{#if input_rating}}
-      {{> starsRating id='show_rating' mutable=false rating = input_rating size=40}}
+      {{> starsRating id='show_rating' mutable=false rating = input_rating size=30}}
     {{else}}
-      {{> starsRating id='rating' mutable=true size=40 }}
+      {{> starsRating id='rating' mutable=true size=30 }}
     {{/if}}
 </template>
 

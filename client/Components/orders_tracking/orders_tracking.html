@@ -48,7 +48,7 @@
             {{#if ready_to_serve}}
               <div class = 'row'>
                 {{#each order_ready}}
-                  {{> pending_confirmation}}
+                  {{> ready_card}}
                 {{/each}}
               </div>
             {{else}}
@@ -79,7 +79,7 @@
           à la carte order:
           <table>
             <tbody>
-              <td><a class ='cooking_card_profile_picture' style="background-image: url(/dishes_upload/{{get_dish_image}}"></a></td>
+              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
               <td>{{get_dish_name}}</td>
               <td>x{{get_dish_qty}}</td>
             </tbody>
@@ -88,42 +88,33 @@
         menu order:
           <table>
             <tbody>
-              <td><a class ='cooking_card_profile_picture' style="background-image: url(/dishes_upload/{{get_menu_image}}"></a></td>
+              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
               <td>{{get_menu_name}}</td>
               <td>x{{get_menu_qty}}</td>
             </tbody>
           </table>
         {{/if}}
       {{/each}}
-      {{#if order_ready}}
-        <div class = 'center'>
-          {{> input_rating}}
-        </div>
-      {{else}}
-        status:
-        <div class = "valign-wrapper">
-          <div class="preloader-wrapper small active">
-            <div class="spinner-layer spinner-red-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+      status:
+      <div class = "valign-wrapper">
+        <div class="preloader-wrapper small active">
+          <div class="spinner-layer spinner-red-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
             </div>
           </div>
-          <span class = 'valign' style = 'margin: 12px;'><strong>Waiting for confirmation...</strong></span>
         </div>
-      {{/if}}
+        <span class = 'valign' style = 'margin: 12px;'><strong>Waiting for confirmation...</strong></span>
+      </div>
     </div>
     <div class = 'card-action'>
-      {{#if order_ready}}
-      {{else}}
       <div class = 'center'>
         <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
       </div>
-      {{/if}}
     </div>
   </div>
 </template>
@@ -132,8 +123,8 @@
   {{set_timer}}
   <div class ='card request_card'>
     <div class = 'card-image'>
-      <a class ='btn-floating grey lighten-1 cooking_card_profile_picture' style="background-image: url(/profile_upload/{{foodie_profile_picture}})"></a>
-      <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_foodie_name}}</h6>
+      <a class ='btn-floating grey lighten-1 cooking_card_profile_picture' style="background-image: url(/profile_upload/{{kitchen_profile_picture}})"></a>
+      <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_kitchen_name}}</h6>
       <!--<span id = 'transaction_no' style='line-height: 12px;'><small><strong>Transaction no.:</strong> {{get_transaction_no}}</small></span>-->
       <div class = 'divider'></div>
     </div>
@@ -142,7 +133,7 @@
         <div class = 'row'>
           <table>
             <tbody>
-              <td><a class ='cooking_card_profile_picture' style="background-image: url(/dishes_upload/{{get_dish_image}}"></a></td>
+              <td><a class ='cooking_card_profile_picture' style="background-image: url(/dishes_upload/{{get_dish_image}})"></a></td>
               <td><strong>{{get_dish_name}}</strong></td>
               <td><strong>x{{get_dish_qty}}</strong></td>
             </tbody>
@@ -156,7 +147,7 @@
             <div class = 'row'>
               <table>
                 <tbody>
-                  <td><a class ='cooking_card_profile_picture' style="background-image: url(/dishes_upload/{{get_menu_dish_image}}"></a></td>
+                  <td><a class ='cooking_card_profile_picture' style="background-image: url(/dishes_upload/{{get_menu_dish_image}})"></a></td>
                   <td><strong>{{get_menu_dish_name}}</strong></td>
                   <td><strong>x{{get_menu_qty}}</strong></td>
                 </tbody>
@@ -182,10 +173,56 @@
         </div>
       {{/if}}
     </div>
-    <div class = 'card-action'>
-      <div class = 'center'>
-        <a class="waves-effect waves-light btn-floating red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
-      </div>
+  </div>
+</template>
+
+<template name = 'ready_card'>
+  <div class ='card sticky-action request_card'>
+    <div class = 'card-image'>
+      <a class ='btn-floating grey lighten-1 cooking_card_profile_picture' style="background-image: url(/profile_upload/{{kitchen_profile_picture}})"></a>
+      <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_kitchen_name}}</h6>
+      <div class = 'divider'></div>
+      <!-- #: {{get_transaction_no}} -->
     </div>
+    <div class = 'card-content'>
+      {{#each ordered_dish}}
+        {{#if product_is_dish}}
+          {{#if transaction_is_complete}}
+            <h6>Please review your order:</h6>
+          {{/if}}
+          <table>
+            <tbody>
+              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
+              <td>{{get_dish_name}}</td>
+              <!--<td>x{{get_dish_qty}}</td>-->
+            </tbody>
+          </table>
+          {{#if transaction_is_complete}}
+            {{> input_rating}}
+          {{/if}}
+        {{else}}
+          {{#if transaction_is_complete}}
+            <h6>Please review your order:</h6>
+          {{/if}}
+          <table>
+            <tbody>
+              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
+              <td>{{get_menu_name}}</td>
+              <!--<td>x{{get_menu_qty}}</td>-->
+            </tbody>
+          </table>
+          {{#if transaction_is_complete}}
+            {{> input_rating}}
+          {{/if}}
+        {{/if}}
+      {{/each}}
+    </div>
+    {{#if transaction_is_complete}}
+      <div class = 'card-action'>
+        <div class = 'center'>
+          <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
+        </div>
+      </div>
+    {{/if}}
   </div>
 </template>

@@ -3,6 +3,14 @@ import { check } from 'meteor/check';
 
 Transactions = new Mongo.Collection('transactions');
 
+Meteor.publish('theProfileDetail', function(){
+    return Profile_details.find({});
+});
+
+Meteor.publish('theKitchenDetail', function(){
+    return Kitchen_details.find();
+});
+
 Transactions.deny({
   remove() {
     return true
