@@ -159,7 +159,7 @@ Meteor.methods({
       _id: trans_id
     },{
       '$set':{
-        status: 'Complete',
+        status: 'Completed',
         updatedAt: new Date()
       }
     })
