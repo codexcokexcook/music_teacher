@@ -177,24 +177,26 @@
       <!-- #: {{get_transaction_no}} -->
     </div>
     <div class = 'card-content'>
-      {{#each ordered_dish}}
-        {{#if product_is_dish}}
-          <table>
-            <tbody>
-              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
-              <td>{{get_dish_name}}</td>
-              <!--<td>x{{get_dish_qty}}</td>-->
-            </tbody>
-          </table>
-        {{else}}
-          <table>
-            <tbody>
-              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
-              <td>{{get_menu_name}}</td>
-              <!--<td>x{{get_menu_qty}}</td>-->
-            </tbody>
-          </table>
-        {{/if}}
+      {{#each ready_order}}
+        {{#each ordered_dish}}
+          {{#if product_is_dish}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
+                <td>{{get_dish_name}}</td>
+                <!--<td>x{{get_dish_qty}}</td>-->
+              </tbody>
+            </table>
+          {{else}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
+                <td>{{get_menu_name}}</td>
+                <!--<td>x{{get_menu_qty}}</td>-->
+              </tbody>
+            </table>
+          {{/if}}
+        {{/each}}
       {{/each}}
     </div>
     <div class = 'card-action'>

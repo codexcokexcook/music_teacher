@@ -185,36 +185,38 @@
       <!-- #: {{get_transaction_no}} -->
     </div>
     <div class = 'card-content'>
-      {{#each ordered_dish}}
-        {{#if product_is_dish}}
-          {{#if transaction_is_complete}}
-            <h6>Please review your order:</h6>
+      {{#each ready_order}}
+        {{#each ordered_dish}}
+          {{#if product_is_dish}}
+            {{#if transaction_is_complete}}
+              <h6>Please review your order:</h6>
+            {{/if}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
+                <td>{{get_dish_name}}</td>
+                <!--<td>x{{get_dish_qty}}</td>-->
+              </tbody>
+            </table>
+            {{#if transaction_is_complete}}
+              {{> input_rating}}
+            {{/if}}
+          {{else}}
+            {{#if transaction_is_complete}}
+              <h6>Please review your order:</h6>
+            {{/if}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
+                <td>{{get_menu_name}}</td>
+                <!--<td>x{{get_menu_qty}}</td>-->
+              </tbody>
+            </table>
+            {{#if transaction_is_complete}}
+              {{> input_rating}}
+            {{/if}}
           {{/if}}
-          <table>
-            <tbody>
-              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
-              <td>{{get_dish_name}}</td>
-              <!--<td>x{{get_dish_qty}}</td>-->
-            </tbody>
-          </table>
-          {{#if transaction_is_complete}}
-            {{> input_rating}}
-          {{/if}}
-        {{else}}
-          {{#if transaction_is_complete}}
-            <h6>Please review your order:</h6>
-          {{/if}}
-          <table>
-            <tbody>
-              <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
-              <td>{{get_menu_name}}</td>
-              <!--<td>x{{get_menu_qty}}</td>-->
-            </tbody>
-          </table>
-          {{#if transaction_is_complete}}
-            {{> input_rating}}
-          {{/if}}
-        {{/if}}
+        {{/each}}
       {{/each}}
     </div>
     {{#if transaction_is_complete}}

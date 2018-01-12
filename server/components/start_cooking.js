@@ -136,12 +136,12 @@ Meteor.methods({
   },
 
   'transactions.ready' (
-    order_id
+    trans_id
   ) {
-    check(order_id, String);
+    check(trans_id, String);
 
     Transactions.update({
-      order: [order_id]
+      _id: trans_id
     }, {
       '$set': {
         status: 'Ready',

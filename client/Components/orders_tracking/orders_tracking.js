@@ -277,9 +277,12 @@ Template.ready_card.helpers({
     var kitchen = Kitchen_details.findOne({'user_id': this.seller_id})
     return kitchen.kitchen_name;
   },
+  'ready_order': function() {
+    return this.order;
+  },
 
   'ordered_dish': function(){
-    return Order_record.find({'_id': String(this.order),'buyer_id': Meteor.userId()});
+    return Order_record.find({'_id': String(this),'buyer_id': Meteor.userId()});
   },
   'product_is_dish': function() {
     if (Dishes.findOne({'_id': this.product_id})) {

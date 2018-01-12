@@ -514,6 +514,7 @@ Template.order_card.events({
     Meteor.call('order_record.ready', order_id)
     console.log("Order_record Ready")
     var transactions = Transactions.findOne({'order': order_id}).order
+    console.log(transactions);
 
     Session.set('transaction_ready', 0)
 
@@ -527,6 +528,7 @@ Template.order_card.events({
         var status = order.status
         var check_digit = parseInt(Session.get('transaction_ready'))
 
+
         if(status === 'Ready'){
           check_digit += 1
         }else{
@@ -539,9 +541,10 @@ Template.order_card.events({
         var check_digit = parseInt(Session.get('transaction_ready'))
         var buyer_id = order.buyer_id
         var seller_id = order.seller_id
+        var trans_id = Transactions.findOne({'order':order_id})._id
 
         if(check_digit === check){
-          Meteor.call('transactions.ready', order_id)
+          Meteor.call('transactions.ready', trans_id)
           Meteor.call('notification.transaction_ready', seller_id, buyer_id)
           console.log("Transactions Ready")
         }}, 1000)
@@ -565,9 +568,12 @@ Template.chef_ready_card.helpers({
     })
     return foodie.foodie_name;
   },
-
+  'ready_order': function() {
+    return this.order;
+  },
   'ordered_dish': function(){
-    return Order_record.find({'_id': String(this.order),'seller_id': Meteor.userId()});
+    console.log(String(this))
+    return Order_record.find({'_id': String(this),'seller_id': Meteor.userId()});
   },
   'product_is_dish': function() {
     if (Dishes.findOne({'_id': this.product_id})) {
