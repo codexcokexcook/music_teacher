@@ -49,7 +49,7 @@
             {{#if ready_to_serve}}
               <div class = 'row'>
                 {{#each order_ready}}
-                  {{>order_card}}
+                  {{> chef_ready_card}}
                 {{/each}}
               </div>
             {{else}}
@@ -64,9 +64,6 @@
       </div>
     </div>
   </div>
-</template>
-
-<template name='completed_card'>
 </template>
 
 <template name='order_card'>
@@ -166,7 +163,46 @@
       <div class = 'center'>
         <a class="waves-effect waves-light btn-floating red lighten-2" id='accept' style='margin:0px 12px 0px 12px;'><i class="material-icons">done</i></a>
         <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
+      </div>
     </div>
+  </div>
+</template>
+
+<template name = 'chef_ready_card'>
+  <div class ='card sticky-action request_card'>
+    <div class = 'card-image'>
+      <a class ='btn-floating grey lighten-1 cooking_card_profile_picture' style="background-image: url({{foodie_profile_picture}})"></a>
+      <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_foodie_name}}</h6>
+      <div class = 'divider'></div>
+      <!-- #: {{get_transaction_no}} -->
+    </div>
+    <div class = 'card-content'>
+      {{#each ready_order}}
+        {{#each ordered_dish}}
+          {{#if product_is_dish}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
+                <td>{{get_dish_name}}</td>
+                <!--<td>x{{get_dish_qty}}</td>-->
+              </tbody>
+            </table>
+          {{else}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
+                <td>{{get_menu_name}}</td>
+                <!--<td>x{{get_menu_qty}}</td>-->
+              </tbody>
+            </table>
+          {{/if}}
+        {{/each}}
+      {{/each}}
+    </div>
+    <div class = 'card-action'>
+      <div class = 'center'>
+        <a class="waves-effect waves-light btn red lighten-2" id='order_complete' style='margin:0px 12px 0px 12px;'>Food delivered</a>
+      </div>
     </div>
   </div>
 </template>

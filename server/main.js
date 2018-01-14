@@ -47,12 +47,12 @@ Meteor.publish('theOrderRecordBuyer', function(){
 });
 
 Meteor.publish('theProfileDetail', function(){
-    var currentUserId = this.userId;
-    return Profile_details.find({ user_id: currentUserId });
+    //var currentUserId = this.userId;
+    return Profile_details.find();
 });
 
 Meteor.publish('theKitchenDetail', function(){
-    var currentUserId = this.userId;
+    //var currentUserId = this.userId;
     return Kitchen_details.find();
 });
 

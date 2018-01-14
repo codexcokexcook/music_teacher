@@ -102,7 +102,7 @@ Meteor.methods({
       user_id: buyer_id
     }).foodie_name;
     var title = 'The order is cancelled';
-    var message = 'Unfortunately, ' + buyer_name + ' has just cancel the order.';
+    var message = 'Unfortunately, ' + buyer_name + ' has just cancelled the order.';
 
     Notifications.insert({
       receiver_id: seller_id,
@@ -133,7 +133,27 @@ Meteor.methods({
       user_id: seller_id
     }).chef_name;
     var title = 'Your food is ready';
-    var message = seller_name + 'food are ready. Please enjoy your food!!!';
+    var message = seller_name + ', your food is ready. Please enjoy!';
+
+    Notifications.insert({
+      receiver_id: buyer_id,
+      sender_id: seller_id,
+      title: title,
+      content: message,
+      read: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+  },
+  'notification.transaction_complete' (seller_id, buyer_id) {
+    check(seller_id, String);
+    check(buyer_id, String);
+
+    var seller_name = Kitchen_details.findOne({
+      user_id: seller_id
+    }).chef_name;
+    var title = 'The transaction is completed';
+    var message = 'How is ' + seller_name + ' food? Please rate the dish you ordered!';
 
     Notifications.insert({
       receiver_id: buyer_id,

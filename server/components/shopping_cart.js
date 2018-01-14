@@ -57,6 +57,7 @@ Meteor.methods({
       ready_time: ready_time,
       stripeToken: stripeToken,
       status: 'Created',
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     })
@@ -114,6 +115,19 @@ Meteor.methods({
         }
       })
     },
+
+    'order_record.complete'(
+      order_id
+    ){
+      check(order_id, String);
+      Order_record.update({
+        _id: order_id}, {
+          $set:{
+            status: 'Completed',
+            updatedAt: new Date()
+          }
+        })
+      },
 
   'order_record.notify_buyer'(buyer_id){
     check(buyer_id, String);

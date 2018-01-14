@@ -58,7 +58,7 @@ Template.start_cooking.helpers({
   },
 
   'ready_to_serve': function() {
-    var ready_to_serve = Order_record.find({
+    var ready_to_serve = Transactions.find({
       'seller_id': Meteor.userId(),
       'status': "Ready"
     }).count()
@@ -67,9 +67,7 @@ Template.start_cooking.helpers({
   },
 
   'order_ready': function() {
-    var ready = search_distinct_in_order_record('_id', 'Ready')
-    console.log(ready)
-    return ready
+    return Transactions.find({'seller_id': Meteor.userId(),'status': 'Ready'})
   },
 
 })
@@ -162,6 +160,7 @@ Template.order_card.helpers({
     return dish_qty;
   },
   'get_foodie_name': function() {
+    console.log(this);
     var order = Order_record.findOne({
       '_id': String(this)
     })
@@ -216,6 +215,14 @@ Template.order_card.helpers({
     }).quantity
     return dish_qty;
   },
+  'ready_to_serve': function() {
+    var ready_to_serve = Order_record.find({
+      'seller_id': Meteor.userId(),
+      'status': "Ready"
+    }).count()
+    console.log('Ready: ' + ready_to_serve)
+    return ready_to_serve
+  }
 })
 
 Template.request_card.events({
@@ -319,8 +326,7 @@ Template.request_card.helpers({
     return Order_record.findOne({
       'product_id': this.product_id
     }).quantity
-  },
-
+  }
 })
 
 
@@ -503,11 +509,13 @@ Template.request_card.events({
 })
 
 Template.order_card.events({
+
   'click #ready': function() {
     var order_id = String(this)
     Meteor.call('order_record.ready', order_id)
     console.log("Order_record Ready")
     var transactions = Transactions.findOne({'order': order_id}).order
+    console.log(transactions);
 
     Session.set('transaction_ready', 0)
 
@@ -521,6 +529,7 @@ Template.order_card.events({
         var status = order.status
         var check_digit = parseInt(Session.get('transaction_ready'))
 
+
         if(status === 'Ready'){
           check_digit += 1
         }else{
@@ -533,12 +542,105 @@ Template.order_card.events({
         var check_digit = parseInt(Session.get('transaction_ready'))
         var buyer_id = order.buyer_id
         var seller_id = order.seller_id
+        var trans_id = Transactions.findOne({'order':order_id})._id
 
         if(check_digit === check){
-          Meteor.call('transactions.ready', order_id)
+          Meteor.call('transactions.ready', trans_id)
           Meteor.call('notification.transaction_ready', seller_id, buyer_id)
           console.log("Transactions Ready")
         }}, 1000)
     }
+  },
+})
+
+Template.chef_ready_card.events({
+
+  'click #order_complete': function(){
+      var trans_id = this._id
+      var seller_id = this.seller_id
+      var buyer_id = this.buyer_id
+
+      Meteor.call('transactions.complete', trans_id)
+
+      var order = Transactions.findOne({_id: trans_id}).order
+
+      order.forEach(order_complete)
+
+
+      function order_complete(array_value, index){
+        var order_id = array_value
+
+        Meteor.call('order_record.complete', order_id)
+
+      }
+
+      Meteor.call('notification.transaction_complete', seller_id, buyer_id)
+  }
+
+})
+
+Template.chef_ready_card.helpers({
+  'foodie_profile_picture': function() {
+    var foodie = profile_images.findOne({
+      'userId': this.buyer_id,
+      "meta.purpose": "profile_picture"
+    });
+    return  foodie.meta.base64;
+
+  },
+
+  'get_foodie_name': function() {
+    var foodie = Profile_details.findOne({
+      'user_id': this.buyer_id
+    })
+    return foodie.foodie_name;
+  },
+  'ready_order': function() {
+    return this.order;
+  },
+  'ordered_dish': function(){
+    console.log(String(this))
+    return Order_record.find({'_id': String(this),'seller_id': Meteor.userId()});
+  },
+  'product_is_dish': function() {
+    if (Dishes.findOne({'_id': this.product_id})) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  'get_dish_name': function(){
+    return Dishes.findOne({'_id': this.product_id}).dish_name;
+  },
+  'get_dish_image': function(){
+    var dish_image_id = Dishes.findOne({
+      '_id': this.product_id
+    }).image_id
+
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
+  },
+  'get_dish_qty': function(){
+    return Order_record.findOne({'product_id': this.product_id}).quantity
+  },
+  'get_menu_name': function(){
+    return Menu.findOne({'_id': this.product_id}).menu_name;
+  },
+  'get_menu_image': function(){
+    var dish_image_id = Menu.findOne({
+      '_id': this.product_id
+    }).image_id[0]
+    var ext = Images.findOne({
+      '_id': dish_image_id
+    }).extensionWithDot
+    var base64 = Images.findOne({
+      '_id': dish_image_id
+    }).meta.base64
+    return base64;
+  },
+  'get_menu_qty': function(){
+    return Order_record.findOne({'product_id': this.product_id}).quantity
   }
 })

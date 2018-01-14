@@ -3,6 +3,14 @@ import { check } from 'meteor/check';
 
 Transactions = new Mongo.Collection('transactions');
 
+Meteor.publish('theProfileDetail', function(){
+    return Profile_details.find({});
+});
+
+Meteor.publish('theKitchenDetail', function(){
+    return Kitchen_details.find();
+});
+
 Transactions.deny({
   remove() {
     return true
@@ -128,12 +136,12 @@ Meteor.methods({
   },
 
   'transactions.ready' (
-    order_id
+    trans_id
   ) {
-    check(order_id, String);
+    check(trans_id, String);
 
     Transactions.update({
-      order: [order_id]
+      _id: trans_id
     }, {
       '$set': {
         status: 'Ready',
@@ -143,4 +151,26 @@ Meteor.methods({
     })
   },
 
+  'transactions.complete'(
+    trans_id
+  ){
+    Transactions.update({
+      _id: trans_id
+    },{
+      '$set':{
+        status: 'Completed',
+        updatedAt: new Date()
+      }
+    })
+  },
+  'transactions.close'(trans_id) {
+    Transactions.update({
+      _id: trans_id
+    }, {
+    '$set': {
+      status: 'Closed',
+      updatedAt: new Date()
+    }
+    })
+  }
 })

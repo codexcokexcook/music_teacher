@@ -1,18 +1,24 @@
-<template name = 'rating_input'>
-  <div class = 'card'>
-    <div class = 'card-content'>
-      <h5>Rate your experience</h5>
-      <div class = 'center'>
-        {{#if input_rating}}
-          {{> starsRating id='show_rating' mutable=false rating = input_rating size=40}}
-        {{else}}
-          {{> starsRating id='rating' mutable=true size=40 }}
-        {{/if}}
+<template name = 'input_rating'>
+  <div class = 'rating'>
+    {{#if input_rating}}
+      {{> starsRating id='show_rating' mutable=false rating = display_rating size=30}}
+    {{else}}
+      <div class = 'input_rating'>
+        {{> starsRating id='rating' mutable=true size=30 }}
       </div>
-    </div>
+    {{/if}}
   </div>
 </template>
 
 <template name =  'rating_display'>
-  {{> starsRating class='show_rating' mutable=false rating = display_rating size=15}}
+  <div class = 'rating_wrapper'>
+    <div class = 'display_rating'>
+      {{> starsRating class='show_rating' mutable=false rating = display_rating size=15}}
+    </div>
+    <div class = 'order_count'>
+      <h6 class = 'center-align'>
+        {{this.order_count}}
+      </h6>
+    </div>
+  </div>
 </template>
