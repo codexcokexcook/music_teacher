@@ -28,7 +28,7 @@ ServiceConfiguration.configurations.insert({
 
 Meteor.publish('theIngredients', function(){
     var currentUserId = this.userId;
-    return Ingredients.find({ user_id: currentUserId });
+    return Ingredients.find();
 });
 
 Meteor.publish('theShoppingCart', function(){

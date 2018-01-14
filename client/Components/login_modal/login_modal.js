@@ -10,10 +10,13 @@ import './login_modal.html';
 Template.login_modal.events({
   'click .login-facebook':function(event){
     event.preventDefault();
+    $('#loginLoader').show(); // show the loader
     Meteor.loginWithFacebook({requestPermissions:['public_profile','email']}, function(err){
       if (err) {
+        $('#loginLoader').hide(); // show the loader
         console.log('Handle errors here: ', err);
       } else {
+        $('#loginLoader').hide(); // show the loader
         localStorage.setItem("loggedIn", true);
         FlowRouter.go("/main");
         $('#login_modal').modal('close');
@@ -23,9 +26,12 @@ Template.login_modal.events({
   'click .login-google':function(event){
     event.preventDefault();
     Meteor.loginWithGoogle({}, function(err){
+      $('#loginLoader').show(); // show the loader
       if (err) {
+        $('#loginLoader').hide(); // show the loader
         console.log('Handle errors here: ', err);
       } else {
+        $('#loginLoader').hide(); // show the loader
         localStorage.setItem("loggedIn", true);
         FlowRouter.go("/main");
         $('#login_modal').modal('close');
@@ -34,15 +40,18 @@ Template.login_modal.events({
   },
   'click #login, keypress': function(event){
     if (event.which === 1||event.which === 13){
+      $('#loginLoader').show(); // show the loader
       var email = $('#login_email').val();
       var password = $('#login_password').val();
       if (email || password) {
         Meteor.loginWithPassword(email, password, function(error){
           if (error) {
+            $('#loginLoader').hide(); // show the loader
             Bert.alert( error.reason, 'danger','growl-top-right');
             return false;
           }
           else if (Meteor.user().emails[0].verified === true){
+            $('#loginLoader').hide(); // show the loader
             Bert.alert( 'Welcome!', 'success' );
             localStorage.setItem("loggedIn", true);
             FlowRouter.go("/main");
@@ -50,8 +59,10 @@ Template.login_modal.events({
           } else {
             Meteor.logout(function(err){
              if (err) {
+              $('#loginLoader').hide(); // show the loader
                Bert.alert(err.reason, "danger", "growl-top-right");
              } else {
+              $('#loginLoader').hide(); // show the loader
                Session.clear();
                Bert.alert( 'Please verify your email before login!', 'danger','growl-top-right' );
              }

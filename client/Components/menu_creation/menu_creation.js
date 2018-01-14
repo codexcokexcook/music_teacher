@@ -143,6 +143,9 @@ Template.menu_creation_content.events({
     };
     Session.keys = {};
     $('div.modal').scrollTop(0);
+    Materialize.toast('Menu created', 8000, 'rounded lighten-2');
+    // trigger close modal by click action
+    $('#cancel')[0].click();
   }
 });
 
@@ -231,7 +234,11 @@ Template.edit_content.events({
 
     if (menu_name && menu_selling_price && dishes_id) {
       Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id, function(err){
-          if (err) Materialize.toast('Oops! Error when update your menu. Please try again.', 4000, 'rounded red lighten-2');
+          if (err) {
+            Materialize.toast('Oops! Error when update your menu. Please try again.', 4000, 'rounded red lighten-2');
+          } else {
+            Materialize.toast('Menu updated!', 4000, 'rounded red lighten-2');
+          }
       });
       $('div.modal').scrollTop(0);
     } else {
