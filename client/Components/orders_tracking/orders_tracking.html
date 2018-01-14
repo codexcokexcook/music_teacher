@@ -177,8 +177,8 @@
 </template>
 
 <template name = 'ready_card'>
+  {{check_transaction_closed}}
   <div class ='card sticky-action request_card'>
-    {{check_transaction_closed}}
     <div class = 'card-image'>
       <a class ='btn-floating grey lighten-1 cooking_card_profile_picture' style="background-image: url(/profile_upload/{{kitchen_profile_picture}})"></a>
       <h6 id = 'foodie_name' style='line-height: 40px;'>{{get_kitchen_name}}</h6>
@@ -191,25 +191,29 @@
           {{#if product_is_dish}}
             {{#if transaction_is_complete}}
               <h6 class = 'center-align'>Please review your order:</h6>
-              <table>
-                <tbody>
-                  <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
-                  <td>{{get_dish_name}}</td>
-                  <!--<td>x{{get_dish_qty}}</td>-->
-                </tbody>
-              </table>
+            {{/if}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_dish_image}})"></a></td>
+                <td>{{get_dish_name}}</td>
+                <!--<td>x{{get_dish_qty}}</td>-->
+              </tbody>
+            </table>
+            {{#if transaction_is_complete}}
               {{> input_rating}}
             {{/if}}
           {{else}}
             {{#if transaction_is_complete}}
-              <h6 class = 'center-align'>Please review your order:</h6>
-              <table>
-                <tbody>
-                  <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
-                  <td>{{get_menu_name}}</td>
-                  <!--<td>x{{get_menu_qty}}</td>-->
-                </tbody>
-              </table>
+              <h6 class = 'center-algin'>Please review your order:</h6>
+            {{/if}}
+            <table>
+              <tbody>
+                <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_image}})"></a></td>
+                <td>{{get_menu_name}}</td>
+                <!--<td>x{{get_menu_qty}}</td>-->
+              </tbody>
+            </table>
+            {{#if transaction_is_complete}}
               {{> input_rating}}
             {{/if}}
           {{/if}}

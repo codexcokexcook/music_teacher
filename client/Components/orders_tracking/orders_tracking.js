@@ -343,10 +343,13 @@ Template.ready_card.helpers({
   'transaction_is_complete': function() {
     var transaction_complete = Transactions.findOne({'_id': this._id,'status':'Completed'})
     var order_complete = Order_record.findOne({'_id':this._id,'status':'Completed'})
+    var order_close = Order_record.findOne({'_id':this._id,'status':'Closed'})
     if (transaction_complete) {
       return true;
     } else if (order_complete) {
       return order_complete;
+    } else if (order_close) {
+      return order_close;
     } else {
       return false;
     }
