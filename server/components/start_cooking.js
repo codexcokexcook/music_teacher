@@ -153,7 +153,6 @@ Meteor.methods({
 
   'transactions.complete'(
     trans_id
-
   ){
     Transactions.update({
       _id: trans_id
@@ -163,6 +162,15 @@ Meteor.methods({
         updatedAt: new Date()
       }
     })
+  },
+  'transactions.close'(trans_id) {
+    Transactions.update({
+      _id: trans_id
+    }, {
+    '$set': {
+      status: 'Closed',
+      updatedAt: new Date()
+    }
+    })
   }
-
 })

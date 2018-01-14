@@ -269,6 +269,21 @@ Template.pending_confirmation.events({
 })
 
 Template.ready_card.helpers({
+  'check_transaction_closed': function() {
+    var orders = this.order;
+    var total_orders = orders.length;
+    var order_rated = 0;
+    for (i = 0; i < total_orders; i++) {
+      if (Order_record.findOne({_id: orders[i]}).status == 'Closed') {
+        order_rated += 1;
+        //console.log(order_rated);
+      }
+    }
+    if (order_rated == total_orders) {
+      //console.log('time to close this transaction');
+      Meteor.call('transactions.close', this._id);
+    }
+  },
   'kitchen_profile_picture': function(){
     var foodie = profile_images.findOne({'userId': this.seller_id, "meta.purpose": "homecook_profile_picture"})
     return foodie._id + foodie.extensionWithDot
@@ -326,10 +341,12 @@ Template.ready_card.helpers({
     return Order_record.findOne({'product_id': this.product_id}).quantity
   },
   'transaction_is_complete': function() {
-    if (Transactions.findOne({'_id': this._id,'status':'Completed'})) {
+    var transaction_complete = Transactions.findOne({'_id': this._id,'status':'Completed'})
+    var order_complete = Order_record.findOne({'_id':this._id,'status':'Completed'})
+    if (transaction_complete) {
       return true;
-    } else if (Order_record.findOne({'_id':this._id,'status':'Completed'})) {
-      return true;
+    } else if (order_complete) {
+      return order_complete;
     } else {
       return false;
     }
