@@ -26,7 +26,9 @@ Template.edit_foodie_profile.helpers({
       'user_id': Meteor.userId()
     });
   },
-
+  'get_foodie_email': function() {
+    return Accounts.users.find().fetch()[0].emails[0].address;
+  },
   'check_gender': function() {
     var gender = this.gender
     if (gender === "male") {
