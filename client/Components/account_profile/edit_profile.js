@@ -384,7 +384,7 @@ Template.edit_homecook_profile.onRendered(function() {
                   }
                 );
 
-      Materialize.toast('Profile updated!', 4000)
+      Materialize.toast('Profile updated!', 4000, "rounded red lighten-2")
 
       //divert to the profile page
       // BlazeLayout.render('screen', {

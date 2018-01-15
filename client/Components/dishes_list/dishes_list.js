@@ -158,7 +158,7 @@ Template.dishes_card_layout.events({
             }
           );
         }
-        Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
+        Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "rounded red lighten-2")
         $('.modal').modal();
         $('.modal').modal('close')
       }

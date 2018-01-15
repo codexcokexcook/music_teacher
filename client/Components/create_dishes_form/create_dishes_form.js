@@ -980,7 +980,7 @@ Template.create_dishes_form.events({
         Session.get('categories_tags'), Session.get('cooking_methods_tags'), Session.get('tastes_tags'), Session.get('textures_tags'), Session.get('vegetables_tags'),
         Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, function(err){
           if (!err) { // no error when create dishes
-            Materialize.toast('Nice! You have created a dish!', 2000, "round red lighten-2");
+            Materialize.toast('Nice! You have created a dish!', 4000, "rounded red lighten-2");
             // trigger click on close button
             Ingredients_temporary.remove({});
             event.target.dish_name.value = "";
@@ -1003,7 +1003,7 @@ Template.create_dishes_form.events({
             $('#add_dish_modal > div.modal-footer > a.modal-action.modal-close.waves-effect.waves-green.btn-flat')[0].click();
             return false;
           } else {
-            Materialize.toast('Oops! Error occur when create a dish. Please try again later.', 2000, "round red lighten-2");
+            Materialize.toast('Oops! Error occur when create a dish. Please try again later.' + err.message, 4000, "rounded red lighten-2");
           }
         })
     }

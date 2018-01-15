@@ -36,7 +36,7 @@ Template.dishes_selection.events({
           var $toastContent = $('<span>This dish is already in menu. Please update your menu.</span>');
           Materialize.toast($toastContent, 12000);
       } else {
-          Materialize.toast('The dish has been deleted', 4000);
+          Materialize.toast('The dish has been deleted', 4000, "rounded red lighten-2");
       }
     });
     sessionStorage.clear(); //clear all things to make sure everything is clean before use it again
