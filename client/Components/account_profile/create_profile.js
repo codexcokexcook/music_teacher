@@ -148,7 +148,7 @@ Template.profile_banner.events({
 
         upload.on('end', function(error, profile_images) {
           if (error) {
-            alert('Error during upload: ' + err.messageor);
+            alert('Error during upload: ' + error.message);
           } else {
             Meteor.setTimeout(function() {
               var banner_url = profile_images.meta.base64;
@@ -225,7 +225,7 @@ Template.upload_profile.events({
 
         upload.on('end', function(error, profile_images) {
           if (error) {
-            alert('Error during upload: ' + err.messageor);
+            alert('Error during upload: ' + error.message);
           } else {
             Meteor.setTimeout(function() {
               var profile_url = profile_images.meta.base64;
@@ -359,7 +359,7 @@ Template.homecook_profile_banner.events({
 
         upload.on('end', function(error, profile_images) {
           if (error) {
-            alert('Error during upload: ' + err.messageor);
+            alert('Error during upload: ' + error.message);
           } else {
             Meteor.setTimeout(function() {
               var banner_url = profile_images.meta.base64;
@@ -432,7 +432,7 @@ Template.upload_homecook_profile.events({
 
         upload.on('end', function(error, profile_images) {
           if (error) {
-            alert('Error during upload: ' + err.messageor);
+            alert('Error during upload: ' + error.message);
           } else {
             Meteor.setTimeout(function() {
               var profile_url = profile_images.meta.base64;

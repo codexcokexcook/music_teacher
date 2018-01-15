@@ -71,7 +71,7 @@ Template.uploadForm.events({
 
         upload.on('end', function(error, Images) {
           if (error) {
-            alert('Error during upload: ' + err.messageor);
+            alert('Error during upload: ' + error.message);
           } else {
             Meteor.setTimeout(function() {
               var dish_url = Images.meta.base64;
