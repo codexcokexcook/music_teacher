@@ -14,3 +14,7 @@
 #confirm_order_modal {
   height: 200px;
 }
+
+i.remove_button {
+  cursor: pointer;
+}

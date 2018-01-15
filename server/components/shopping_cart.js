@@ -57,6 +57,7 @@ Meteor.methods({
       ready_time: ready_time,
       stripeToken: stripeToken,
       status: 'Created',
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     })

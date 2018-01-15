@@ -187,7 +187,7 @@ Meteor.methods({
     deleted
   ) {
     // check it before insert
-    check(image_id, String);
+    check(image_id, Match.Any);
     check(user_id, String); //unessesary, check per-per args but not ever exist
     check(kitchen_id, String);
     check(dish_name, String);

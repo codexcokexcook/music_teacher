@@ -16,6 +16,7 @@ Template.dishes_summary.onRendered(function(){
     } // Callback for Modal close
   });
   $('.tooltipped').tooltip({delay: 500});
+  Session.set('ingredient_temp', []);
 });
 
 Template.dishes_summary.events({

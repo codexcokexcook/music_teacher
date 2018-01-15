@@ -177,6 +177,7 @@
 </template>
 
 <template name = 'ready_card'>
+  {{check_transaction_closed}}
   <div class ='card sticky-action request_card'>
     <div class = 'card-image'>
       <a class ='btn-floating grey lighten-1 cooking_card_profile_picture' style="background-image: url(/profile_upload/{{kitchen_profile_picture}})"></a>
@@ -189,7 +190,7 @@
         {{#each ordered_dish}}
           {{#if product_is_dish}}
             {{#if transaction_is_complete}}
-              <h6>Please review your order:</h6>
+              <h6 class = 'center-align'>Please review your order:</h6>
             {{/if}}
             <table>
               <tbody>
@@ -203,7 +204,7 @@
             {{/if}}
           {{else}}
             {{#if transaction_is_complete}}
-              <h6>Please review your order:</h6>
+              <h6 class = 'center-algin'>Please review your order:</h6>
             {{/if}}
             <table>
               <tbody>
@@ -219,12 +220,5 @@
         {{/each}}
       {{/each}}
     </div>
-    {{#if transaction_is_complete}}
-      <div class = 'card-action'>
-        <div class = 'center'>
-          <a class="waves-effect waves-light btn-floating red lighten-2" id='reject' style='margin:0px 12px 0px 12px;'><i class="material-icons">clear</i></a>
-        </div>
-      </div>
-    {{/if}}
   </div>
 </template>

@@ -216,6 +216,23 @@ Template.ingredient_input.events({
     var ingredient_quantity = $('#ingredient_quantity').val();
     var ingredient_unit = $('#ingredient_unit').val();
 
+    if (!ingredient_name || ingredient_name == '' || !ingredient_quantity || ingredient_quantity == ''){
+      Materialize.toast('Please complete ingedient before add into dish.', 4000, 'rounded red lighten-2');
+      return false;
+    }
+
+    var ingedient_temp = Session.get('ingredient_temp')
+    ingedient_temp.push({
+      dish_name: dish_name,
+      user_id: Meteor.userId(),
+      ingredient_name: ingredient_name,
+      ingredient_quantity: ingredient_quantity,
+      ingredient_unit: ingredient_unit
+    });
+
+    Session.set('ingredient_temp', ingedient_temp);
+
+    // should keep that to make visual action on modal content
     Ingredients_temporary.insert({
       dish_name: dish_name,
       user_id: Meteor.userId(),
@@ -223,6 +240,7 @@ Template.ingredient_input.events({
       ingredient_quantity: ingredient_quantity,
       ingredient_unit: ingredient_unit,
     });
+
     $('#ingredient_name').val("");
     $('#ingredient_quantity').val("");
     $('select>option:eq(0)').prop('selected', true);
@@ -250,6 +268,11 @@ Template.ingredient_input.events({
   },
 
   'click #delete_temp_ingredient': function(event) {
+    filter_array = Session.set('ingredient_temp').filter(function( obj ) {
+      return obj._id !== this._id;
+    });
+    Session.set('ingredient_temp', filter_array);
+
     Ingredients_temporary.remove({
       _id: this._id
     });
@@ -941,7 +964,15 @@ Template.create_dishes_form.events({
       var dish_description = event.target.dish_description.value;
       var cooking_time = event.target.cooking_time.value;
       var dish_profit = dish_selling_price - dish_cost;
-      Ingredients_temporary.find({}).forEach(function(doc) {
+      // Ingredients_temporary.find({}).forEach(function(doc) {
+      //   Ingredients.insert(doc);
+      // });
+      // make sure the latest value in ingredient array is the latest dish name
+      var list_ingredients = Session.get('ingredient_temp');
+      list_ingredients.forEach(function(doc){
+        doc.dish_name = event.target.dish_name.value;
+      });
+      list_ingredients.forEach(function(doc){
         Ingredients.insert(doc);
       });
       Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tags'), cooking_time,
@@ -950,6 +981,7 @@ Template.create_dishes_form.events({
         Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, function(err){
           if (!err) { // no error when create dishes
             Materialize.toast('Nice! You have created a dish!', 2000, "round red lighten-2");
+            // trigger click on close button
             Ingredients_temporary.remove({});
             event.target.dish_name.value = "";
             event.target.dish_description.value = "";
@@ -967,9 +999,8 @@ Template.create_dishes_form.events({
             for (var i = 0; i < checkboxes.length; i++) {
               checkboxes[i].checked = false;
             };
-            // hide popup
-            //$('#add_dish_modal').modal('close');
-            $('.modal-overlay').remove();
+            // hide popup with trigger click cancel button on modal
+            $('#add_dish_modal > div.modal-footer > a.modal-action.modal-close.waves-effect.waves-green.btn-flat')[0].click();
             return false;
           } else {
             Materialize.toast('Oops! Error occur when create a dish. Please try again later.', 2000, "round red lighten-2");
@@ -978,6 +1009,7 @@ Template.create_dishes_form.events({
     }
     Session.set('image_id',null);
     Session.keys = {}
+    Session.set('ingredient_temp', []);
   },
   'click .update_dish_submit_btn': function(event) {
     event.preventDefault();
@@ -1022,10 +1054,18 @@ Template.create_dishes_form.events({
       }
     );
 
-    Ingredients_temporary.find({}).forEach(function(doc) {
+    // Ingredients_temporary.find({}).forEach(function(doc) {
+    //   Ingredients.insert(doc);
+    // });
+
+    var list_ingredients = Session.get('ingredient_temp');
+    list_ingredients.forEach(function(doc){
+      doc.dish_name = event.target.dish_name.value;
+    });
+    list_ingredients.forEach(function(doc){
       Ingredients.insert(doc);
     });
 
-    Ingredients_temporary.remove({});
+    Session.set('ingredient_temp', []);
   }
 });

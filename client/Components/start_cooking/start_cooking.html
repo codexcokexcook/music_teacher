@@ -94,7 +94,7 @@
             <div class = 'row'>
               <table>
                 <tbody>
-                  <td><a class ='cooking_card_profile_picture' style="background-image: url({{get_menu_dish_image}})"></a></td>
+                  <td><a class="cooking_card_profile_picture" style="background-image: url({{get_menu_dish_image}})"></a></td>
                   <td><strong>{{get_menu_dish_name}}</strong></td>
                   <td><strong>x{{get_menu_qty}}</strong></td>
                 </tbody>
@@ -120,21 +120,12 @@
         </div>
       {{/if}}
     </div>
-
-    {{#if ready_to_serve}}
-      <div class = 'card-action'>
-        <div class = 'center'>
-          <a class="waves-effect waves-light btn-floating red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
-        </div>
+    <div class = 'card-action'>
+      <div class = 'center'>
+        <a class="waves-effect waves-light btn-floating red lighten-2" id='ready' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
       </div>
-    {{else}}
-      <div class = 'card-action'>
-        <div class = 'center'>
-          <a class="waves-effect waves-light btn-floating red lighten-2" id='complete' style='margin:0px 12px 0px 12px;'><i class="material-icons black-text">done</i></a>
-        </div>
-      </div>
-      {{/if}}
     </div>
+  </div>
 </template>
 
 <template name='request_card'>
