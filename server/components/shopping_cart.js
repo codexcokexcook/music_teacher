@@ -122,7 +122,7 @@ Meteor.methods({
       Order_record.update({
         _id: order_id}, {
           $set:{
-            status: 'Complete',
+            status: 'Completed',
             updatedAt: new Date()
           }
         })
