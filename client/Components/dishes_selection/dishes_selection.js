@@ -60,10 +60,17 @@ Template.dishes_selection.events({
   }
 });
 
+Template.dishes_selection.onCreated( function(){
+  this.user_dishes = this.subscribe('getListDishes');
+});
+
 Template.dishes_selection.helpers({
   'checkbox_id': function() {
     var checkbox_id = Template.instance().view.parentView.name + "_" + this._id;
     return checkbox_id;
+  },
+  'subscription': function() {
+    return Template.instance().user_dishes.ready();
   },
   'user_dishes': function() {
     var current_user = Meteor.userId();
