@@ -1,6 +1,7 @@
-export function address_geocode(name, address) {
+export function address_geocode(name, address, string) {
   //name - is used to store as the Session name
   //address - the address to be geocoded
+  //string - the description that is used in error message
   // This function converts an address into lattitude and longitude, which will stored
   // in a session with the name given from you
 
@@ -15,7 +16,7 @@ export function address_geocode(name, address) {
         };
         Session.set(name, latlng);
       } else {
-        Materialize.toast('Ops... Looks like the addresses provided are incorrect, please double check!', 4000, "round red lighten-2")
+        Materialize.toast('Ops... Looks like the ' + string + ' provided is incorrect, please double check!', 4000, "round red lighten-2")
       }
     });
   }

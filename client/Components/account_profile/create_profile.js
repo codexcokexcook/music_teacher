@@ -247,16 +247,16 @@ Template.upload_profile.events({
 
 Template.profile_personal_details.events({
   'blur #create_home_address': function() {
-    address_geocode('home_address_conversion', $('#create_home_address').val());
+    address_geocode('home_address_conversion', $('#create_home_address').val(), 'home address');
   },
   'blur #create_office_address': function() {
-    address_geocode('office_address_conversion', $('#create_office_address').val());
+    address_geocode('office_address_conversion', $('#create_office_address', 'office address').val());
   }
 });
 
 Template.homecook_profile_details.events({
   'blur #create_kitchen_address': function() {
-    address_geocode('kitchen_address_conversion', $('#create_kitchen_address').val());
+    address_geocode('kitchen_address_conversion', $('#create_kitchen_address', 'kitchen address').val());
   }
 });
 
@@ -495,7 +495,7 @@ Template.create_foodie_profile.events({
     bank_address_country,
     bank_address,
     function(err) {
-      if (err) Materialize.toast('Oops! Error when create kitchen profile. Please try again.', 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Oops! ' + err + ' Please try again.', 4000, 'rounded red lighten-2');
     }
     );
 
@@ -521,7 +521,7 @@ Template.create_foodie_profile.events({
     card_exp_month,
     card_exp_year,
     function(err) {
-      if (err) Materialize.toast('Oops! Error when create profile. Please try again.', 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Oops! ' + err + ' Please try again.', 4000, 'rounded red lighten-2');
          else {
           Materialize.toast('Profile created!', 4000);
           //divert to the profile page
@@ -597,7 +597,7 @@ Template.create_foodie_profile.events({
         bank_address_country,
         bank_address,
         function(err) {
-          if (err) Materialize.toast('Oops! Error when create kitchen profile. Please try again.', 4000, 'rounded red lighten-2');
+          if (err) Materialize.toast('Oops! ' + err + ' Please try again.', 4000, 'rounded red lighten-2');
         }
         );
 
@@ -623,7 +623,7 @@ Template.create_foodie_profile.events({
         card_exp_month,
         card_exp_year,
         function(err) {
-          if (err) Materialize.toast('Oops! Error when create profile. Please try again.', 4000, 'rounded red lighten-2');
+          if (err) Materialize.toast('Oops! ' + err + ' Please try again.', 4000, 'rounded red lighten-2');
 
 
 else  {
