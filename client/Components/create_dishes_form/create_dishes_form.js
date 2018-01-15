@@ -14,6 +14,9 @@ import {
   Tracker
 } from 'meteor/tracker'
 import {
+  ReactiveVar
+} from 'meteor/reactive-var'
+import {
   get_checkboxes_value
 } from '/imports/functions/get_checkboxes_value.js';
 
@@ -279,21 +282,22 @@ Template.ingredient_input.events({
   }
 });
 
+Template.price.onCreated(function(){
+  this.profit = new ReactiveVar(0);
+})
+
 Template.price.helpers({
   'profit': function() {
-    Tracker.autorun(function() {
-      var profit = $('#dish_selling_price').val() - $('#dish_cost').val();
-      return profit;
-    });
+    return Template.instance().profit.get()
   }
 });
 
 Template.price.events({
-  'change .validate': function() {
+  'change .dish_price': function() {
     var cost = $('#dish_cost').val();
     var selling_price = $('#dish_selling_price').val();
     var profit_calculation = selling_price - cost;
-    Session.set('dish_profit', profit_calculation);
+    Template.instance().profit.set(profit_calculation);
   }
 });
 
