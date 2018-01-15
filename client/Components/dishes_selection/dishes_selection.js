@@ -28,7 +28,7 @@ Template.dishes_selection.events({
     Meteor.call('dish.remove', sessionStorage.getItem("deletedDishID"));
     Meteor.call('dish_image.remove', sessionStorage.getItem("deletedDishImagesID"), function(err) {
       if (err) {
-        Materialize.toast('Oops! Error when remove dish images. Please try again.', 4000, "rounded red lighten-2");
+        Materialize.toast('Oops! Error when remove dish images. Please try again. ' + err.message, 4000, "rounded red lighten-2");
       }
     });
     Meteor.call('menu.checkDish', sessionStorage.getItem("deletedDishID"), function(err, result) {

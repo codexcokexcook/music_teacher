@@ -10,7 +10,7 @@ Template.forgot_password.events({
           if (err.message === 'User not found [403]') {
             $('.message_response').text('This email does not exist. Please try again.');
           } else {
-            $('.message_response').text('We are sorry but something went wrong. Please try again.');
+            $('.message_response').text('We are sorry but something went wrong. Please try again. ' + err.message);
           }
         } else {
           $('.message_response').text('An email has been sent to the address above. Please click the link given to reset your password.');

@@ -25,7 +25,7 @@ Template.dishes_summary.events({
     Session.set('image_id',null);
     Meteor.call('getUserProfileByID', function (err, result) {
         if (err) {
-          console.log('Error when get user ID: ' + err);
+          console.log('Error when get user ID: ' + err.message);
         } else {
           if (result) {
             if (typeof result.kitchen_name !== 'undefined' && typeof result.chef_name !== 'undefined' && result.kitchen_name !== null && result.chef_name !== null) {
@@ -168,14 +168,14 @@ Template.dishes_summary.events({
         var dish_details = Dishes.findOne({_id: selected_dishes[i]});
         if (dish_details.image_id) {
           Meteor.call('dish_image.remove',dish_details.image_id, function(err) {
-              if (err) Materialize.toast('Oops! Error when remove dish images. Please try again.', 4000, "rounded red lighten-2");
+              if (err) Materialize.toast('Oops! Error when remove dish images. Please try again. ' + err.message, 4000, "rounded red lighten-2");
           });
         }
         var delete_message = dish_details.dish_name + " deleted";
         Materialize.toast(delete_message, 3000);
         Meteor.call('dish.remove', selected_dishes[i], function(err){
           if (err) {
-            Materialize.toast('Oops! Error when delete dish. Please try again.', 4000, "rounded red lighten-2");
+            Materialize.toast('Oops! Error when delete dish. Please try again. ' + err.message , 4000, "rounded red lighten-2");
           } else {
             Meteor.call('menu.checkDish', selected_dishes[i], function(err, result) {
               if (result) {

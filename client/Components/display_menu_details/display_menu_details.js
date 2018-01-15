@@ -72,7 +72,7 @@ Template.display_menu_details.events({
       quantity,
       total_price_per_dish,
       function(err) {
-        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
       }
     )
     }
@@ -90,7 +90,7 @@ Template.display_menu_details.events({
       quantity,
       menu_price,
       function(err) {
-        if (err) Materialize.toast('Oops! Error when add into shopping cart. Please try again.', 4000, "rounded red lighten-2");
+        if (err) Materialize.toast('Oops! Error when add into shopping cart. Please try again. ' + err.message, 4000, "rounded red lighten-2");
       }
       );
     }

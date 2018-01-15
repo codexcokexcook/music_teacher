@@ -360,7 +360,7 @@ Template.edit_homecook_profile.onRendered(function() {
                   card_exp_month,
                   card_exp_year,
                   function(err) {
-                    if (err) Materialize.toast('Oops! Error when update your profile. Please try again.', 4000, 'rounded red lighten-2');
+                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded red lighten-2');
                   }
                 );
 
@@ -380,7 +380,7 @@ Template.edit_homecook_profile.onRendered(function() {
                   bank_address_country,
                   bank_address,
                   function(err) {
-                    if (err) Materialize.toast('Oops! Error when update your profile. Please try again.', 4000, 'rounded red lighten-2');
+                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded red lighten-2');
                   }
                 );
 

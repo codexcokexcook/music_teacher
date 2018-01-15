@@ -71,7 +71,7 @@ Template.uploadForm.events({
 
         upload.on('end', function(error, Images) {
           if (error) {
-            alert('Error during upload: ' + error);
+            alert('Error during upload: ' + err.messageor);
           } else {
             Meteor.setTimeout(function() {
               var dish_url = Images.meta.base64;
@@ -253,7 +253,7 @@ Template.ingredient_input.events({
     var ingredient_quantity = $('#ingredient_quantity').val();
     var ingredient_unit = $('#ingredient_unit').val();
     Meteor.call('ingredient.update', dish_name, Meteor.userId(), ingredient_name, ingredient_quantity, ingredient_unit, function(err) {
-      if (err) Materialize.toast('Error: ' + err, 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded red lighten-2');
     });
 
     $('#ingredient_name').val("");
@@ -263,7 +263,7 @@ Template.ingredient_input.events({
 
   'click #delete_perm_ingredient': function(event) {
     Meteor.call('ingredient.remove', this._id, function(err) {
-      if (err) Materialize.toast('Error: ' + err, 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded red lighten-2');
     });
   },
 
@@ -1050,7 +1050,7 @@ Template.create_dishes_form.events({
       Session.get('serving_temperature_tags'),
       new Date(),
       function(err) {
-        if (err) Materialize.toast('Oops! Error update dish. Please try again.', 4000, "rounded red lighten-2");
+        if (err) Materialize.toast('Oops! Error update dish. Please try again. ' + err.message, 4000, "rounded red lighten-2");
       }
     );
 

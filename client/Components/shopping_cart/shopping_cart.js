@@ -213,7 +213,7 @@ Template.sc_serving_details.events({
       address,
       serving_option,
       function(err) {
-        if (err) Materialize.toast('Oops! Error when serving in shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+        if (err) Materialize.toast('Oops! Error when serving in shopping cart. Please try again.' + err.message.message, 4000, 'rounded red lighten-2');
       }
       )
     },
@@ -283,7 +283,7 @@ Template.shopping_cart_card.events({
       quantity,
       total_price_per_dish,
       function(err) {
-        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again.' + err.message.message, 4000, 'rounded red lighten-2');
       }
     )
     },
@@ -388,7 +388,7 @@ function to_order_record_insert(array_value){
 
       Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
         if (err) {
-          Materialize.toast('Oops! Error occur. Please try again.', 4000, 'rounded red lighten-2');
+          Materialize.toast('Oops! Error occur. Please try again.' + err.message.message, 4000, 'rounded red lighten-2');
         }
       });
 
@@ -405,7 +405,7 @@ function to_order_record_insert(array_value){
 
     Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
       if (err) {
-        Materialize.toast('Oops! Error occur. Please try again.', 4000, 'rounded red lighten-2');
+        Materialize.toast('Oops! Error occur. Please try again.' + err.message.message, 4000, 'rounded red lighten-2');
       }
     });
 
