@@ -42,8 +42,9 @@ Meteor.methods({
     check(quantity, Match.Any);
     check(total_price, Match.Any);
     check(address, Match.Any);
-    check(serving_option, Match.Any);
+    check(serving_option, String);
     check(ready_time, Match.Any);
+
 
     Order_record.insert({
       transaction_no: transaction_no,
