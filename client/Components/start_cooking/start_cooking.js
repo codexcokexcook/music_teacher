@@ -396,14 +396,14 @@ Template.request_card.events({
           } //delivery cost, should have a variable table
           Meteor.call('transactions.accepted', trans_no, buyer_id, seller_id, order_id, price_of_cart, stripeToken, function (err, result) {
             if (err) {
-              Materialize.toast("An error has occurred: " + err, 4000, 'rounded red lighten-2');
+              Materialize.toast("An error has occurred: " + err.message.message, 4000, 'rounded red lighten-2');
             } else {
               Materialize.toast("Order has been accepted", 4000, 'rounded red lighten-2');
             }
           }) //insert to transaction
           Meteor.call('order_record.accepted', order_id, function(){
             if (err) {
-              Materialize.toast("An error has occurred: " + err, 4000, 'rounded red lighten-2');
+              Materialize.toast("An error has occurred: " + err.message.message, 4000, 'rounded red lighten-2');
             } else {
               Materialize.toast("Ready to cook!", 5000, 'rounded red lighten-2');
             }

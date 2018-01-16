@@ -14,6 +14,9 @@ import {
   Tracker
 } from 'meteor/tracker'
 import {
+  ReactiveVar
+} from 'meteor/reactive-var'
+import {
   get_checkboxes_value
 } from '/imports/functions/get_checkboxes_value.js';
 
@@ -71,7 +74,7 @@ Template.uploadForm.events({
 
         upload.on('end', function(error, Images) {
           if (error) {
-            alert('Error during upload: ' + error);
+            alert('Error during upload: ' + error.message);
           } else {
             Meteor.setTimeout(function() {
               var dish_url = Images.meta.base64;
@@ -253,7 +256,7 @@ Template.ingredient_input.events({
     var ingredient_quantity = $('#ingredient_quantity').val();
     var ingredient_unit = $('#ingredient_unit').val();
     Meteor.call('ingredient.update', dish_name, Meteor.userId(), ingredient_name, ingredient_quantity, ingredient_unit, function(err) {
-      if (err) Materialize.toast('Error: ' + err, 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded red lighten-2');
     });
 
     $('#ingredient_name').val("");
@@ -263,7 +266,7 @@ Template.ingredient_input.events({
 
   'click #delete_perm_ingredient': function(event) {
     Meteor.call('ingredient.remove', this._id, function(err) {
-      if (err) Materialize.toast('Error: ' + err, 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded red lighten-2');
     });
   },
 
@@ -279,21 +282,22 @@ Template.ingredient_input.events({
   }
 });
 
+Template.price.onCreated(function(){
+  this.profit = new ReactiveVar(0);
+})
+
 Template.price.helpers({
   'profit': function() {
-    Tracker.autorun(function() {
-      var profit = $('#dish_selling_price').val() - $('#dish_cost').val();
-      return profit;
-    });
+    return Template.instance().profit.get()
   }
 });
 
 Template.price.events({
-  'change .validate': function() {
+  'change .dish_price': function() {
     var cost = $('#dish_cost').val();
     var selling_price = $('#dish_selling_price').val();
     var profit_calculation = selling_price - cost;
-    Session.set('dish_profit', profit_calculation);
+    Template.instance().profit.set(profit_calculation);
   }
 });
 
@@ -980,7 +984,7 @@ Template.create_dishes_form.events({
         Session.get('categories_tags'), Session.get('cooking_methods_tags'), Session.get('tastes_tags'), Session.get('textures_tags'), Session.get('vegetables_tags'),
         Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, function(err){
           if (!err) { // no error when create dishes
-            Materialize.toast('Nice! You have created a dish!', 2000, "round red lighten-2");
+            Materialize.toast('Nice! You have created a dish!', 4000, "rounded red lighten-2");
             // trigger click on close button
             Ingredients_temporary.remove({});
             event.target.dish_name.value = "";
@@ -1003,7 +1007,7 @@ Template.create_dishes_form.events({
             $('#add_dish_modal > div.modal-footer > a.modal-action.modal-close.waves-effect.waves-green.btn-flat')[0].click();
             return false;
           } else {
-            Materialize.toast('Oops! Error occur when create a dish. Please try again later.', 2000, "round red lighten-2");
+            Materialize.toast('Oops! Error occur when create a dish. Please try again later.' + err.message, 4000, "rounded red lighten-2");
           }
         })
     }
@@ -1050,7 +1054,7 @@ Template.create_dishes_form.events({
       Session.get('serving_temperature_tags'),
       new Date(),
       function(err) {
-        if (err) Materialize.toast('Oops! Error update dish. Please try again.', 4000, "rounded red lighten-2");
+        if (err) Materialize.toast('Oops! Error update dish. Please try again. ' + err.message, 4000, "rounded red lighten-2");
       }
     );
 

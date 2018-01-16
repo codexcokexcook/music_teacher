@@ -136,7 +136,7 @@ Template.dishes_card_layout.events({
           quantity,
           total_price_per_dish,
           function(err) {
-            if (err) Materialize.toast('Oops! Error when change your shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+            if (err) Materialize.toast('Oops! Error when change your shopping cart. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
           }
         )
       }
@@ -154,11 +154,11 @@ Template.dishes_card_layout.events({
             quantity,
             dish_price,
             function(err) {
-              if (err) Materialize.toast('Oops! Error when add into shopping cart. Please try again.', 4000, 'rounded red lighten-2');
+              if (err) Materialize.toast('Oops! Error when add into shopping cart. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
             }
           );
         }
-        Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "round red lighten-2")
+        Materialize.toast(dish_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "rounded red lighten-2")
         $('.modal').modal();
         $('.modal').modal('close')
       }

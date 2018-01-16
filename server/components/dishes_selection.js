@@ -10,6 +10,7 @@ import {
 import {
   Match
 } from 'meteor/check'
+import { log } from 'util';
 
 Meteor.methods({
   'dish.remove' (dish_id) {
@@ -114,4 +115,10 @@ Meteor.methods({
       }
     });
   }
+});
+
+Meteor.publish('getListDishes', function() {
+  var current_user = Meteor.userId();
+  var user_dishes = Dishes.find({"user_id": current_user, "deleted": false});
+  return user_dishes;
 });

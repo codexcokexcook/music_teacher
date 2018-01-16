@@ -158,18 +158,18 @@ Template.edit_foodie_profile.onRendered(function() {
   checkboxes_recall(get_profile.allergy_tags)
   checkboxes_recall(get_profile.dietary_tags)
   checkboxes_recall(get_profile.serving_option_tags)
-  address_geocode('home_address_conversion', $('#edit_home_address').val());
-  address_geocode('office_address_conversion', $('#edit_office_address').val());
-  address_geocode('kitchen_address_conversion', $('#edit_kitchen_address').val());
+  address_geocode('home_address_conversion', $('#edit_home_address').val(), 'home address');
+  address_geocode('office_address_conversion', $('#edit_office_address').val(), 'office address');
+  address_geocode('kitchen_address_conversion', $('#edit_kitchen_address').val(), 'kitchen address');
 });
 
 
 Template.edit_foodie_profile.events({
   'blur #edit_home_address': function() {
-    address_geocode('home_address_conversion', $('#edit_home_address').val());
+    address_geocode('home_address_conversion', $('#edit_home_address').val(), 'home address');
   },
   'blur #edit_office_address': function() {
-    address_geocode('office_address_conversion', $('#edit_office_address').val());
+    address_geocode('office_address_conversion', $('#edit_office_address').val(), 'office address');
   },
   'click #edit_foodie_button': function(event, template) {
     event.preventDefault();
@@ -293,7 +293,7 @@ Template.edit_homecook_profile.onRendered(function() {
   //Kitchen Database
     Template.edit_homecook_profile.events({
       'blur #edit_kitchen_address': function() {
-        address_geocode('kitchen_address_conversion',$('#edit_kitchen_address').val());
+        address_geocode('kitchen_address_conversion',$('#edit_kitchen_address').val(), 'kitchen address');
       },
 
       'click #edit_homecook_button': function(event, template){
@@ -360,7 +360,7 @@ Template.edit_homecook_profile.onRendered(function() {
                   card_exp_month,
                   card_exp_year,
                   function(err) {
-                    if (err) Materialize.toast('Oops! Error when update your profile. Please try again.', 4000, 'rounded red lighten-2');
+                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded red lighten-2');
                   }
                 );
 
@@ -380,11 +380,11 @@ Template.edit_homecook_profile.onRendered(function() {
                   bank_address_country,
                   bank_address,
                   function(err) {
-                    if (err) Materialize.toast('Oops! Error when update your profile. Please try again.', 4000, 'rounded red lighten-2');
+                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded red lighten-2');
                   }
                 );
 
-      Materialize.toast('Profile updated!', 4000)
+      Materialize.toast('Profile updated!', 4000, "rounded red lighten-2")
 
       //divert to the profile page
       // BlazeLayout.render('screen', {
@@ -393,7 +393,7 @@ Template.edit_homecook_profile.onRendered(function() {
       // });
       FlowRouter.go('/main');
     }
-  
+
 });
 
 var trimInput = function(value) {

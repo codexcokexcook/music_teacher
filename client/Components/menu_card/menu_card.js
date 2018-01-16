@@ -46,7 +46,7 @@ Template.menu_card.events({
   'click #confirm_delete_menu': function() {
     Meteor.call('menu.delete', sessionStorage.getItem("deletedMenuID"), function(err, result){
       if (err) {
-          Materialize.toast('Error occur when delete the menu. Please try again.', 4000, 'rounded red lighten-2');
+          Materialize.toast('Error occur when delete the menu. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
       } else {
           if (result) { //delete done
             Materialize.toast('Delete success!', 4000, 'rounded red lighten-2');

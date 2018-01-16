@@ -26,7 +26,7 @@ Template.menu_initiation.events({
   'click #add_menu': function(template) {
     Meteor.call('getUserProfileByID', function (err, result) {
         if (err) {
-          console.log('Error when get user ID: ' + err);
+          console.log('Error when get user ID: ' + err.message);
         } else {
           if (result) {
             if (typeof result.kitchen_name !== 'undefined' && typeof result.chef_name !== 'undefined' && result.kitchen_name !== null && result.chef_name !== null) {
@@ -115,7 +115,7 @@ Template.menu_creation_content.events({
         dishes_id,
         image_id,
         function(err) {
-            if (err) Materialize.toast('Oops! Error when create your menu. Please try again.', 4000, 'rounded red lighten-2');
+            if (err) Materialize.toast('Oops! Error when create your menu. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
         }
       );
     } else {
@@ -235,7 +235,7 @@ Template.edit_content.events({
     if (menu_name && menu_selling_price && dishes_id) {
       Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id, function(err){
           if (err) {
-            Materialize.toast('Oops! Error when update your menu. Please try again.', 4000, 'rounded red lighten-2');
+            Materialize.toast('Oops! Error when update your menu. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
           } else {
             Materialize.toast('Menu updated!', 4000, 'rounded red lighten-2');
           }

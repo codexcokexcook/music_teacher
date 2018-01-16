@@ -1,44 +1,48 @@
 <template name = "dishes_selection">
   {{> confirm_delete}}
   {{> confirm_multi_delete}}
-  <table class = "bordered" id="menu_dishes_table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Dish Name</th>
-        <th>Cost</th>
-        <th>Selling price</th>
-        <th>Take dish online</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each user_dishes}}
+  {{#if subscription}}
+    <table class = "bordered" id="menu_dishes_table">
+      <thead>
         <tr>
-          <td width="40px">
-            <input class="dishes_checkbox" type="checkbox" id="{{checkbox_id}}" value="{{_id}}"/>
-            <label for="{{checkbox_id}}"></label>
-          </td>
-          <td>{{dish_name}}</td>
-          <td>{{dish_cost}}</td>
-          <td>{{dish_selling_price}}</td>
-          <td>
-            {{> online_switch}}
-          </td>
-          <td><div id="dish_image_list_display">{{> get_dish_image}}</div></td>
-          <td>
-            <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent btn_edit_dish" id="edit_dish">
-              <i class="material-icons grey-text text-lighten-1">edit</i>
-            </a>
-            <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent" href="" id="delete_dish">
-              <i class="material-icons grey-text text-lighten-1">delete</i>
-            </a>
-          </td>
+          <th></th>
+          <th>Dish Name</th>
+          <th>Cost</th>
+          <th>Selling price</th>
+          <th>Take dish online</th>
+          <th></th>
+          <th></th>
         </tr>
-      {{/each}}
-    </tbody>
+      </thead>
+      <tbody>
+        {{#each user_dishes}}
+          <tr>
+            <td width="40px">
+              <input class="dishes_checkbox" type="checkbox" id="{{checkbox_id}}" value="{{_id}}"/>
+              <label for="{{checkbox_id}}"></label>
+            </td>
+            <td>{{dish_name}}</td>
+            <td>{{dish_cost}}</td>
+            <td>{{dish_selling_price}}</td>
+            <td>
+              {{> online_switch}}
+            </td>
+            <td><div id="dish_image_list_display">{{> get_dish_image}}</div></td>
+            <td>
+              <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent btn_edit_dish" id="edit_dish">
+                <i class="material-icons grey-text text-lighten-1">edit</i>
+              </a>
+              <a class = "btn-floating waves-effect waves-red z-depth-0 right transparent" href="" id="delete_dish">
+                <i class="material-icons grey-text text-lighten-1">delete</i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
   </table>
+  {{else}}
+    <h4>Getting list...</h4>
+  {{/if}}
 </template>
 
 <template name="confirm_delete">
