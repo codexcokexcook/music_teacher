@@ -115,11 +115,11 @@
         <div class="text-field col l3 m3 s3 valign">
           <h6>Payment details</h6>
           </div>
-        <div class="input-field col l2 m3 s3 valign">
+        <div class="input-field col l5 m3 s3 valign">
           <input id="card_number" name="card_number" type="text" value="{{get_foodie_profile.card_number}}">
           <label class="active" for="card_number">Card Number</label>
           </div>
-          <div class="input-field col l1 m2 s2 valign">
+          <div class="input-field col l2 m2 s2 valign">
             <select class="material_select" id="card_exp_month" >
               <option value="{{get_foodie_profile.card_exp_month}}" selected>{{get_foodie_profile.card_exp_month}}</option>
               {{#each month_list}}
@@ -127,7 +127,7 @@
               {{/each}}
               </select>
             </div>
-          <div class="input-field col l1 m2 s2 valign">
+          <div class="input-field col l2 m2 s2 valign">
             <select class="material_select" id="card_exp_year">
               <option value="{{get_foodie_profile.card_exp_year}}" selected>{{get_foodie_profile.card_exp_year}}</option>
               {{#each year_list}}
