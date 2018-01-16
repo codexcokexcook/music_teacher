@@ -199,7 +199,6 @@ Template.dishes_summary.events({
         checkboxes[i].checked = false;
     };
     Ingredients_temporary.remove({});
-    Session.set('selected_dishes_id', null);
   },
   'click #modal_add_btn': function() {
     $('.modal-content').scrollTop(0);

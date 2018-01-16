@@ -97,28 +97,6 @@ Template.uploadForm.events({
 
 /** fucntion from Ostrio -- end here -- **/
 
-Template.serving_option.helpers({
-  serving_option_list: [{
-      name: 'Delivery',
-      file_name: 'delivery'
-    },
-    {
-      name: 'Dine-in',
-      file_name: 'Dine_in'
-    },
-    {
-      name: 'Pick-up',
-      file_name: 'Pickup'
-    },
-  ],
-});
-
-Template.serving_option.events({
-  'change .filled-in': function(event, template) {
-    get_checkboxes_value('serving_option_tags', template);
-  }
-});
-
 Template.ingredient_input.onRendered(function() {
   this.$('select').material_select();
 });
@@ -1071,5 +1049,6 @@ Template.create_dishes_form.events({
     });
 
     Session.set('ingredient_temp', []);
+    Session.set('selected_dishes_id', null);
   }
 });

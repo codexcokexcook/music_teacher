@@ -38,32 +38,25 @@
 }
 
 #profit {
-  padding-bottom: 18px;
+  padding-bottom: 18fpx;
 }
 
-#checkbox {
-  padding: 10px;
-  width: 235px;
-  display: inline-flex;
-  background-color: transparent;
-}
-
-.icon_delivery {
-    background: url("delivery.svg");
+.icon_Delivery {
+    background: url("/Delivery.svg");
     background-repeat: no-repeat;
     background-size: contain;
     margin-left: 60px;
 }
 
-.icon_Dine_in {
-    background: url("Dine_in.svg");
+.icon_Dine-in {
+    background: url("/Dine-in.svg");
     background-repeat: no-repeat;
     background-size: contain;
     margin-left: 60px;
 }
 
-.icon_Pickup {
-    background: url("Pickup.svg");
+.icon_Pick-up {
+    background: url("/Pick-up.svg");
     background-repeat: no-repeat;
     background-size: contain;
     margin-left: 60px;
