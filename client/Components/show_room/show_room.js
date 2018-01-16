@@ -7,13 +7,47 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import { navbar_find_by } from '/imports/functions/find_by.js'
 
 Template.show_room.onRendered(function(){
-  Meteor.setTimeout( function() {
-    $('.map_wrapper').pushpin({
-      top: 0,
-      bottom: 2000,
-      offset: 65
-    });
-  }, 0);
+  $('.map_wrapper').pushpin({
+    top: 0,
+    bottom: 2000,
+    offset: 65
+  });
+  $('#large_dish_display').modal({
+    dismissible: true, // Modal can be dismissed by clicking outside of the modal
+    opacity: .5, // Opacity of modal background
+    inDuration: 300, // Transition in duration
+    outDuration: 200, // Transition out duration
+    startingTop: '4%', // Starting top style attribute
+    endingTop: '10%', // Ending top style attribute
+    ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+      if ($('.modal-overlay').length > 1) {
+        $('.modal-overlay').each(function(){ // remove all modal-overlay when its not have any id attr
+          if ($(this).attr('id') == undefined) {
+              $(this).remove();
+          }
+        });
+      }
+    },
+    complete: function(){ $('.modal-overlay').remove(); } // callback when modal close done
+  });
+  $('#menu_card_display').modal({
+    dismissible: true, // Modal can be dismissed by clicking outside of the modal
+    opacity: .5, // Opacity of modal background
+    inDuration: 300, // Transition in duration
+    outDuration: 200, // Transition out duration
+    startingTop: '4%', // Starting top style attribute
+    endingTop: '10%', // Ending top style attribute
+    ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+      if ($('.modal-overlay').length > 1) {
+        $('.modal-overlay').each(function(){ // remove all modal-overlay when its not have any id attr
+          if ($(this).attr('id') == undefined) {
+              $(this).remove();
+          }
+        });
+      }
+    },
+    complete: function(){ $('.modal-overlay').remove(); } // callback when modal close done
+  });
 });
 
 Template.show_room_dish.helpers ({
