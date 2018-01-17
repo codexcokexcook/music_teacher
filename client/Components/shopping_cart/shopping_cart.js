@@ -9,19 +9,17 @@ import { search_distinct_in_shopping_cart_seller_specific } from '/imports/funct
 
 
 Template.shopping_cart_card.helpers({
+  'check_shopping_cart': function(){
+      return Shopping_cart.findOne({"buyer_id": Meteor.userId()})
+  },
 
-'check_shopping_cart': function(){
-    return Shopping_cart.findOne({"buyer_id": Meteor.userId()})
-},
+  'shopping_cart': function(){
+      return Shopping_cart.find({"buyer_id": Meteor.userId()})
+  },
 
-'shopping_cart': function(){
-    return Shopping_cart.find({"buyer_id": Meteor.userId()})
-},
-
-'total_price_per_dish': function(){
-    return this.quantity*this.product_price
-},
-
+  'total_price_per_dish': function(){
+      return this.quantity*this.product_price
+  },
 })
 
 Template.sc_cost_summary.helpers({
@@ -34,31 +32,30 @@ Template.sc_cost_summary.helpers({
     return total_food_price;
   },
 
-'total_delivery_cost':function(){
+  'total_delivery_cost':function(){
 
- var total_delivery_cost = 0
- var no_destination = search_distinct_for_delivery_in_shopping_cart('seller_id').length
- var delivery_cost_per_place = 50
- var total_delivery_cost = no_destination * delivery_cost_per_place
- return total_delivery_cost
-},
+   var total_delivery_cost = 0
+   var no_destination = search_distinct_for_delivery_in_shopping_cart('seller_id').length
+   var delivery_cost_per_place = 50
+   var total_delivery_cost = no_destination * delivery_cost_per_place
+   return total_delivery_cost
+  },
 
-'total_price':function(){
-  var total_food_price = 0;
-  var no_destination = search_distinct_for_delivery_in_shopping_cart('seller_id').length
-  var delivery_cost_per_place = 50
-  var total_price = 0
+  'total_price':function(){
+    var total_food_price = 0;
+    var no_destination = search_distinct_for_delivery_in_shopping_cart('seller_id').length
+    var delivery_cost_per_place = 50
+    var total_price = 0
 
-  Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
-    total_food_price += parseInt(doc.total_price_per_dish);
-  });
+    Shopping_cart.find({"buyer_id": Meteor.userId()}).map(function(doc) {
+      total_food_price += parseInt(doc.total_price_per_dish);
+    });
 
-  total_price = no_destination * delivery_cost_per_place + total_food_price
+    total_price = no_destination * delivery_cost_per_place + total_food_price
 
-  Session.set('cart_total_price', total_price)
-  return total_price
-}
-
+    Session.set('cart_total_price', total_price)
+    return total_price
+  }
 })
 
 

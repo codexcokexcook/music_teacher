@@ -15,7 +15,7 @@
               By {{seller_name}}
           </div>
           <div class="text-field col l1 m1 s1 valign">
-               <input class="quantity center" id="{{_id}}_quantity" name="quantity" type="text" value='{{quantity}}' min='1'>
+               <input class="quantity center" id="{{_id}}_quantity" name="quantity" type="text" value='{{quantity}}' min='{{quantity}}'>
             </div>
             <div class="text-field col l2 m1 s2 valign center" style="padding-top:12px;">
                 ${{product_price}}
@@ -52,17 +52,17 @@
 
 <template name='sc_cost_summary'>
   <div class="row col l12 valign">
-      <div class="text-field col l2 m1 s2 offset-l8 valign center">Subtotal</div>
-      <div class="text-field col l2 m1 s2 valign right">${{total_food_price}}</div>
-    </div>
-    <div class="row col l12 valign">
-        <div class="text-field col l2 m1 s2 offset-l8 valign center">Delivery</div>
-        <div class="text-field col l2 m1 s2 valign right">${{total_delivery_cost}}</div>
-      </div>
-      <div class="row col l12 valign">
-          <div class="text-field col l2 m1 s2 offset-l8 valign center">Total</div>
-          <div class="text-field col l2 m1 s2 valign right">${{total_price}}</div>
-        </div>
+    <div class="text-field col l2 m1 s2 offset-l8 valign center">Subtotal</div>
+    <div class="text-field col l2 m1 s2 valign right">${{total_food_price}}</div>
+  </div>
+  <div class="row col l12 valign">
+    <div class="text-field col l2 m1 s2 offset-l8 valign center">Delivery</div>
+    <div class="text-field col l2 m1 s2 valign right">${{total_delivery_cost}}</div>
+  </div>
+  <div class="row col l12 valign">
+    <div class="text-field col l2 m1 s2 offset-l8 valign center">Total</div>
+    <div class="text-field col l2 m1 s2 valign right">${{total_price}}</div>
+  </div>
 </template>
 
 

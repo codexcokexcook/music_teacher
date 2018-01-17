@@ -53,7 +53,7 @@ Template.display_menu_details.events({
     var menu_price = menu_details.menu_selling_price;
     var menu_name = menu_details.menu_name;
     var ready_time = parseInt(menu_details.lead_days) * 24 * 60 + parseInt(menu_details.lead_hours) * 60;
-    var quantity = 1;
+    var quantity = menu_details.min_order;
 
 
     var serving_option = Session.get('method')
