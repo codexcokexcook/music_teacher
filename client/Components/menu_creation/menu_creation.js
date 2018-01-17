@@ -1,7 +1,18 @@
-import { Template } from 'meteor/templating';
-import { Session } from 'meteor/session';
-import { Blaze } from 'meteor/blaze';
-import { Tracker } from 'meteor/tracker';
+import {
+  Template
+} from 'meteor/templating';
+import {
+  Session
+} from 'meteor/session';
+import {
+  Blaze
+} from 'meteor/blaze';
+import {
+  Tracker
+} from 'meteor/tracker';
+import {
+  checkboxes_recall
+} from '/imports/functions/checkboxes_recall.js'
 
 Template.menu_creation.onRendered(function(){
   this.$('modal').modal();
@@ -86,6 +97,7 @@ Template.menu_creation_content.events({
     var min_order = $('#min_order_range').val();
     var lead_hours = $('#lead_time_hours_range').val();
     var lead_days = $('#lead_time_days_range').val();
+    var serving_option = Session.get('serving_option_tags')
     var dishes_id = Session.get('selected_dishes_id');
     var dishes_details = [];
     var image_id = [];
@@ -103,7 +115,7 @@ Template.menu_creation_content.events({
       image_id[i] = dishes_details[i].image_id;
     }
 
-    if (menu_name && menu_selling_price && dishes_id) {
+    if (menu_name && menu_selling_price && dishes_id && serving_option) {
       Meteor.call('menu.insert',
         menu_name,
         user_id,
@@ -112,6 +124,7 @@ Template.menu_creation_content.events({
         min_order,
         lead_hours,
         lead_days,
+        serving_option,
         dishes_id,
         image_id,
         function(err) {
@@ -142,6 +155,7 @@ Template.menu_creation_content.events({
         checkboxes[i].checked = false;
     };
     Session.keys = {};
+    Session.set('serving_option_tags', null);
     $('div.modal').scrollTop(0);
     Materialize.toast('Menu created', 8000, 'rounded lighten-2');
     // trigger close modal by click action
@@ -160,6 +174,12 @@ Template.view_menu.helpers({
   }
 });
 
+Template.view_menu.events({
+  'click #add_menu': function() {
+    Blaze.render(Template.menu_creation_content,$('#modal_content')[0]);
+  }
+})
+
 Template.edit_content.onRendered(function() {
     this.$('select').material_select();
     this.$('.modal').modal();
@@ -168,7 +188,11 @@ Template.edit_content.onRendered(function() {
 Template.edit_content.helpers({
   'menu_retreival_edit': function() {
     var menu_id = Session.get('menu_id');
-    return Menu.findOne({"_id": menu_id});
+    var menu_details = Menu.findOne({"_id": menu_id})
+    return menu_details;
+  },
+  'get_serving_option': function() {
+    Session.set('serving_option_tags', this.serving_option);
   },
   'user_dishes': function() {
     var user_dishes = Dishes.find({"user_id": Meteor.userId(), "deleted": false});
@@ -222,6 +246,7 @@ Template.edit_content.events({
     var min_order = $('#edit_min_order_range').val();
     var lead_hours = $('#edit_lead_time_hours_range').val();
     var lead_days = $('#edit_lead_time_days_range').val();
+    var serving_option = Session.get('serving_option_tags');
     var dishes_id = Session.get('edited_dishes_id');
 
     var dishes_details = [];
@@ -233,7 +258,7 @@ Template.edit_content.events({
     };
 
     if (menu_name && menu_selling_price && dishes_id) {
-      Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days,dishes_id,image_id, function(err){
+      Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days, serving_option, dishes_id, image_id, function(err){
           if (err) {
             Materialize.toast('Oops! Error when update your menu. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
           } else {

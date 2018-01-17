@@ -1,8 +1,21 @@
-import { Template } from 'meteor/templating';
-import { Session } from 'meteor/session';
-import { Blaze } from 'meteor/blaze';
-import { Tracker } from 'meteor/tracker';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import {
+  Template
+} from 'meteor/templating';
+import {
+  Session
+} from 'meteor/session';
+import {
+  Blaze
+} from 'meteor/blaze';
+import {
+  Tracker
+} from 'meteor/tracker';
+import {
+  FlowRouter
+} from 'meteor/ostrio:flow-router-extra';
+import {
+  checkboxes_recall
+} from '/imports/functions/checkboxes_recall.js'
 
 Template.menu_card.onRendered(function(){
   $('div.modal').scrollTop(0);

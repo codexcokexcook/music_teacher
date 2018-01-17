@@ -8,7 +8,6 @@ import {
   check
 } from 'meteor/check';
 
-
 Menu = new Mongo.Collection('menu');
 
 // set permission about Menu
@@ -19,7 +18,7 @@ Menu.deny({
 });
 
 Meteor.methods({
-  'menu.insert' (menu_name, user_id, kitchen_id, menu_selling_price, min_order, lead_hours, lead_days, dishes_id, image_id) {
+  'menu.insert' (menu_name, user_id, kitchen_id, menu_selling_price, min_order, lead_hours, lead_days, serving_option, dishes_id, image_id) {
     check(menu_name, String);
     check(user_id, String);
     check(kitchen_id, String);
@@ -27,6 +26,7 @@ Meteor.methods({
     check(min_order, Match.Any);
     check(lead_hours, Match.Any);
     check(lead_days, Match.Any);
+    check(serving_option, Match.Any);
     check(dishes_id, Match.Any);
     check(image_id, Match.Any);
 
@@ -39,6 +39,7 @@ Meteor.methods({
       min_order: min_order,
       lead_hours: lead_hours,
       lead_days: lead_days,
+      serving_option: serving_option,
       dishes_id: dishes_id,
       image_id: image_id,
       updatedAt: new Date(),
@@ -47,13 +48,14 @@ Meteor.methods({
       deleted: false
     });
   },
-  'menu.update' (menu_id, menu_name, menu_selling_price, min_order, lead_hours, lead_days, dishes_id, image_id) {
+  'menu.update' (menu_id, menu_name, menu_selling_price, min_order, lead_hours, lead_days, serving_option, dishes_id, image_id) {
     check(menu_id, String);
     check(menu_name, String);
     check(menu_selling_price, Match.Any);
     check(min_order, Match.Any);
     check(lead_hours, Match.Any);
     check(lead_days, Match.Any);
+    check(serving_option, Match.Any);
     check(dishes_id, Match.Any);
     check(image_id, Match.Any);
 
@@ -66,6 +68,7 @@ Meteor.methods({
         min_order: min_order,
         lead_hours: lead_hours,
         lead_days: lead_days,
+        serving_option: serving_option,
         dishes_id: dishes_id,
         image_id: image_id,
         updatedAt: new Date()
