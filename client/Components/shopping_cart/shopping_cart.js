@@ -190,9 +190,24 @@ service_option_list:[
     }
 })
 
+
+Template.sc_payment.helpers({
+  'get_credit_card_no': function(){
+    return Profile_details.findOne({'user_id':Meteor.userId()}).card_number
+  },
+
+  'get_exp_month':function(){
+    return Profile_details.findOne({'user_id':Meteor.userId()}).card_exp_month
+  },
+
+  'get_exp_year':function(){
+    return Profile_details.findOne({'user_id':Meteor.userId()}).card_exp_year
+  },
+
+})
+
+
 Template.sc_serving_details.events({
-
-
 
   'change #serving_address_select':function(event){
     var option = $('#serving_address_select').val();
@@ -301,13 +316,7 @@ Template.shopping_cart_card.events({
 Template.sc_payment.events({
   'click  #place_order':function(event){
 
-    //hold not to charge until
-    //	Meteor.call('chargeCard', stripeToken, amount, description);
-
-    console.log(1)
     var sellers = search_distinct_in_shopping_cart('seller_id')
-    console.log(sellers)
-    console.log(2)
     setTimeout(sellers.forEach(order_record_insert), 200000)
   },
 
@@ -318,11 +327,16 @@ Template.sc_payment.events({
 
 
 function order_record_insert(array_value){
-  console.log(3)
+
+
+
   ccNum = $('#card_no').val()
   cvc = $('#cvc_no').val()
   expMo = $('#exp_month').val()
   expYr = $('#exp_year').val()
+
+  //check card details
+
   amount = Session.get('cart_total_price')*100 /**need modify**/
   profile_details = Profile_details.findOne({user_id: Meteor.userId()})
 
@@ -333,20 +347,24 @@ function order_record_insert(array_value){
     exp_month: expMo,
     exp_year: expYr,
   }, function(status, response) {
-    stripeToken = response.id;
-    console.log(stripeToken)
-    Session.set('token_no', stripeToken)
 
-    console.log(4)
-  var seller_id = array_value
-  var products = search_distinct_in_shopping_cart_seller_specific('product_id', seller_id)
-  console.log(5)
-  setTimeout(products.forEach(to_order_record_insert), 200000)
-  Session.delete('token_no')
-})}
+      stripeToken = response.id;
+
+      if(stripeToken != null){
+
+        Session.set('token_no', stripeToken)
+
+        var seller_id = array_value
+        var products = search_distinct_in_shopping_cart_seller_specific('product_id', seller_id)
+
+        setTimeout(products.forEach(to_order_record_insert), 200000)
+        Session.clear('token_no')
+      }
+    }
+)}
 
 function to_order_record_insert(array_value){
-  console.log(6)
+
   var product_id = array_value;
   var dish = Dishes.findOne({_id: product_id})
   if (!dish) {
@@ -360,67 +378,93 @@ function to_order_record_insert(array_value){
   var cart_id = cart_details._id
   var buyer_id = Meteor.userId()
 
-  var address = cart_details.address;
+  var serving_address = Session.get('serving_address')
+
+
   var quantity = cart_details.quantity;
+
   var serving_option = cart_details.serving_option;
+  if(serving_option==='Pick-up'||serving_option==='Dine-in'){
 
-  var ready_time = Session.get('ready_time_ms')
+    var address = Kitchen_details.findOne({'user_id':seller_id}).kitchen_address
+    }else if(serving_option==='Delivery'){
 
-  var total_price = cart_details.total_price_per_dish
+      if(serving_address==='home_address'){
+      var address = Profile_details.findOne({'user_id':Meteor.userId()}).home_address
 
-  var stripeToken = Session.get('token_no')
+    }else if(serving_address==='office_address'){
+      var address = Profile_details.findOne({'user_id':Meteor.userId()}).office_address
 
-  var transaction = Transactions.findOne({'buyer_id': buyer_id, 'seller_id': seller_id}, {sort: {transaction_no: -1}});
-  if(transaction ){
-  var transaction_no = parseInt(transaction.transaction_no) + 1
-  console.log(transaction_no)
-  console.log(7)
-  }else{
-  var transaction_no = 1
-  console.log(transaction_no)
-  console.log(8)
+    }else if(serving_address==='current_address'){
+      var address = Session.get('current_address')
+    }
   }
 
-  if(parseInt(Session.get('preferred_time_ms')) > 0){
-    if(parseInt(Session.get('preferred_time_ms')) > parseInt(Session.get('ready_time_ms'))){
-      var ready_time = Session.get('preferred_time_ms')
-
-
-      Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
-        if (err) {
-          Materialize.toast('Oops! Error occur. Please try again.' + err.message.message, 4000, 'rounded red lighten-2');
-        }
-      });
-
-      Meteor.call('shopping_cart.remove',cart_id)
-      Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
-
-    }else{
-      Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
-    }
+  if(address === undefined){
+    Materialize.toast('Oops! Error occur. Please choose the delivery address.', 4000, 'rounded red lighten-2');
   }else{
 
     var ready_time = Session.get('ready_time_ms')
 
+    var total_price = cart_details.total_price_per_dish
 
-    Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
-      if (err) {
-        Materialize.toast('Oops! Error occur. Please try again.' + err.message.message, 4000, 'rounded red lighten-2');
+    var stripeToken = Session.get('token_no')
+    var transaction = Transactions.findOne({'buyer_id': buyer_id, 'seller_id': seller_id}, {sort: {transaction_no: -1}});
+
+    if(transaction){
+
+    var transaction_no = parseInt(transaction.transaction_no) + 1
+
+    }else{
+
+    var transaction_no = 1
+
+    }
+
+    if(parseInt(Session.get('preferred_time_ms')) > 0){
+      if(parseInt(Session.get('preferred_time_ms')) > parseInt(Session.get('ready_time_ms'))){
+        var ready_time = Session.get('preferred_time_ms')
+
+        Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
+
+          if (err) {
+            Materialize.toast('Oops! Error occur. Please try again.' + err, 4000, 'rounded red lighten-2');
+          }else{
+            Meteor.call('shopping_cart.remove',cart_id)
+            Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
+            Session.clear
+          }
+        });
+
+
+      }else{
+        Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
       }
-    });
 
-    Meteor.call('shopping_cart.remove',cart_id)
+    }else{
+
+      var ready_time = Session.get('ready_time_ms')
 
 
-    Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
-    if (Shopping_cart.findOne({"buyer_id": Meteor.userId()})) {
-      $('#confirm_order_modal').modal();
-      $('#confirm_order_modal').modal('open');
+      Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function(err){
+        if (err) {
+          Materialize.toast('Oops! Error occur. Please try again.' + err, 4000, 'rounded red lighten-2');
+        }else{
 
-  }else{
-    Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
+          Meteor.call('shopping_cart.remove',cart_id)
+          Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
+          Session.clear
+          if (Shopping_cart.findOne({"buyer_id": Meteor.userId()})) {
+            $('#confirm_order_modal').modal();
+            $('#confirm_order_modal').modal('open');
+
+        }else{
+          Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger","growl-top-right")
+        }
+        }
+      });
   }
-}}
+  }}
 
 Template.confirm_order_modal.events({
   'click #go_track_order': function() {
