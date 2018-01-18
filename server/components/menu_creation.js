@@ -132,9 +132,9 @@ Meteor.methods({
   }
 });
 
+// check current user is has already menu
 Meteor.methods({
   'checkAlreadyMenu': function() {
-
     var count = Menu.find({
       'user_id': Meteor.userId(),
       "deleted": false
@@ -144,4 +144,12 @@ Meteor.methods({
     }
     return false;
   }
+});
+
+Meteor.publish('getListMenus', function() {
+  return Menu.find({"user_id": Meteor.userId(), deleted: false});
+});
+
+Meteor.publish('getKitchenDetail', function(){
+  return Kitchen_details.find({'user_id': Meteor.userId()});
 });
