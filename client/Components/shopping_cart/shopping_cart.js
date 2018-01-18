@@ -344,7 +344,9 @@ function order_record_insert(array_value){
     exp_month: expMo,
     exp_year: expYr,
   }, function(status, response) {
-
+    if(err){
+      Materialize.toast('Oops! Error related to payment. Please check the card details again.' + err, 4000, 'rounded red lighten-2');
+    }else{
       stripeToken = response.id;
 
       if(stripeToken != null){
@@ -356,6 +358,8 @@ function order_record_insert(array_value){
 
         setTimeout(products.forEach(to_order_record_insert), 200000)
         Session.clear('token_no')
+    }
+
       }
     }
 )}
