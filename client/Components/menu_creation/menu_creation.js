@@ -57,6 +57,10 @@ Template.menu_initiation.events({
   }
 });
 
+Template.menu_creation_content.onCreated( function(){
+  this.kitchen_detail = this.subscribe('getKitchenDetail');
+});
+
 Template.menu_creation_content.onRendered(function(){
   this.$('select').material_select();
   this.$('.modal').modal();
@@ -91,7 +95,7 @@ Template.menu_creation_content.events({
     event.preventDefault;
     var menu_name = $('#menu_name').val();
     var user_id = Meteor.userId();
-    var kitchen = Kitchen_details.findOne({user_id: user_id});
+    var kitchen = Kitchen_details.findOne({'user_id': user_id});
     var kitchen_id = kitchen._id;
     var menu_selling_price = $('#menu_selling_price').val();
     var min_order = $('#min_order_range').val();
@@ -164,6 +168,7 @@ Template.menu_creation_content.events({
     Session.set('serving_option_tags', null);
     $('div.modal').scrollTop(0);
     Materialize.toast('Menu created', 8000, 'rounded lighten-2');
+    $('.modal-overlay').click();
   }
 });
 

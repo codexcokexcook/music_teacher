@@ -149,3 +149,7 @@ Meteor.methods({
 Meteor.publish('getListMenus', function() {
   return Menu.find({"user_id": Meteor.userId(), deleted: false});
 });
+
+Meteor.publish('getKitchenDetail', function(){
+  return Kitchen_details.find({'user_id': Meteor.userId()});
+});
