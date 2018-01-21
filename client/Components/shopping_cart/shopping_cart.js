@@ -338,27 +338,27 @@ function order_record_insert(array_value) {
   profile_details = Profile_details.findOne({ user_id: Meteor.userId() })
 
 
-  //   Stripe.card.createToken({
-  //     number: ccNum,
-  //     cvc: cvc,
-  //     exp_month: expMo,
-  //     exp_year: expYr,
-  //   }, function(status, response) {
+    Stripe.card.createToken({
+      number: ccNum,
+      cvc: cvc,
+      exp_month: expMo,
+      exp_year: expYr,
+    }, function(status, response) {
 
-  //       stripeToken = response.id;
+        stripeToken = response.id;
 
-  //       if(stripeToken != null){
+        if(stripeToken != null){
 
-  //         Session.set('token_no', stripeToken)
+          Session.set('token_no', stripeToken)
 
-  //         var seller_id = array_value
-  //         var products = search_distinct_in_shopping_cart_seller_specific('product_id', seller_id)
+          var seller_id = array_value
+          var products = search_distinct_in_shopping_cart_seller_specific('product_id', seller_id)
 
-  //         setTimeout(products.forEach(to_order_record_insert), 200000)
-  //         Session.clear('token_no')
-  //       }
-  //     }
-  // )}
+          setTimeout(products.forEach(to_order_record_insert), 200000)
+          Session.clear('token_no')
+        }
+      }
+  )}
 
   function to_order_record_insert(array_value) {
 
@@ -405,7 +405,7 @@ function order_record_insert(array_value) {
 
       var total_price = cart_details.total_price_per_dish
 
-      // var stripeToken = Session.get('token_no')
+      var stripeToken = Session.get('token_no')
       var transaction = Transactions.findOne({ 'buyer_id': buyer_id, 'seller_id': seller_id }, { sort: { transaction_no: -1 } });
 
       if (transaction) {
@@ -422,7 +422,7 @@ function order_record_insert(array_value) {
         if (parseInt(Session.get('preferred_time_ms')) > parseInt(Session.get('ready_time_ms'))) {
           var ready_time = Session.get('preferred_time_ms')
 
-          Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, /*stripeToken,*/ function (err) {
+          Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function (err) {
 
             if (err) {
               Materialize.toast('Oops! Error occur. Please try again.' + err, 4000, 'rounded red lighten-2');
@@ -443,7 +443,7 @@ function order_record_insert(array_value) {
         var ready_time = Session.get('ready_time_ms')
 
 
-        Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, /*stripeToken,*/ function (err) {
+        Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function (err) {
           if (err) {
             Materialize.toast('Oops! Error occur. Please try again.' + err, 4000, 'rounded red lighten-2');
           } else {
