@@ -61,6 +61,10 @@ Template.menu_initiation.events({
   }
 });
 
+Template.menu_creation_content.onCreated( function(){
+  this.kitchen_detail = this.subscribe('getKitchenDetail');
+});
+
 Template.menu_creation_content.onRendered(function(){
   this.$('select').material_select();
   this.$('.modal').modal();
@@ -95,7 +99,7 @@ Template.menu_creation_content.events({
     event.preventDefault;
     var menu_name = $('#menu_name').val();
     var user_id = Meteor.userId();
-    var kitchen = Kitchen_details.findOne({user_id: user_id});
+    var kitchen = Kitchen_details.findOne({'user_id': user_id});
     var kitchen_id = kitchen._id;
     var menu_selling_price = $('#menu_selling_price').val();
     var min_order = $('#min_order_range').val();
@@ -114,12 +118,18 @@ Template.menu_creation_content.events({
       Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded red lighten-2');
       return;
     }
+
+    //remove 'on' problem
+    if (typeof dishes_id !== "undefined"){
+      dishes_id = dishes_id.filter(function(a){return a !== "on"})
+    }
+
     for (i=0; i < dishes_id.length; i++){
       dishes_details[i] = Dishes.findOne({_id: dishes_id[i]});
       image_id[i] = dishes_details[i].image_id;
     }
 
-    if (menu_name && menu_selling_price && dishes_id && serving_option) {
+    if (menu_name && menu_selling_price && dishes_id) {
       Meteor.call('menu.insert',
         menu_name,
         user_id,
@@ -162,9 +172,12 @@ Template.menu_creation_content.events({
     Session.set('serving_option_tags', null);
     $('div.modal').scrollTop(0);
     Materialize.toast('Menu created', 8000, 'rounded lighten-2');
-    // trigger close modal by click action
-    $('#edit_cancel')[0].click();
+    $('.modal-overlay').click();
   }
+});
+
+Template.view_menu.onCreated(function(){
+  this.menu_retreival = this.subscribe('getListMenus');
 });
 
 Template.view_menu.onRendered(function(){
@@ -173,6 +186,9 @@ Template.view_menu.onRendered(function(){
 });
 
 Template.view_menu.helpers({
+  'subscription': function() {
+    return Template.instance().menu_retreival.ready();
+  },
   'menu_retreival': function() {
     return Menu.find({"user_id": Meteor.userId(), deleted: false});
   }

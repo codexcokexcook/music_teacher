@@ -929,6 +929,10 @@ Template.serving_temperature_list.events({
   }
 });
 
+Template.create_dishes_form.onCreated( function(){
+  this.kitchen = this.subscribe('getKitchenDetail');
+});
+
 Template.create_dishes_form.events({
   'submit form': function(event) {
     event.preventDefault();

@@ -81,10 +81,14 @@
   </div>
   <div class = "divider"></div>
   <div class = "section menu_card_container">
-      {{#each menu_retreival}}
-        {{> menu_card}}
-      {{/each}}
-      {{>edit_content}}
+      {{#if subscription}}
+        {{#each menu_retreival}}
+          {{> menu_card}}
+        {{/each}}
+        {{>edit_content}}
+      {{else}}
+            {{> spinner}}
+      {{/if}}
   </div>
   <div class = "section">
       {{> modal}}
