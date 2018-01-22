@@ -242,3 +242,7 @@ Meteor.methods({
     });
   }
 });
+
+Meteor.publish('getServingOptionList', function() {
+  return Kitchen_details.findOne({user_id: Meteor.userId()}).serving_option;
+});

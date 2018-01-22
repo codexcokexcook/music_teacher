@@ -34,9 +34,9 @@ Meteor.startup(function() {
 
 Meteor.startup(function() {
     var handler = StripeCheckout.configure({
-		key: 'pk_test_G9LJfGcn9zGEmQuMwc7bqGQF',
-		token: function(token) {}
-	});
+      key: 'pk_test_G9LJfGcn9zGEmQuMwc7bqGQF',
+      token: function(token) {}
+    });
 });
 
 Collections = {
