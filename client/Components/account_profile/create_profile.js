@@ -15,7 +15,7 @@ import {
 } from 'meteor/ostrio:files';
 import {
   address_geocode
-} from '/imports/functions/address_geocode.js'
+} from '/imports/functions/address_geocode.js';
 import {
   Tracker
 } from 'meteor/tracker'
@@ -477,26 +477,39 @@ Template.create_foodie_profile.events({
     const card_exp_month = $('#card_exp_month').val();
     const card_exp_year = $('#card_exp_year').val();
 
+    const kitchen_name = $('#kitchen_name').val();
+    const chef_name = $('#chef_name').val();
+    const homecook_profile_keywords = $('#homecook_profile_keywords').val();
+    const kitchen_address_country = $('#kitchen_address_country').val();
+    const kitchen_address = $('#create_kitchen_address').val();
+    const kitchen_address_conversion = Session.get('kitchen_address_conversion');
+    const about_homecook_myself = $('#about_homecook_myself').val();
+    const serving_option = Session.get('serving_option_tags');
+    const bank_fullname = $('#bank_fullname').val();
+    const bank_name = $('#bank_name').val();
+    const bank_account_no = $('#bank_account_no').val();
+    const bank_address_country = $('#bank_address_country').val();
+    const bank_address = $('#bank_address').val();
     const user_id = Meteor.userId();
 
     Meteor.call('kitchen_details.insert',
-    user_id,
-    kitchen_name,
-    chef_name,
-    homecook_profile_keywords,
-    kitchen_address_country,
-    kitchen_address,
-    kitchen_address_conversion,
-    about_homecook_myself,
-    serving_option,
-    bank_fullname,
-    bank_name,
-    bank_account_no,
-    bank_address_country,
-    bank_address,
-    function(err) {
-      if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
-    }
+      user_id,
+      kitchen_name,
+      chef_name,
+      homecook_profile_keywords,
+      kitchen_address_country,
+      kitchen_address,
+      kitchen_address_conversion,
+      about_homecook_myself,
+      serving_option,
+      bank_fullname,
+      bank_name,
+      bank_account_no,
+      bank_address_country,
+      bank_address,
+      function(err) {
+        if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
+      }
     );
 
     Meteor.call('profile_details.insert',
@@ -602,26 +615,26 @@ Template.create_foodie_profile.events({
         );
 
         Meteor.call('profile_details.insert',
-        user_id,
-        foodie_name,
-        email,
-        date_of_birth,
-        mobile_dial_code,
-        mobile,
-        profile_keywords,
-        gender,
-        about_myself,
-        home_address_country,
-        home_address,
-        home_address_conversion,
-        office_address_country,
-        office_address,
-        office_address_conversion,
-        allergy_tags,
-        dietary_tags,
-        card_number,
-        card_exp_month,
-        card_exp_year,
+          user_id,
+          foodie_name,
+          email,
+          date_of_birth,
+          mobile_dial_code,
+          mobile,
+          profile_keywords,
+          gender,
+          about_myself,
+          home_address_country,
+          home_address,
+          home_address_conversion,
+          office_address_country,
+          office_address,
+          office_address_conversion,
+          allergy_tags,
+          dietary_tags,
+          card_number,
+          card_exp_month,
+          card_exp_year,
         function(err) {
           if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
 

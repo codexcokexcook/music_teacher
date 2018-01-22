@@ -7,17 +7,15 @@ import { Tracker } from 'meteor/tracker';
 import { get_current_location } from '/imports/functions/get_current_location.js';
 
 Template.navbar.onRendered(function(){
-  Meteor.setTimeout(function(){
-    //activate slideNav
-    this.$(".nav_brand_logo").sideNav({
-      menuWidth: 300, // Default is 300
-      edge: 'left', // Choose the horizontal origin
-      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-      draggable: true // Choose whether you can drag to open on touch screens,
-      //onOpen: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is opened
-      //onClose: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is closed
-    });
-  }, 0);
+  //activate slideNav
+  this.$(".nav_brand_logo").sideNav({
+    menuWidth: 300, // Default is 300
+    edge: 'left', // Choose the horizontal origin
+    closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    draggable: true // Choose whether you can drag to open on touch screens,
+    //onOpen: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is opened
+    //onClose: function(el) { /* Do Stuff* / }, // A function to be called when sideNav is closed
+  });
 });
 
 Template.navbar.helpers ({

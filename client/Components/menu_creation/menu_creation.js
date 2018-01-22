@@ -2,9 +2,6 @@ import {
   Template
 } from 'meteor/templating';
 import {
-  Meteor
-} from 'meteor/meteor'
-import {
   Session
 } from 'meteor/session';
 import {
@@ -39,15 +36,14 @@ Template.menu_creation.onRendered(function(){
 Template.menu_initiation.events({
   'click #add_menu': function(template) {
     Meteor.call('getUserProfileByID', function (err, result) {
-        if (err) {
-          console.log('Error when getting user ID: ' + err.message);
+        if (err) { 
+          console.log('Error when get user ID: ' + err.message);
         } else {
           if (result) {
             if (typeof result.kitchen_name !== 'undefined' && typeof result.chef_name !== 'undefined' && result.kitchen_name !== null && result.chef_name !== null) {
               $('#menu_creation_container').hide();
-              console.log('1')
               Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
-              //Blaze.remove(Template.instance().view);
+              Blaze.remove(Template.instance().view);
             } else {
               Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
               $('.modal-overlay').click(); // trick close popup modal
@@ -240,7 +236,7 @@ Template.edit_content.helpers({
 
 Template.edit_content.events({
   'change .edit_dishes_checkbox': function(event, template) {
-    var checked_dishes = template.findAll("input[class=edit_dishes_checkbox]:checked");
+    var checked_dishes = template.findAll("input[type=checkbox]:checked");
     var checked_values = checked_dishes.map(function(selection){
       return selection.value;
     });

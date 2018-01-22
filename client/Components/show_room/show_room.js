@@ -82,7 +82,7 @@ Template.show_room_chef.helpers ({
   }
 });
 
-// subcribe all publish
+
 Meteor.subscribe('theProfileImages');
 Meteor.subscribe('theIngredients');
 Meteor.subscribe('theShoppingCart');
