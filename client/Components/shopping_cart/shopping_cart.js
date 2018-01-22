@@ -468,5 +468,4 @@ function order_record_insert(array_value) {
     'click #go_track_order': function () {
       FlowRouter.go('/orders_tracking');
     }
-  })
-}
+  });
