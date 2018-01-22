@@ -344,8 +344,10 @@ function order_record_insert(array_value){
     exp_month: expMo,
     exp_year: expYr,
   }, function(status, response) {
-    if(err){
-      Materialize.toast('Oops! Error related to payment. Please check the card details again.' + err, 4000, 'rounded red lighten-2');
+    console.log(status);
+    console.log(response);
+    if(response.error){
+      Materialize.toast('Oops! Error related to payment. Please check the card details again.' + response.error, 4000, 'rounded red lighten-2');
     }else{
       stripeToken = response.id;
 

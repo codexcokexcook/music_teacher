@@ -65,10 +65,11 @@ Template.menu_creation_content.onCreated( function(){
   this.kitchen_detail = this.subscribe('getKitchenDetail');
 });
 
-Template.menu_creation_content.onRendered(function(){
+Template.menu_creation_content.onRendered(function(template){
   this.$('select').material_select();
   this.$('.modal').modal();
   $('.create_menu_dishes_selection .switch').remove();
+  console.log(Template.instance().view._templateInstance.firstNode.parentElement)
 });
 
 Template.menu_creation_content.events({
@@ -77,9 +78,10 @@ Template.menu_creation_content.events({
     // whether this template render location is on a modal or not.
     // if it is on a modal, view shoudln't be removed and view menu template
     // shoudln't be rendered.
-    var current_instance = Template.instance().view;;
-    if (!current_instance.parentView) {
-      Blaze.remove(current_instance);
+    console.log(Template.instance().view._templateInstance.firstNode.parentElement)
+    var current_instance = Template.instance().view._templateInstance.firstNode.parentElement
+    if (!current_instance) {
+      Blaze.remove(Template.instance().view);
     }
     // reset the form after submission
     $('#menu_name').val("");
@@ -152,10 +154,12 @@ Template.menu_creation_content.events({
     // whether this template render location is on a modal or not.
     // if it is on a modal, view shoudln't be removed and view menu template
     // shoudln't be rendered.
-    var current_instance = Template.instance().view;
-    if (!current_instance.parentView) {
+    var current_instance = Template.instance().view._templateInstance.firstNode.parentElement
+    if (!current_instance) {
       Blaze.render(Template.view_menu, document.getElementById('card_container'));
-      Blaze.remove(current_instance);
+      Blaze.remove(Template.instance().view);
+    } else {
+      Blaze.remove(Template.instance().view);
     }
     // reset the form after submission
     $('#menu_name').val("");
@@ -200,12 +204,19 @@ Template.view_menu.events({
   }
 })
 
+Template.edit_content.onCreated(function() {
+  this.user_dishes = this.subscribe('getListDishes')
+})
+
 Template.edit_content.onRendered(function() {
     this.$('select').material_select();
     this.$('.modal').modal();
 });
 
 Template.edit_content.helpers({
+  'dishes_subscription': function() {
+    return Template.instance().user_dishes.ready();
+  },
   'menu_retreival_edit': function() {
     var menu_id = Session.get('menu_id');
     var menu_details = Menu.findOne({"_id": menu_id})

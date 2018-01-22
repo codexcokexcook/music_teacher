@@ -150,7 +150,8 @@
                 </div>
               </div>
             </div>
-              <h6>Dishes to include in this menu:</h6>
+            <h6>Dishes to include in this menu:</h6>
+            {{#if dishes_subscription}}
               <table class = "bordered" id="menu_dishes_table">
                 <thead>
                   <tr>
@@ -176,6 +177,9 @@
                   {{/each}}
                 </tbody>
               </table>
+            {{else}}
+              {{> spinner}}
+            {{/if}}
           {{/with}}
             <div class = "modal-footer section">
               <span>
