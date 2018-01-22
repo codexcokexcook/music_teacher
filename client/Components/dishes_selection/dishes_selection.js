@@ -42,12 +42,13 @@ Template.dishes_selection.events({
     });
     sessionStorage.clear(); //clear all things to make sure everything is clean before use it again
   },
-  'click #edit_dish': function() {
+  'click #edit_dish': function(event, template) {
+    event.preventDefault();
     var get_dish_id = this._id;
     var session_object = [];
     session_object[0] = get_dish_id; //Convert this._id (string) to an object
     Session.set('selected_dishes_id', session_object);
-    $('.btn_edit_dish').click();
+    // $('.btn_edit_dish').click();
     $('#edit_dish_modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
