@@ -24,10 +24,6 @@ Template.serving_option.events({
   }
 });
 
-Template.serving_option_display.onCreated( function(){
-  this.serving_option_list = this.subscribe('getServingOptionList');
-});
-
 Template.serving_option_display.helpers({
   'serving_option_list': function() {
     return Kitchen_details.findOne({user_id: Meteor.userId()}).serving_option
@@ -38,10 +34,6 @@ Template.serving_option_display.events({
   'change .filled-in': function(event, template) {
     get_checkboxes_value('serving_option_tags', template);
   }
-});
-
-Template.edit_serving_option_menu.onCreated( function(){
-  this.serving_option_list = this.subscribe('getServingOptionList');
 });
 
 Template.edit_serving_option_menu.helpers({
