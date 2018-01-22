@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "build": "meteor build ../ --directory --architecture os.linux.x86_64 --server-only"
+    "deploy": "DEPLOY_HOSTNAME=ap-southeast-2.galaxy.meteor.com meteor deploy [blueplate] --settings ./settings.json"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
