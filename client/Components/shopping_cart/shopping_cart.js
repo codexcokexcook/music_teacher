@@ -363,7 +363,8 @@ function order_record_insert(array_value) {
           Session.clear('token_no')
         }
       }
-  )}
+  });
+}
 
   function to_order_record_insert(array_value) {
 
@@ -376,59 +377,39 @@ function order_record_insert(array_value) {
       var seller_id = dish.user_id;
     }
     var cart_details = Shopping_cart.findOne({ 'product_id': product_id, 'seller_id': seller_id, 'buyer_id': Meteor.userId() })
-
     var cart_id = cart_details._id
     var buyer_id = Meteor.userId()
-
     var serving_address = Session.get('serving_address')
-
-
     var quantity = cart_details.quantity;
-
     var serving_option = cart_details.serving_option;
-    if (serving_option === 'Pick-up' || serving_option === 'Dine-in') {
 
+    if (serving_option === 'Pick-up' || serving_option === 'Dine-in') {
       var address = Kitchen_details.findOne({ 'user_id': seller_id }).kitchen_address
     } else if (serving_option === 'Delivery') {
-
       if (serving_address === 'home_address') {
         var address = Profile_details.findOne({ 'user_id': Meteor.userId() }).home_address
-
       } else if (serving_address === 'office_address') {
         var address = Profile_details.findOne({ 'user_id': Meteor.userId() }).office_address
-
       } else if (serving_address === 'current_address') {
         var address = Session.get('current_address')
       }
     }
-
     if (address === undefined) {
       Materialize.toast('Oops! Error occur. Please choose the delivery address.', 4000, 'rounded red lighten-2');
     } else {
-
       var ready_time = Session.get('ready_time_ms')
-
       var total_price = cart_details.total_price_per_dish
-
       var stripeToken = Session.get('token_no')
       var transaction = Transactions.findOne({ 'buyer_id': buyer_id, 'seller_id': seller_id }, { sort: { transaction_no: -1 } });
-
       if (transaction) {
-
         var transaction_no = parseInt(transaction.transaction_no) + 1
-
       } else {
-
         var transaction_no = 1
-
       }
-
       if (parseInt(Session.get('preferred_time_ms')) > 0) {
         if (parseInt(Session.get('preferred_time_ms')) > parseInt(Session.get('ready_time_ms'))) {
           var ready_time = Session.get('preferred_time_ms')
-
           Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function (err) {
-
             if (err) {
               Materialize.toast('Oops! Error occur. Please try again.' + err, 4000, 'rounded red lighten-2');
             } else {
@@ -437,29 +418,21 @@ function order_record_insert(array_value) {
               Session.clear
             }
           });
-
-
         } else {
           Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger", "growl-top-right")
         }
-
       } else {
-
         var ready_time = Session.get('ready_time_ms')
-
-
         Meteor.call('order_record.insert', transaction_no, buyer_id, seller_id, product_id, quantity, total_price, address, serving_option, ready_time, stripeToken, function (err) {
           if (err) {
             Materialize.toast('Oops! Error occur. Please try again.' + err, 4000, 'rounded red lighten-2');
           } else {
-
             Meteor.call('shopping_cart.remove', cart_id)
             Meteor.call('notification.place_order', seller_id, buyer_id, product_id, quantity)
             Session.clear
             if (Shopping_cart.findOne({ "buyer_id": Meteor.userId() })) {
               $('#confirm_order_modal').modal();
               $('#confirm_order_modal').modal('open');
-
             } else {
               Bert.alert("Preferred Ready Time must be later than the Earliest Ready Time", "danger", "growl-top-right")
             }
