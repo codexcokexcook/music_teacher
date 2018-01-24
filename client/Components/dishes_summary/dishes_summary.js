@@ -20,7 +20,7 @@ Template.dishes_summary.onRendered(function(){
 });
 
 Template.dishes_summary.events({
-  'click #btn_add_dish': function() {
+  'click #btn_add_dish': function(event) {
     event.preventDefault();
     Session.set('image_id',null);
     Meteor.call('getUserProfileByID', function (err, result) {
