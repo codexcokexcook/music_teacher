@@ -18,6 +18,13 @@ import {
 } from '/imports/functions/checkboxes_recall.js'
 
 Template.menu_card.onRendered(function(){
+
+  // menu card for manage menus screen
+  if (FlowRouter.getRouteName() !== 'Main') {
+    this.$('.switch_wrapper').unwrap();
+    this.$('.card-action').remove();
+  }
+
   $('div.modal').scrollTop(0);
   this.$('.dropdown-button').dropdown({
     inDuration: 300,
