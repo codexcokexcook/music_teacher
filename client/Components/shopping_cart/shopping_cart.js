@@ -380,7 +380,7 @@ function order_record_insert(array_value) {
     var cart_id = cart_details._id
     var buyer_id = Meteor.userId()
     var serving_address = Session.get('serving_address')
-    var quantity = cart_details.quantity;
+    var quantity = parseInt($('#' + cart_id + '_quantity').val());
     var serving_option = cart_details.serving_option;
 
     if (serving_option === 'Pick-up' || serving_option === 'Dine-in') {
