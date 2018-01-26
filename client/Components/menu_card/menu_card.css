@@ -20,18 +20,12 @@
 #carousel_wrapper {
   width: 290px !important;
   height: 290px !important;
+  border-radius: 20px 20px 0px 0px;
 }
 .menu_image_display {
-  margin: 17px;
-  width: 256px;
-  height: 256px;
-  border-radius: 50%;
-  /* border: 0.5px solid grey;*/
-  margin-left: auto;
-  margin-right: auto;
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  height: 290px;
+  width: 100%;
+  background-size: cover;
 }
 
 /** Pinterest way to display card **/
