@@ -1,12 +1,34 @@
 <template name='show_room'>
   <div class = "show_room_wrapper">
-    <div class="card_container" id="show_room">
-      {{> show_room_dish}}
-      {{> show_room_menu}}
-      {{> show_room_chef}}
+    <br>
+    <div class = 'section'>
+      <h5 class='black-text' style='font-weight: bold;'>Dishes</h5>
+      <p>A quick bite that is suitable for a busy date</p>
+      <div class = 'divider'></div>
+      <div class="card_container" id="show_room">
+        {{> show_room_dish}}
+      </div>
     </div>
-    <div class = "map_wrapper">
-      {{> mapcard}}
+    <br>
+    <div class = 'section'>
+      <h5 class='black-text' style='font-weight: bold;'>Menus</h5>
+      <p>A meal that comes with different dishes, perfect for dine-in and special experience with friends and family</p>
+      <div class = 'divider'></div>
+      <div class="card_container" id="show_room">
+        {{> show_room_menu}}
+      </div>
+    </div>
+    <br>
+    <div class = 'section'>
+      <h5 class='black-text' style='font-weight: bold;'>Kitchens</h5>
+      <p>A collection of our homecooks. Find out more about their stories and offerings.</p>
+      <div class = 'divider'></div>
+      <div class="card_container" id="show_room">
+        {{> show_room_chef}}
+      </div>
+      <div class = "map_wrapper">
+        {{> mapcard}}
+      </div>
     </div>
   </div>
   <div class = "modal large_dish_display" id="large_dish_display">
