@@ -7,7 +7,7 @@ import { search_distinct_in_shopping_cart } from '/imports/functions/shopping_ca
 import { search_distinct_for_delivery_in_shopping_cart } from '/imports/functions/shopping_cart.js'
 import { search_distinct_in_shopping_cart_seller_specific } from '/imports/functions/shopping_cart.js'
 
-
+/**
 Template.shopping_cart_card.helpers({
   'check_shopping_cart': function () {
     return Shopping_cart.findOne({ "buyer_id": Meteor.userId() })
@@ -339,7 +339,7 @@ function order_record_insert(array_value) {
 
   //check card details
 
-  amount = Session.get('cart_total_price') * 100 /**need modify**/
+  amount = Session.get('cart_total_price') * 100 /**need modify 
   profile_details = Profile_details.findOne({ user_id: Meteor.userId() })
 
 
@@ -462,3 +462,4 @@ function order_record_insert(array_value) {
       FlowRouter.go('/orders_tracking');
     }
   });
+**/
