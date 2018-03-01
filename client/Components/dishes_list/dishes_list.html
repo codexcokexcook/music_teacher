@@ -15,11 +15,11 @@
       <h6>${{dish_selling_price}}</h6>
       {{> rating_display}}
     </div>
-    <div class = "card-action">
+    <!--<div class = "card-action">
       <div class = "center">
         <a class="waves-effect waves-light btn red lighten-2" id="place_order"  style="width:65%;">Order</a>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -59,10 +59,11 @@
           {{> rating_price_info}}
         </div>
       </div>
-
+      <!--
       <div class = "card-action" id="dish_card_action">
         <a id='place_order' class="waves-effect waves-light btn red lighten-2" style="width:100%;">Order</a>
       </div>
+    -->
     </div>
   </div>
 </template>
@@ -100,7 +101,7 @@
 </template>
 
 <template name="location_time_info">
-  <p>Chef location: <strong>3 km</strong> |  Ready in: <strong>{{cooking_time}} mins</strong></p>
+  <p>Ready in: <strong>{{cooking_time}} mins</strong></p>
 </template>
 
 <template name="service_info">

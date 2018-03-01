@@ -8,7 +8,7 @@
 
 .display_menu_details {
   width: 707px !important;
-  min-height: 590px !important;
+  height: 527px !important;
   padding: 0px!important;
   /*overflow: hidden!important;*/
   border-radius: 20px!important;
@@ -16,7 +16,11 @@
   margin-bottom: 0;
 }
 
-@media (max-width: 869px) {
+.show_room_wrapper {
+  margin: 24px;
+}
+
+@media (max-width: 644px) {
   #show_room {
     width: 290px;
     display: inline-block;
@@ -28,14 +32,13 @@
   }
 }
 /** Pinterest way to display card **/
-@media(min-width: 870px) {
+@media(min-width: 940px) {
   .show_room_wrapper {
     width: 100vw;
-    padding: 0 24px 0 24px;
     overflow: hidden;
   }
   #show_room {
-    width: 592px;
+    width: 882px;
     z-index: 1;
     display: inline-block;
   }
@@ -45,14 +48,13 @@
   }
 }
 
-@media(min-width:1220px) {
+@media(min-width:1236px) {
   .show_room_wrapper {
     width: 100vw;
-    padding: 0 24px 0 24px;
     overflow: hidden;
   }
   #show_room {
-    width: 930px;
+    width: 1178px;
     display: inline-block;
   }
   .map_wrapper {
@@ -62,14 +64,13 @@
   }
 }
 
-@media(min-width:1522px) {
+@media(min-width:1532px) {
   .show_room_wrapper {
     width: 100vw;
-    padding: 0 24px 0 24px;
     overflow: hidden;
   }
   #show_room {
-    width: 1232px;
+    width: 1474px;
     display: inline-block;
   }
   .map_wrapper {
@@ -79,14 +80,13 @@
   }
 }
 
-@media(min-width:1824px) {
+@media(min-width:1828px) {
   .show_room_wrapper {
     width: 100vw;
-    padding: 0 24px 0 24px;
     overflow: hidden;
   }
   #show_room {
-    width: 1534px;
+    width: 1770px;
     display: inline-block;
   }
   .map_wrapper {
