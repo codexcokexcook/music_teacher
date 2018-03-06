@@ -5,8 +5,7 @@ import { check } from 'meteor/check';
 
 Order_record = new Mongo.Collection('order_record');
 
-/**
-  Meteor.methods({
+Meteor.methods({
   'chargeCard': function(stripeToken, amount, description) {
     check(stripeToken, String);
     check(amount, Match.Any);
@@ -144,4 +143,3 @@ Order_record = new Mongo.Collection('order_record');
 
 
 });
-**/
