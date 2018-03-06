@@ -1,24 +1,3 @@
-/* CSS declarations go here */
-
-.left24px{
-  margin-left:24px;
-}
-
-.top24px{
-  margin-top:24px;
-}
-
-
-.button{
-float:right;
-}
-
-.left{
-float: left;
-margin-left: 0px;
-padding: 0px;
-}
-
 @media (max-width: 420px) {
   .modal {
     border-radius: 0px !important;
