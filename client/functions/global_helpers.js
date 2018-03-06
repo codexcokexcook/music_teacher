@@ -28,11 +28,7 @@ Images = new FilesCollection({
   }
 });
 
-
 /* Meteor.startup(function() {
-
-Meteor.startup(function() {
-
     Stripe.setPublishableKey('pk_test_G9LJfGcn9zGEmQuMwc7bqGQF');
 }); */
 
@@ -41,10 +37,7 @@ Meteor.startup(function() {
       key: 'pk_test_G9LJfGcn9zGEmQuMwc7bqGQF',
       token: function(token) {}
     });
-});
-
-});
-**/
+}); */
 
 Collections = {
   'Dishes': Dishes,
