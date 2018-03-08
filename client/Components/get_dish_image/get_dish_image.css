@@ -1,8 +1,6 @@
 .img_wrapper {
-    height: 290px;
-    width: 100%!important;
+    height: 50px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    border-radius: 20px 20px 0 0;
 }
