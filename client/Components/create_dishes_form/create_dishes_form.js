@@ -948,7 +948,14 @@ Template.create_dishes_form.events({
       Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name, dish cost and selling price to save", 6000, 'rounded red lighten-2');
     } else {
       var dish_description = event.target.dish_description.value;
-      var cooking_time = event.target.cooking_time.value;
+      var days = event.target.days.value;
+      var hours = event.target.hours.value;
+      var mins = event.target.mins.value;
+      var cooking_time = (parseInt(days) * 24 * 60) + (parseInt(hours) * 60) + parseInt(mins);
+      if (cooking_time === 0) {
+        Materialize.toast("Cooking time must greater than 0 mins", 6000, 'rounded red lighten-2');
+        return true;
+      }
       var dish_profit = dish_selling_price - dish_cost;
       // Ingredients_temporary.find({}).forEach(function(doc) {
       //   Ingredients.insert(doc);
@@ -961,7 +968,7 @@ Template.create_dishes_form.events({
       list_ingredients.forEach(function(doc){
         Ingredients.insert(doc);
       });
-      Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tags'), cooking_time,
+      Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tags'), cooking_time, days, hours, mins,
         dish_cost, dish_selling_price, dish_profit, Session.get('allergy_tags'), Session.get('dietary_tags'), Session.get('cuisines_tags'), Session.get('proteins_tags'),
         Session.get('categories_tags'), Session.get('cooking_methods_tags'), Session.get('tastes_tags'), Session.get('textures_tags'), Session.get('vegetables_tags'),
         Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, function(err){
@@ -1006,7 +1013,14 @@ Template.create_dishes_form.events({
     var user_id = Meteor.userId();
     var dish_name = $('#dish_name').val();
     var dish_description = $('#dish_description').val();
-    var cooking_time = $('#cooking_time').val();
+    var days = $('#days').val();
+    var hours = $('#hours').val();
+    var mins = $('#mins').val();
+    var cooking_time = (parseInt(days) * 24 * 60) + (parseInt(hours) * 60) + parseInt(mins);
+    if (cooking_time === 0) {
+      Materialize.toast("Cooking time must greater than 0 mins", 6000, 'rounded red lighten-2');
+      return true;
+    }
     var dish_cost = $('#dish_cost').val();
     var dish_selling_price = $('#dish_selling_price').val();
     var dish_profit = dish_selling_price - dish_cost;
@@ -1020,6 +1034,9 @@ Template.create_dishes_form.events({
       dish_description,
       Session.get('serving_option_tags'),
       cooking_time,
+      days,
+      hours,
+      mins,
       dish_cost,
       dish_selling_price,
       dish_profit,
