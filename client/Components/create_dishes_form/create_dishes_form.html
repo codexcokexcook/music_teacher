@@ -33,9 +33,58 @@
             <div class = "col l3 m12 s12">
               <h6>Cooking Time <small>(mins)</small></h6>
             </div>
-            <div class="input-field col l9 m12 s12">
-              <i class="material-icons prefix">av_timer</i>
-              <input id="cooking_time" name="cooking_time" type="number" min="0" value="{{cooking_time}}">
+
+            <div class="input-field col l9 m9 s9">
+              <div class="row">
+                  <!-- <i class="material-icons prefix">av_timer</i> -->
+                  <div class="input-field no-margin col s4">
+                    <span>Days</span>
+                    <select id="days" name="days" class="browser-default">
+                      <option value="0" disabled selected>Choose your days</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </div>
+                  <div class="input-field no-margin col s4">
+                      <span>Hours</span>
+                      <select id="hours" name="hours" class="browser-default">
+                        <option value="0" disabled selected>Choose your hours</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                    <div class="input-field no-margin col s4">
+                        <span>Mins</span>
+                        <select id="mins" name="mins" class="browser-default">
+                          <option value="0" disabled selected>Choose your mins</option>
+                          <option value="0">0</option>
+                          <option value="5">5</option>
+                          <option value="10">10</option>
+                          <option value="15">15</option>
+                          <option value="20">20</option>
+                          <option value="25">25</option>
+                          <option value="30">30</option>
+                          <option value="35">35</option>
+                          <option value="40">40</option>
+                          <option value="45">45</option>
+                          <option value="50">50</option>
+                          <option value="55">55</option>
+                        </select>
+                      </div>
+              </div>
+              <!-- <input id="cooking_time" name="cooking_time" type="number" min="0" value="{{cooking_time}}"> -->
+
             </div>
           </div>
           <div class="row add_ingredient">

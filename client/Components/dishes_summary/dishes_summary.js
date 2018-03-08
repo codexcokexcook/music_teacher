@@ -122,6 +122,25 @@ Template.dishes_summary.events({
       checkboxes_recall(get_dish.vegetables_tags);
       checkboxes_recall(get_dish.condiments_tags);
       checkboxes_recall(get_dish.serving_temperature_tags);
+      // Re-check all days, hours, mins select box
+      for(var i, j = 0; i = $('#days')[0].options[j]; j++) {
+          if(i.value == get_dish.days) {
+              $('#days')[0].selectedIndex = j;
+              break;
+          }
+      }
+      for(var i, j = 0; i = $('#hours')[0].options[j]; j++) {
+          if(i.value == get_dish.hours) {
+              $('#hours')[0].selectedIndex = j;
+              break;
+          }
+      }
+      for(var i, j = 0; i = $('#mins')[0].options[j]; j++) {
+          if(i.value == get_dish.mins) {
+              $('#mins')[0].selectedIndex = j;
+              break;
+          }
+      }
       // Store all the values in Sessions
       Session.set('selected_dishes_id',get_dish._id);
       Session.set('image_id',get_dish.image_id);
