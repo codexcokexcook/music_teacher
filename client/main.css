@@ -6,6 +6,10 @@ h1, h2, h3, h4, h5, h6 {
     color: #E57373;
 }
 
+html {
+  height: 70vh;
+}
+
 body {
   font-family: 'Quicksand', sans-serif;
   color: rgba(0,0,0,0.54);

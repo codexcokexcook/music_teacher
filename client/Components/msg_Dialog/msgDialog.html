@@ -1,8 +1,13 @@
 <template name="screen">
+  <header>
     {{> navbar}}
-  <div class = "render_component">
-    {{> Template.dynamic template = render_component}}
-  </div>
+  </header>
+  <main>
+    <div class = "render_component">
+      {{> Template.dynamic template = render_component}}
+    </div>
+  </main>
+  {{>footer}}
 </template>
 
 <template name="msgDialog_navbar">

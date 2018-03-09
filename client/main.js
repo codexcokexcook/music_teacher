@@ -4,6 +4,7 @@ Meteor.startup(function() {
   Notification.requestPermission()
 
   GoogleMaps.load({
+    v: '3',
     key: 'AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac'
   });
 
