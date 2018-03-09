@@ -85,14 +85,7 @@
 }
 
 #thumbnail_img_wrapper {
-  width: 100%;
-  height: 290px;
-}
-
-#thumbnail_img_wrapper > div{
-  width: 100%;
-  height: 290px;
-  border-radius: 10px 10px 0px 0px;
+  height: 200px;
 }
 
 .no_display {
