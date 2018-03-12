@@ -9,6 +9,7 @@ Template.landing_page.onRendered(function() {
   $('body').css('overflow-y', 'hidden');
   window.onload = function(){
     $('body').css('overflow-y', 'scroll');
+    $( "body" ).scrollTop(0);
     $('.loader-wrapper').fadeOut('slow');
   }
 });
