@@ -2,70 +2,81 @@
   font-family: "Montserrat", cursive, sans-serif;
 }
 
-.landing_1{
-  height:100vh;
-  width:auto;
-  background-image: url("/landing_page/Landing_1.jpg");
+.landing_1 {
+  height: 100vh;
+  width: auto;
+  background-image: url("landing_page/Landing_1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background-position: 35%;
 }
 
-
-.navigation{
-  width: 100vw;
+.navigation {
+  width: 100%;
   height: 40vh;
-
 }
 
-.logo{
-  width: 108px;
-  margin-top:20px;
-  margin-left:15px;
-  padding-top:0px;
+.navigation div {
+  height: 40vh;
+}
+
+.logo {
+  width: 30%;
+  margin-top: 20px;
+  margin-left: 15px;
+  padding-top: 0px;
+}
+
+.login_icon {
+  width: 5%;
+  margin-top: 30px;
+  float: right;
+}
+
+.login {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5vw;
+  margin-top: 30px;
+  margin-right: 0.5vw;
+  float: right;
+  margin-left: 10px;
 }
 
 @media only screen and (max-width: 600px) {
-  .logo{
-    width: 103px;
-    margin-top:20px;
-    margin-left:15px;
-    padding-top:0px;
+  .logo {
+    width: 60%;
+    margin: 0px;
+    margin-top: 20px;
+  }
+  .login {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-right: 0.5vw;
+    float: right;
+    margin-left: 10px;
+  }
+  .login_icon {
+    width: 15%;
+    margin-top: 30px;
+    float: right;
   }
 }
 
-.login_icon{
- width:3vw;
- margin-top: 20px;
- float:left;
-
-}
-
-.login{
-color: white;
-text-decoration: none;
-font-size:1.5vw;
-margin-top: 30px;
-margin-right: 0.5vw;
-float: left;
-margin-left: 10px;
-}
-
-
-
 .slogan p {
   margin: 10px;
-  font-size:48px;
+  font-size: 68px;
   color: white;
   text-align: right;
   font-weight: bold;
-  margin-right:20px;
+  margin-right: 20px;
 }
 
-.slogan{
-  width: 100vw;
-  height: 10vh;
+.slogan {
+  width: 100%;
 }
 
 .button {
@@ -80,41 +91,44 @@ margin-left: 10px;
   padding-bottom: 10px;
   border-radius: 50px;
 }
-.join_us_now{
-
-}
 
 .signup {
-      background-color:#56AACD;
-      color: white;
-      text-align: center;
-      display: inline-block;
-      font-size: 16px;
-      margin-top: 100px;
-      position:absolute;
-      right:30px;
+  background-color: #56AACD;
+  color: white;
+  text-align: right;
+  display: inline-block;
 }
 
 /*This is for introduction*/
-.intro_text{
-    font-size: 16px;
-    color: white;
-    text-align:justify;
+
+.intro_text {
+  font-size: 16px;
+  color: white;
+  text-align: justify;
 }
+
 @media only screen and (max-width: 600px) {
-  .intro_text{
-      font-size: 12px;
-    }
+  .intro_text {
+    font-size: 12px;
+  }
+  .slogan p {
+    margin: 10px;
+    font-size: 48px;
+    color: white;
+    text-align: right;
+    font-weight: bold;
+    margin-right: 20px;
+  }
 }
 
 .blueplate {
-    color: white;
-    font-weight: 2px;
-    text-align: left;
-    border-left-width: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-size: 36px;
+  color: white;
+  font-weight: 2px;
+  text-align: left;
+  border-left-width: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 36px;
 }
 
 .introduction {
@@ -122,80 +136,77 @@ margin-left: 10px;
   border-radius: 50px;
   margin-left: 10px;
   margin-right: 10px;
-  border:solid;
-  border-color:white;
+  border: solid;
+  border-color: white;
   border-width: 10px;
   margin-top: 150px;
   margin-bottom: 150px;
 }
+
 @media only screen and (max-width: 992px) {
-  .introduction{
+  .introduction {
     margin-top: 60px;
     margin-bottom: 60px;
   }
 }
 
 /*Do you love cooking*/
-.do_you_love{
+
+.do_you_love {
   background-color: #EEF6FA;
-  height:100vh;
+  min-height: 50vh;
+  overflow: hidden;
+}
+.right_dish {
+  padding-top: 15vh!important;
+  padding-left: 10vw!important;
 }
 
-.sign_me_up{
-  background-color:#56AACD;
+.sign_me_up {
+  background-color: #56AACD;
   color: white;
   text-align: center;
   display: inline-block;
   font-size: 16px;
-  margin-top: 20px;
-  margin-bottom:100px;
-  float:left;
-
-
+  margin-bottom: 100px;
+  float: left;
 }
 
-.text_1{
-  font-weight:400;
-  text-align:left;
-  color:#56AACD;
-  font-size:48px;
-  margin-top:100;
-  margin-top: 100px;
-  margin-bottom: 0px;
-
-}
-
-.text_2{
-  margin-bottom:10px;
-  font-weight:bold;
-  color:black;
-  font-size:48px;
-  margin-top: 0px;
-  text-align:left;
-}
-
-.text_3{
-  margin-right:20px;
-  margin-top:0px;
-  margin-bottom:10px;
+.text_1 {
+  font-weight: 400;
   text-align: left;
-  padding-left: 20px;
-  border-left-width: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
+  color: #56AACD;
+  font-size: 48px;
+  margin-top: 10vh;
+  margin-bottom: 0px;
 }
 
+.text_2 {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: black;
+  font-size: 48px;
+  margin-top: 0px;
+  text-align: left;
+}
+
+.text_3 {
+  margin-right: 20px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  text-align: left;
+}
 
 @media only screen and (max-width: 600px) {
-  .sign_me_up{
-  right:60px;
-  /*doesnt work*/
+  .sign_me_up {
+    right: 60px;
+    /*doesnt work*/
   }
-  .text_1{
-    text-align:center;
+  .text_1 {
+    text-align: center;
   }
-  .text_2{
-    text-align:center;
+  .text_2 {
+    text-align: center;
   }
   /*.text_3{
     text-align:center;
@@ -205,90 +216,92 @@ margin-left: 10px;
   /*doesnt work*/
 }
 
-
-@media only screen and (max-width: 600px) {
-
-}
-
-.rice{
+.rice {
   width: auto;
   position: absolute;
   left: -400px;
   height: 100vh;
-
 }
 
 .left-dish {
-  background: url('../public/landing_page/dish.png');
+  background: url(landing_page/dish.png);
+  height: 80vh;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: cover;
 }
 
 /*for red session*/
-.red_text{
+
+.red_text {
   font-size: 18px;
   color: #EA6055;
   font-weight: 500;
-  margin-top:25px;
+  margin-top: 25px;
   margin-bottom: 25px;
-  padding:0px;
+  padding: 0px;
 }
 
-.red_icon{
-  margin-top:25px;
+.red_icon {
+  margin-top: 25px;
   margin-bottom: 25px;
 }
 
-.kitchen{
+.kitchen {
   margin-left: 20px;
 }
 
-.table{
-  margin-left: 10px;
-}
-.harvest{
+.table {
   margin-left: 10px;
 }
 
-.content{
+.harvest {
+  margin-left: 10px;
+}
+
+.content {
   font-size: 16px;
   color: #EA6055;
   font-weight: 300;
   text-align: center;
   margin-right: 20px;
   margin-left: 20px;
-
 }
 
-.start_cooking{
+.start_cooking {
   background-color: #EA6055;
   color: white;
   text-align: center;
+  float: none!important;
   display: inline-block;
   font-size: 16px;
-  margin-left: 0px;
+  margin: 0px!important;
 }
 
 /*for the red photo*/
-.vet_photo{
-  height:100vh;
-  width:auto;
+
+.vet_photo {
+  height: 100vh;
+  width: auto;
   background-image: url("/landing_page/markus.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
-.changing{
+
+.changing {
   font-size: 48px;
   color: white;
   font-weight: bold;
   text-align: center;
-  margin-top: 180px;
-  margin-bottom: 180px
+  margin-top: 50vh;
 }
 
 /*for banana*/
-.banana{
-  height:100vh;
-  width:auto;
+
+.banana {
+  height: 100vh;
+  width: auto;
   background-image: url("/landing_page/banana.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -296,166 +309,170 @@ margin-left: 10px;
 }
 
 @media only screen and (max-width: 600px) {
-  .banana{
-    height:30vh;
+  .banana {
+    height: 30vh;
+  }
+  .left-dish {
+    display: none!important;
+  }
 }
-}
-.title{
+
+.title {
   font-size: 36px;
   color: #B1DBBE;
   font-weight: 500;
   text-align: left;
 }
 
-.detail{
+.detail {
   font-size: 14px;
-  color:black;
+  color: black;
   text-align: left;
-
 }
 
-
 @media only screen and (max-width: 600px) {
-  .title{
+  .title {
     font-size: 24px;
     color: #B1DBBE;
     font-weight: 500;
     text-align: center;
   }
-
-  .detail{
+  .detail {
     font-size: 14px;
-    color:black;
+    color: black;
     text-align: center;
     margin-bottom: 150px;
   }
-  .invisible{
+  .invisible {
     display: none;
-}
-
+  }
 }
 
 /*for the grenery*/
-.wall{
-  height:100vh;
-  width:auto;
+
+.wall {
+  height: 100vh;
+  width: auto;
   background-image: url("/landing_page/wall.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
+
 @media only screen and (max-width: 600px) {
-  .wall{
-    height:200px;
-}
+  .wall {
+    height: 200px;
+  }
 }
 
 /*for the vetetable*/
-.green{
-  height:100vh;
-  width:auto;
+
+.green {
+  height: 100vh;
+  width: auto;
   background-image: url("/landing_page/green.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
-  @media only screen and (max-width: 600px) {
-    .green{
-      height:200px;
+
+@media only screen and (max-width: 600px) {
+  .green {
+    height: 200px;
   }
-  }
+}
 
 /*this is for the hambuger*/
-  .her{
-    height:100vh;
-    width:auto;
-    background-image: url("/landing_page/chef.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+
+.her {
+  height: 100vh;
+  width: auto;
+  background-image: url("/landing_page/chef.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@media only screen and (max-width: 600px) {
+  .her {
+    height: 200px;
   }
-    @media only screen and (max-width: 600px) {
-  .her{
-        height:200px;
-    }
-    }
+}
 
 /*this is for the hand*/
-.hand{
-  height:100vh;
-  width:auto;
+
+.hand {
+  height: 100vh;
+  width: auto;
   background-image: url("/landing_page/hand.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
-.i_am_ready{
+.i_am_ready {
   background-color: #B1DBBE;
   color: white;
-  float: left;
+  margin: 0px;
 }
-  @media only screen and (max-width: 600px) {
-.hand{
-      height:200px;
+
+@media only screen and (max-width: 600px) {
+  .hand {
+    height: 200px;
   }
-.i_am_ready{
-    margin-left: 50px;
+  .i_am_ready {
+    float: none!important;
+    display: table;
+    margin: 0px auto;
   }
 }
 
 /*for organge session*/
-.org_icon{
-  margin-top:25px;
+
+.org_icon {
+  margin-top: 25px;
   margin-bottom: 25px;
-  float:right;
+  float: left;
 }
 
-  @media only screen and (max-width: 600px) {
-.detail.upper{
-  display:none;
-}
-
+@media only screen and (max-width: 600px) {
+  .detail.upper {
+    display: none;
   }
-
-  @media only screen and (min-width: 601px) {
-.detail.under{
-display:none;
-
+  .detail-title {
+    margin-top: 40px;
+    font-size: 18px;
+  }
 }
+
+@media only screen and (min-width: 601px) {
+  .detail.under {
+    display: none;
+  }
 }
 
 /*for 3steps*/
 
-.org_content{
+.org_content {
   text-align: left;
   padding-bottom: 80px;
   margin-bottom: 0;
-
 }
 
-.org_title{
-color:#EEAB21;
-font-size:18px;
-text-align: left;
-font-weight: 500;
+.org_title {
+  color: #EEAB21;
+  font-size: 18px;
+  text-align: left;
+  font-weight: 500;
 }
-
 
 .wrapper {
   border: 3px solid #EEAB21;
   border-radius: 30px;
-  width: 50%;
   margin-top: 50px;
-  padding: 10px 20px 30px 20px;
   position: relative;
-  height: 326px;
-}
-
-@media only screen and (max-width: 600px) {
-.wrapper{
-  height:232px;
-}
+  transform: scale(0.95);
+  min-height: 200px!important;
 }
 
 .wrapper .number {
@@ -466,13 +483,13 @@ font-weight: 500;
   top: -60px;
 }
 
-.bow{
+.bow {
   background-image: url("/landing_page/bow.jpg");
-  height:570px;
+  height: 570px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  margin-top:80px;
+  margin-top: 80px;
 }
 
 .footer {
@@ -480,41 +497,37 @@ font-weight: 500;
   height: 30px;
 }
 
-.first{
+.first {
   margin-left: 60px;
 }
 
-.last_call{
-  margin-bottom:20px;
-  margin-top:200px;
+.last_call {
+  margin-bottom: 20px;
+  margin-top: 200px;
   text-align: left;
 }
 
-.start_now{
+.start_now {
   margin-right: 0px;
   position: absolute;
   left: 8.4vw;
-
-
 }
+
 @media only screen and (max-width: 600px) {
-.last_call{
-  text-align: center;
-  margin-bottom: 0px;
-  font-weight:450;
-  margin-top: 50px;
-}
-
-.first{
-  margin-left: 20px;
-}
-
-.bow{
-  height: 570px;
-}
-.start_now{
-  position: absolute;
-  left: 30vw;
-
-}
+  .last_call {
+    text-align: center;
+    margin-bottom: 0px;
+    font-weight: 450;
+    margin-top: 50px;
+  }
+  .first {
+    margin-left: 20px;
+  }
+  .bow {
+    height: 570px;
+  }
+  .start_now {
+    position: absolute;
+    left: 30vw;
+  }
 }
