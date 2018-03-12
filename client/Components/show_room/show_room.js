@@ -3,9 +3,21 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { Meteor } from 'meteor/meteor';
-import { navbar_find_by } from '/imports/functions/find_by.js'
+import { navbar_find_by } from '/imports/functions/find_by.js';
+
+// integrate reactjs
+import React from 'react';
+import { render } from 'react-dom';
+
+// import for show room react component
+import App from '../../imports/ui/show_room.js';
 
 Template.show_room.onRendered(function(){
+
+
+  // render show room container from REACT
+  render(<App />, document.getElementById('show_room_container'));
+  
   $('.map_wrapper').pushpin({
     top: 0,
     bottom: 1500,

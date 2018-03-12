@@ -12,6 +12,8 @@
     "chart.js": "^2.7.1",
     "materialize-css": "^0.99.0",
     "meteor-node-stubs": "~0.2.4",
-    "react-chartjs-2": "^2.6.4"
+    "react": "^16.2.0",
+    "react-chartjs-2": "^2.6.4",
+    "react-dom": "^16.2.0"
   }
 }
