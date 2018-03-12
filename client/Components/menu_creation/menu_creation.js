@@ -45,11 +45,11 @@ Template.menu_initiation.events({
               Blaze.render(Template.menu_creation_content, document.getElementById('card_container'));
               Blaze.remove(Template.instance().view);
             } else {
-              Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
+              Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded bp-green');
               $('.modal-overlay').click(); // trick close popup modal
             }
           } else {
-            Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
+            Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded bp-green');
             $('.modal-overlay').click(); // trick close popup modal
           }
         }
@@ -125,10 +125,10 @@ Template.menu_creation_content.events({
     var image_id = [];
     if (typeof dishes_id !== 'undefined') {
       if (dishes_id.length == 0) {
-        Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded red lighten-2');
+        Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded bp-green');
       }
     } else {
-      Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded red lighten-2');
+      Materialize.toast('<strong>Menu creation failed</strong>: Menu must has least 1 dish', 8000, 'rounded bp-green');
     }
 
     //remove 'on' problem
@@ -154,11 +154,11 @@ Template.menu_creation_content.events({
         dishes_id,
         image_id,
         function(err) {
-            if (err) Materialize.toast('Oops! Error when create your menu. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
+            if (err) Materialize.toast('Oops! Error when create your menu. Please try again. ' + err.message, 4000, 'rounded bp-green');
         }
       );
     } else {
-      Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');
+      Materialize.toast('<strong>Menu creation failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded bp-green');
     }
     // this template is reused in a modal setting, the followig is the check
     // whether this template render location is on a modal or not.
@@ -324,14 +324,14 @@ Template.edit_content.events({
     if (menu_name && menu_selling_price && dishes_id) {
       Meteor.call('menu.update',menu_id, menu_name, menu_selling_price, min_order, lead_hours,lead_days, serving_option, dishes_id, image_id, function(err){
           if (err) {
-            Materialize.toast('Oops! Error when update your menu. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
+            Materialize.toast('Oops! Error when update your menu. Please try again. ' + err.message, 4000, 'rounded bp-green');
           } else {
-            Materialize.toast('Menu updated!', 4000, 'rounded red lighten-2');
+            Materialize.toast('Menu updated!', 4000, 'rounded bp-green');
           }
       });
       $('div.modal').scrollTop(0);
     } else {
-      Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded red lighten-2');
+      Materialize.toast('<strong>Menu update failed</strong>: You are missing either menu name, selling price, or at least a dish in the menu', 8000, 'rounded bp-green');
       $('div.modal').scrollTop(0);
     }
     if($('.carousel').hasClass('initialized')) {

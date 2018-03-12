@@ -508,7 +508,7 @@ Template.create_foodie_profile.events({
       bank_address_country,
       bank_address,
       function(err) {
-        if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
+        if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded bp-green');
       }
     );
 
@@ -534,7 +534,7 @@ Template.create_foodie_profile.events({
     card_exp_month,
     card_exp_year,
     function(err) {
-      if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded bp-green');
          else {
           Materialize.toast('Profile created!', 4000);
           //divert to the profile page
@@ -610,7 +610,7 @@ Template.create_foodie_profile.events({
         bank_address_country,
         bank_address,
         function(err) {
-          if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
+          if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded bp-green');
         }
         );
 
@@ -636,7 +636,7 @@ Template.create_foodie_profile.events({
           card_exp_month,
           card_exp_year,
         function(err) {
-          if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
+          if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded bp-green');
 
 
 else  {
