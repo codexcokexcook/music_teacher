@@ -39,7 +39,7 @@ Template.dishes_summary.events({
             } else {
               //$('#add_dish_modal').hide();
               $('.modal-overlay').last().remove();
-              Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
+              Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded bp-green');
               setTimeout(function(){
                   $('.modal-overlay').last().fadeOut();
                   $('.modal-overlay').last().remove();
@@ -48,7 +48,7 @@ Template.dishes_summary.events({
           } else {
             $('#add_dish_modal').hide();
             $('.modal-overlay').last().remove();
-            Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded red lighten-2');
+            Materialize.toast('Please complete your homecook profile before do this action.', 4000, 'rounded bp-green');
             setTimeout(function(){
                 $('.modal-overlay').last().fadeOut();
                 $('.modal-overlay').last().remove();
@@ -80,10 +80,10 @@ Template.dishes_summary.events({
 
     //Validation of dish selection checkbox
     if (!selected_dishes || selected_dishes.length === 0) {
-      Materialize.toast("Please select a dish you'd like to edit", 4000, 'rounded red lighten-2');
+      Materialize.toast("Please select a dish you'd like to edit", 4000, 'rounded bp-green');
       return false;
     } else if ( selected_dishes.length > 1 )  {
-      Materialize.toast("Ops! You can't choose more than 1 dish to edit, please try again", 4000, 'rounded red lighten-2');
+      Materialize.toast("Ops! You can't choose more than 1 dish to edit, please try again", 4000, 'rounded bp-green');
       return false;
     } else {
       // var selected_dishes = Session.get('selected_dishes_id');
@@ -165,7 +165,7 @@ Template.dishes_summary.events({
       selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
     }
     if (!selected_dishes || selected_dishes.length === 0) {
-      Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded red lighten-2');
+      Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded bp-green');
     } else {
       event.preventDefault();
         $('#confirm_multi_delete').modal({
@@ -191,20 +191,20 @@ Template.dishes_summary.events({
       selected_dishes = selected_dishes.filter(function(a){return a !== "on"})
     }
     if (!selected_dishes || selected_dishes.length === 0) {
-      Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded red lighten-2');
+      Materialize.toast("Please select a dish you'd like to delete", 4000, 'rounded bp-green');
     } else {
       for (i = 0; i < selected_dishes.length; i++) {
         var dish_details = Dishes.findOne({_id: selected_dishes[i]});
         if (dish_details.image_id) {
           Meteor.call('dish_image.remove',dish_details.image_id, function(err) {
-              if (err) Materialize.toast('Oops! Error when remove dish images. Please try again. ' + err.message, 4000, "rounded red lighten-2");
+              if (err) Materialize.toast('Oops! Error when remove dish images. Please try again. ' + err.message, 4000, "rounded bp-green");
           });
         }
         var delete_message = dish_details.dish_name + " deleted";
         Materialize.toast(delete_message, 3000);
         Meteor.call('dish.remove', selected_dishes[i], function(err){
           if (err) {
-            Materialize.toast('Oops! Error when delete dish. Please try again. ' + err.message , 4000, "rounded red lighten-2");
+            Materialize.toast('Oops! Error when delete dish. Please try again. ' + err.message , 4000, "rounded bp-green");
           } else {
             Meteor.call('menu.checkDish', selected_dishes[i], function(err, result) {
               if (result) {

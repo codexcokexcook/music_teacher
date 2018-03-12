@@ -156,7 +156,7 @@ Template.navbar.events({
  },
  'click #logout_link': function () {
    Meteor.call('messages.clear', Meteor.userId(), function(err) {
-     if (err) Materialize.toast('Oops! Error when clearing message. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
+     if (err) Materialize.toast('Oops! Error when clearing message. Please try again. ' + err.message, 4000, 'rounded bp-green');
    });
    Session.keys = {}
    localStorage.setItem("loggedIn", false);
