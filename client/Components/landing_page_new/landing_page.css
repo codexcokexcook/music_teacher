@@ -172,7 +172,7 @@
 .landing_1 {
   height: 100vh;
   width: auto;
-  background-image: url("landing_page/Landing_1.jpg");
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing10.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -411,7 +411,7 @@
 }
 
 .left-dish {
-  background: url(landing_page/dish.png);
+  background: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing6.png");
   height: 80vh;
   background-repeat: no-repeat;
   background-position: right;
@@ -439,6 +439,7 @@
 
 .table {
   margin-left: 10px;
+  padding-top: 23px;
 }
 
 .harvest {
@@ -471,7 +472,7 @@
 .vet_photo {
   height: 100vh;
   width: auto;
-  background-image: url("/landing_page/markus.jpg");
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing11.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -483,49 +484,24 @@
   font-size: 48px;
   color: white;
   font-weight: bold;
-  text-align: center;
-  margin-top: 50vh;
+  text-align: left;
+  margin-top: 40vh;
+  padding-right: 5vh; 
   line-height: 32px;
-  letter-spacing: 8px;
   position: relative;
-  cursor: pointer;
   line-height: 100px;
 }
 
-.changing:before {
-  content: " ";
-  width: 0%;
-  background-color: white;
-  height: 5px;
-  display: block;
-  position: absolute;
-  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.changing:after {
-  content: " ";
-  width: 0%;
-  background-color: white;
-  height: 5px;
-  display: block;
-  position: absolute;
-  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.changing:hover:before,
-.changing:hover:after {
-  width: 100%;
-}
 
 /*for banana*/
 
 .banana {
   height: 100vh;
   width: auto;
-  background-image: url("/landing_page/banana.jpg");
-  background-size: cover;
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing2.jpg");
+  background-size: auto 100%;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: left top;
   background-attachment: fixed;
 }
 
@@ -574,10 +550,10 @@
 .wall {
   height: 100vh;
   width: auto;
-  background-image: url("/landing_page/wall.jpg");
-  background-size: cover;
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing12.jpg");
+  background-size: auto 100%;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: left top;
   background-attachment: fixed;
 }
 
@@ -592,10 +568,10 @@
 .green {
   height: 100vh;
   width: auto;
-  background-image: url("/landing_page/green.jpg");
-  background-size: cover;
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing7.jpg");
+  background-size: auto 100%;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: left top;
   background-attachment: fixed;
 }
 
@@ -610,10 +586,10 @@
 .her {
   height: 100vh;
   width: auto;
-  background-image: url("/landing_page/chef.jpg");
-  background-size: cover;
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing5.jpg");
+  background-size: auto 100%;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: -600px 0px;
   background-attachment: fixed;
 }
 
@@ -628,10 +604,10 @@
 .hand {
   height: 100vh;
   width: auto;
-  background-image: url("/landing_page/hand.jpg");
-  background-size: cover;
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing8.jpg");
+  background-size: auto 100%;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: left top;
   background-attachment: fixed;
 }
 
@@ -709,7 +685,7 @@
 }
 
 .bow {
-  background-image: url("/landing_page/bow.jpg");
+  background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing4.jpg");
   height: 570px;
   background-size: cover;
   background-repeat: no-repeat;
