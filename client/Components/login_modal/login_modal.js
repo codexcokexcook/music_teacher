@@ -52,7 +52,6 @@ Template.login_modal.events({
           }
           else if (Meteor.user().emails[0].verified === true){
             $('#loginLoader').hide(); // show the loader
-            Bert.alert( 'Welcome!', 'success' );
             localStorage.setItem("loggedIn", true);
             FlowRouter.go("/main");
             $('#login_modal').modal('close');
