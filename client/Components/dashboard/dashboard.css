@@ -1,0 +1,5 @@
+.grid-container {
+  display: grid;
+  grid-gap: 16px;
+  background-color: #56AACD;
+}
