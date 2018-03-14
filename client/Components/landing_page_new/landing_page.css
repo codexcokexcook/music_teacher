@@ -316,12 +316,17 @@
   border-radius: 50px;
   margin-left: 10px;
   margin-right: 10px;
-  border: solid;
   border-color: white;
   border-width: 10px;
   margin-top: 150px;
   margin-bottom: 150px;
   padding: 20px !important;
+}
+
+.join_us_now{
+  background-color:white;
+  color:#56AACD;
+
 }
 
 @media only screen and (max-width: 992px) {
