@@ -98,3 +98,158 @@
     display: inline-block;
   }
 }
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.images-thumbnail {
+  width: 100%;
+  height: 115px;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.dish-title {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  margin: 10px 0px;
+}
+
+.fa-star.checked {
+  color: #56AACD;
+}
+
+.order-count {
+  color: #56AACD;
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.placeholder {
+  background-color: #f6f6f6;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: table;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.placeholder .blur {
+  filter: blur(50px);
+  transform: scale(1);
+}
+
+.placeholder .background {
+  opacity: 1;
+  top: 0;
+  left: 0;
+  display: table-cell;
+  transition: 0.5s linear;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: auto;
+}
+
+#modal_dish {
+  width: 100%!important;
+  height: 100%!important;
+  min-height: 100%!important;
+  top: 0%!important;
+}
+
+.dish-preview-banner {
+  height: 100vh;
+}
+
+.dish-preview-content {
+  min-height: 100vh!important;
+  padding: 30px 50px!important;
+}
+
+.dish-preview-navigation .title {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.dish-preview-navigation .price {
+  font-size: 28px;
+  color: #56AACD;
+}
+
+.dish-preview-navigation .qty {
+  font-size: 25px;
+  color: #56AACD;
+  margin-left: 100px;
+}
+
+.dish-preview-navigation .qty .decreaseQty {
+  font-size: 25px;
+  color: #56AACD;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.dish-preview-navigation .qty .increaseQty {
+  font-size: 25px;
+  color: #56AACD;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.dish-preview-navigation .qty .number {
+  font-size: 25px;
+  color: #56AACD;
+  margin: 0px 10px;
+}
+
+.dish-preview-navigation .rating-container {
+  margin-left: 40px;
+}
+
+.dish-preview-navigation .rating-container .fa-star {
+  font-size: 25px;
+}
+
+.dish-preview-navigation .order-count {
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.dish-preview-navigation .descrition {
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.close-modal {
+  font-size: 30px;
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.btn {
+  background-color: #56AACD;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  width: 100%;
+  font-weight: 300;
+}
