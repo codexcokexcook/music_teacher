@@ -109,7 +109,6 @@
 }
 
 
-/*#dish_descriptions {
-    width: 800px;
-    padding: 80px;
-}*/
+.no-margin {
+    margin-top: 0px;
+}
