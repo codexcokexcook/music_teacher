@@ -39,9 +39,9 @@ Template.landing_page.onRendered(function () {
   }
 });
 
-Template.landing_page.helpers({
-  'chef_signup': function() {
-    
+Template.landing_page.events({
+  'click .chef_signup': function() {
+    Session.set('chef_signup',true);
   }
 })
 
