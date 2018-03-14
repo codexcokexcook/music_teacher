@@ -471,6 +471,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
+  background-attachment: fixed;
 }
 
 .changing {
@@ -520,6 +521,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: fixed;
 }
 
 @media only screen and (max-width: 600px) {
@@ -571,6 +573,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: fixed;
 }
 
 @media only screen and (max-width: 600px) {
@@ -588,6 +591,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: fixed;
 }
 
 @media only screen and (max-width: 600px) {
@@ -605,6 +609,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: fixed;
 }
 
 @media only screen and (max-width: 600px) {
@@ -622,6 +627,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: fixed;
 }
 
 .i_am_ready {
@@ -704,6 +710,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   margin-top: 80px;
+  background-attachment: fixed;
 }
 
 .footer {
