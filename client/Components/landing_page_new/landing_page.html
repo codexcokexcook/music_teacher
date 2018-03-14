@@ -3,6 +3,8 @@
 </head>
 
 <template name="landing_page">
+  {{> login_modal}}
+  {{> signup_modal}}
 
   <div class="loader-wrapper">
     <div class="loader">
@@ -18,8 +20,10 @@
       </div>
       <div class="col s6 m6 l6">
         <div class="col s12 m12 l12">
-          <p class="login">log in</p>
-          <img class="login_icon" src="landing_page/login_icon.svg">
+          <a class = "modal-trigger" href="#login_modal">
+            <p class="login">log in</p>
+            <img class="login_icon" src="landing_page/login_icon.svg">
+          </a>
         </div>
       </div>
     </div>
@@ -31,7 +35,9 @@
 
     <div class="row">
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-        <button class="button signup">Sign up</button>
+        <a class = "modal-trigger" href="#signup_modal">
+          <button class="button signup">Sign up</button>
+        </a>
       </div>
     </div>
   </div>
@@ -45,7 +51,9 @@
         best and freshest food.</p>
       <p class="intro_text">Encouraging anyone to create and share outstanding, healthy and delicious dishes from a vast selection of ingredients
         with anyone, no matter when and where</p>
-      <button class=" button join_us_now"> Join us now</button>
+      <a class = "modal-trigger" href="#signup_modal">
+        <button class=" button join_us_now"> Join us now</button>
+      </a>
     </div>
   </div>
 
@@ -59,7 +67,9 @@
       <p class="text_2"> cooking?</p>
       <p classs="text_3">If you said yes, we want you to join blue plate!Become a home chef and share your signature meals and dishes with anyone,
         while earning some extra cash!</p>
-      <button class=" button sign_me_up" style="float: left;">sign me up</button>
+      <a class = "modal-trigger" href="#signup_modal">
+        <button class=" button sign_me_up" style="float: left;">sign me up</button>
+      </a>
     </div>
   </div>
 
@@ -114,7 +124,9 @@
 
   <div class="row">
     <div class="col s12 m12 l12" style="text-align: center">
-      <button class=" button start_cooking">start cooking</button>
+      <a class = "modal-trigger" href="#signup_modal">
+        <button class=" button start_cooking">start cooking</button>
+      </a>
     </div>
   </div>
 
@@ -205,7 +217,9 @@
       <div class="row" style="margin-left: 50px;margin-right: 50px;">
         <div class="col s12 m12 l12 xl12">
           <p class="title" style="margin-top: 40px;margin-bottom: 40px;">Join us in creating a greener, better and healthier world.</p>
-          <button class="button i_am_ready">i'm ready</button>
+          <a class = "modal-trigger" href="#signup_modal">
+            <button class="button i_am_ready">i'm ready</button>
+          </a>
         </div>
       </div>
     </div>
@@ -272,7 +286,9 @@
       </div>
       <div class="row">
         <div class="col">
-          <button class=" button sign_me_up start_now" style="margin-right:0px;">start now</button>
+          <a class = "modal-trigger" href="#signup_modal">
+            <button class=" button sign_me_up start_now" style="margin-right:0px;">start now</button>
+          </a>
         </div>
       </div>
     </div>
