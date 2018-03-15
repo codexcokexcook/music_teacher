@@ -91,14 +91,14 @@ Template.uploadForm.events({
               console.log(result);
             });
 
-            var sizes = {};
-
             //- declare some sizes
             var original = 'https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/original/' + Images.name;
             var large    = 'https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/' + Images.name;
             var medium   = 'https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/medium/' + Images.name;
             var small    = 'https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/' + Images.name;
 
+            //- add to sizes object
+            var sizes    = {};
             sizes.origin = original;
             sizes.large  = large;
             sizes.medium = medium;
@@ -117,19 +117,6 @@ Template.uploadForm.events({
 
         upload.start();
       };
-
-      //- get file path
-      // console.log('reader: ', reader);
-
-      // //- save image using kraken
-      // let sizes = {};
-      // sizes = saveToKraken();
-      // if(sizes.length > 0) //- if has data
-      // {
-      //   console.log(sizes);
-      // }
-
-
 
     }
   }

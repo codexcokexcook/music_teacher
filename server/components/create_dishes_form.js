@@ -262,9 +262,9 @@ Meteor.methods({
     online_status,
     deleted,
     //- insert the image different sizes
-    meta
+    imgMeta
   ) {
-    console.log('image meta data', meta);
+    console.log('image meta data', imgMeta);
     // check it before insert
     check(image_id, Match.Any);
     check(user_id, String); //unessesary, check per-per args but not ever exist
@@ -290,7 +290,7 @@ Meteor.methods({
     check(createdAt, Date);
     check(updatedAt, Date);
     //- checking meta data for image sizes
-    check(meta, Object);
+    check(imgMeta, Object);
 
     Dishes.insert({
       image_id: image_id,
@@ -324,7 +324,7 @@ Meteor.methods({
       average_rating: 0,
       deleted: false,
       //- insert meta data for image sizes
-      meta: meta,
+      meta: imgMeta,
     });
   }
 });
