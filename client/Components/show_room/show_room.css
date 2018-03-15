@@ -149,6 +149,12 @@
   color: #56AACD;
 }
 
+.fa-star.empty {
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #56AACD;
+}
+
 .order-count {
   color: #56AACD;
   padding-left: 10px;
