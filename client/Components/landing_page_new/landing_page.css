@@ -477,11 +477,37 @@
   font-weight: 400;
   text-align: center;
   margin-bottom: 60px;
+  padding-top:40px;
 }
-/*@media only screen and (max-width: 1025px){}
-.join{
- height:10vh;
-}*/
+
+.we_bring{
+  font-size: 24px;
+  color: #EA6055;
+  font-weight: 550;
+  text-align: center;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+  .content {
+ padding-top:0px;
+ margin-bottom: 0px;
+ margin-top: 10px;
+  }
+
+  .we_bring{
+  margin-bottom: 0px;
+  }
+
+  .red_icon.table{
+  margin-top: 20px;
+  }
+  .flexible{
+  }
+
+}
 
 
 @media only screen and (min-width: 1025px) {
@@ -526,7 +552,13 @@
   padding-left: 50px;
 }
 
-
+@media only screen and (max-width: 600px) {
+  .changing {
+  margin-top: 20vh;
+  text-align: center;
+  font-size:48px;
+  }
+}
 /*for banana*/
 
 .banana {
