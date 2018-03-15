@@ -284,7 +284,6 @@
 .intro_text {
   font-size: 16px;
   color: white;
-  text-align: justify;
   margin-top: 12px;
   margin-bottom: 6px;
 }
@@ -753,11 +752,12 @@
 
 .bow {
   background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing4.jpg");
-  height: 570px;
+  height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
+  margin-bottom: 0px;
 }
 
 .footer {
@@ -770,8 +770,7 @@
 }
 
 .last_call {
-  margin-bottom: 20px;
-  margin-top: 200px;
+  margin-top: calc(100vh-32px/2);;
   text-align: left;
   padding-left: 0px;
 }
