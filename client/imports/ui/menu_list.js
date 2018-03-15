@@ -10,7 +10,7 @@ import ChefAvatar from './chef_avatar';
 import { navbar_find_by } from './../../../imports/functions/find_by';
 
 // App component - represents the whole app
-class DishList extends Component {
+class MenuList extends Component {
 
   constructor(props) {
     super(props);
@@ -96,6 +96,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      dishes: Dishes.find({ kitchen_id: {$in: kitchen_id}, deleted: false, online_status: true }, { limit: 6 }).fetch(),
+      dishes: Menu.find({ kitchen_id: {$in: kitchen_id}, deleted: false, online_status: true }, { limit: 6 }).fetch(),
   };
-})(DishList);
+})(MenuList);

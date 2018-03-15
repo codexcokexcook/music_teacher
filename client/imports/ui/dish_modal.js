@@ -40,27 +40,16 @@ export default class DishModal extends Component {
     this.setState({
         qty: 1
     })
-    if (!this.props.item) {
+    
+    this.setState({
+        item: Session.get('selectedDish')
+    },() => {
+        $('#modal_dish').modal('open');
+        let dummyIngredients = Ingredients.find({ user_id: this.state.item.user_id, dish_name: this.state.item.dish_name }).fetch();
         this.setState({
-            item: Session.get('selectedDish')
-        },() => {
-            $('#modal_dish').modal('open');
-            let dummyIngredients = Ingredients.find({ user_id: this.state.item.user_id, dish_name: this.state.item.dish_name }).fetch();
-            this.setState({
-                ingredients: dummyIngredients
-            })
+            ingredients: dummyIngredients
         })
-    } else {
-        this.setState({
-            item: this.props.item
-        },() => {
-            $('#modal_dish').modal('open');
-            let dummyIngredients = Ingredients.find({ user_id: this.state.item.user_id, dish_name: this.state.item.dish_name }).fetch();
-            this.setState({
-                ingredients: dummyIngredients
-            })
-        })
-    }
+    })
   }
 
   renderIngredients = () => {
