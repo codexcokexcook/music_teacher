@@ -362,7 +362,7 @@ Template.edit_homecook_profile.onRendered(function() {
                   card_exp_month,
                   card_exp_year,
                   function(err) {
-                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded red lighten-2');
+                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded bp-green');
                   }
                 );
 
@@ -382,11 +382,11 @@ Template.edit_homecook_profile.onRendered(function() {
                   bank_address_country,
                   bank_address,
                   function(err) {
-                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded red lighten-2');
+                    if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded bp-green');
                   }
                 );
 
-      Materialize.toast('Profile updated!', 4000, "rounded red lighten-2")
+      Materialize.toast('Profile updated!', 4000, "rounded bp-green")
 
       //divert to the profile page
       // BlazeLayout.render('screen', {
