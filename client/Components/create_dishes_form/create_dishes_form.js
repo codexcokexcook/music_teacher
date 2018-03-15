@@ -198,7 +198,7 @@ Template.ingredient_input.events({
     var ingredient_unit = $('#ingredient_unit').val();
 
     if (!ingredient_name || ingredient_name == '' || !ingredient_quantity || ingredient_quantity == ''){
-      Materialize.toast('Please complete ingedient before add into dish.', 4000, 'rounded red lighten-2');
+      Materialize.toast('Please complete ingedient before add into dish.', 4000, 'rounded bp-green');
       return false;
     }
 
@@ -234,7 +234,7 @@ Template.ingredient_input.events({
     var ingredient_quantity = $('#ingredient_quantity').val();
     var ingredient_unit = $('#ingredient_unit').val();
     Meteor.call('ingredient.update', dish_name, Meteor.userId(), ingredient_name, ingredient_quantity, ingredient_unit, function(err) {
-      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded bp-green');
     });
 
     $('#ingredient_name').val("");
@@ -244,7 +244,7 @@ Template.ingredient_input.events({
 
   'click #delete_perm_ingredient': function(event) {
     Meteor.call('ingredient.remove', this._id, function(err) {
-      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded red lighten-2');
+      if (err) Materialize.toast('Error: ' + err.message, 4000, 'rounded bp-green');
     });
   },
 
@@ -945,10 +945,17 @@ Template.create_dishes_form.events({
     var dish_cost = event.target.dish_cost.value;
     var dish_selling_price = event.target.dish_selling_price.value;
     if (dish_name.trim().length == "" || dish_cost.trim().length == "" || dish_selling_price.trim().length == "") {
-      Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name, dish cost and selling price to save", 6000, 'rounded red lighten-2');
+      Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name, dish cost and selling price to save", 6000, 'rounded bp-green');
     } else {
       var dish_description = event.target.dish_description.value;
-      var cooking_time = event.target.cooking_time.value;
+      var days = event.target.days.value;
+      var hours = event.target.hours.value;
+      var mins = event.target.mins.value;
+      var cooking_time = (parseInt(days) * 24 * 60) + (parseInt(hours) * 60) + parseInt(mins);
+      if (cooking_time === 0) {
+        Materialize.toast("Cooking time must greater than 0 mins", 6000, 'rounded bp-green');
+        return true;
+      }
       var dish_profit = dish_selling_price - dish_cost;
       // Ingredients_temporary.find({}).forEach(function(doc) {
       //   Ingredients.insert(doc);
@@ -961,12 +968,12 @@ Template.create_dishes_form.events({
       list_ingredients.forEach(function(doc){
         Ingredients.insert(doc);
       });
-      Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tags'), cooking_time,
+      Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tags'), cooking_time, days, hours, mins,
         dish_cost, dish_selling_price, dish_profit, Session.get('allergy_tags'), Session.get('dietary_tags'), Session.get('cuisines_tags'), Session.get('proteins_tags'),
         Session.get('categories_tags'), Session.get('cooking_methods_tags'), Session.get('tastes_tags'), Session.get('textures_tags'), Session.get('vegetables_tags'),
         Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, function(err){
           if (!err) { // no error when create dishes
-            Materialize.toast('Nice! You have created a dish!', 4000, "rounded red lighten-2");
+            Materialize.toast('Nice! You have created a dish!', 4000, "rounded bp-green");
             // trigger click on close button
             Ingredients_temporary.remove({});
             event.target.dish_name.value = "";
@@ -989,7 +996,7 @@ Template.create_dishes_form.events({
             $('#add_dish_modal > div.modal-footer > a.modal-action.modal-close.waves-effect.waves-green.btn-flat')[0].click();
             return false;
           } else {
-            Materialize.toast('Oops! Error occur when create a dish. Please try again later.' + err.message, 4000, "rounded red lighten-2");
+            Materialize.toast('Oops! Error occur when create a dish. Please try again later.' + err.message, 4000, "rounded bp-green");
           }
         })
     }
@@ -1006,7 +1013,14 @@ Template.create_dishes_form.events({
     var user_id = Meteor.userId();
     var dish_name = $('#dish_name').val();
     var dish_description = $('#dish_description').val();
-    var cooking_time = $('#cooking_time').val();
+    var days = $('#days').val();
+    var hours = $('#hours').val();
+    var mins = $('#mins').val();
+    var cooking_time = (parseInt(days) * 24 * 60) + (parseInt(hours) * 60) + parseInt(mins);
+    if (cooking_time === 0) {
+      Materialize.toast("Cooking time must greater than 0 mins", 6000, 'rounded bp-green');
+      return true;
+    }
     var dish_cost = $('#dish_cost').val();
     var dish_selling_price = $('#dish_selling_price').val();
     var dish_profit = dish_selling_price - dish_cost;
@@ -1020,6 +1034,9 @@ Template.create_dishes_form.events({
       dish_description,
       Session.get('serving_option_tags'),
       cooking_time,
+      days,
+      hours,
+      mins,
       dish_cost,
       dish_selling_price,
       dish_profit,
@@ -1037,9 +1054,9 @@ Template.create_dishes_form.events({
       new Date(),
       function(err) {
         if (err) {
-          Materialize.toast('Oops! Error update dish. Please try again. ' + err.message, 4000, "rounded red lighten-2");
+          Materialize.toast('Oops! Error update dish. Please try again. ' + err.message, 4000, "rounded bp-green");
         } else {
-          Materialize.toast('Update successful.' , 4000, "rounded red lighten-2");
+          Materialize.toast('Update successful.' , 4000, "rounded bp-green");
         }
       }
     );

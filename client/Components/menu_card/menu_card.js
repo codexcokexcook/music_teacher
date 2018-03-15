@@ -68,12 +68,12 @@ Template.menu_card.events({
   'click #confirm_delete_menu': function() {
     Meteor.call('menu.delete', sessionStorage.getItem("deletedMenuID"), function(err, result){
       if (err) {
-          Materialize.toast('Error occur when delete the menu. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
+          Materialize.toast('Error occur when delete the menu. Please try again. ' + err.message, 4000, 'rounded bp-green');
       } else {
           if (result) { //delete done
-            Materialize.toast('Delete success!', 4000, 'rounded red lighten-2');
+            Materialize.toast('Delete success!', 4000, 'rounded bp-green');
           } else { //delete undone
-            Materialize.toast('Error occur when delete the menu. Please try again.', 4000, 'rounded red lighten-2');
+            Materialize.toast('Error occur when delete the menu. Please try again.', 4000, 'rounded bp-green');
           }
       }
     })
@@ -94,7 +94,7 @@ Template.menu_card.events({
     var foodie_id = Meteor.userId();
 
     if (typeof foodie_details == 'undefined' || foodie_details.foodie_name == '') {
-      Materialize.toast('Please complete your foodie profile before order.', 4000, 'rounded red lighten-2');
+      Materialize.toast('Please complete your foodie profile before order.', 4000, 'rounded bp-green');
     }
 
     var homecook_id = menu_details.user_id;
@@ -124,7 +124,7 @@ Template.menu_card.events({
       quantity,
       total_price_per_dish,
       function(err) {
-        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again. ' + err.message, 4000, 'rounded red lighten-2');
+        if (err) Materialize.toast('Oops! Error when update your shopping cart. Please try again. ' + err.message, 4000, 'rounded bp-green');
       }
     )
     }
@@ -142,11 +142,11 @@ Template.menu_card.events({
       quantity,
       menu_price,
       function(err) {
-        if (err) Materialize.toast('Oops! Error when add into shopping cart. Please try again. ' + err.message, 4000, "rounded red lighten-2");
+        if (err) Materialize.toast('Oops! Error when add into shopping cart. Please try again. ' + err.message, 4000, "rounded bp-green");
       }
       );
     }
-    Materialize.toast(menu_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "rounded red lighten-2")
+    Materialize.toast(menu_name + ' from ' + homecook_name + ' has been added to your shopping cart.', 4000, "rounded bp-green")
     $('.modal').modal();
     $('.modal').modal('close');
 

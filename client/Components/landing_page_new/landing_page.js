@@ -37,6 +37,28 @@ Template.landing_page.onRendered(function () {
 
     }, 1000);
   }
+
+  var options = [{
+    selector: '.banana',
+    offset: 200,
+    callback: function(el) {
+      Materialize.fadeInImage($(el));
+    }
+  }, {
+    selector: '.wall',
+    offset: 200,
+    callback: function(el) {
+      Materialize.fadeInImage($(el));
+    }
+    }, {
+    selector: '.green',
+    offset: 200,
+    callback: function(el) {
+      Materialize.fadeInImage($(el));
+    }
+  }];
+
+  Materialize.scrollFire(options);
 });
 
 Template.landing_page.events({
