@@ -708,6 +708,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
+  margin-bottom: 0px;
 }
 
 .footer {
