@@ -285,6 +285,13 @@
   font-size: 16px;
   color: white;
   text-align: justify;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.intro_text_wrapper {
+  margin-top: 11px;
+  margin-bottom: 11px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -303,36 +310,36 @@
 
 .blueplate {
   color: white;
-  font-weight: 2px;
+  font-weight: 600;
   text-align: left;
   border-left-width: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  line-height: 36px;
+  margin-bottom: 12px;
   font-size: 36px;
 }
 
 .introduction {
   background-color: #56AACD;
-  border-radius: 50px;
+  border-radius: 30px;
   margin-left: 10px;
   margin-right: 10px;
   border-color: white;
   border-width: 10px;
   margin-top: 150px;
   margin-bottom: 150px;
-  padding: 20px !important;
+  padding: 28px 41px 32px 41px !important;
 }
 
-.join_us_now{
+.join_us_now {
   background-color:white;
   color:#56AACD;
+  margin: 0px;
 
 }
 
 @media only screen and (max-width: 992px) {
   .introduction {
-    margin-top: 60px;
-    margin-bottom: 60px;
+    margin: 60px 10px 60px 10px;
   }
 }
 
