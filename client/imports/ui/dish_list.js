@@ -5,6 +5,7 @@ import { Session } from 'meteor/session';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
+import ChefAvatar from './chef_avatar';
 
 // App component - represents the whole app
 class DishList extends Component {
@@ -28,19 +29,22 @@ class DishList extends Component {
         <div key={index} className="col l2 m2 modal-trigger" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail">
             <ProgressiveImages
-              large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/medium/test2.jpg"
-              small="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/test2.jpg"
+              large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/medium/food1.jpg"
+              small="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/food1.jpg"
             />
+            <ChefAvatar userId={item.user_id} />
           </div>
           <div className="row no-margin text-left">
             <h5 className="dish-title">{ item.dish_name }</h5>
           </div>
-          <div className="row">
-            <div className="col l8 m8 dish-rating no-padding text-left">
+          <div className="row no-margin">
+            <div className="col l12 m12 dish-rating no-padding text-left">
               <Rating rating={item.average_rating}/>
               <span className="order-count">{ item.order_count }</span>
             </div>
-            <div className="col l4 m4 dish-price no-padding text-right">$ { item.dish_selling_price }</div>
+          </div>
+          <div className="row">
+            <div className="col l12 m12 dish-price no-padding text-left">$ { item.dish_selling_price }</div>
           </div>
 
         </div>
@@ -81,6 +85,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      dishes: Dishes.find({}, { limit: 6 }).fetch(),
+      dishes: Dishes.find({ deleted: false, online_status: true }, { limit: 6 }).fetch(),
   };
 })(DishList);

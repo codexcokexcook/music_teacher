@@ -120,14 +120,29 @@
   height: 115px;
   background-color: #ccc;
   border-radius: 5px;
+  position: relative;
+}
+
+.chef-avatar-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  bottom: -60px;
+  background-color: #ccc;
+  background-size: cover;
 }
 
 .dish-title {
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 15px;
   margin: 10px 0px;
+  padding-right: 35%;
+}
+
+.dish-price {
+  color: #56AACD;
+  font-size: 18px;
 }
 
 .fa-star.checked {
@@ -252,4 +267,74 @@
   font-size: 18px;
   width: 100%;
   font-weight: 300;
+}
+
+.dish-preview-information h5 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 20px;
+}
+
+.dish-preview-list-ingredient {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  font-size: 18px;
+  margin: 10px 0px;
+}
+
+.dish-preview-list-ingredient li {
+  margin: 10px 0px;
+  width: 100%;
+}
+
+.dish-preview-list-ingredient .name {
+  float: left;
+  display: inline;
+}
+
+.dish-preview-list-ingredient .qty {
+  float: right;
+}
+
+.dish-preview-list-ingredient .unit {
+  float: right;
+}
+
+.dish-preview-list-allergies {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  margin-top: 20px;
+}
+
+.dish-preview-list-allergies li {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  width: auto;
+  padding: 2px 15px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  float: left;
+}
+
+.dish-preview-list-tags {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  margin-top: 20px;
+}
+
+.dish-preview-list-tags li {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  width: auto;
+  padding: 2px 15px;
+  margin-right: 10px;
+  float: left;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }

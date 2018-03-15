@@ -28,3 +28,7 @@ Meteor.publish('theDishes', function(){
 Meteor.publish('theMenu', function(){
   return Menu.find();
 });
+
+Meteor.publish('theIngredients', function(){
+  return Ingredients.find();
+});

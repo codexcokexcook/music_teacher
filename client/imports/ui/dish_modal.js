@@ -13,7 +13,8 @@ export default class DishModal extends Component {
     super(props);
     this.state = {
         item: {},
-        qty: 1
+        qty: 1,
+        ingredients: []
     }
   }
 
@@ -22,45 +23,185 @@ export default class DishModal extends Component {
   }
 
   decreaseQty = () => {
-        if (this.state.qty > 1) {
-            this.setState({
-                qty: this.state.qty - 1
-            })
-        }
-    }
-
-    increaseQty = () => {
+    if (this.state.qty > 1) {
         this.setState({
-            qty: this.state.qty + 1
+            qty: this.state.qty - 1
         })
     }
+  }
+
+  increaseQty = () => {
+    this.setState({
+        qty: this.state.qty + 1
+    })
+  }
 
   componentWillReceiveProps = () => {
-      if (!this.props.item) {
+    this.setState({
+        qty: 1
+    })
+    if (!this.props.item) {
         this.setState({
             item: Session.get('selectedDish')
         },() => {
             $('#modal_dish').modal('open');
+            let dummyIngredients = Ingredients.find({ user_id: this.state.item.user_id, dish_name: this.state.item.dish_name }).fetch();
+            this.setState({
+                ingredients: dummyIngredients
+            })
         })
-      } else {
+    } else {
         this.setState({
             item: this.props.item
         },() => {
             $('#modal_dish').modal('open');
+            let dummyIngredients = Ingredients.find({ user_id: this.state.item.user_id, dish_name: this.state.item.dish_name }).fetch();
+            this.setState({
+                ingredients: dummyIngredients
+            })
         })
-      }
+    }
+  }
+
+  renderIngredients = () => {
+    if (this.state.ingredients) {
+        return this.state.ingredients.map((item, index) => {
+            return(
+                <li className="row no-padding" key={index}>
+                    <div className="col l8 m8 s8 no-padding">
+                        <span className="name">{ item.ingredient_name }</span>
+                    </div>
+                    <div className="col l4 m4 s4 no-padding">
+                        <span className="unit"> { item.ingredient_unit }</span>
+                        <span className="qty">{ item.ingredient_quantity }</span>
+                    </div>
+                </li>
+            )
+        })
+    }
+  }
+
+  renderAllergiesList = () => {
+    if (this.state.item.allergy_tags) {
+        return this.state.item.allergy_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderDietaryList = () => {
+    if (this.state.item.dietary_tags) {
+        return this.state.item.dietary_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderCuisinesTagList = () => {
+    if (this.state.item.cuisines_tags) {
+        return this.state.item.cuisines_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderProteinsTagList = () => {
+    if (this.state.item.proteins_tags) {
+        return this.state.item.proteins_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderCaterogiesTagList = () => {
+    if (this.state.item.categories_tags) {
+        return this.state.item.categories_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderCookingMethodsTagList = () => {
+    if (this.state.item.cooking_methods_tags) {
+        return this.state.item.cooking_methods_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderTasteTagList = () => {
+    if (this.state.item.tastes_tags) {
+        return this.state.item.tastes_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderTexturesTagList = () => {
+    if (this.state.item.textures_tags) {
+        return this.state.item.textures_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderVegetablesTagList = () => {
+    if (this.state.item.vegetables_tags) {
+        return this.state.item.vegetables_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderCondimentsTagList = () => {
+    if (this.state.item.condiments_tags) {
+        return this.state.item.condiments_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
+  }
+
+  renderServingTemperatureTagList = () => {
+    if (this.state.item.serving_temperature_tags) {
+        return this.state.item.serving_temperature_tags.map((item, index) => {
+            return(
+                <li index={index}>{ item }</li>
+            )
+        })
+    }
   }
 
   render() {
     return (
         <div className="modal" id="modal_dish">
-            <div className="row">
+            <div className="row no-margin">
                 <div className="col l4 m4 s12 dish-preview-banner no-padding">
                     <ProgressiveImages
-                        large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/original/test2.jpg"
-                        small="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/test2.jpg"
+                        large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/original/food1.jpg"
+                        small="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/food1.jpg"
                     />
                 </div>
+
                 <div className="col l8 m8 s12 dish-preview-content">
                     <span className="fa fa-times close-modal" onClick={ this.closeModal }></span>
                     <div className="row dish-preview-navigation">
@@ -88,7 +229,65 @@ export default class DishModal extends Component {
                             </div>
                         </div>
                     </div>
+                    <div className="row dish-preview-information no-padding">
+                        <div className="col l6 m6 s6">
+                            <div className="row dish-preview-ingredients no-padding">
+                                <div className="col l12 m12 s12 no-padding">
+                                    <h5>Ingredients</h5>
+                                    {
+                                        (this.state.ingredients.length == 0)
+                                        ?
+                                            <span>...loading</span>
+                                        :
+                                            <ul className="dish-preview-list-ingredient">
+                                                { this.renderIngredients() }
+                                            </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col l6 m6 s6">
+                            <div className="row dish-preview-ingredients no-padding">
+                                <div className="col l12 m12 s12 no-padding">
+                                    <h5>Allergies &amp; Dietary preference </h5>
+                                    {
+                                        (this.state.ingredients.length == 0)
+                                        ?
+                                            <span>...loading</span>
+                                        :
+                                            <ul className="dish-preview-list-allergies">
+                                                { this.renderAllergiesList() }
+                                                { this.renderDietaryList() }
+                                            </ul>
+                                    }
+                                </div>
+                            </div>
+                            <div className="row dish-preview-tags no-padding">
+                                <div className="col l12 m12 s12 no-padding">
+                                    <h5>Tags </h5>
+                                    {
+                                        (this.state.ingredients.length == 0)
+                                        ?
+                                            <span>...loading</span>
+                                        :
+                                            <ul className="dish-preview-list-tags">
+                                                { this.renderCuisinesTagList() }
+                                                { this.renderProteinsTagList() }
+                                                { this.renderCaterogiesTagList() }
+                                                { this.renderCookingMethodsTagList() }
+                                                { this.renderTasteTagList() }
+                                                { this.renderTexturesTagList() }
+                                                { this.renderVegetablesTagList() }
+                                                { this.renderCondimentsTagList() }
+                                                { this.renderServingTemperatureTagList() }
+                                            </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     );
