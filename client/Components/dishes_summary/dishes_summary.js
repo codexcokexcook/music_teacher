@@ -89,6 +89,8 @@ Template.dishes_summary.events({
       // var selected_dishes = Session.get('selected_dishes_id');
       var get_dish = Dishes.findOne({_id: selected_dishes[0]});
 
+      console.log('get dish', get_dish.meta);
+
       // Below parameters will be passed to create_dishes_form template using Blaze.renderWithData
       var get_dish_contents = {
         dish_name: get_dish.dish_name,
@@ -104,7 +106,8 @@ Template.dishes_summary.events({
       Tracker.autorun(function(){
         if (get_dish.image_id) {
           var dish_image = Images.findOne({_id:get_dish.image_id});
-          var dish_image_url = dish_image.meta.base64;
+          // var dish_image_url = dish_image.meta.base64;
+          var dish_image_url = get_dish.meta.medium;
           $('.circle_base').css("background-image", "url("+dish_image_url+")");
           $('.image_upload').hide();
         }

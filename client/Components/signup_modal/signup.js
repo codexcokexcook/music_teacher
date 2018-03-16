@@ -40,6 +40,7 @@ Template.signup_modal.events({
       var email = trimInput($('#signup_email').val());
       var password = trimInput($('#signup_password').val());
       var cpassword = trimInput($('#signup_cpassword').val());
+      var chef_signup = Session.get('chef_signup');
     //  var last_name = trimInput(event.target.last_name.value);
     //  var first_name = trimInput(event.target.first_name.value);
       if( isNotEmpty(email)      &&
@@ -51,6 +52,9 @@ Template.signup_modal.events({
             Accounts.createUser({
               email: email,
               password: password,
+              profile: {
+                chef_signup: chef_signup,
+              }
             }, function(err){
               if(err){
                 Bert.alert(err.reason,"danger", "growl-top-right");
