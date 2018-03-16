@@ -28,7 +28,7 @@ class KitchenList extends Component {
     return this.props.kitchen.map((item, index) => {
       return (
         <div key={index} className="col xl4 l4 m6 s12 modal-trigger" onClick={ () => this.handleClick(item) }>
-          <div className="images-thumbnail">
+          <div className="kitchen-images-thumbnail">
             <ProgressiveImages
               large={ item.bannerKitchenImg.origin }
               small={ item.bannerKitchenImg.small }

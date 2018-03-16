@@ -124,6 +124,15 @@
   overflow: hidden;
 }
 
+.kitchen-images-thumbnail {
+  width: 100%;
+  height: 200px;
+  background-color: #ccc;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
 .chef-avatar-container {
   width: 50px;
   height: 50px;
