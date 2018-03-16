@@ -687,6 +687,7 @@ Template.create_foodie_profile.events({
           card_exp_month,
           card_exp_year,
           Session.get('profileImg'),
+          Session.get('bannerProfileImg'),
         function(err) {
           if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded bp-green');
 
