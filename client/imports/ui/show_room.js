@@ -32,7 +32,7 @@ export default class ShowRoom extends Component {
       <div className="col xl12 l12 m12 s12">
         <DishList title="Explore dish of today" seemore="see more available dish" popup={ this.handleDishPopup }/>
         <MenuList title="Set menu" seemore="see more available menu" popup={ this.handleMenuPopup }/>
-        <KitchenList title="Kitchen" seemore="see more available chefs" popup={ this.handleMenuPopup }/>
+        <KitchenList title="Kitchen" seemore="see more available chefs"/>
         <Modal dish={this.state.selectedDish} menu={this.state.selectedMenu}/>
       </div>
     );
