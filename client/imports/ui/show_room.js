@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import DishList from './dish_list';
 import MenuList from './menu_list';
-import DishModal from './dish_modal';
+import Modal from './modal';
  
 // App component - represents the whole app
 export default class ShowRoom extends Component {
@@ -20,12 +20,18 @@ export default class ShowRoom extends Component {
     });
   }
 
+  handleMenuPopup = (item) => {
+    this.setState({
+      selectedMenu: item
+    });
+  }
+
   render() {
     return (
       <div className="col xl12 l12 m12 s12">
         <DishList title="Explore dish of today" seemore="see more available dish" popup={ this.handleDishPopup }/>
-        <MenuList title="Set menu" seemore="see more available menu" popup={ this.handleDishPopup }/>
-        <DishModal item={this.state.selectedDish}/>
+        <MenuList title="Set menu" seemore="see more available menu" popup={ this.handleMenuPopup }/>
+        <Modal dish={this.state.selectedDish} menu={this.state.selectedMenu}/>
       </div>
     );
   }

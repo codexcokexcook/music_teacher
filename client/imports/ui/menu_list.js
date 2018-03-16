@@ -22,7 +22,7 @@ class MenuList extends Component {
 
   handleClick = (item) => {
     Session.set('selectedDish', item);
-    Session.set('searched_result', undefined);
+    Session.set('selectedItem', 'menu');
     this.props.popup(item);
   }
 

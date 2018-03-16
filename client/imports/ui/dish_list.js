@@ -22,6 +22,7 @@ class DishList extends Component {
 
   handleClick = (item) => {
     Session.set('selectedDish', item);
+    Session.set('selectedItem', 'dish');
     this.props.popup(item);
   }
 

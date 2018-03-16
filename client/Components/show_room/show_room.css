@@ -189,7 +189,14 @@
   height: auto;
 }
 
-#modal_dish {
+#dish-modal {
+  width: 100%!important;
+  height: 100%!important;
+  min-height: 100%!important;
+  top: 0%!important;
+}
+
+#menu-modal {
   width: 100%!important;
   height: 100%!important;
   min-height: 100%!important;
