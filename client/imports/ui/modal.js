@@ -5,6 +5,7 @@ import { Session } from 'meteor/session';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
+import DishCarousel from './carouselDish';
 
 // App component - represents the whole app
 export default class DishModal extends Component {
@@ -294,9 +295,14 @@ export default class DishModal extends Component {
   render() {
     return (
         <div className="modal" id="dish-modal">
-            <div className="no-slider">
-                { this.renderDish() }
-            </div>
+            {
+                (Session.get('selectedItem') == 'dish')
+                ?
+                    this.renderDish()
+                : (Session.get('selectedItem') == 'menu') ?
+                    <DishCarousel />
+                : ""
+            }
         </div>
     );
   }
