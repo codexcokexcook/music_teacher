@@ -361,6 +361,7 @@ Template.edit_homecook_profile.onRendered(function() {
                   card_number,
                   card_exp_month,
                   card_exp_year,
+                  Session.get('bannerProfileImg'),
                   function(err) {
                     if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded bp-green');
                   }
@@ -381,6 +382,7 @@ Template.edit_homecook_profile.onRendered(function() {
                   bank_account_no,
                   bank_address_country,
                   bank_address,
+                  Session.get('bannerKitchenImg'),
                   function(err) {
                     if (err) Materialize.toast('Oops! ' + err.message + ' .Please try again.', 4000, 'rounded bp-green');
                   }
