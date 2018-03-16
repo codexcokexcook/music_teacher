@@ -22,7 +22,6 @@ class DishList extends Component {
 
   handleClick = (item) => {
     Session.set('selectedDish', item);
-    Session.set('searched_result', undefined);
     this.props.popup(item);
   }
 
@@ -32,13 +31,13 @@ class DishList extends Component {
         <div key={index} className="col xl2 l2 m3 s6 modal-trigger" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail">
             <ProgressiveImages
-              large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/medium/food1.jpg"
-              small="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/food1.jpg"
+              large={ item.meta.origin }
+              small={ item.meta.small }
             />
-            <ChefAvatar userId={item.user_id} />
           </div>
-          <div className="row no-margin text-left">
+          <div className="row no-margin text-left" style={{ position: 'relative' }}>
             <h5 className="dish-title">{ item.dish_name }</h5>
+            <ChefAvatar userId={item.user_id} />
           </div>
           <div className="row no-margin">
             <div className="col l12 m12 dish-rating no-padding text-left">

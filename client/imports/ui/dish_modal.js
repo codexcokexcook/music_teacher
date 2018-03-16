@@ -42,13 +42,16 @@ export default class DishModal extends Component {
     })
     
     this.setState({
-        item: Session.get('selectedDish')
+        item: Session.get('selectedDish'),
+        origin: Session.get('selectedDish').meta.origin,
+        small: Session.get('selectedDish').meta.small
     },() => {
+        // get ingredients from database follow dish id
         $('#modal_dish').modal('open');
         let dummyIngredients = Ingredients.find({ user_id: this.state.item.user_id, dish_name: this.state.item.dish_name }).fetch();
         this.setState({
             ingredients: dummyIngredients
-        })
+        });
     })
   }
 
@@ -186,8 +189,8 @@ export default class DishModal extends Component {
             <div className="row no-margin">
                 <div className="col l4 m4 s12 dish-preview-banner no-padding">
                     <ProgressiveImages
-                        large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/original/food1.jpg"
-                        small="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/food1.jpg"
+                        large={ this.state.origin }
+                        small={ this.state.small }
                     />
                 </div>
 

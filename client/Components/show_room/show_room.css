@@ -121,6 +121,7 @@
   background-color: #ccc;
   border-radius: 5px;
   position: relative;
+  overflow: hidden;
 }
 
 .chef-avatar-container {
@@ -129,7 +130,7 @@
   border-radius: 50%;
   position: absolute;
   right: 0px;
-  bottom: -60px;
+  top: 0px;
   background-color: #ccc;
   background-size: cover;
 }
@@ -193,6 +194,12 @@
   height: 100%!important;
   min-height: 100%!important;
   top: 0%!important;
+}
+
+.dish-preview-information {
+  overflow-y: auto;
+  min-height: 35vh;
+  max-height: 40vh;
 }
 
 .dish-preview-banner {
@@ -343,4 +350,35 @@
   float: left;
   margin-bottom: 5px;
   margin-top: 5px;
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+}
+
+.slider-item {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+}
+
+.slick-track {
+  height: 100%;
+}
+
+.slick-list {
+  height: 100%;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: -10px!important;
+  list-style: none;
+  display: block;
+  text-align: center;
+  padding: 0;
+  width: 100%;
 }

@@ -26,19 +26,51 @@ class MenuList extends Component {
     this.props.popup(item);
   }
 
+  componentDidUpdate = () => {
+    $('.slider').slick({
+      dots: true,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      lazyLoad: 'progressive'
+    });
+  }
+
+  renderListCarousel = (index) => {
+    let listDish = this.props.menus[index];
+    let id = listDish.dishes_id;
+    let listImages = [];
+
+    id.map((item, index) => {
+      let dish = Dishes.find({ _id: item }).fetch();
+      let images = { origin: dish[0].meta.origin, small: dish[0].meta.small };
+      listImages.push(images);
+    })
+    
+    if (listImages.length > 1) {
+      return listImages.map((item, index) => {
+        return (
+          <div key={index} className="slider-item" style={{backgroundImage: "url(" + item.origin + ")"}}></div>
+        )
+      })
+    } else {
+      return (
+        <div key={index} className="slider-item" style={{backgroundImage: "url(" + item.origin + ")"}}></div>
+      )
+    }
+  }
+
   renderList = () => {
     return this.props.menus.map((item, index) => {
       return (
         <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail">
-            <ProgressiveImages
-              large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/medium/food1.jpg"
-              small="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/small/food1.jpg"
-            />
-            <ChefAvatar userId={item.user_id} />
+            <div className="slider">
+              { this.renderListCarousel(index) }
+            </div>
           </div>
-          <div className="row no-margin text-left">
+          <div className="row no-margin text-left" style={{ position: 'relative' }}>
             <h5 className="dish-title">{ item.menu_name }</h5>
+            <ChefAvatar userId={item.user_id} />
           </div>
           <div className="row no-margin">
             <div className="col l12 m12 dish-rating no-padding text-left">
