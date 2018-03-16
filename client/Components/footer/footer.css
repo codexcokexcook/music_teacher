@@ -1,4 +1,12 @@
 .page-footer {
-  z-index: 100;
   background-color: #56AACD;
+}
+
+.footer_logo {
+  width: 150px;
+}
+
+.logo_wrapper {
+  height: 80px;
+  width: 120px;
 }
