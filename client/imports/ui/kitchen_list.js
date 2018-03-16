@@ -26,17 +26,16 @@ class KitchenList extends Component {
 
   renderList = () => {
     return this.props.kitchen.map((item, index) => {
-        console.log(item);
       return (
-        <div key={index} className="col xl2 l2 m3 s6 modal-trigger" onClick={ () => this.handleClick(item) }>
+        <div key={index} className="col xl4 l4 m6 s12 modal-trigger" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail">
             <ProgressiveImages
-              large={ item.meta.origin }
-              small={ item.meta.small }
+              large={ item.bannerKitchenImg.origin }
+              small={ item.bannerKitchenImg.small }
             />
           </div>
           <div className="row no-margin text-left" style={{ position: 'relative' }}>
-            <h5 className="dish-title">{ item.dish_name }</h5>
+            <h5 className="dish-title">{ item.kitchen_name }</h5>
             <ChefAvatar userId={item.user_id} />
           </div>
           <div className="row no-margin">
@@ -44,9 +43,6 @@ class KitchenList extends Component {
               <Rating rating={item.average_rating}/>
               <span className="order-count">{ item.order_count }</span>
             </div>
-          </div>
-          <div className="row">
-            <div className="col l12 m12 dish-price no-padding text-left">$ { item.dish_selling_price }</div>
           </div>
 
         </div>

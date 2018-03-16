@@ -5,7 +5,6 @@ import { Session } from 'meteor/session';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
-import DishCarousel from './carouselDish';
 
 // App component - represents the whole app
 export default class DishModal extends Component {
