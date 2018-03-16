@@ -96,3 +96,18 @@ Template.show_room_chef.helpers ({
 
 Meteor.subscribe('theDishes');
 Meteor.subscribe('theMenu');
+
+Meteor.subscribe('theProfileImages');
+Meteor.subscribe('theIngredients');
+Meteor.subscribe('theShoppingCart');
+Meteor.subscribe('theOrderRecordSeller');
+Meteor.subscribe('theOrderRecordBuyer');
+Meteor.subscribe('theProfileDetail');
+Meteor.subscribe('theKitchenDetail');
+Meteor.subscribe('theTransactionSeller');
+Meteor.subscribe('theTransactionBuyer');
+Meteor.subscribe('theNotificationsSender');
+Meteor.subscribe('theNotificationsReceiver');
+Meteor.subscribe('theImages');
+Meteor.subscribe('theOrderRatings');
+

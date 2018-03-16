@@ -27,9 +27,9 @@ class MenuList extends Component {
   }
 
   renderList = () => {
-    return this.props.dishes.map((item, index) => {
+    return this.props.menus.map((item, index) => {
       return (
-        <div key={index} className="col l2 m2 modal-trigger" onClick={ () => this.handleClick(item) }>
+        <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail">
             <ProgressiveImages
               large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/medium/food1.jpg"
@@ -38,7 +38,7 @@ class MenuList extends Component {
             <ChefAvatar userId={item.user_id} />
           </div>
           <div className="row no-margin text-left">
-            <h5 className="dish-title">{ item.dish_name }</h5>
+            <h5 className="dish-title">{ item.menu_name }</h5>
           </div>
           <div className="row no-margin">
             <div className="col l12 m12 dish-rating no-padding text-left">
@@ -47,7 +47,7 @@ class MenuList extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col l12 m12 dish-price no-padding text-left">$ { item.dish_selling_price }</div>
+            <div className="col l12 m12 dish-price no-padding text-left">$ { item.menu_selling_price }</div>
           </div>
 
         </div>
@@ -84,7 +84,7 @@ class MenuList extends Component {
 }
 
 export default withTracker(props => {
-  const handle = Meteor.subscribe('theDishes');
+  const handle = Meteor.subscribe('theMenu');
   navbar_find_by("Kitchen_details");
   var kitchen_info = Session.get('searched_result');
   var kitchen_id = [];
@@ -96,6 +96,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      dishes: Menu.find({ kitchen_id: {$in: kitchen_id}, deleted: false, online_status: true }, { limit: 6 }).fetch(),
+      menus: Menu.find({ kitchen_id: {$in: kitchen_id}, deleted: false, online_status: true }, { limit: 4 }).fetch(),
   };
 })(MenuList);

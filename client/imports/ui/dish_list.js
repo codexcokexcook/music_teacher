@@ -29,7 +29,7 @@ class DishList extends Component {
   renderList = () => {
     return this.props.dishes.map((item, index) => {
       return (
-        <div key={index} className="col l2 m2 modal-trigger" onClick={ () => this.handleClick(item) }>
+        <div key={index} className="col xl2 l2 m3 s6 modal-trigger" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail">
             <ProgressiveImages
               large="https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/medium/food1.jpg"
