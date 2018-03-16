@@ -52,6 +52,9 @@ export default class DishCarousel extends Component {
             menus: menu
         },() => {
             $('#dish-modal').modal('open');
+            setTimeout(() => {
+                $('.dish-carousel').slick();
+            }, 500);
         })
     }
 }
