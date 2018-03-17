@@ -182,7 +182,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-attachment: fixed;
+  ;
 }
 
 .navigation {
@@ -552,8 +552,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-attachment: fixed;
-  background-attachment: fixed;
+  ;
+  ;
 }
 
 .changing {
@@ -584,7 +584,7 @@
   background-size: cover;
   background-position: left top;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  ;
 }
 .content_wrapper {
   height: 100vh;
@@ -654,7 +654,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left top;
-  background-attachment: fixed;
+  ;
 }
 
 .join_us_content {
@@ -804,7 +804,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-attachment: fixed;
+  ;
   margin-bottom: 0px;
 }
 
