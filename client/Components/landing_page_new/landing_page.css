@@ -435,7 +435,7 @@
 
 .left-dish {
   background: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing6.png");
-  height: 100vh;
+  height: 100%;
   background-repeat: no-repeat;
   background-position: right;
   background-size: cover;
@@ -542,7 +542,7 @@
 /*for the red photo*/
 
 .vet_photo {
-  height: 100vh;
+  height: 100%;
   width: auto;
   background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing11.jpg");
   background-size: cover;
@@ -641,7 +641,7 @@
 /*this is for the hand*/
 
 .hand {
-  height: 100vh;
+  height: 100%;
   width: auto;
   background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing8.jpg");
   background-size: cover;
@@ -789,7 +789,7 @@
 
 .bow {
   background-image: url("https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing4.jpg");
-  height: 100vh;
+  height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
