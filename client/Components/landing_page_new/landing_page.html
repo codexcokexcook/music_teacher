@@ -3,6 +3,23 @@
 </head>
 
 <template name="landing_page">
+  <header>
+    <div class = "navbar-fixed">
+      <nav class ="transparent z-depth-0">
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo"><img src="landing_page/logo.svg" alt="logo" class="logo"></a>
+          <ul class="right">
+            <li>
+              <a class = "modal-trigger" href="#login_modal">
+                <img class="login_icon" src="landing_page/login_icon.svg">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
   {{> login_modal}}
   {{> signup_modal}}
 
@@ -15,17 +32,6 @@
 
   <div class="landing_1">
     <div class="row navigation">
-      <div class="col s6 m6 l6">
-        <img src="landing_page/logo.svg" alt="logo" class="logo">
-      </div>
-      <div class="col s6 m6 l6">
-        <div class="col s12 m12 l12">
-          <a class = "modal-trigger" href="#login_modal">
-            <p class="login">log in</p>
-            <img class="login_icon" src="landing_page/login_icon.svg">
-          </a>
-        </div>
-      </div>
     </div>
     <div class="row slogan notloaded">
       <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
@@ -43,9 +49,9 @@
   </div>
 
   <!-- Introduction session -->
-
+<div class = "introduction_wrapper valign-wrapper">
   <div class="row">
-    <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4 introduction">
+    <div class="valign col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4 introduction">
       <p class="blueplate"> blueplate </p>
       <div class = "intro_text_wrapper">
         <p class="intro_text">is a digital platform that connects a community of like minded and passionate individuals who only strive for the
@@ -57,14 +63,17 @@
         <button class="button chef_signup join_us_now"> Join us now</button>
       </a>
     </div>
-    <div class="row" style="height:20vh;"></div>
+  </div>
 </div>
 
 
-  <div class="row do_you_love">
+  <div class="row do_you_love valign-wrapper">
     <div class="col s12 m5 l5 xl5 left-dish">
     </div>
-    <div class="col s12 m7 l7 xl7 right_dish">
+    <div class="col s12 m7 l7 xl7 valign right_dish">
+      <br>
+      <br>
+      <br>
       <p class="text_1"> Do you love </p>
       <p class="text_2"> cooking?</p>
       <p class="text_3">If you said yes, we want you to join blue plate! Become a home chef and share your signature meals and dishes with anyone,
@@ -76,19 +85,18 @@
   </div>
 
   <!-- Changing the way -->
-<div class="row" style="height:100vh;">
-  <div class="row flexible" style="height:10vh;margin-bottom: 0px;"></div>
-  <div class="row" style="height:80vh;background:white;">
+<div class="row valign-wrapper" style="height:100vh;">
+  <div class="row" style="background:white;">
 
     <!-- title -->
 
-      <div class="col s12 m12 l12 xl12">
+      <div class="col s12 m12 l12 xl12 valign">
         <p class="we_bring">We bring people closer together,</p>
       </div>
 
     <!-- icon -->
-      <div class="row container">
-        <div class="col s12 m4">
+      <div class="row">
+        <div class="col s12 m4 l4">
           <div class="col s12" style="text-align: center;">
             <img class="red_icon harvest" src="landing_page/red1.svg" alt="red1">
             <p class="red_text">from harvest,</p>
@@ -96,14 +104,14 @@
         </div>
 
 
-        <div class="col s12 m4">
+        <div class="col s12 m4 l4">
           <div class="col s12" style="text-align: center;">
             <img class="red_icon kitchen" src="landing_page/red2.svg" alt="red1">
             <p class="red_text">to kitchen,</p>
           </div>
         </div>
 
-        <div class="col s12 m4">
+        <div class="col s12 m4 l4">
           <div class="col s12" style="text-align: center;">
             <img class="red_icon table" src="landing_page/red3.svg" alt="red1">
             <p class="red_text">to table</p>
@@ -129,13 +137,11 @@
         </div>
 
   </div>
-  <div class="row"></div>
-
 </div>
 
   <!-- Changing the way -->
   <div class="row" style="margin-bottom: 0px;">
-    <div class="vet_photo col s12">
+    <div class="vet_photo valign-wrapper col s12">
       <p class="changing">
         changing the way we obtain food.
       </p>
@@ -143,82 +149,27 @@
   </div>
 
   <!-- for babana -->
-  <div class="row what_happen" style="margin-bottom:0px;">
-    <div class = "scrolling" onscroll="Materialize.fadeInImage('.banana')"></div>
-    <div class="banana col s12 m5 l5 xl5"></div>
-    <div class="col s12 m7 l7 xl7">
-      <div class="row invisible" style="height:33vh"></div>
-      <div class="row" style="margin-left: 50px;margin-right: 50px;">
-        <div class="col s12 m12 l12 xl12">
-          <p class="title">What’s happening to our food?</p>
-          <p class="detail">Currently, the world is producing more food than ever. With more food being wasted than consumed. Around 50% of
-            our food goes to waste, that’s almost half of the food we eat! And, most of the nutrients we thought we can consume
-            from food is actually gone!</p>
+  {{#each what_happen_details}}
+    <div class="row what_happen" style="margin-bottom:0px;">
+      <div class = "scrolling"></div>
+      <div class="what_happen_image col s12 m12 l5 xl5" style="background-image:url({{background_large}});"></div>
+      <div class="col s12 m12 l7 xl7 valign-wrapper content_wrapper">
+        <div class="row valign-wrapper content_wrapper" style="margin-left: 50px;margin-right: 50px;">
+          <div class="col s12 m12 l12 xl12">
+            <p class="title">{{title}}</p>
+            <br>
+            <p class="detail">{{details}}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- for the genery -->
-
-  <div class="row why_is_there" style="margin-bottom:0;">
-    <div class=" wall col s12 m5 l5 xl5"></div>
-    <div class="col s12 m7 l7 xl7">
-      <div class="row invisible" style="height:25vh"></div>
-      <div class="row" style="margin-left: 50px;margin-right: 50px;">
-        <div class="col s12 m12 l12 xl12">
-          <p class="title">Why is there so much waste?</p>
-          <p class="detail" style="margin-bottom:30px;">We all know part of the food waste is created from food consumption. But, food is also wasted through out the process
-            in the current supply chain system from farm to table. In this globalised world, food transports much further
-            than ever before, and there are more and more middlemen involved in the process. Food is wasted when travelling
-            and changing hands. Hence, the further the distance travel and the more the food is changing hands, food waste
-            is inevitably increased dramatically.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- for the fesh vetgetable -->
-
-  <div class="row why_is_this" style="margin-bottom:0;">
-    <div class=" green col s12 m5 l5 xl5"></div>
-    <div class="col s12 m7 l7 xl7">
-      <div class="row invisible" style="height:20vh"></div>
-      <div class="row" style="margin-left: 50px;margin-right: 50px;">
-        <div class="col s12 m12 l12 xl12">
-          <p class="title">Why is this matter to us?</p>
-          <p class="detail" style="margin-bottom:10px;">With more food is being wasted, we have to produce more food to sustain. By 2025 we are going to run out of farm
-            lands on Earth to upkeep the demand. And, we have to pay more and more for food everyday because food production
-            cost increases as we waste more food and make the supply chain even more complicated.</p>
-          <p class="detail">Food is stored a long time and transported a long distance before it gets to your hand nowadays, but nutrients
-            are lost along the way. So, too bad, what you are eating is not as nutritious as you thought.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- for the hamberger -->
-  <div class="row how_can_we" style="margin-bottom:0;">
-    <div class=" her col s12 m5 l5 xl5"></div>
-    <div class="col s12 m7 l7 xl7">
-      <div class="row invisible" style="height:20vh"></div>
-      <div class="row" style="margin-left: 50px;margin-right: 50px;">
-        <div class="col s12 m12 l12 xl12">
-          <p class="title">How can we change that?</p>
-          <p class="detail" style="margin-bottom:10px;">Blueplate connects the world of foodies, home chefs and suppliers. Using one platform to easily allow all to communicate,
-            share and access the best food in the most sustainable way, breaking down the traditional way of how we acquire
-            food into a collaborative ecosystem and community.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  {{/each}}
 
   <!-- this is for the hand -->
   <div class="row join_us" style="margin-bottom:20px;">
-    <div class=" hand col s12 m5 l5 xl5"></div>
-    <div class="col s12 m7 l7 xl7">
-      <div class="row invisible" style="height:20vh"></div>
-      <div class="row" style="margin-left: 50px;margin-right: 50px;">
+    <div class=" hand col s12 m12 l5 xl5"></div>
+    <div class="col s12 m12 l7 xl7">
+      <div class="row valign-wrapper" style="margin-left: 50px;margin-right: 50px; height: 100vh;">
         <div class="col s12 m12 l12 xl12">
           <p class="title" style="margin-top: 40px;margin-bottom: 40px;">Join us in creating a greener, better and healthier world.</p>
           <a class = "modal-trigger" href="#signup_modal">
