@@ -541,6 +541,10 @@
 
 /*for the red photo*/
 
+.changing_wrapper {
+  height: 100vh;
+}
+
 .vet_photo {
   height: 100%;
   width: auto;
@@ -641,6 +645,9 @@
 }
 
 /*this is for the hand*/
+.hand_wrapper{
+  height: 100vh;
+}
 
 .hand {
   height: 100%;
@@ -763,6 +770,10 @@
   text-align: left;
   font-weight: 500;
   padding-top:20px;
+}
+
+.bow_wrapper {
+  height: 100vh;
 }
 
 .bow {
