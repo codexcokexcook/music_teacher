@@ -592,7 +592,6 @@
   }
   .content_wrapper {
     height: 70vh;
-    margin-top: 10vh;
   }
   .left-dish {
     display: none !important;
@@ -633,7 +632,6 @@
     font-size: 14px;
     color: black;
     text-align: center;
-    margin-bottom: 150px;
   }
   .invisible {
     display: none;
@@ -650,6 +648,30 @@
   background-repeat: no-repeat;
   background-position: left top;
   background-attachment: fixed;
+}
+
+.join_us_content {
+  margin-left: 50px;
+  margin-right: 50px;
+  height: 100vh;
+}
+
+@media only screen and (max-width: 991px) {
+  .hand {
+    height: 30vh;
+  }
+  .join_us_content {
+    height: 70vh;
+  }
+}
+
+@media only screen and (max-height: 639px) {
+  .hand {
+    height: 100vh;
+  }
+  .join_us_content {
+    height: 100vh;
+  }
 }
 
 .i_am_ready {
