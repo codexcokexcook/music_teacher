@@ -83,6 +83,22 @@ Template.landing_page.helpers({
          way of how we acquire food into a collaborative ecosystem and community.",
     }
   ],
+  become_homechef: [{
+      number: "1",
+      title: "Simply click to sign up!",
+      details: "Just enter your information and details. Then you will have registered\
+       yourself as our partner in the system.",
+    }, {
+      number: "2",
+      title: "Get verified!",
+      details: "For food safety, we might need you to profile some proof of your\
+       delicious dishes",
+    }, {
+      number: "3",
+      title: "Start setting up",
+      details: "Once you have signed up, start writing up your specials, customizing your chef page and await your order to flow in!",
+    }
+  ],
 })
 
 Template.registerHelper('isCurrentUser', function () {

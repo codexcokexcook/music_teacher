@@ -167,9 +167,7 @@
 
   <!-- this is for the hand -->
   <div class="row join_us" style="margin-bottom:20px;">
-    <div class = "hand_wrapper col s12 m12 l5 xl5">
-      <div class="hand"></div>
-    </div>
+    <div class="hand col s12 m12 l5 xl5"></div>
     <div class="col s12 m12 l7 xl7">
       <div class="row valign-wrapper join_us_content">
         <div class="col s12 m12 l12 xl12">
@@ -186,49 +184,38 @@
 
 
     <!-- whole organge session -->
-<div class="row flexible2">
-    <div class="row show-on-medium-and-up" style="height:15vh"></div>
+    <div class = "container">
+  <div class="row flexible2">
+      <div class="row">
+        <!-- whole top -->
+        <div class=" orange_col col s3 m2 l2 xl1">
+          <img class="org_icon" src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Org1.svg">
+        </div>
+        <div class=" col s9 m10 l10 xl11">
+          <p class="easy">becoming a home chef is easy.</p>
+          <!-- for upper 600px -->
+          <p class="detail upper" style="padding-top:15px;">join us at blueplate and share your delicious food right at your own kitchen.</p>
+        </div>
+      </div>
+      <!-- for under 600px -->
+      <div class="row" style="margin-bottom:0px;">
+        <div class="col s12">
+          <p class="detail under" style="margin-bottom:0px;">join us at blueplate and share your delicious food right at your own kitchen.</p>
+        </div>
+      </div>
+
+
+    <!-- for 3 steps -->
+
     <div class="row">
-      <!-- whole top -->
-      <div class=" orange_col col s3 m2 l2 xl1">
-        <img class="org_icon" src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Org1.svg">
-      </div>
-      <div class=" col s9 m10 l10 xl11">
-        <p class="easy">becoming a home chef is easy.</p>
-        <!-- for upper 600px -->
-        <p class="detail upper" style="padding-top:15px;">join us at blueplate and share your delicious food right at your own kitchen.</p>
-      </div>
+      {{#each become_homechef}}
+        <div class="col s12 m12 l4 wrapper">
+          <span class="number">{{number}}</span>
+          <p class="org_title">{{title}}</p>
+          <p class="detail org_content">{{details}}</p>
+        </div>
+      {{/each}}
     </div>
-    <!-- for under 600px -->
-    <div class="row" style="margin-bottom:0px;">
-      <div class="col s12">
-        <p class="detail under" style="margin-bottom:0px;">join us at blueplate and share your delicious food right at your own kitchen.</p>
-      </div>
-    </div>
-
-
-  <!-- for 3 steps -->
-
-  <div class="row container">
-
-    <div class="col s12 m4 l4 wrapper">
-      <span class="number">1</span>
-      <p class="org_title">Simply click to sign up!</p>
-      <p class="detail org_content">Just enter your information and details. Then you will have registered yourself as our partner in the system.</p>
-    </div>
-
-    <div class="col s12 m4 l4 wrapper">
-      <span class="number">2</span>
-      <p class="org_title">Get verified!</p>
-      <p class="detail org_content">For food safety, we might need you to profile some proof of your delicious dishes</p>
-    </div>
-
-    <div class="col s12 m4 l4 wrapper">
-      <span class="number">3</span>
-      <p class="org_title">Start setting up!</p>
-      <p class="detail org_content">Once you have signed up, start writing up your specials, customizing your chef page and await your order to flow in!</p>
-    </div>
-
   </div>
 </div>
 
