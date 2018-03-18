@@ -182,7 +182,13 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  ;
+  background-attachment: fixed;
+}
+
+@media only screen and (max-width: 1024px) {
+  .landing_1 {
+    background-attachment: initial;
+  }
 }
 
 .navigation {
@@ -441,8 +447,11 @@
   background-size: cover;
 }
 
-
-
+@media only screen and (max-width: 766px) {
+  .left-dish {
+    display: none !important;
+  }
+}
 /*for red session*/
 
 .red_text {
@@ -552,8 +561,13 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  ;
-  ;
+  background-attachment: fixed;
+}
+
+@media only screen and (max-width: 1024px) {
+  .vet_photo {
+    background-attachment: initial;
+  }
 }
 
 .changing {
@@ -584,8 +598,15 @@
   background-size: cover;
   background-position: left top;
   background-repeat: no-repeat;
-  ;
+  background-attachment: fixed;
 }
+
+@media only screen and (max-width: 1024px) {
+  .what_happen_image {
+    background-attachment: initial;
+  }
+}
+
 .content_wrapper {
   height: 100vh;
 }
@@ -596,9 +617,6 @@
   }
   .content_wrapper {
     height: 70vh;
-  }
-  .left-dish {
-    display: none !important;
   }
 }
 
@@ -654,7 +672,13 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left top;
-  ;
+  background-attachment: fixed;
+}
+
+@media only screen and (max-width: 1024px) {
+  .hand {
+    background-attachment: initial;
+  }
 }
 
 .join_us_content {
@@ -804,8 +828,14 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  ;
+  background-attachment: fixed;
   margin-bottom: 0px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .bow {
+    background-attachment: initial;
+  }
 }
 
 .footer {
