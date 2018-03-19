@@ -60,7 +60,7 @@ Template.landing_page.helpers({
         chain system from farm to table. In this globalised world, food transports\
          much further than ever before, and there are more and more middlemen involved\
           in the process. The further the distance travel and the more the food is changing hands,\
-            food waste is inevitably increased dramatically."\,
+            food waste is inevitably increased dramatically.",
     }, {
       title:"Why does it matter to us?",
       background_large:'"https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing7.jpg"',
