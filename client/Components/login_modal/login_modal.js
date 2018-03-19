@@ -86,21 +86,23 @@ Template.login_modal.events({
           else if (Meteor.user().emails[0].verified === true){
             $('#loginLoader').hide(); // hide the loader
             localStorage.setItem("loggedIn", true);
-            FlowRouter.go("/main");
             $('#login_modal').modal('close');
+            Bert.alert('Login successfully !' , 'success', 'fixed-top');
+            FlowRouter.go("/main");
+            
           } else {
 
             //- logout
-            Meteor.logout(function(err){
-             if (err) {
-              $('#loginLoader').hide(); // hide the loader
-               Bert.alert(err.reason, "danger", "growl-top-right");
-             } else {
-              $('#loginLoader').hide(); // hide the loader
-               Session.clear();
-               Bert.alert( 'Please verify your email before login!', 'danger','growl-top-right' );
-             }
-           });
+          //   Meteor.logout(function(err){
+          //    if (err) {
+          //     $('#loginLoader').hide(); // hide the loader
+          //      Bert.alert(err.reason, "danger", "growl-top-right");
+          //    } else {
+          //     $('#loginLoader').hide(); // hide the loader
+          //      Session.clear();
+          //      Bert.alert( 'Please verify your email before login!', 'danger','growl-top-right' );
+          //    }
+          //  });
 
           }
         });

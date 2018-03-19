@@ -15,28 +15,48 @@ import './landing_page.html';
 
 Template.landing_page.onRendered(function () {
   $('body').css('overflow-y', 'hidden');
+
   // everything is loaded
-  window.onload = function () {
-    setTimeout(() => {
-      $('body').css('overflow-y', 'scroll');
-      $(document).scrollTop(0);
-      $('.loader-wrapper').fadeOut('slow');
-      $('.slogan').removeClass('notloaded');
+  // window.onload = function () {
+  //   setTimeout(() => {
+  //     $('body').css('overflow-y', 'scroll');
+  //     $(document).scrollTop(0);
+  //     $('.loader-wrapper').fadeOut('slow');
+  //     $('.slogan').removeClass('notloaded');
 
-      if (!window.detectmob) {
-        // $('.what_happen').hide();
-        // $('.why_is_there').hide();
-        // $('.why_is_this').hide();
-        // $('.how_can_we').hide();
-        // $('.join_us').hide();
-      }
+  //     if (!window.detectmob) {
+  //       // $('.what_happen').hide();
+  //       // $('.why_is_there').hide();
+  //       // $('.why_is_this').hide();
+  //       // $('.how_can_we').hide();
+  //       // $('.join_us').hide();
+  //     }
 
-      $('.vet_photo .changing').click(function(){
-        alert('asfhsdjfg');
-      });
+  //     $('.vet_photo .changing').click(function(){
+  //       alert('asfhsdjfg');
+  //     });
+  //     console.log('loading...');
+  //   }, 1000);
+  // }
 
-    }, 1000);
-  }
+  setTimeout(() => {
+    $('body').css('overflow-y', 'scroll');
+    $(document).scrollTop(0);
+    $('.loader-wrapper').fadeOut('slow');
+    $('.slogan').removeClass('notloaded');
+
+    if (!window.detectmob) {
+      // $('.what_happen').hide();
+      // $('.why_is_there').hide();
+      // $('.why_is_this').hide();
+      // $('.how_can_we').hide();
+      // $('.join_us').hide();
+    }
+
+    $('.vet_photo .changing').click(function(){
+      alert('asfhsdjfg');
+    });
+  }, 1000);
 
   var options = [{
     selector: '.banana',
