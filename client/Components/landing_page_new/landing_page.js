@@ -55,15 +55,14 @@ Template.landing_page.helpers({
     }, {
       title: "Why is there so much waste?",
       background_large: '"https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing12.jpg"',
-      details: "We all know part of the food waste is created from food consumption.\
-       But, food is also wasted through out the process in the current supply\
+      details: "We all know that part of the food waste is created from food consumption.\
+       But, food is also wasted through out the logistic process in the current supply\
         chain system from farm to table. In this globalised world, food transports\
          much further than ever before, and there are more and more middlemen involved\
-          in the process. Food is wasted when travelling and changing hands. Hence, the\
-           further the distance travel and the more the food is changing hands, food waste\
-            is inevitably increased dramatically.",
+          in the process. The further the distance travel and the more the food is changing hands,\
+            food waste is inevitably increased dramatically."\,
     }, {
-      title:"Why is this matter to us?",
+      title:"Why does it matter to us?",
       background_large:'"https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing7.jpg"',
       details:"With more food is being wasted, we have to produce more food to\
        sustain. By 2025 we are going to run out of farm lands on Earth to upkeep\
