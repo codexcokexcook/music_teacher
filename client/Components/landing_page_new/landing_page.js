@@ -75,7 +75,7 @@ Template.landing_page.helpers({
             too bad, what you are eating is not as nutritious as you thought.",
     }, {
       title:"How can we change that?",
-      background_large:'"https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing5.jpg"',
+      background_large:'"https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/landing13.jpg"',
       details:"Blueplate connects the world of foodies, home chefs and suppliers.\
        Using one platform to easily allow all to communicate, share and access\
         the best food in the most sustainable way, breaking down the traditional\
