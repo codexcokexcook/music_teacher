@@ -407,7 +407,6 @@
 .banner {
   height: 215px;
   background-color: #ccc;
-  padding: 0px!important;
   border-radius: 15px;
   color: white;
   overflow: hidden;
@@ -416,13 +415,15 @@
   background-position: center center;
   background-repeat: no-repeat;
   padding: 25px;
+  padding: 0 0.75rem;
+  display: inline-block;
 }
 
 .banner h1 {
   font-size: 2.5rem;
   color: #fff;
   vertical-align: middle;
-  line-height: 150px; 
+  margin-top: 65px; 
   margin-left: 3%;
 }
 
@@ -468,4 +469,76 @@
 .categories_navigation ul li#kitchen_list_all {
   background: url('https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/furniture-shops-perth-kitchen-furniture-store-outdoor-furniture-canberra-cheap-furniture-stores-melbourne-furniture-stores-canberra-1024x410.jpg') no-repeat center center;
   background-size: cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .categories_navigation {
+    display: none;
+  }
+  .dish-preview-content {
+    min-height: 100vh!important;
+    padding: 10px 20px!important;
+  }
+  .dish-preview-banner {
+    height: 40vh;
+  }
+  .dish-preview-navigation .title {
+    font-size: 3em;
+    font-weight: bold;
+    text-align: left;
+    color: black;
+  }
+  .m-hidden {
+    display: none!important;
+  }
+  .m-visible {
+    display: block!important;
+  }
+  .dish-preview-navigation .price {
+    font-size: 22px;
+    color: #56AACD;
+  }
+  .dish-preview-navigation .qty {
+    font-size: 20px;
+    color: #56AACD;
+    margin-left: 20px;
+  }
+  .dish-preview-navigation .qty .number {
+    font-size: 20px;
+    color: #56AACD;
+    margin: 0px 10px;
+  }
+  .dish-preview-navigation .qty .decreaseQty {
+    font-size: 20px;
+    color: #56AACD;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .dish-preview-navigation .qty .increaseQty {
+    font-size: 20px;
+    color: #56AACD;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .dish-preview-navigation .rating-container {
+    margin-left: 20px;
+  }
+  .dish-preview-navigation .rating-container .fa-star {
+    font-size: 20px;
+  }
+  .dish-preview-navigation .order-count {
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
+
+.slick-slider {
+  margin-bottom: 0px!important;
+}
+
+.m-hidden {
+  display: block;
+}
+.m-visible {
+  display: none;
 }

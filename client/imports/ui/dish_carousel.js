@@ -27,6 +27,8 @@ export default class DishCarousel extends Component {
     if (this.state.qty > 1) {
         this.setState({
             qty: this.state.qty - 1
+        },() => {
+            this.props.qty(this.state.qty);
         })
     }
   }
@@ -34,13 +36,12 @@ export default class DishCarousel extends Component {
   increaseQty = () => {
     this.setState({
         qty: this.state.qty + 1
+    },() => {
+        this.props.qty(this.state.qty);
     })
   }
 
   componentWillReceiveProps = () => {
-    this.setState({
-        qty: 1
-    })
     
     if (Session.get('selectedItem') == 'menu') {
         let menu = [];
@@ -51,13 +52,16 @@ export default class DishCarousel extends Component {
         this.setState({
             menus: menu
         },() => {
+            setTimeout(() => {
+                $('.dish-carousel').slick({
+                    slickSetOption: true
+                });
+                $('.dish-carousel').slick('reinit'); 
+            }, 1000);
             $('#dish-modal').modal('open');
-            $('.dish-carousel').slick({
-                slickSetOption: true
-            });
         })
     }
-}
+  }
 
   renderIngredients = (ingredient) => {
     if (ingredient) {
@@ -200,11 +204,16 @@ export default class DishCarousel extends Component {
             <div className="col l8 m8 s12 dish-preview-content">
                 <span className="fa fa-times close-modal" onClick={ this.closeModal }></span>
                 <div className="row dish-preview-navigation">
-                    <div className="col l12 s12 m12">
-                        <h1 className="title">{ Session.get('selectedMenu').menu_name }</h1>
+                    <div className="row">
+                        <div className="col l12 s12 m12">
+                            <h1 className="title">{ Session.get('selectedMenu').menu_name }</h1>
+                        </div>
+                        <div className="col l4 s12 m4 m-visible">
+                            <button className="btn" onClick={ this.props.order } >Order</button>
+                        </div>
                     </div>
                     <div className="row">
-                        <div className="col l8 s8 m8">
+                        <div className="col l8 s12 m8">
                             <span className="price">$ { Session.get('selectedMenu').menu_selling_price }</span>
                             <span className="qty">
                                 <span className="decreaseQty" onClick={ this.decreaseQty } >-</span>
@@ -214,8 +223,8 @@ export default class DishCarousel extends Component {
                             <Rating rating={ item.average_rating } />
                             <span className="order-count">{ item.order_count }</span>
                         </div>
-                        <div className="col l4 s4 m4">
-                            <button className="btn">Order</button>
+                        <div className="col l4 s4 m4 m-hidden">
+                            <button className="btn" onClick={ this.props.order }>Order</button>
                         </div>
                     </div>
                     <div className="row">
@@ -230,7 +239,7 @@ export default class DishCarousel extends Component {
                             <span className="dish_name">{ item.dish_name }</span>
                         </div>
                     </div>
-                    <div className="col l6 m6 s6">
+                    <div className="col l6 m6 s12">
                         <div className="row dish-preview-ingredients no-padding">
                             <div className="col l12 m12 s12 no-padding">
                                 <h5>Ingredients</h5>
@@ -246,7 +255,7 @@ export default class DishCarousel extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col l6 m6 s6">
+                    <div className="col l6 m6 s12">
                         <div className="row dish-preview-ingredients no-padding">
                             <div className="col l12 m12 s12 no-padding">
                                 <h5>Allergies &amp; Dietary preference </h5>

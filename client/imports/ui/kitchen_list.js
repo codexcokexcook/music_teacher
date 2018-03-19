@@ -55,10 +55,10 @@ class KitchenList extends Component {
       <div className='col s12 m12 l12 no-padding'>
         {/* title */}
         <div className="row">
-          <div className="col s6 m6 l6 no-padding">
+          <div className="col s6 m6 l6">
             <h5>{ this.props.title }</h5>
           </div>
-          <div className="col s6 m6 l6 text-right no-padding">
+          <div className="col s6 m6 l6 text-right">
             <a>{ this.props.seemore }</a>
           </div>
         </div>
