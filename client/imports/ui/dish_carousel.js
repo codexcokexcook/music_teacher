@@ -201,11 +201,11 @@ export default class DishCarousel extends Component {
                 <span className="fa fa-times close-modal" onClick={ this.closeModal }></span>
                 <div className="row dish-preview-navigation">
                     <div className="col l12 s12 m12">
-                        <h1 className="title">{ item.dish_name }</h1>
+                        <h1 className="title">{ Session.get('selectedMenu').menu_name }</h1>
                     </div>
                     <div className="row">
                         <div className="col l8 s8 m8">
-                            <span className="price">$ { item.dish_selling_price }</span>
+                            <span className="price">$ { Session.get('selectedMenu').menu_selling_price }</span>
                             <span className="qty">
                                 <span className="decreaseQty" onClick={ this.decreaseQty } >-</span>
                                 <span className="number">{ this.state.qty }</span>
@@ -220,11 +220,16 @@ export default class DishCarousel extends Component {
                     </div>
                     <div className="row">
                         <div className="col l12 s12 m12">
-                            <span className="descrition">"{ item.dish_description }"</span>
+                            <span className="descrition">"Placeholder for description about selected menu"</span>
                         </div>
                     </div>
                 </div>
                 <div className="row dish-preview-information no-padding">
+                    <div className="row">
+                        <div className="col l12 s12 m12">
+                            <span className="dish_name">{ item.dish_name }</span>
+                        </div>
+                    </div>
                     <div className="col l6 m6 s6">
                         <div className="row dish-preview-ingredients no-padding">
                             <div className="col l12 m12 s12 no-padding">
