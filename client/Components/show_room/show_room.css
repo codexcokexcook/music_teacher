@@ -471,6 +471,19 @@
   background-size: cover;
 }
 
+.dish-preview-navigation .title {
+  font-size: 3em;
+  font-weight: bold;
+  text-align: left;
+  color: black;
+}
+
+.dish-preview-banner {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 @media only screen and (max-width: 600px) {
   .categories_navigation {
     display: none;
@@ -541,4 +554,26 @@
 }
 .m-visible {
   display: none;
+}
+
+.slick-dots li.slick-active button:before {
+  color: white!important;
+  opacity: 1;
+}
+
+.slick-dots li button:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "\2022";
+  width: 30px;
+  height: 30px;
+  font-family: "slick";
+  font-size: 6px;
+  line-height: 30px;
+  text-align: center;
+  color: white!important;
+  opacity: 0.25;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

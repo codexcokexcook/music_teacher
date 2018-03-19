@@ -331,11 +331,7 @@ export default class DishModal extends Component {
     renderDish = () => {
         return (
             <div className="row no-margin">
-                <div className="col l4 m4 s12 dish-preview-banner no-padding">
-                    <ProgressiveImages
-                        large={ this.state.origin }
-                        small={ this.state.small }
-                    />
+                <div className="col l4 m4 s12 dish-preview-banner no-padding" style={{backgroundImage: "url(" + this.state.origin + ")"}}>
                 </div>
 
                 <div className="col l8 m8 s12 dish-preview-content">
