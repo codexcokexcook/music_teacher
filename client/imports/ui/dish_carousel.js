@@ -52,9 +52,9 @@ export default class DishCarousel extends Component {
             menus: menu
         },() => {
             $('#dish-modal').modal('open');
-            setTimeout(() => {
-                $('.dish-carousel').slick();
-            }, 500);
+            $('.dish-carousel').slick({
+                slickSetOption: true
+            });
         })
     }
 }
@@ -81,7 +81,7 @@ export default class DishCarousel extends Component {
     if (allergies) {
         return allergies.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -91,7 +91,7 @@ export default class DishCarousel extends Component {
     if (dietary) {
         return dietary.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -101,7 +101,7 @@ export default class DishCarousel extends Component {
     if (cuisines) {
         return cuisines.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -111,7 +111,7 @@ export default class DishCarousel extends Component {
     if (proteins) {
         return proteins.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -121,7 +121,7 @@ export default class DishCarousel extends Component {
     if (categories) {
         return categories.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -131,7 +131,7 @@ export default class DishCarousel extends Component {
     if (cooking_methods) {
         return cooking_methods.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -141,7 +141,7 @@ export default class DishCarousel extends Component {
     if (tastes) {
         return tastes.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -151,7 +151,7 @@ export default class DishCarousel extends Component {
     if (textures) {
         return textures.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -161,7 +161,7 @@ export default class DishCarousel extends Component {
     if (vegetables) {
         return vegetables.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -171,7 +171,7 @@ export default class DishCarousel extends Component {
     if (condiments) {
         return condiments.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }
@@ -181,7 +181,7 @@ export default class DishCarousel extends Component {
     if (serving_temperature) {
         return serving_temperature.map((item, index) => {
             return(
-                <li index={index}>{ item }</li>
+                <li key={index}>{ item }</li>
             )
         })
     }

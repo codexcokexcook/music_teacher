@@ -119,7 +119,7 @@
   width: 100%;
   height: 115px;
   background-color: #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   position: relative;
   overflow: hidden;
 }
@@ -402,4 +402,70 @@
 .dish_name {
   font-size: 25px;
   font-weight: bold;
+}
+
+.banner {
+  height: 215px;
+  background-color: #ccc;
+  padding: 0px!important;
+  border-radius: 15px;
+  color: white;
+  overflow: hidden;
+  background: url('https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/original/food3.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 25px;
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  color: #fff;
+  vertical-align: middle;
+  line-height: 150px; 
+  margin-left: 3%;
+}
+
+.categories_navigation {
+  text-align: center;
+}
+
+.categories_navigation ul {
+  list-style: none;
+  display: inline-block;
+  text-align: initial;
+  cursor: pointer;
+}
+
+.categories_navigation ul li {
+  float: left;
+  height: 30px;
+  width: 180px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin: 0px 20px;
+}
+
+.categories_navigation span {
+  background-color: #fff;
+  width: 50%;
+  display: block;
+  height: 100%;
+  text-align: center;
+  padding: 4px;
+}
+
+.categories_navigation ul li#dish_list_all {
+  background: url('https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/food2.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.categories_navigation ul li#menu_list_all {
+  background: url('https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/food3.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.categories_navigation ul li#kitchen_list_all {
+  background: url('https://blueplate-images.s3.ap-southeast-1.amazonaws.com/images/large/furniture-shops-perth-kitchen-furniture-store-outdoor-furniture-canberra-cheap-furniture-stores-melbourne-furniture-stores-canberra-1024x410.jpg') no-repeat center center;
+  background-size: cover;
 }

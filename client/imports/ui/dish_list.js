@@ -29,7 +29,7 @@ class DishList extends Component {
   renderList = () => {
     return this.props.dishes.map((item, index) => {
       return (
-        <div key={index} className="col xl2 l2 m3 s6 modal-trigger" onClick={ () => this.handleClick(item) }>
+        <div key={index} className="col xl2 l2 m3 s6 modal-trigger dish-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail">
             <ProgressiveImages
               large={ item.meta.origin }
@@ -57,13 +57,13 @@ class DishList extends Component {
 
   render() {
     return (
-      <div className='col s12 m12 l12'>
+      <div className='col s12 m12 l12 no-padding'>
         {/* title */}
         <div className="row">
-          <div className="col s6 m6 l6">
+          <div className="col s6 m6 l6 no-padding">
             <h5>{ this.props.title }</h5>
           </div>
-          <div className="col s6 m6 l6 text-right">
+          <div className="col s6 m6 l6 text-right no-padding">
             <a>{ this.props.seemore }</a>
           </div>
         </div>

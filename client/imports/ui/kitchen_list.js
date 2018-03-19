@@ -52,13 +52,13 @@ class KitchenList extends Component {
 
   render() {
     return (
-      <div className='col s12 m12 l12'>
+      <div className='col s12 m12 l12 no-padding'>
         {/* title */}
         <div className="row">
-          <div className="col s6 m6 l6">
+          <div className="col s6 m6 l6 no-padding">
             <h5>{ this.props.title }</h5>
           </div>
-          <div className="col s6 m6 l6 text-right">
+          <div className="col s6 m6 l6 text-right no-padding">
             <a>{ this.props.seemore }</a>
           </div>
         </div>

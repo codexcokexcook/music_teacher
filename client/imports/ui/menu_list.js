@@ -54,7 +54,7 @@ class MenuList extends Component {
       })
     } else {
       return (
-        <div key={index} className="slider-item" style={{backgroundImage: "url(" + item.origin + ")"}}></div>
+        <div key={index} className="slider-item" style={{backgroundImage: "url(" + listImages[0].origin + ")"}}></div>
       )
     }
   }
@@ -62,8 +62,8 @@ class MenuList extends Component {
   renderList = () => {
     return this.props.menus.map((item, index) => {
       return (
-        <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger" onClick={ () => this.handleClick(item) }>
-          <div className="images-thumbnail">
+        <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger menu-wrapper" onClick={ () => this.handleClick(item) }>
+          <div className="images-thumbnail" style={{ height: '150px' }}>
             <div className="slider">
               { this.renderListCarousel(index) }
             </div>
@@ -89,13 +89,13 @@ class MenuList extends Component {
 
   render() {
     return (
-      <div className='col s12 m12 l12'>
+      <div className='col s12 m12 l12 no-padding'>
         {/* title */}
         <div className="row">
-          <div className="col s6 m6 l6">
+          <div className="col s6 m6 l6 no-padding">
             <h5>{ this.props.title }</h5>
           </div>
-          <div className="col s6 m6 l6 text-right">
+          <div className="col s6 m6 l6 text-right no-padding">
             <a>{ this.props.seemore }</a>
           </div>
         </div>
