@@ -741,7 +741,7 @@
 }
 
 .wrapper {
-  border: 3px solid #EEAB21;
+  border: 5px solid #EEAB21;
   border-radius: 30px;
   margin-top: 50px;
   padding: 30px !important;
@@ -750,7 +750,7 @@
 }
 .wrapper .number {
   font-size: 100px;
-  font-weight: 450;
+  font-weight: 600;
   color: #EEAB21;
   position: absolute;
   top: -105px;
