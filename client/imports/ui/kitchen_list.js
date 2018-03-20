@@ -42,7 +42,7 @@ class KitchenList extends Component {
               (hasBanner) ?
                 <ProgressiveImages
                   large={ item.bannerKitchenImg.origin }
-                  small={ item.bannerKitchenImg.origin }
+                  small={ item.bannerKitchenImg.small }
                 />
               : ""
             }
