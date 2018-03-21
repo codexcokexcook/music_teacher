@@ -187,12 +187,6 @@ class TopNavigation extends Component {
         )
     }
 
-    componentWillMount = () => {
-        var autocomplete = new google.maps.places.Autocomplete(
-            (document.getElementById('location')),{types: ['geocode'] }
-        );
-    }
-
     render() {
         var sidebarContent = this.renderSideBar();
 
