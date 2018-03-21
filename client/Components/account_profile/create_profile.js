@@ -645,7 +645,7 @@ Template.create_homecook_profile.events({
     const kitchen_address = $('#kitchen_address').val();
     const kitchen_address_conversion = Session.get('kitchen_address_conversion');
     const kitchen_contact_country = $('#kitchen_contact_country').val();
-    const kitchen_contact = $('kitchen_contact').val();
+    const kitchen_contact = $('#kitchen_contact').val();
     const serving_option = Session.get('serving_option_tags');
 
     //Step 2
@@ -670,6 +670,7 @@ Template.create_homecook_profile.events({
     kitchen_address,
     kitchen_address_conversion,
     kitchen_contact_country,
+    kitchen_contact,
     serving_option,
     cooking_exp,
     cooking_story,
