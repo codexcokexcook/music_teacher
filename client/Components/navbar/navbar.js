@@ -3,7 +3,6 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import { FilesCollection } from 'meteor/ostrio:files';
-import { Tracker } from 'meteor/tracker';
 import { get_current_location } from '/imports/functions/get_current_location.js';
 
 Template.navbar.onRendered(function(){
@@ -158,7 +157,7 @@ Template.navbar.events({
    Meteor.call('messages.clear', Meteor.userId(), function(err) {
      if (err) Materialize.toast('Oops! Error when clearing message. Please try again. ' + err.message, 4000, 'rounded bp-green');
    });
-   
+
    Session.keys = {}
    localStorage.setItem("loggedIn", false);
 
@@ -166,13 +165,13 @@ Template.navbar.events({
   //  Meteor.logout();
   //  $('#sidenav-overlay').remove();
   //  FlowRouter.go('/');
-   
+
   //- new
   Meteor.logout(function(err){
     if (err) {
       Bert.alert(err.reason, "danger", "growl-top-right");
       return false;
-    } 
+    }
     //- logout success
     Bert.alert('Logout successfully !', "success", "fixed-top");
 
@@ -181,7 +180,7 @@ Template.navbar.events({
 
   });
 
-  
+
  },
 });
 

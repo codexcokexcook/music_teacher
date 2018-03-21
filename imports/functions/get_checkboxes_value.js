@@ -1,6 +1,5 @@
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session'
-import { Tracker } from 'meteor/tracker';
 
 export function get_checkboxes_value(checkbox_tag, template) {
   var get_checkboxes = template.findAll("input[type=checkbox]:checked");

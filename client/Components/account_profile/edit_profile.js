@@ -256,7 +256,7 @@ Template.edit_homecook_profile.helpers({
 })
 
 Template.edit_homecook_profile.onRendered(function() {
-  alert("1")
+
   var get_homecook_profile = Kitchen_details.findOne({
     'user_id': Meteor.userId()
   });
@@ -277,7 +277,7 @@ Template.edit_homecook_profile.onRendered(function() {
    autoFormCreation: true, //control the auto generation of a form around the stepper (in case you want to disable it)
    showFeedbackLoader: false //set if a loading screen will appear while feedbacks functions are running
  });**/
-alert("2")
+
   checkboxes_recall(get_homecook_profile.serving_option);
   this.$('#kitchen_speciality').material_chip({data:get_homecook_profile.kitchen_speciality});
   this.$('#kitchen_tags').material_chip({data:get_homecook_profile.kitchen_tags});
