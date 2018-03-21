@@ -7,7 +7,9 @@ Meteor.startup(function () {
 
   GoogleMaps.load({
     v: '3',
-    key: 'AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac'
+    key: 'AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac',
+    language: 'en',
+    libraries: 'places'
   });
 
   window.fbAsyncInit = function () {

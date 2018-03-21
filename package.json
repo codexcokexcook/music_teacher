@@ -13,8 +13,10 @@
     "kraken": "^0.3.3",
     "materialize-css": "^0.99.0",
     "meteor-node-stubs": "~0.2.4",
+    "multi-select-react": "^0.1.8",
     "react": "^15.6.2",
     "react-chartjs-2": "^2.6.4",
-    "react-dom": "^15.6.2"
+    "react-dom": "^15.6.2",
+    "react-sidebar": "^2.3.2"
   }
 }

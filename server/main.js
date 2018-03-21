@@ -32,7 +32,3 @@ Meteor.publish('theMenu', function(){
 Meteor.publish('theIngredients', function(){
   return Ingredients.find();
 });
-
-Meteor.publish('theProfileImages', function(){
-  return profile_images.find().cursor;
-});
