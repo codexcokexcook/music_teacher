@@ -247,7 +247,7 @@
                   </div>
                   <div class="text-field col l3 m3 s6 valign">
                     <select class="material_select" id="kitchen_address_country">
-                      <option value={{get_homecook_profile.kitchen_address_country}} selected></option>
+                      <option value={{get_homecook_profile.kitchen_address_country}} selected>{{get_homecook_profile.kitchen_address_country}}</option>
                       {{#each country_list}}
                       <option value="{{name}}">{{name}}</option>
                       {{/each}}
@@ -261,7 +261,7 @@
                   </div>
                <div class="text-field col l2 m3 s12 valign">
                  <select class="material_select" id="kitchen_contact_country">
-                   <option value={{get_homecook_profile.kitchen_contact_country}} selected></option>
+                   <option value={{get_homecook_profile.kitchen_contact_country}} selected>{{get_homecook_profile.kitchen_contact_country}}</option>
                       {{#each country_list}}
                     <option value='{{name}} {{dial_code}}'>{{name}} {{dial_code}}</option>
                       {{/each}}
