@@ -21,3 +21,19 @@ Template.show_foodie_profile.helpers({
   },
 
 })
+
+
+
+Template.show_homecook_profile.helpers({
+  'get_homecook_profile': function() {
+    return Kitchen_details.findOne({
+      'user_id': Meteor.userId()
+    });
+  },
+  'speciality_tag':function(){
+    return Kitchen_details.find({
+      'user_id': Meteor.userId()
+    }).kitchen_speciality.tag.fetch();
+  }
+})
+
