@@ -70,12 +70,13 @@ Template.edit_foodie_profile.onRendered(function() {
   checkboxes_recall(get_profile.allergy_tags)
   checkboxes_recall(get_profile.dietary_tags)
 
-  Session.set("allergy_tags",get_profile.allergy_tags)
-  Session.set("dietary_tags",get_profile.dietary_tags)
+  Session.set("allergy_tags", get_profile.allergy_tags)
+  Session.set("dietary_tags", get_profile.dietary_tags)
+  Session.set('home_address_conversion', get_profile.home_address_conversion)
+  Session.set('office_address_conversion', get_profile.office_address_conversion)
   /*checkboxes_recall(get_profile.serving_option_tags)*/
-  address_geocode('home_address_conversion', $('#edit_home_address').val(), 'home address');
-  address_geocode('office_address_conversion', $('#edit_office_address').val(), 'office address');
-  /*address_geocode('kitchen_address_conversion', $('#edit_kitchen_address').val(), 'kitchen address');*/
+
+
 });
 
 
@@ -195,6 +196,11 @@ Template.edit_homecook_profile.onRendered(function() {
  });**/
 
   checkboxes_recall(get_homecook_profile.serving_option);
+
+  Session.set("serving_option_tags",get_homecook_profile.serving_option)
+  Session.set('kitchen_address_conversion', get_homecook_profile.kitchen_address_conversion)
+
+
   this.$('#kitchen_speciality').material_chip({data:get_homecook_profile.kitchen_speciality});
   this.$('#kitchen_tags').material_chip({data:get_homecook_profile.kitchen_tags});
 
@@ -203,6 +209,10 @@ Template.edit_homecook_profile.onRendered(function() {
 
 
 Template.edit_homecook_profile.events({
+  'blur #kitchen_address': function() {
+    address_geocode('kitchen_address_conversion',$('#kitchen_address').val(), 'kitchen address');
+
+  },
 
   'click #edit_homecook_button':function(){
     //Step 1
@@ -266,10 +276,7 @@ Template.edit_homecook_profile.events({
 
 }),
 
-/*    'blur #edit_kitchen_address': function() {
-        address_geocode('kitchen_address_conversion',$('#edit_kitchen_address').val(), 'kitchen address');
 
-      },*/
 
 
 
