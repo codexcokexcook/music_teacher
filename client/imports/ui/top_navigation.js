@@ -97,20 +97,20 @@ class TopNavigation extends Component {
             <ul className="sidebar-container">
                 <li><img src="/navbar/profile-icon.svg"/></li>
                 <li onClick={() => this.searching()}>
-                    <span>Search food</span><img src="/navbar/search-icon.svg"/></li>
+                    <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
                 <li className="divider"></li>
                 <li>
                     <span>Shopping cart</span>
-                    <span id="cart-number-sidebar">0</span><img src="/navbar/cart-icon.svg"/></li>
+                    <span id="cart-number-sidebar">0</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg"/></li>
                 <li>
-                    <span>Notification</span><img src="/navbar/notification.svg"/></li>
+                    <span>Notification</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/notification.svg"/></li>
                 <li>
-                    <span>Wishlist</span><img src="/navbar/Heart.svg"/></li>
+                    <span>Wishlist</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Heart.svg"/></li>
                 <li>
-                    <span>Order Status</span><img src="/navbar/OrderStatus.svg"/></li>
+                    <span>Order Status</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/OrderStatus.svg"/></li>
                 <li className="divider"></li>
                 <li>
-                    <span>Switch to cooking</span><img src="/navbar/Switch.svg"/></li>
+                    <span>Switch to cooking</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
                 <li className="divider"></li>
                 <li>
                     <span>Help</span>
@@ -236,14 +236,14 @@ class TopNavigation extends Component {
                                 <a href="" onClick={ () => this.toggle() } className="nav_brand_logo left" data-activates="side_nav"><img src="/navbar/BPLogo_sysmbol.svg" className="navbar_logo" height="40" width="40" /></a>
                                 <ul className="right">
                                     <li className="icon" onClick={ () => this.openProfile() } >
-                                        <img src="/navbar/profile-icon.svg" />
+                                        <img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg" />
                                     </li>
                                     <li className="icon" id="cart-icon">
                                         <span id="cart-number">0</span>
-                                        <img src="/navbar/cart-icon.svg" />
+                                        <img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg" />
                                     </li>
                                     <li onClick={ () => this.searching() } className="icon" id="search-icon">
-                                        <img src="/navbar/search-icon.svg" />
+                                        <img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg" />
                                     </li>
                                 </ul>
                             </div>
