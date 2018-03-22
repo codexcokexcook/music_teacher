@@ -1,6 +1,5 @@
 .path_container {
-  height: 100vh !important;
-  justify-content: center;
+  margin-top: 100px;
 }
 
 .path_card {
@@ -9,4 +8,13 @@
 
 .path_icons {
   width: 100%;
+  max-width: 150px;
+}
+
+@media (min-width: 992px) {
+  .path_container {
+    margin-top: 100px;
+    height: 100vh !important;
+    justify-content: center;
+  }
 }
