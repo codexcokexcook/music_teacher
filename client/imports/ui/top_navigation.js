@@ -67,13 +67,15 @@ class TopNavigation extends Component {
         this.renderSideBar = this.renderSideBar.bind(this);
         this.toggle = this.toggle.bind(this);
         this.renderMultiSelect = this.renderMultiSelect.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handlePress = this.handlePress.bind(this);
         this.state = {
             sidebarOpen: false,
             search: false,
             multiSelect: [
-                { id: 1, label: 'Delivery', value: 'delivery' },
-                { id: 2, label: 'Dine-in', value: 'dinein' },
-                { id: 3, label: 'Pick-up', value: 'pickup' },
+                { id: 1, label: 'Delivery', value: 'Delivery' },
+                { id: 2, label: 'Dine-in', value: 'Dine-in' },
+                { id: 3, label: 'Pick-up', value: 'Pick-up' },
             ]
         }
     }
@@ -156,15 +158,40 @@ class TopNavigation extends Component {
         );
     }
 
+    handleSearch = () => {
+        let location = document.getElementById('location').value;
+        let service = [];
+        this.state.multiSelect.map((item, index) => {
+            if (item.value !== false) {
+                service.push(item.value);
+            }
+        })
+        let date = document.getElementById('date').value;
+        let time = document.getElementById('time').value;
+        Meteor.call('searching', location, service, date, time, (error, result) => {
+            if (!error) {
+                console.log(result);
+            } else {
+                Materialize.toast("Error! " + error, "rounded bp-green");
+            }
+        });
+    }
+
+    handlePress = (event) => {
+        if (event.which == 13) {
+            this.handleSearch();
+        }
+    }
+
     renderSearchPage = () => {
         return (
             <div className="search-page-container">
                 <span className="fa fa-times close-modal" onClick={ () =>  { this.setState({ search: false }); $('html').css('overflow', 'auto')} }></span>
                 <div className="container">
                     <div className="row">
-                        <div className="search-form col l6 offset-l3 m10 offset-m1 s12">
+                        <div onKeyPress = { this.handlePress } className="search-form col l6 offset-l3 m10 offset-m1 s12">
                             <div className="col s12">
-                                <input id="location" type="email" placeholder="location"/>
+                                <input id="location" type="text" placeholder="location"/>
                             </div>
                             <div className="input-field col s12">
                                 {
@@ -178,7 +205,7 @@ class TopNavigation extends Component {
                                 <input id="time" type="number" placeholder="time"/>
                             </div>
                             <div className="input-field col s12 text-center">
-                                <button id="search-btn">Search</button>
+                                <button onClick={ this.handleSearch } id="search-btn">Search</button>
                             </div>
                         </div>
                     </div>
