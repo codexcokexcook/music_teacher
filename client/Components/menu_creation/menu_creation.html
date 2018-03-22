@@ -86,9 +86,7 @@
   <div class = "divider"></div>
   <div class = "section menu_card_container">
     {{#if subscription}}
-      {{#each menu_retreival}}
-        {{> menu_card}}
-      {{/each}}
+      {{>menu_list}}
       {{>edit_content}}
     {{else}}
         {{> spinner}}
