@@ -7,6 +7,7 @@ Template.path_choosing.onRendered(function() {
     render(<PathOption />, document.getElementById('pathOption_container'));
 })
 
+
 Template.path_choosing.events({
   'click #create_homecook_profile': function(){
     FlowRouter.go('/profile/create_homecook_profile')
