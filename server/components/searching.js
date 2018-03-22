@@ -1,4 +1,3 @@
-import { HTTP } from 'meteor/http';
 import {
     Meteor
 } from 'meteor/meteor';
@@ -8,27 +7,30 @@ import {
 } from 'meteor/http'
 
 Meteor.methods({
-    'searching' (location, service, date, time) {
-<<<<<<< HEAD
+    'searching' (lat, lng, service, date, time) {
 
+        console.log(lat)
+        console.log(lng)
+        console.log(service);
+        console.log(date);
+        console.log(time);
 
-        // let location = {};
-        // let serving_option = {};
-        // let date = {};
-        // let time = {};
         var searchingQuery = [];
         let nation = 'vietnam';
         let region = 'VN';
         let radius = 1 / 6378.1
         //- check existance
-        if(!_.isEmpty(location.trim()))
+        if(lat && lng)
         {
-            searchingQuery.push({kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[106.704823, 10.783297], radius]}}});
+            searchingQuery.push({kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[lng, lat], radius]}}});
         }
-
+        console.log('serving_option', service.length);
+        console.log(service)
         if(!_.isEmpty(service))
         {
             searchingQuery.push({serving_option: service});
+        }else{
+            searchingQuery.push({serving_option: null});
         }
 
         console.log('search result', searchingQuery)
@@ -53,6 +55,12 @@ Meteor.methods({
                 // { average_rating: {'$range': [3.0, 5.0]} } 
             ]
         }).fetch();
+
+        var searched_kitchen = Kitchen_details.find({
+            '$or': searchingQuery
+        }).fetch();
+
+
         //- search using and
         // var searched_kitchen = Kitchen_details.find({
         //     '$and':[
@@ -97,15 +105,5 @@ Meteor.methods({
         console.log('time', typeof(time));
         return 'ok';
 
-=======
-        HTTP.call( 'GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='+location+'&key=AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac', function( error, response ) {
-            // Handle the error or response here.
-            if (error) {
-                console.log(error);
-            } else {
-                console.log(response);
-            }
-        });
->>>>>>> react-navigation-search
     }
 });
