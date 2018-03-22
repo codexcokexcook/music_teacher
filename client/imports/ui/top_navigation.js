@@ -101,7 +101,7 @@ class TopNavigation extends Component {
                 <li className="divider"></li>
                 <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/shopping_cart'); }) } } >
                     <span>Shopping cart</span>
-                    <span id="cart-number-sidebar">0</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg"/></li>
+                    <span id="cart-number-sidebar">{ this.props.shoppingCart.length }</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg"/></li>
                 <li>
                     <span>Notification</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/notification.svg"/></li>
                 <li>
@@ -239,7 +239,7 @@ class TopNavigation extends Component {
                                         <img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg" />
                                     </li>
                                     <li onClick={() => FlowRouter.go('/shopping_cart')} className="icon" id="cart-icon">
-                                        <span id="cart-number">0</span>
+                                        <span id="cart-number">{ this.props.shoppingCart.length }</span>
                                         <img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg" />
                                     </li>
                                     <li onClick={ () => this.searching() } className="icon" id="search-icon">
@@ -256,10 +256,10 @@ class TopNavigation extends Component {
 }
 
 export default withTracker(props => {
-    const handle = Meteor.subscribe('theProfileImages');
+    const handle = Meteor.subscribe('getUserShoppingCart');
     return {
         currentUser: Meteor.user(),
         loading: !handle.ready(),
-        profileImages: profile_images.find({ 'userId': Meteor.userId(), 'meta.purpose': 'profile_picture'}).fetch()
+        shoppingCart: Shopping_cart.find({ buyer_id: Meteor.userId() }).fetch()
     };
 })(TopNavigation);
