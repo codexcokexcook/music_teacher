@@ -168,91 +168,7 @@ Template.edit_homecook_profile.helpers({
       'user_id': Meteor.userId()
     });
   },
-  bank_list: [{
-      name: '003 - Standard Chartered Bank (Hong Kong)',
-      option: '003 - Standard Chartered Bank (Hong Kong)'
-    },
-    {
-      name: '004 - Hongkong and Shanghai Banking Corporation',
-      option: '004 - Hongkong and Shanghai Banking Corporation'
-    },
-    {
-      name: '009 - China Construction Bank (Asia)',
-      option: '009 - China Construction Bank (Asia)'
-    },
-    {
-      name: '012 - Bank of China (Hong Kong)',
-      option: '012 - Bank of China (Hong Kong)'
-    },
-    {
-      name: '015 - Bank of East Asia',
-      option: '015 - Bank of East Asia'
-    },
-    {
-      name: '018 - China CITIC Bank International',
-      option: '018 - China CITIC Bank International'
-    },
-    {
-      name: '020 - Wing Lung Bank',
-      option: '020 - Wing Lung Bank'
-    },
-    {
-      name: '022 - OCBC Wing Hang Bank',
-      option: '022 - OCBC Wing Hang Bank'
-    },
-    {
-      name: '024 - Hang Seng Bank',
-      option: '024 - Hang Seng Bank'
-    },
-    {
-      name: '025 - Shanghai Commercial Bank',
-      option: '025 - Shanghai Commercial Bank'
-    },
-    {
-      name: '027 - Bank of Communications',
-      option: '027 - Bank of Communications'
-    },
-    {
-      name: '028 - Public Bank (Hong Kong)',
-      option: '028 - Public Bank (Hong Kong)'
-    },
-    {
-      name: '038 - Tai Yau Bank',
-      option: '038 - Tai Yau Bank'
-    },
-    {
-      name: '039 - Chiyu Banking Corporation',
-      option: '039 - Chiyu Banking Corporation'
-    },
-    {
-      name: '040 - Dah Sing Bank',
-      option: '040 - Dah Sing Bank'
-    },
-    {
-      name: '041 - Chong Hing Bank',
-      option: '041 - Chong Hing Bank'
-    },
-    {
-      name: '043 - Nanyang Commercial Bank',
-      option: '043 - Nanyang Commercial Bank'
-    },
-    {
-      name: '061 - Tai Sang Bank',
-      option: '061 - Tai Sang Bank'
-    },
-    {
-      name: '072 - Industrial and Commercial Bank of China (Asia)',
-      option: '072 - Industrial and Commercial Bank of China (Asia)'
-    },
-    {
-      name: '128 - Fubon Bank (Hong Kong)',
-      option: '128 - Fubon Bank (Hong Kong)'
-    },
-    {
-      name: '250 - CitiBank (Hong Kong)',
-      option: '250 - CitiBank (Hong Kong)'
-    },
-  ]
+
 })
 
 Template.edit_homecook_profile.onRendered(function() {
@@ -296,7 +212,7 @@ Template.edit_homecook_profile.events({
     const kitchen_address = $('#kitchen_address').val();
     const kitchen_address_conversion = Session.get('kitchen_address_conversion');
     const kitchen_contact_country = $('#kitchen_contact_country').val();
-    const kitchen_contact = $('kitchen_contact').val();
+    const kitchen_contact = $('#kitchen_contact').val();
     const serving_option = Session.get('serving_option_tags');
 
     //Step 2
