@@ -70,12 +70,13 @@ Template.edit_foodie_profile.onRendered(function() {
   checkboxes_recall(get_profile.allergy_tags)
   checkboxes_recall(get_profile.dietary_tags)
 
-  Session.set("allergy_tags",get_profile.allergy_tags)
-  Session.set("dietary_tags",get_profile.dietary_tags)
+  Session.set("allergy_tags", get_profile.allergy_tags)
+  Session.set("dietary_tags", get_profile.dietary_tags)
+  Session.set('home_address_conversion', get_profile.home_address_conversion)
+  Session.set('office_address_conversion', get_profile.office_address_conversion)
   /*checkboxes_recall(get_profile.serving_option_tags)*/
-  address_geocode('home_address_conversion', $('#edit_home_address').val(), 'home address');
-  address_geocode('office_address_conversion', $('#edit_office_address').val(), 'office address');
-  /*address_geocode('kitchen_address_conversion', $('#edit_kitchen_address').val(), 'kitchen address');*/
+
+
 });
 
 
@@ -168,91 +169,7 @@ Template.edit_homecook_profile.helpers({
       'user_id': Meteor.userId()
     });
   },
-  bank_list: [{
-      name: '003 - Standard Chartered Bank (Hong Kong)',
-      option: '003 - Standard Chartered Bank (Hong Kong)'
-    },
-    {
-      name: '004 - Hongkong and Shanghai Banking Corporation',
-      option: '004 - Hongkong and Shanghai Banking Corporation'
-    },
-    {
-      name: '009 - China Construction Bank (Asia)',
-      option: '009 - China Construction Bank (Asia)'
-    },
-    {
-      name: '012 - Bank of China (Hong Kong)',
-      option: '012 - Bank of China (Hong Kong)'
-    },
-    {
-      name: '015 - Bank of East Asia',
-      option: '015 - Bank of East Asia'
-    },
-    {
-      name: '018 - China CITIC Bank International',
-      option: '018 - China CITIC Bank International'
-    },
-    {
-      name: '020 - Wing Lung Bank',
-      option: '020 - Wing Lung Bank'
-    },
-    {
-      name: '022 - OCBC Wing Hang Bank',
-      option: '022 - OCBC Wing Hang Bank'
-    },
-    {
-      name: '024 - Hang Seng Bank',
-      option: '024 - Hang Seng Bank'
-    },
-    {
-      name: '025 - Shanghai Commercial Bank',
-      option: '025 - Shanghai Commercial Bank'
-    },
-    {
-      name: '027 - Bank of Communications',
-      option: '027 - Bank of Communications'
-    },
-    {
-      name: '028 - Public Bank (Hong Kong)',
-      option: '028 - Public Bank (Hong Kong)'
-    },
-    {
-      name: '038 - Tai Yau Bank',
-      option: '038 - Tai Yau Bank'
-    },
-    {
-      name: '039 - Chiyu Banking Corporation',
-      option: '039 - Chiyu Banking Corporation'
-    },
-    {
-      name: '040 - Dah Sing Bank',
-      option: '040 - Dah Sing Bank'
-    },
-    {
-      name: '041 - Chong Hing Bank',
-      option: '041 - Chong Hing Bank'
-    },
-    {
-      name: '043 - Nanyang Commercial Bank',
-      option: '043 - Nanyang Commercial Bank'
-    },
-    {
-      name: '061 - Tai Sang Bank',
-      option: '061 - Tai Sang Bank'
-    },
-    {
-      name: '072 - Industrial and Commercial Bank of China (Asia)',
-      option: '072 - Industrial and Commercial Bank of China (Asia)'
-    },
-    {
-      name: '128 - Fubon Bank (Hong Kong)',
-      option: '128 - Fubon Bank (Hong Kong)'
-    },
-    {
-      name: '250 - CitiBank (Hong Kong)',
-      option: '250 - CitiBank (Hong Kong)'
-    },
-  ]
+
 })
 
 Template.edit_homecook_profile.onRendered(function() {
@@ -279,6 +196,11 @@ Template.edit_homecook_profile.onRendered(function() {
  });**/
 
   checkboxes_recall(get_homecook_profile.serving_option);
+
+  Session.set("serving_option_tags",get_homecook_profile.serving_option)
+  Session.set('kitchen_address_conversion', get_homecook_profile.kitchen_address_conversion)
+
+
   this.$('#kitchen_speciality').material_chip({data:get_homecook_profile.kitchen_speciality});
   this.$('#kitchen_tags').material_chip({data:get_homecook_profile.kitchen_tags});
 
@@ -287,6 +209,10 @@ Template.edit_homecook_profile.onRendered(function() {
 
 
 Template.edit_homecook_profile.events({
+  'blur #kitchen_address': function() {
+    address_geocode('kitchen_address_conversion',$('#kitchen_address').val(), 'kitchen address');
+
+  },
 
   'click #edit_homecook_button':function(){
     //Step 1
@@ -296,7 +222,7 @@ Template.edit_homecook_profile.events({
     const kitchen_address = $('#kitchen_address').val();
     const kitchen_address_conversion = Session.get('kitchen_address_conversion');
     const kitchen_contact_country = $('#kitchen_contact_country').val();
-    const kitchen_contact = $('kitchen_contact').val();
+    const kitchen_contact = $('#kitchen_contact').val();
     const serving_option = Session.get('serving_option_tags');
 
     //Step 2
@@ -350,10 +276,7 @@ Template.edit_homecook_profile.events({
 
 }),
 
-/*    'blur #edit_kitchen_address': function() {
-        address_geocode('kitchen_address_conversion',$('#edit_kitchen_address').val(), 'kitchen address');
 
-      },*/
 
 
 

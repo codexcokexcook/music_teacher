@@ -324,13 +324,13 @@ Template.create_foodie_profile.events({
     address_geocode('home_address_conversion', $('#create_home_address').val(), 'home address');
   },
   'blur #create_office_address': function() {
-    address_geocode('office_address_conversion', $('#create_office_address', 'office address').val());
+    address_geocode('office_address_conversion', $('#create_office_address').val(), 'office address');
   }
 });
 
 Template.create_homecook_profile.events({
   'blur #create_kitchen_address': function() {
-    address_geocode('kitchen_address_conversion', $('#kitchen_address', 'kitchen address').val());
+    address_geocode('kitchen_address_conversion', $('#kitchen_address').val(), 'kitchen address');
   }
 });
 
@@ -755,10 +755,7 @@ Template.create_foodie_profile.helpers({
   'get_foodie_email': function() {
     // to get user email always we enter profile page
 
-    var user =  Meteor.users.findOne({"_id":Meteor.userId()})
-    var email = user.emails[0].address;
-
-    return email
+    return Meteor.users.findOne({"_id": Meteor.userId()}).emails[0].address
   },
 
   country_list: [{

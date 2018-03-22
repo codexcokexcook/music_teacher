@@ -19,31 +19,31 @@
                   <h6>Your details</h6>
                 </div>
 
-                <div class="text-field col l3 m4 s12 valign">
+                <div class="input-field col l3 m4 s12 valign">
                   <input id="foodie_name" name="foodie_name" type="text" value="{{get_foodie_profile.foodie_name}}" class="mandatory" required />
                   <label class="active" for="foodie_name">foodie name</label>
                 </div>
-                <div class="text-field col l3 m4 s6 valign">
+                <div class="input-field col l3 m4 s6 valign">
                   <input id="first_name" name="first_name" type="text" value="{{get_foodie_profile.first_name}}">
                   <label class="active" for="first_name">first name</label>
                 </div>
-                <div class="text-field col l3 m4 s6 valign">
+                <div class="input-field col l3 m4 s6 valign">
                   <input id="last_name" name="last_name" type="text" value="{{get_foodie_profile.last_name}}">
                   <label class="active" for="first_name">last name</label>
                 </div>
               </div>
 
               <div class="row col l12 m4 s6 valign">
-                <div class="text-field col l4 m5 s12 offset-l3 valign">
+                <div class="input-field col l4 m5 s12 offset-l3 valign">
                   <input id="email" name="email" type="text" value={{get_foodie_profile.email}} disabled>
                   <label class="active" for="email">email Address</label>
                 </div>
-                <div class="text-field col l2 m3 s6 valign">
+                <div class="input-field col l2 m3 s6 valign">
                     <input class ="datepicker" id="date_of_birth" name="date_of_birth" type="text" value={{get_foodie_profile.date_of_birth}}>
                     <label class="active" for="date_of_birth">date of birth</label>
                  </div>
 
-                 <div class="text-field col l3 m4 s6 valign">
+                 <div class="input-field col l3 m4 s6 valign">
                  {{#if check_male}}
                    <div class="col l6 m6 s6 valign">
                      <p><input class ="with-gap right" type="radio" name="gender" value="male" id="male" checked/>
@@ -77,7 +77,7 @@
                   </div>
                   </div>
                  <div class="row col l12 m12 s12 valign">
-                <div class="text-field col l2 m4 s6 offset-l3 valign">
+                <div class="input-field col l2 m4 s6 offset-l3 valign">
                   <select class="material_select" id="mobile_country">
                     <option value="{{get_foodie_profile.mobile_dial_code}}" selected>{{get_foodie_profile.mobile_dial_code}}</option>
                     {{#each country_list}}
@@ -85,7 +85,7 @@
                        {{/each}}
                    </select>
                  </div>
-                 <div class="text-field col l3 m4 s6 valign">
+                 <div class="input-field col l3 m4 s6 valign">
                    <input id="mobile" name="mobile" type="text" value={{get_foodie_profile.mobile}}>
                    <label class="active" for="mobile">mobile</label>
                  </div>
@@ -103,7 +103,7 @@
                   </div>
                   <div class="input-field col l2 m2 s6 valign">
                     <select class="material_select" id="home_address_country">
-                      <option value={{get_foodie_profile.home_address_country}} selected></option>
+                      <option value={{get_foodie_profile.home_address_country}} selected>{{get_foodie_profile.home_address_country}}</option>
                       {{#each country_list}}
                       <option value={{name}}>{{name}}</option>
                       {{/each}}
@@ -119,7 +119,7 @@
                   </div>
                     <div class="input-field col l2 m2 s6 valign">
                       <select class="material_select" id="office_address_country">
-                        <option value={{get_foodie_profile.office_address_country}} selected></option>
+                        <option value={{get_foodie_profile.office_address_country}} selected>{{get_foodie_profile.office_address_country}}</option>
                         {{#each country_list}}
                         <option value={{name}}>{{name}}</option>
                         {{/each}}
@@ -224,12 +224,12 @@
                 <div class="text-field col l3 m12 s12 valign">
                   <h6>Kitchen Details</h6>
                 </div>
-                <div class="text-field col l5 m6 s12 valign">
+                <div class="input-field col l5 m6 s12 valign">
                   <input id="kitchen_name" name="kitchen_name" type="text" value="{{get_homecook_profile.kitchen_name}}">
                     <label class="active" for="kitchen_name">kitchen name</label>
                   </div>
 
-                  <div class="text-field col l4 m6 s12 valign">
+                  <div class="input-field col l4 m6 s12 valign">
                     <input id="chef_name" name="chef_name" type="text" value="{{get_homecook_profile.chef_name}}">
                     <label class="active" for="chef_name">chef name</label>
                   </div>
@@ -241,13 +241,13 @@
                   <h6>Kitchen Address</h6>
                 </div>
 
-                <div class="text-field col l6 m9 s12 valign">
+                <div class="input-field col l6 m9 s12 valign">
                   <input id="kitchen_address" name="kitchen_address" type="text" value="{{get_homecook_profile.kitchen_address}}">
                   <label class="active" for="kitchen_address">kitchen address</label>
                   </div>
-                  <div class="text-field col l3 m3 s6 valign">
+                  <div class="input-field col l3 m3 s6 valign">
                     <select class="material_select" id="kitchen_address_country">
-                      <option value={{get_homecook_profile.kitchen_address_country}} selected></option>
+                      <option value={{get_homecook_profile.kitchen_address_country}} selected>{{get_homecook_profile.kitchen_address_country}}</option>
                       {{#each country_list}}
                       <option value="{{name}}">{{name}}</option>
                       {{/each}}
@@ -259,15 +259,15 @@
                   <div class='text-field col l3 m3 s12 valign'>
                     <h6>Kitchen Contact</h6>
                   </div>
-               <div class="text-field col l2 m3 s12 valign">
+               <div class="input-field col l2 m3 s12 valign">
                  <select class="material_select" id="kitchen_contact_country">
-                   <option value={{get_homecook_profile.kitchen_contact_country}} selected></option>
+                   <option value={{get_homecook_profile.kitchen_contact_country}} selected>{{get_homecook_profile.kitchen_contact_country}}</option>
                       {{#each country_list}}
                     <option value='{{name}} {{dial_code}}'>{{name}} {{dial_code}}</option>
                       {{/each}}
                   </select>
                 </div>
-                <div class="text-field col l4 m6 s12 valign">
+                <div class="input-field col l4 m6 s12 valign">
                   <input id="kitchen_contact" name="kitchen_contact" type="text" value="{{get_homecook_profile.kitchen_contact}}">
                   <label class="active" for="kitchen_contact">kitchen contact</label>
                 </div>
