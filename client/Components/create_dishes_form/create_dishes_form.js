@@ -11,9 +11,6 @@ import {
   FilesCollection
 } from 'meteor/ostrio:files';
 import {
-  Tracker
-} from 'meteor/tracker'
-import {
   ReactiveVar
 } from 'meteor/reactive-var'
 import {
@@ -84,7 +81,7 @@ Template.uploadForm.events({
             }, 500);
             Session.set('image_id', Images._id);
             /** above is the line that prevents meteor from reloading **/
-            
+
             //- meteor call
             Meteor.call('saveToKraken', Images.name, Images.path, (error, result)=>{
               if(error) console.log('kraken errors', error);
@@ -998,7 +995,7 @@ Template.create_dishes_form.events({
       Meteor.call('dish.insert', Session.get('image_id'), user_id, kitchen_id, dish_name, dish_description, Session.get('serving_option_tags'), cooking_time, days, hours, mins,
         dish_cost, dish_selling_price, dish_profit, Session.get('allergy_tags'), Session.get('dietary_tags'), Session.get('cuisines_tags'), Session.get('proteins_tags'),
         Session.get('categories_tags'), Session.get('cooking_methods_tags'), Session.get('tastes_tags'), Session.get('textures_tags'), Session.get('vegetables_tags'),
-        Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false, 
+        Session.get('condiments_tags'), Session.get('serving_temperature_tags'), new Date(), new Date(), false, false,
         //- adding meta data for different image sizes
         Session.get('imgMeta'),
         function(err){

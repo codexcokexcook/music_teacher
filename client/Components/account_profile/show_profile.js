@@ -23,7 +23,6 @@ Template.show_foodie_profile.helpers({
 })
 
 
-
 Template.show_homecook_profile.helpers({
   'get_homecook_profile': function() {
     return Kitchen_details.findOne({
