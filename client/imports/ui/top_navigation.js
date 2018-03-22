@@ -4,6 +4,8 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import Sidebar from 'react-sidebar';
 import MultiSelectReact  from 'multi-select-react';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
 
 const styles = {
     root : {
@@ -69,14 +71,18 @@ class TopNavigation extends Component {
         this.renderMultiSelect = this.renderMultiSelect.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handlePress = this.handlePress.bind(this);
+        this.onChange = (address) => this.setState({ address })
         this.state = {
             sidebarOpen: false,
             search: false,
+            address: '',
+            lat: '',
+            lng: '',
             multiSelect: [
                 { id: 1, label: 'Delivery', value: 'Delivery' },
                 { id: 2, label: 'Dine-in', value: 'Dine-in' },
                 { id: 3, label: 'Pick-up', value: 'Pick-up' },
-            ]
+            ],
         }
     }
 
@@ -159,22 +165,33 @@ class TopNavigation extends Component {
     }
 
     handleSearch = () => {
-        let location = document.getElementById('location').value;
-        let service = [];
-        this.state.multiSelect.map((item, index) => {
-            if (item.value !== false) {
-                service.push(item.value);
-            }
-        })
-        let date = document.getElementById('date').value;
-        let time = document.getElementById('time').value;
-        Meteor.call('searching', location, service, date, time, (error, result) => {
-            if (!error) {
-                console.log(result);
-            } else {
-                Materialize.toast("Error! " + error, "rounded bp-green");
-            }
-        });
+        var self = this;
+        geocodeByAddress(this.state.address)
+            .then(results => results[0])
+            .then(place => {
+                self.setState({
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                },() => {
+                    let service = [];
+                    self.state.multiSelect.map((item, index) => {
+                        if (item.value !== false) {
+                            service.push(item.value);
+                        }
+                    })
+                    let date = document.getElementById('date').value;
+                    let time = document.getElementById('time').value;
+                    debugger
+                    Meteor.call('searching', self.state.lat, self.state.lng, service, date, time, (error, result) => {
+                        if (!error) {
+                            // console.log(result);
+                        } else {
+                            Materialize.toast("Error! " + error, "rounded bp-green");
+                        }
+                    });
+                })
+            })
+            .catch(error => console.error('Error', error))
     }
 
     handlePress = (event) => {
@@ -184,6 +201,10 @@ class TopNavigation extends Component {
     }
 
     renderSearchPage = () => {
+        const inputProps = {
+            value: this.state.address,
+            onChange: this.onChange,
+        }
         return (
             <div className="search-page-container">
                 <span className="fa fa-times close-modal" onClick={ () =>  { this.setState({ search: false }); $('html').css('overflow', 'auto')} }></span>
@@ -191,7 +212,7 @@ class TopNavigation extends Component {
                     <div className="row">
                         <div onKeyPress = { this.handlePress } className="search-form col l6 offset-l3 m10 offset-m1 s12">
                             <div className="col s12">
-                                <input id="location" type="text" placeholder="location"/>
+                                <PlacesAutocomplete inputProps={inputProps} />
                             </div>
                             <div className="input-field col s12">
                                 {

@@ -151,8 +151,11 @@ ul.right .icon {
   box-sizing: border-box!important;
 }
 
-.search-form #location {
+.search-form #PlacesAutocomplete__root {
   background: url('https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/location-icon.svg');
+  background-repeat: no-repeat!important;
+  background-position: 0px 10px!important;
+  box-sizing: border-box!important;
 }
 
 .search-form #date {
@@ -191,4 +194,10 @@ ul.right .icon {
   padding: 5px 30px;
   border-radius: 20px;
   font-size: 18px;
+}
+
+#PlacesAutocomplete__autocomplete-container {
+  z-index: 999!important;
+  background-color: #fff;
+  margin-top: -20px;
 }
