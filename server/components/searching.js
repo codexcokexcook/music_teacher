@@ -20,6 +20,7 @@ Meteor.methods({
         let region = 'VN';
         let radius = 1 / 6378.1
         let isToday = true
+        let searched_results = []
         //- check existance
         if(lat && lng)
         {
@@ -38,22 +39,40 @@ Meteor.methods({
 
         //- query on Dish
         //- time start is today
-
+        //- search by date
         if(!_.isEmpty(date.trim()))
         {
-            searchingQuery.push({createdAt: date});
-        }else{
-            isToday = true;
+            //- get current time and show
+            let currDateTime = new Date().toLocaleString(); //- "09/08/2014, 2:35:56 AM"
+            let currTime = currDateTime.split(' ')[1];
+            let finalDate = new Date(date+' ' + currTime)
+            console.log('current date time', currDateTime)
+            console.log('current time', currTime);
+            console.log('final date time', new Date(date+' ' + currTime));
+            // searchingQuery.push({createdAt: date});
         }
 
+        //- search by time
         if(!_.isEmpty(time.trim()))
         {
-            if(isToday)
-            {
-                searchingQuery.push({});
-            }else{
-                //- have both date and time
-            }
+            let time2 = '02:00:00'
+
+            
+            let currDateTime = currentDateAndTime();
+
+
+            //- create future time
+            let finalFutureDate = new Date(currDateTime.date + ' ' + time2)
+            console.log('final future date:', finalFutureDate)
+
+            //- cooking_time - minutes
+            let finalCurrDate = new Date(currDateTime.date + ' ' + currDateTime.time)
+            console.log('final current date', finalCurrDate)
+            
+            
+            console.log('current date time object', currentDateAndTime())
+            console.log(getDateTimeBetweenTwoDateTimes(finalCurrDate, finalFutureDate)) 
+            // searchingQuery.push({});
         }
 
         //- if date and time is not missing
@@ -72,7 +91,7 @@ Meteor.methods({
         //     ]
         // }).fetch();
 
-        var searched_kitchen = Kitchen_details.find({
+        searched_results = Kitchen_details.find({
             '$or': searchingQuery
         }, {
             sort:{average_rating: -1}
@@ -95,7 +114,7 @@ Meteor.methods({
         // var searched_kitchen = Kitchen_details.find({
         //     kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[106.704823, 10.783296], 1/6371]}}
         //   }).fetch();
-        console.log('search results: ', searched_kitchen)
+        console.log('search results: ', searched_results)
         
 
         // Menu.find({
@@ -125,3 +144,41 @@ Meteor.methods({
 
     }
 });
+
+let getDateTimeBetweenTwoDateTimes = function (currentDate, futureDate)
+{
+    let returned_data = {};
+    let milliBetween = futureDate - currentDate;
+    console.log('millisecond between: ', milliBetween)
+    
+    let dayBetween = Math.floor(milliBetween / 86400000); // days
+    let hourBetween = Math.floor((milliBetween % 86400000) / 3600000); // hours
+    let minuteBetween = Math.round(((milliBetween % 86400000) % 3600000) / 60000)
+    
+    //- add to object to return
+    returned_data.days = dayBetween
+    returned_data.hours = hourBetween
+    returned_data.minutes = minuteBetween
+
+    return returned_data;
+}
+
+let currentDateAndTime = function () 
+{
+    let returned_data = {};
+    let currDateTime = new Date().toLocaleString(); //- "09/08/2014, 2:35:56 AM"
+    //- get date
+    let currDate = currDateTime.split(' ')[0].slice(0, - 1)
+    //- get time
+    let currTime = currDateTime.split(' ')[1]; 
+
+    //- add to object
+    returned_data.date = currDate;
+    returned_data.time = currTime;
+    return returned_data;
+}
+
+let convertFromStringToDateTime = function (date, time)
+{
+    return new Date(date + ' ' + time)
+}

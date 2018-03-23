@@ -101,7 +101,7 @@ class TopNavigation extends Component {
     renderSideBar = () => {
         return (
             <ul className="sidebar-container">
-                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg"/></li>
                 <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
                     <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
                 <li className="divider"></li>
