@@ -47,7 +47,8 @@ Meteor.methods({
       updatedAt: new Date(),
       order_count: 0,
       average_rating: 0,
-      deleted: false
+      deleted: false,
+      like: []
     });
   },
   'menu.update' (menu_id, menu_name, menu_description,  menu_selling_price, min_order, lead_hours, lead_days, serving_option, dishes_id, image_id) {

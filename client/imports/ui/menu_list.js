@@ -6,6 +6,7 @@ import { Session } from 'meteor/session';
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
 import ChefAvatar from './chef_avatar';
+import Like from './like_button';
 
 import { navbar_find_by } from './../../../imports/functions/find_by';
 
@@ -79,6 +80,7 @@ class MenuList extends Component {
       return (
         <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger menu-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style={{ height: '150px' }}>
+            <Like type="menu" id={item._id} />
             <div className="slider">
               { this.renderListCarousel(index) }
             </div>
