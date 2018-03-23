@@ -109,6 +109,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      dishes: Dishes.find({ user_id: {$in: Meteor.userId()}, deleted: false, online_status: true }).fetch(),
+      dishes: Dishes.find({ user_id: Meteor.userId(), deleted: false, online_status: true }).fetch(),
   };
 })(SelfDishList);
