@@ -100,31 +100,57 @@ class TopNavigation extends Component {
 
     renderSideBar = () => {
         return (
-            <ul className="sidebar-container">
-                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
-                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
-                    <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
-                <li className="divider"></li>
-                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/shopping_cart'); }) } } >
-                    <span>Shopping cart</span>
-                    <span id="cart-number-sidebar">{ this.props.shoppingCart.length }</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg"/></li>
-                <li>
-                    <span>Notification</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/notification.svg"/></li>
-                <li>
-                    <span>Wishlist</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Heart.svg"/></li>
-                <li>
-                    <span>Order Status</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/OrderStatus.svg"/></li>
-                <li className="divider"></li>
-                <li>
-                    <span>Switch to cooking</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
-                <li className="divider"></li>
-                <li>
-                    <span>Help</span>
-                </li>
-                <li onClick={ () => Meteor.logout(() => { FlowRouter.go('/') }) } >
-                    <span>Logout</span>
-                </li>
-            </ul>
+            (localStorage.getItem('userMode') == 'foodie') ?
+                <ul className="sidebar-container">
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/shopping_cart'); }) } } >
+                        <span>Shopping cart</span>
+                        <span id="cart-number-sidebar">{ this.props.shoppingCart.length }</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg"/></li>
+                    <li>
+                        <span>Notification</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/notification.svg"/></li>
+                    <li>
+                        <span>Wishlist</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Heart.svg"/></li>
+                    <li>
+                        <span>Order Status</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/OrderStatus.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'chef') } } >
+                        <span>Switch to cooking</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
+                    <li className="divider"></li>
+                    <li>
+                        <span>Help</span>
+                    </li>
+                    <li onClick={ () => Meteor.logout(() => { FlowRouter.go('/') }) } >
+                        <span>Logout</span>
+                    </li>
+                </ul>
+            :
+                <ul className="sidebar-container">
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'foodie') } } >
+                        <span>Switch to foodie</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Dashboard</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/dashboard.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Manage dish</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/manage-dish.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Manage menu</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/manageManage.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Current Order</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/oven.svg"/></li>
+                    <li className="divider"></li>
+                    <li>
+                        <span>Help</span>
+                    </li>
+                    <li onClick={ () => Meteor.logout(() => { FlowRouter.go('/') }) } >
+                        <span>Logout</span>
+                    </li>
+                </ul>
         )
     }
 
@@ -132,8 +158,13 @@ class TopNavigation extends Component {
         this.setState({
             search: !this.state.search,
             sidebarOpen: false
+        },() => {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            setTimeout(() => {
+                $('html').css('overflow', 'hidden');     
+            }, 200);
         });
-        $('html').css('overflow', 'hidden');
     }
 
     optionClicked = (optionsList) => {
