@@ -76,8 +76,8 @@ class TopNavigation extends Component {
             sidebarOpen: false,
             search: false,
             address: '',
-            lat: '',
-            lng: '',
+            lat: null,
+            lng: null,
             multiSelect: [
                 { id: 1, label: 'Delivery', value: 'Delivery' },
                 { id: 2, label: 'Dine-in', value: 'Dine-in' },
@@ -166,7 +166,8 @@ class TopNavigation extends Component {
 
     handleSearch = () => {
         var self = this;
-        geocodeByAddress(this.state.address)
+        if (this.state.address.trim().length > 0) {
+            geocodeByAddress(this.state.address)
             .then(results => results[0])
             .then(place => {
                 self.setState({
@@ -181,10 +182,10 @@ class TopNavigation extends Component {
                     })
                     let date = document.getElementById('date').value;
                     let time = document.getElementById('time').value;
-                    debugger
+                    // debugger
                     Meteor.call('searching', self.state.lat, self.state.lng, service, date, time, (error, result) => {
                         if (!error) {
-                            // console.log(result);
+                            console.log(result);
                         } else {
                             Materialize.toast("Error! " + error, "rounded bp-green");
                         }
@@ -192,6 +193,15 @@ class TopNavigation extends Component {
                 })
             })
             .catch(error => console.error('Error', error))
+        } else {
+            Meteor.call('searching', self.state.lat, self.state.lng, service, date, time, (error, result) => {
+                if (!error) {
+                    console.log(result);
+                } else {
+                    Materialize.toast("Error! " + error, "rounded bp-green");
+                }
+            });
+        }
     }
 
     handlePress = (event) => {
