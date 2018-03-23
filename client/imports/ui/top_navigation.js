@@ -135,13 +135,13 @@ class TopNavigation extends Component {
                     <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'foodie') } } >
                         <span>Switch to foodie</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
                     <li className="divider"></li>
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/dashboard'); }) } }>
                         <span>Dashboard</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/dashboard.svg"/></li>
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/dishes'); }) } }>
                         <span>Manage dish</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/manage-dish.svg"/></li>
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/menus'); }) } }>
                         <span>Manage menu</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/manageManage.svg"/></li>
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/orders'); }) } }>
                         <span>Current Order</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/oven.svg"/></li>
                     <li className="divider"></li>
                     <li>
