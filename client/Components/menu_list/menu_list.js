@@ -19,6 +19,15 @@ Template.menu_list.helpers({
     var checkbox_id = Template.instance().view.parentView.name + "_" + this._id;
     return checkbox_id;
   },
+  'check_menu': function() {
+    Meteor.call('checkAlreadyMenu', function(err, result){
+      if (err) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+  }
 })
 
 Template.menu_list.events({

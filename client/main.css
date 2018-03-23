@@ -66,7 +66,7 @@ body p {
 @media (min-width:1024px) {
   .modal {
     top: 15% !important;
-    width: 100%;
+    width: 70%;
   }
 }
 /* iPad and below */
@@ -75,7 +75,7 @@ body p {
     border-radius: 0px !important;
     top: 0% !important;
     height: 100% !important;
-    width: 100% !important;
+    width: 100%;
     max-height: 100% !important;
   }
 }
