@@ -50,7 +50,7 @@ class SelfMenuList extends Component {
       let images = { origin: dish[0].meta.origin, small: dish[0].meta.small };
       listImages.push(images);
     })
-    
+
     if (listImages.length > 1) {
       return listImages.map((item, index) => {
         if (item) {
@@ -85,7 +85,7 @@ class SelfMenuList extends Component {
         <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger menu-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style={{ height: '150px' }}>
             {
-              if (item.user_id !== Meteor.userId()) ?
+               (item.user_id !== Meteor.userId()) ?
                 <Like type="menu" id={item._id} />
               : ''
             }
@@ -145,6 +145,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      menus: Menu.find({ user_id: {$in: Meteor.userId()}, deleted: false, online_status: true }).fetch(),
+      menus: Menu.find({ user_id: Meteor.userId(), deleted: false, online_status: true }).fetch(),
   };
 })(SelfMenuList);

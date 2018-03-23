@@ -44,7 +44,7 @@ class SelfDishList extends Component {
         <div key={index} className="col xl2 l2 m3 s6 modal-trigger dish-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style =  {{ background: '#ccc' }}>
             {
-              if (item.user_id !== Meteor.userId()) ?
+               (item.user_id !== Meteor.userId()) ?
                 <Like type="dish" id={item._id} />
               : ''
             }
@@ -109,6 +109,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      dishes: Dishes.find({ user_id: {$in: Meteor.userId()}, deleted: false, online_status: true }).fetch(),
+      dishes: Dishes.find({ user_id: Meteor.userId(), deleted: false, online_status: true }).fetch(),
   };
 })(SelfDishList);
