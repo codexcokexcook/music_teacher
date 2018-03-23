@@ -45,7 +45,7 @@ class MenuList extends Component {
       let images = { origin: dish[0].meta.origin, small: dish[0].meta.small };
       listImages.push(images);
     })
-    
+
     if (listImages.length > 1) {
       return listImages.map((item, index) => {
         if (item) {
@@ -73,7 +73,7 @@ class MenuList extends Component {
 
   renderList = () => {
     if (this.props.menus.length == 0) {
-      return <p>Has no dishes to displayed</p>
+      return <p>Has no menus to be displayed</p>
     }
     return this.props.menus.map((item, index) => {
       return (

@@ -28,7 +28,7 @@ class DishList extends Component {
 
   renderList = () => {
     if (this.props.dishes.length == 0) {
-      return <p>Has no dishes to displayed</p>
+      return <p>Has no dishes to be displayed</p>
     }
     let hasThumbnail;
     return this.props.dishes.map((item, index) => {
