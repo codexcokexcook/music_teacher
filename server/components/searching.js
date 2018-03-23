@@ -19,6 +19,7 @@ Meteor.methods({
         let nation = 'vietnam';
         let region = 'VN';
         let radius = 1 / 6378.1
+        let isToday = true
         //- check existance
         if(lat && lng)
         {
@@ -33,31 +34,48 @@ Meteor.methods({
             searchingQuery.push({serving_option: null});
         }
 
-        console.log('search result', searchingQuery)
+        console.log('kitchen detail data', typeof(Kitchen_details.find().fetch()[0].createdAt))
 
-        //- spliting the the createdAt
+        //- query on Dish
+        //- time start is today
+
         if(!_.isEmpty(date.trim()))
         {
             searchingQuery.push({createdAt: date});
+        }else{
+            isToday = true;
         }
 
         if(!_.isEmpty(time.trim()))
         {
-            searchingQuery.push({});
+            if(isToday)
+            {
+                searchingQuery.push({});
+            }else{
+                //- have both date and time
+            }
+        }
+
+        //- if date and time is not missing
+        if(!_.isEmpty(date.trim()) && !_.isEmpty(time.trim()))
+        {
+            let datetime = date.trim() + ' ' + time.trim();
         }
 
         //- matching with database and save kitchen result to a/an list/array
         //- distance & average rating
         //- search using or
-        var searched_kitchen = Kitchen_details.find({
-            '$and': [
-                { '$or': searchingQuery },
-                // { average_rating: {'$range': [3.0, 5.0]} } 
-            ]
-        }).fetch();
+        // var searched_kitchen = Kitchen_details.find({
+        //     '$and': [
+        //         { '$or': searchingQuery },
+        //         // { average_rating: {'$range': [3.0, 5.0]} } 
+        //     ]
+        // }).fetch();
 
         var searched_kitchen = Kitchen_details.find({
             '$or': searchingQuery
+        }, {
+            sort:{average_rating: -1}
         }).fetch();
 
 
