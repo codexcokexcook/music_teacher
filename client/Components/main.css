@@ -7,6 +7,10 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.87;
 }
 
+.render_component{
+  margin-top: 65px;
+}
+
 .btn {
   text-transform: lowercase;
   font-weight: 600;
@@ -43,6 +47,11 @@ body p {
   opacity: 0.87;
   margin:0;
   padding:0;
+}
+
+.chip{
+  background-color: #56AACD !important;
+  color: white;
 }
 
 .card {
