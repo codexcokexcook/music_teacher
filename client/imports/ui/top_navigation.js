@@ -208,6 +208,13 @@ class TopNavigation extends Component {
 
     handleSearch = () => {
         var self = this;
+        let service = [];
+        self.state.multiSelect.map((item, index) => {
+            if (item.value !== false) {
+                service.push(item.value);
+            }
+        })
+        let date = document.getElementById('date').value;
         if (this.state.address.trim().length > 0) {
             geocodeByAddress(this.state.address)
             .then(results => results[0])
@@ -216,13 +223,6 @@ class TopNavigation extends Component {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng()
                 },() => {
-                    let service = [];
-                    self.state.multiSelect.map((item, index) => {
-                        if (item.value !== false) {
-                            service.push(item.value);
-                        }
-                    })
-                    let date = document.getElementById('date').value;
                     // debugger
                     Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
                         if (!error) {
