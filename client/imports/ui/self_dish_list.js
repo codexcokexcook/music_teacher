@@ -44,7 +44,7 @@ class SelfDishList extends Component {
         <div key={index} className="col xl2 l2 m3 s6 modal-trigger dish-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style =  {{ background: '#ccc' }}>
             {
-              if (item.user_id !== Meteor.userId()) ?
+              (item.user_id !== Meteor.userId()) ?
                 <Like type="dish" id={item._id} />
               : ''
             }

@@ -85,7 +85,7 @@ class SelfMenuList extends Component {
         <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger menu-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style={{ height: '150px' }}>
             {
-              if (item.user_id !== Meteor.userId()) ?
+              (item.user_id !== Meteor.userId()) ?
                 <Like type="menu" id={item._id} />
               : ''
             }
