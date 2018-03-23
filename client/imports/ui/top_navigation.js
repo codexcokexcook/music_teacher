@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
+import 'rc-time-picker/assets/index.css';
+
 import Sidebar from 'react-sidebar';
 import MultiSelectReact  from 'multi-select-react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
+import TimePicker from 'rc-time-picker';
+import moment from 'moment';
 
 const styles = {
     root : {
@@ -78,6 +82,7 @@ class TopNavigation extends Component {
             address: '',
             lat: null,
             lng: null,
+            time: '',
             multiSelect: [
                 { id: 1, label: 'Delivery', value: 'Delivery' },
                 { id: 2, label: 'Dine-in', value: 'Dine-in' },
@@ -175,6 +180,12 @@ class TopNavigation extends Component {
         this.setState({ multiSelect: optionsList });
     }
 
+    changeTime = (value) => {
+        this.setState({
+            time: value._d
+        })
+    }
+
     renderMultiSelect = () => {
         const selectedOptionsStyles = {
             color: "#444343",
@@ -212,9 +223,8 @@ class TopNavigation extends Component {
                         }
                     })
                     let date = document.getElementById('date').value;
-                    let time = document.getElementById('time').value;
                     // debugger
-                    Meteor.call('searching', self.state.lat, self.state.lng, service, date, time, (error, result) => {
+                    Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
                         if (!error) {
                             console.log(result);
                         } else {
@@ -225,7 +235,7 @@ class TopNavigation extends Component {
             })
             .catch(error => console.error('Error', error))
         } else {
-            Meteor.call('searching', self.state.lat, self.state.lng, service, date, time, (error, result) => {
+            Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
                 if (!error) {
                     console.log(result);
                 } else {
@@ -264,7 +274,12 @@ class TopNavigation extends Component {
                                 <input id="date" type="date" placeholder="date"/>
                             </div>
                             <div className="input-field col s12">
-                                <input id="time" type="number" placeholder="time"/>
+                                <TimePicker
+                                    showSecond={true}
+                                    defaultValue={moment()}
+                                    className=""
+                                    onChange={ this.changeTime }
+                                />
                             </div>
                             <div className="input-field col s12 text-center">
                                 <button onClick={ this.handleSearch } id="search-btn">Search</button>
