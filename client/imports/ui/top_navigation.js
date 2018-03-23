@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
+import 'rc-time-picker/assets/index.css';
+
 import Sidebar from 'react-sidebar';
 import MultiSelectReact  from 'multi-select-react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
+import TimePicker from 'rc-time-picker';
+import moment from 'moment';
 
 const styles = {
     root : {
@@ -76,8 +80,9 @@ class TopNavigation extends Component {
             sidebarOpen: false,
             search: false,
             address: '',
-            lat: '',
-            lng: '',
+            lat: null,
+            lng: null,
+            time: '',
             multiSelect: [
                 { id: 1, label: 'Delivery', value: 'Delivery' },
                 { id: 2, label: 'Dine-in', value: 'Dine-in' },
@@ -100,31 +105,57 @@ class TopNavigation extends Component {
 
     renderSideBar = () => {
         return (
-            <ul className="sidebar-container">
-                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg"/></li>
-                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
-                    <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
-                <li className="divider"></li>
-                <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/shopping_cart'); }) } } >
-                    <span>Shopping cart</span>
-                    <span id="cart-number-sidebar">{ this.props.shoppingCart.length }</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg"/></li>
-                <li>
-                    <span>Notification</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/notification.svg"/></li>
-                <li>
-                    <span>Wishlist</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Heart.svg"/></li>
-                <li>
-                    <span>Order Status</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/OrderStatus.svg"/></li>
-                <li className="divider"></li>
-                <li>
-                    <span>Switch to cooking</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
-                <li className="divider"></li>
-                <li>
-                    <span>Help</span>
-                </li>
-                <li onClick={ () => Meteor.logout(() => { FlowRouter.go('/') }) } >
-                    <span>Logout</span>
-                </li>
-            </ul>
+            (localStorage.getItem('userMode') == 'foodie') ?
+                <ul className="sidebar-container">
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/shopping_cart'); }) } } >
+                        <span>Shopping cart</span>
+                        <span id="cart-number-sidebar">{ this.props.shoppingCart.length }</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/cart-icon.svg"/></li>
+                    <li>
+                        <span>Notification</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/notification.svg"/></li>
+                    <li>
+                        <span>Wishlist</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Heart.svg"/></li>
+                    <li>
+                        <span>Order Status</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/OrderStatus.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'chef') } } >
+                        <span>Switch to cooking</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
+                    <li className="divider"></li>
+                    <li>
+                        <span>Help</span>
+                    </li>
+                    <li onClick={ () => Meteor.logout(() => { FlowRouter.go('/') }) } >
+                        <span>Logout</span>
+                    </li>
+                </ul>
+            :
+                <ul className="sidebar-container">
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
+                        <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'foodie') } } >
+                        <span>Switch to foodie</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
+                    <li className="divider"></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/dashboard'); }) } }>
+                        <span>Dashboard</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/dashboard.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/dishes'); }) } }>
+                        <span>Manage dish</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/manage-dish.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/menus'); }) } }>
+                        <span>Manage menu</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/manageManage.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/orders'); }) } }>
+                        <span>Current Order</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/oven.svg"/></li>
+                    <li className="divider"></li>
+                    <li>
+                        <span>Help</span>
+                    </li>
+                    <li onClick={ () => Meteor.logout(() => { FlowRouter.go('/') }) } >
+                        <span>Logout</span>
+                    </li>
+                </ul>
         )
     }
 
@@ -132,8 +163,13 @@ class TopNavigation extends Component {
         this.setState({
             search: !this.state.search,
             sidebarOpen: false
+        },() => {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            setTimeout(() => {
+                $('html').css('overflow', 'hidden');     
+            }, 200);
         });
-        $('html').css('overflow', 'hidden');
     }
 
     optionClicked = (optionsList) => {
@@ -142,6 +178,12 @@ class TopNavigation extends Component {
 
     selectedBadgeClicked = (optionsList) => {
         this.setState({ multiSelect: optionsList });
+    }
+
+    changeTime = (value) => {
+        this.setState({
+            time: value._d
+        })
     }
 
     renderMultiSelect = () => {
@@ -166,7 +208,8 @@ class TopNavigation extends Component {
 
     handleSearch = () => {
         var self = this;
-        geocodeByAddress(this.state.address)
+        if (this.state.address.trim().length > 0) {
+            geocodeByAddress(this.state.address)
             .then(results => results[0])
             .then(place => {
                 self.setState({
@@ -180,11 +223,10 @@ class TopNavigation extends Component {
                         }
                     })
                     let date = document.getElementById('date').value;
-                    let time = document.getElementById('time').value;
-                    debugger
-                    Meteor.call('searching', self.state.lat, self.state.lng, service, date, time, (error, result) => {
+                    // debugger
+                    Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
                         if (!error) {
-                            // console.log(result);
+                            console.log(result);
                         } else {
                             Materialize.toast("Error! " + error, "rounded bp-green");
                         }
@@ -192,6 +234,15 @@ class TopNavigation extends Component {
                 })
             })
             .catch(error => console.error('Error', error))
+        } else {
+            Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
+                if (!error) {
+                    console.log(result);
+                } else {
+                    Materialize.toast("Error! " + error, "rounded bp-green");
+                }
+            });
+        }
     }
 
     handlePress = (event) => {
@@ -223,7 +274,12 @@ class TopNavigation extends Component {
                                 <input id="date" type="date" placeholder="date"/>
                             </div>
                             <div className="input-field col s12">
-                                <input id="time" type="number" placeholder="time"/>
+                                <TimePicker
+                                    showSecond={true}
+                                    defaultValue={moment()}
+                                    className=""
+                                    onChange={ this.changeTime }
+                                />
                             </div>
                             <div className="input-field col s12 text-center">
                                 <button onClick={ this.handleSearch } id="search-btn">Search</button>
