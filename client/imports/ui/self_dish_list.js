@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Mongo } from 'meteor/mongo';
 import { Session } from 'meteor/session';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
@@ -19,9 +20,13 @@ class SelfDishList extends Component {
   }
 
   handleClick = (item) => {
-    Session.set('selectedDish', item);
-    Session.set('selectedItem', 'dish');
-    this.props.popup(item);
+    if (item.user_id == Meteor.userId()){
+      FlowRouter.go('/cooking/dishes');
+    } else {
+      Session.set('selectedDish', item);
+      Session.set('selectedItem', 'dish');
+      this.props.popup(item);
+    }
   }
 
   renderList = () => {
@@ -38,6 +43,11 @@ class SelfDishList extends Component {
       return (
         <div key={index} className="col xl2 l2 m3 s6 modal-trigger dish-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style =  {{ background: '#ccc' }}>
+            {
+              if (item.user_id !== Meteor.userId()) ?
+                <Like type="dish" id={item._id} />
+              : ''
+            }
             {
               (hasThumbnail) ?
                 <ProgressiveImages
@@ -99,6 +109,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      dishes: Dishes.find({ user_id: Meteor.userId() }).fetch(),
+      dishes: Dishes.find({ user_id: {$in: Meteor.userId()}, deleted: false, online_status: true }).fetch(),
   };
 })(SelfDishList);

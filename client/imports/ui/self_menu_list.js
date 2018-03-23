@@ -22,9 +22,13 @@ class SelfMenuList extends Component {
   }
 
   handleClick = (item) => {
-    Session.set('selectedMenu', item);
-    Session.set('selectedItem', 'menu');
-    this.props.popup(item);
+    if (item.user_id == Meteor.userId()){
+      FlowRouter.go('/cooking/menus');
+    } else {
+      Session.set('selectedMenu', item);
+      Session.set('selectedItem', 'menu');
+      this.props.popup(item);
+    }
   }
 
   componentDidUpdate = () => {
@@ -80,7 +84,11 @@ class SelfMenuList extends Component {
       return (
         <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger menu-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style={{ height: '150px' }}>
-            <Like type="menu" id={item._id} />
+            {
+              if (item.user_id !== Meteor.userId()) ?
+                <Like type="menu" id={item._id} />
+              : ''
+            }
             <div className="slider">
               { this.renderListCarousel(index) }
             </div>
@@ -137,6 +145,6 @@ export default withTracker(props => {
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      menus: Menu.find({ user_id: Meteor.userId() }).fetch(),
+      menus: Menu.find({ user_id: {$in: Meteor.userId()}, deleted: false, online_status: true }).fetch(),
   };
 })(SelfMenuList);
