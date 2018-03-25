@@ -8,16 +8,30 @@
   background-repeat: no-repeat;
 }
 
+.profile_cover {
+  position: relative;
+  top: 100px;
+}
+
+.profile_banner_upload {
+  display: inline;
+  position: absolute;
+  right: 5vw;
+  top: 320px;
+}
+
 .profile_upload_wrapper {
     border-radius: 50%;
     width: 125px;
     height: 125px;
     background-size:cover;
     background-repeat: no-repeat;
-    background-position: center center ;
-    /** border: 1px solid grey; **/
-    margin: auto;
+    background-position: center center;
+    background-color: #ffffff;
     z-index:1;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .profile_icon_img_upload {
