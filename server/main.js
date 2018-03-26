@@ -32,3 +32,7 @@ Meteor.publish('theMenu', function(){
 Meteor.publish('theIngredients', function(){
   return Ingredients.find();
 });
+
+Meteor.publish('getUserShoppingCart', function(){
+  return Shopping_cart.find({ buyer_id: Meteor.userId() })
+})

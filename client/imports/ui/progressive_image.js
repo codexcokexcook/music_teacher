@@ -25,20 +25,22 @@ export default class ProgressiveImages extends Component {
         };
         
         // 2: load large image
-        var imgLarge = new Image();
-        imgLarge.src = placeholder.dataset.large; 
-        imgLarge.onload = function () {
-            setTimeout(() => {
-                that.setState({
-                    background: that.props.large
-                },() => {
+        if (placeholder.dataset) {
+            var imgLarge = new Image();
+            imgLarge.src = placeholder.dataset.large; 
+            imgLarge.onload = function () {
+                setTimeout(() => {
                     that.setState({
-                        loaded: true
+                        background: that.props.large
+                    },() => {
+                        that.setState({
+                            loaded: true
+                        })
+                        // loaded
                     })
-                    // loaded
-                })
-            }, 1000);
-        };
+                }, 1000);
+            };
+        }
     }
 
     render() {

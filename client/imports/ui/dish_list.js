@@ -6,6 +6,7 @@ import { Session } from 'meteor/session';
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
 import ChefAvatar from './chef_avatar';
+import Like from './like_button';
 
 import { navbar_find_by } from './../../../imports/functions/find_by';
 
@@ -40,6 +41,7 @@ class DishList extends Component {
       return (
         <div key={index} className="col xl2 l2 m3 s6 modal-trigger dish-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style =  {{ background: '#ccc' }}>
+            <Like type="dish" id={item._id} />
             {
               (hasThumbnail) ?
                 <ProgressiveImages

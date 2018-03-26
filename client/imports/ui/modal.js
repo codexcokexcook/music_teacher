@@ -292,7 +292,7 @@ export default class DishModal extends Component {
         
             if (order) {
                 var order_id = order._id;
-                quantity = parseInt(order.quantity) + this.state.quantity;
+                quantity = parseInt(order.quantity) + this.state.qty;
                 total_price_per_dish = parseInt(menu_price) * quantity
                 Meteor.call('shopping_cart.update',
                     order_id,
@@ -303,6 +303,7 @@ export default class DishModal extends Component {
                     }
                 )
             } else {
+                quantity = this.state.qty;
                 Meteor.call('shopping_cart.insert',
                     foodie_id,
                     homecook_id,
