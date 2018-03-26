@@ -31,6 +31,24 @@ export default class Like extends Component {
                     }
                 })
             }
+        } else {
+            if (this.state.like) {
+                Meteor.call('menu.unlike', this.props.id , (error, result) => {
+                    if (!error) {
+                        this.setState({
+                            like: false
+                        })
+                    }
+                })
+            } else {
+                Meteor.call('menu.like', this.props.id , (error, result) => {
+                    if (!error) {
+                        this.setState({
+                            like: true
+                        })
+                    }
+                })
+            }
         }
     }
 
