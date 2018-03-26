@@ -1,72 +1,77 @@
 import {
     Meteor
 } from 'meteor/meteor';
-
 import {
     HTTP
 } from 'meteor/http'
 
 Meteor.methods({
-    'searching' (lat, lng, service, date, time) {
-
-        console.log(lat)
-        console.log(lng)
-        console.log(service);
-        console.log(date);
-        console.log(time);
-
-        var searchingQuery = [];
-        let nation = 'vietnam';
-        let region = 'VN';
-        let radius = 1 / 6378.1
-        let isToday = true
+    'searching'(lat, lng, serving_option, date, time)
+    {
+        let kitchen_id = []
+        let dish_id = []
         let searched_results = []
-        //- check existance
-        if(lat && lng)
+        let searchingQuery = []
+        let radius = 1 / 6378.1
+        let baseOnLocation = false
+        let from = 0
+        let to = 1
+
+        //- limit must be positive
+        if(to <= 0)
         {
-            searchingQuery.push({kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[lng, lat], radius]}}});
-        }
-        console.log('serving_option', service.length);
-        console.log(service)
-        if(!_.isEmpty(service))
-        {
-            searchingQuery.push({serving_option: service});
-        }else{
-            searchingQuery.push({serving_option: null});
+            to = 1
         }
 
-        console.log('kitchen detail data', typeof(Kitchen_details.find().fetch()[0].createdAt))
-
-        //- query on Dish
-        //- time start is today
-        //- search by date
-        console.log('=>>>>>>>>>>>>>>>>> client date send: ', date);
-        if(!_.isEmpty(date.trim()))
+        if(serving_option.length > 0)
         {
-            //- get current time and show
-            let currDateTime = new Date().toLocaleString(); //- "09/08/2014, 2:35:56 AM"
-            let currTime = currDateTime.split(' ')[1];
-            let finalDate = new Date(date+' ' + currTime)
-            console.log('current date time', currDateTime)
-            console.log('current time', currTime);
-            console.log('final date time', new Date(date+' ' + currTime));
-            // searchingQuery.push({createdAt: date});
+            console.log('serving options > 0')
+            searchingQuery.push({serving_option: serving_option});    
+        }
+        console.log('searching query', searchingQuery);
+
+        //- if date and time is not missing
+        if((!_.isEmpty(date.trim()) && _.isDate(time)) || (!_.isEmpty(date.trim())))
+        {
+            console.log('has date')
+            let datetime = stringToDate(date, "yyyy-mm-dd", "-");
+            let dateTimeBetween = getDateTimeBetweenTwoDateTimes(new Date(), datetime) //- minutes or hours + minutes
+    
+            //- convert to minutes
+            let minutes = (dateTimeBetween.hours * 60) + dateTimeBetween.minutes;
+            if(minutes > 0)
+            {
+                let up = minutes - 15;
+                let down = minutes + 30;
+                //- query here
+                var dish_search = Dishes.find({
+                    'cooking_time': {
+                        // '$gte': up, //- sớm hơn 15 phút
+                        '$lte': down  //- trễ hơn 30 phút
+                    }
+                }).fetch();
+                
+                //- add to kitchen id array
+                kitchen_id = saveToArr(kitchen_id, dish_search.map(a=>a.kitchen_id));
+
+                //- add to dish id
+                dish_id = saveToArr(dish_id, dish_search.map(a=>a._id));
+
+            }
+            // console.log(datetime)
+
         }
 
-        console.log('is date format: ', _.isDate(time));
-
-        //- search by time
+        //- if time is not empty
         if(_.isDate(time))
-        {   
+        {
+            console.log('has time')
             let dateTimeBetween = getDateTimeBetweenTwoDateTimes(new Date(), time) //- minutes or hours + minutes
             //- convert to minutes
             let minutes = (dateTimeBetween.hours * 60) + dateTimeBetween.minutes;
-            console.log('minute between', minutes);
             //- check if the time is in the future
             if(minutes > 0)
             {
-                console.log(minutes - 15)
-                console.log(minutes + 30)
                 let up = minutes - 15;
                 let down = minutes + 30;
                 //- query here
@@ -74,116 +79,194 @@ Meteor.methods({
                     'cooking_time': {
                         // '$gte': up, //- sớm hơn 15 phút
                         '$lte': down  //- trễ hơn 30 phút
-                    }
+                    },
+                    'online_status': true
                 }).fetch();
 
                 console.log('time results: ' ,  dish_search);
-                //======== 1 list
+                //- add to dish id
+                dish_id = saveToArr(dish_id, dish_search.map(a=>a._id));
+                console.log('dish id',dish_id)
+                //- add to kitchen id
+                kitchen_id = saveToArr(kitchen_id, dish_search.map(a=>a.kitchen_id));
+                
             }
-            console.log('minutes range: ', minutes)
         }
 
-        //- if date and time is not missing
-        if(!_.isEmpty(date.trim()) && _.isDate(time))
+        //- final query
+        //- find by kitchen id
+        //- remove other dish in kitchen return
+        //- dish_id
+        let find_kitchen_id = Kitchen_details.find({
+            '_id': { 
+                '$in': kitchen_id 
+            },
+
+            // kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[lng, lat], radius]}},
+        }).fetch()
+
+        console.log('find kitchen id', find_kitchen_id);
+
+        //- searching depends on location latitude and longitude
+        if((lat && lng) && (serving_option.length > 0 || !_.isEmpty(date.trim()) || _.isDate(time)))
         {
-            let datetime = stringToDate(date, "yyyy-mm-dd", "-");
-            let dateTimeBetween = getDateTimeBetweenTwoDateTimes(new Date(), datetime) //- minutes or hours + minutes
-            // console.log(datetime);
-            // console.log('date time between two days', dateTimeBetween)
-            //- convert to minutes
-            let minutes = (dateTimeBetween.hours * 60) + dateTimeBetween.minutes;
-            console.log('minute between two days: ', minutes);
-            if(minutes > 0)
-            {
-                let up = minutes - 15;
-                let down = minutes + 30;
-                //- query here
-                var dish_search = Dishes.find({
-                    'cooking_time': {
-                        // '$gte': up, //- sớm hơn 15 phút
-                        '$lte': down  //- trễ hơn 30 phút
+            console.log('here')
+            baseOnLocation = true;
+            
+            searchingQuery.push({kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[lng, lat], radius]}}});
+
+            //- final search depends on location
+            let kitchen_search = Kitchen_details.aggregate([
+                {
+                    //- find query here
+                    $match: {
+                        $and: [
+                            {kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[lng, lat], radius]}} ,},
+                            {$or: searchingQuery}
+                        ]
+                    },
+                    
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'menu',
+                        localField: '_id',
+                        foreignField: 'kitchen_id',
+                        as: 'Menu'
+                    },
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'dishes',
+                        localField: '_id',
+                        foreignField: 'kitchen_id',
+                        as: 'Dish'
+                    },
+                },
+                {
+                    $sort: {
+                        average_rating: -1
                     }
-                }).fetch();
+                },
+                // {
+                //     $group:{
+    
+                //     }
+                // }
+                {
+                    $skip: from
+                }, {
+                    $limit: to
+                }
+            ])
 
-                console.log('date + time results: ' ,  dish_search);
-                //- push to result
-                searched_results = _.union(searched_results, dish_search)
-                console.log('searched_results', searched_results)
-            }
+            //- show results
+            searched_results = _.union(searched_results, kitchen_search)
 
-            console.log(datetime)
+            // let all_dish = _.groupBy(searched_results, '_id')
+            // let all_dish = searched_results.map(a=>a.Dish)
+            // let final_array = _.where(searched_results, {'._id': 'TuiygfaZYugTT9Jg4'})
+            // // let final_array = searched_results[0].Dish;
+            // console.log('all dish', all_dish);
+            // console.log('........................', final_array)
+
+            //- combine
+            // console.log('total dish id', dish_id);
+            // console.log('all dish length', all_dish.length);
+            // for(let i = 0; i<all_dish.length; i++)
+            // {
+            //     console.log('all dish id', all_dish[i][0]._id);
+
+            //     for(let j = 0; j<dish_id.length; j++)
+            //     {
+            //         console.log('dish id: ', dish_id[j]);
+            //         if(all_dish[i][0]._id == dish_id[j])
+            //         {
+            //             console.log('~~~~~~~~~~~~~~~~~~~~~', all_dish[i][0]._id)
+            //             console.log('dish.....', all_dish[i]);
+            //             console.log('search result...', searched_results[i].Dish);
+            //             searched_results[i].Dish.push(all_dish[i][0])
+            //         }
+            //     }
+            //     //- check if kitchen id is exist in dish_id
+            //     // if(_.contains(dish_id, all_dish[i]._id) )
+            //     // {
+            //     //     searched_results[i].Dish = all_dish[i]
+            //     // }
+            //     // searched_results[i].Dish = all_dish[i]
+            //     console.log('search value ' + i, searched_results[i]);
+            // }
+
+            
 
         }
 
-        //- matching with database and save kitchen result to a/an list/array
-        //- distance & average rating
-        //- search using or
-        // var searched_kitchen = Kitchen_details.find({
-        //     '$and': [
-        //         { '$or': searchingQuery },
-        //         // { average_rating: {'$range': [3.0, 5.0]} } 
-        //     ]
-        // }).fetch();
+        //- else
+        if(!baseOnLocation)
+        {
+            //- if not providing location
+            //- random search
+            //- final search depends on location
+            let kitchen_search = Kitchen_details.aggregate([
+                {
+                    //- find query here
+                    $match: {
+                        $or: searchingQuery
+                    },
+                    
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'menu',
+                        localField: '_id',
+                        foreignField: 'kitchen_id',
+                        as: 'Menu'
+                    },
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'dishes',
+                        localField: '_id',
+                        foreignField: 'kitchen_id',
+                        as: 'Dish'
+                    },
+                },
+                {
+                    $sort: {
+                        average_rating: -1
+                    }
+                },
+                {
+                    $skip: from
+                }, {
+                    $limit: to
+                }
+                // {
+                //     $group:{
 
-        searched_results = Kitchen_details.find({
-            '$or': searchingQuery
-        }, {
-            sort:{average_rating: -1}
-        }).fetch();
+                //     }
+                // }
+            ])
+
+            //- show results
+            searched_results = _.union(searched_results, kitchen_search, find_kitchen_id)
+        }
+        return searched_results;
+
+    },
 
 
-        //- search using and
-        // var searched_kitchen = Kitchen_details.find({
-        //     '$and':[
-        //         searchingQuery.push({kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[106.704823, 10.483296], radius]}}}),
-        //         { '$or' : searchingQuery }
-        //     ]
-        // }).fetch();
-
-        
-        // var searched_kitchen = Kitchen_details.find({
-        //         kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[106.704823, 10.783296], radius]}}
-        // }).fetch();
-
-        // var searched_kitchen = Kitchen_details.find({
-        //     kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[106.704823, 10.783296], 1/6371]}}
-        //   }).fetch();
-        console.log('search results: ', searched_results)
-        
-
-        // Menu.find({
-        //     '$or' : [ 
-        //     { 'field1':{'$regex':searchString} },
-        //     { 'field2':{'$regex':searchString} },
-        //     { 'field3':{'$regex':searchString} }, ]
-        // });
-
-        // Kitchen_details.find({
-        //     '$or': searchingQuery
-        // });
-
-        // db.inventory.find( {
-        //     $and : [
-        //         { $or : [ { price : 0.99 }, { price : 1.99 } ] },
-        //         { $or : [ { sale : true }, { qty : { $lt : 20 } } ] }
-        //     ]
-        // } )
-
-        //- searching
-        console.log('location', typeof(location));
-        console.log('service', typeof(service));
-        console.log('date', typeof(date));
-        console.log('time', typeof(time));
-        return 'ok';
-
-    }
 });
 
 let getDateTimeBetweenTwoDateTimes = function (currentDate, futureDate)
 {
     let returned_data = {};
     let milliBetween = futureDate - currentDate;
-    console.log('millisecond between: ', milliBetween)
+    // console.log('millisecond between: ', milliBetween)
     
     let dayBetween = Math.floor(milliBetween / 86400000); // days
     let hourBetween = Math.floor((milliBetween % 86400000) / 3600000); // hours
@@ -239,4 +322,9 @@ let stringToDate = function (_date,_format,_delimiter)
     month-=1;
     var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
     return formatedDate;
+}
+
+let saveToArr = function(kitchen_id_arr, arr)
+{
+    return _.union(kitchen_id_arr, _.uniq(arr))
 }

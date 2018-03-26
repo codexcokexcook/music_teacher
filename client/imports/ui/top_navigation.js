@@ -228,6 +228,7 @@ class TopNavigation extends Component {
                         if (!error) {
                             console.log(result);
                         } else {
+                            console.log('location found')
                             Materialize.toast("Error! " + error, "rounded bp-green");
                         }
                     });
@@ -235,13 +236,32 @@ class TopNavigation extends Component {
             })
             .catch(error => console.error('Error', error))
         } else {
-            Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
+            console.log('User wants to use their location')
+            console.log('finding kitchen near your place...');
+
+            //- 21 nguyễn trung ngạn, phường bến nghé, quận 1
+            // let lat = 10.783060
+            // let lng = 106.704881
+
+            // 10.844037, 106.640265 - 11 nguyễn duy cung, phường 12, quận gò vấp
+            // let lat = 10.844037
+            // let lng = 106.704881
+
+            let lat = null
+            let lng = null
+
+            //- ask for current location
+
+            Meteor.call('searching', lat, lng, service, date, this.state.time, (error, result) => {
                 if (!error) {
                     console.log(result);
                 } else {
-                    Materialize.toast("Error! " + error, "rounded bp-green");
+                    console.log('location not found: ', error)
+                    Materialize.toast('Location not found', "rounded bp-red");
                 }
             });
+
+
         }
     }
 
