@@ -5,6 +5,7 @@ import { Session } from 'meteor/session';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
+import Like from './like_button';
 
 // App component - represents the whole app
 export default class DishCarousel extends Component {
@@ -195,6 +196,7 @@ export default class DishCarousel extends Component {
     return (
         <div className="row no-margin" key={index}>
             <div className="col l4 m4 s12 dish-preview-banner no-padding">
+                <Like type="menu" id={ Session.get('selectedMenu')._id } />
                 <ProgressiveImages
                     large={ item.meta.origin }
                     small={ item.meta.small }
