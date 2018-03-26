@@ -34,6 +34,32 @@
     vertical-align: middle;
 }
 
+.upload_fonts {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  padding-top: 24px;
+}
+
+#profile_upload_overlay {
+  margin-top: 0rem !important;
+}
+
+#profile_upload_overlay .upload_fonts {
+  visibility: hidden;
+  z-index: 10;
+}
+
+#profile_upload_overlay:hover .upload_fonts {
+  visibility: visible;
+  z-index: 10;
+  background:rgba(0,0,0,0.6);
+  opacity: 0.6;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+}
+
 .profile_icon_img_upload {
     display: block;
     height: 125px;

@@ -42,7 +42,16 @@
 <template name="upload_profile">
   <div>
       {{#with checkUpload}}
-        <div class = "profile_upload_wrapper" style="background-image: url('{{load_profile}}')"></div>
+        <div class = "profile_upload_wrapper" style="background-image: url('{{load_profile}}')">
+          <div class = "file-field input-field" id="profile_upload_overlay">
+            <div class = "upload_fonts">
+              <i class="material-icons white-text" style="margin: auto;">file_upload</i>
+              <p class = "center-align white-text">change profile picture</p>
+              <input id="file_input" type="file">
+            </div>
+          </div>
+          <div class = "file-path-wrapper"></div>
+        </div>
       {{else}}
         <div class = "profile_image_upload">
           <div class="file-field input-field">
