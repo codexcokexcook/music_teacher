@@ -107,7 +107,7 @@ class TopNavigation extends Component {
         return (
             (localStorage.getItem('userMode') == 'foodie') ?
                 <ul className="sidebar-container">
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg"/></li>
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
                         <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
                     <li className="divider"></li>
@@ -133,7 +133,7 @@ class TopNavigation extends Component {
                 </ul>
             :
                 <ul className="sidebar-container">
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg"/></li>
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
                         <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
                     <li className="divider"></li>
@@ -350,7 +350,7 @@ class TopNavigation extends Component {
                     <div className="navbar-fixed z-depth-0">
                         <nav className = "z-depth-0">
                             <div className="nav-wrapper white z-depth-0">
-                                <a href="" onClick={ () => this.toggle() } className="nav_brand_logo left" data-activates="side_nav"><img src="/navbar/BPLogo_sysmbol.svg" className="navbar_logo" height="40" width="40" /></a>
+                                <a href="" onClick={ () => this.toggle() } className="nav_brand_logo left" data-activates="side_nav"><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/BPLogo_sysmbol.svg" className="navbar_logo" height="40" width="40" /></a>
                                 <ul className="right">
                                     <li className="icon" onClick={ () => this.openProfile() } >
                                         <img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg" />

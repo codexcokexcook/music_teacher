@@ -6,9 +6,9 @@ import {
 } from 'meteor/http'
 
 Meteor.methods({
-    'searching'(lat, lng, serving_option, date, time, limit)
+    'searching'(lat, lng, serving_option, date, time)
     {
-        check(limit, Object)
+        // check(limit, Object)
         let kitchen_id = []
         let dish_id = []
         let searched_results = []
