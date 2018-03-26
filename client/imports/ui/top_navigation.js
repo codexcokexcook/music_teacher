@@ -235,13 +235,47 @@ class TopNavigation extends Component {
             })
             .catch(error => console.error('Error', error))
         } else {
-            Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
-                if (!error) {
-                    console.log(result);
-                } else {
-                    Materialize.toast("Error! " + error, "rounded bp-green");
-                }
-            });
+            if ("geolocation" in navigator) {
+
+                var etimeout = setTimeout(() => {
+                    // when user not enter location, block geolocation
+                    clearTimeout(etimeout);
+                    Meteor.call('searching', null, null, service, date, this.state.time, (error, result) => {
+                        if (!error) {
+                            console.log(result);
+                        } else {
+                            Materialize.toast("Error! " + error, "rounded bp-green");
+                        }
+                    });
+                }, 8000);
+
+                navigator.geolocation.getCurrentPosition((position) => {
+                    // when user not enter location, allow geolocation
+                    clearTimeout(etimeout);
+                    Meteor.call('searching', position.coords.latitude, position.coords.longitude, service, date, this.state.time, (error, result) => {
+                        if (!error) {
+                            console.log(result);
+                        } else {
+                            Materialize.toast("Error! " + error, "rounded bp-green");
+                        }
+                    });
+                }, () => {
+                    // when user not enter location, block geolocation
+                    clearTimeout(etimeout);
+                    Meteor.call('searching', null, null, service, date, this.state.time, (error, result) => {
+                        if (!error) {
+                            console.log(result);
+                        } else {
+                            Materialize.toast("Error! " + error, "rounded bp-green");
+                        }
+                    });
+                }, {timeout:5000});
+                
+            } else {
+                // when browser not support geolocation
+                Materialize.toast("Geolocation is not supported by this browser.", "rounded bp-green");
+                debugger
+            }
         }
     }
 
@@ -276,7 +310,6 @@ class TopNavigation extends Component {
                             <div className="input-field col s12">
                                 <TimePicker
                                     showSecond={true}
-                                    defaultValue={moment()}
                                     className=""
                                     onChange={ this.changeTime }
                                 />
