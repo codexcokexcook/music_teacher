@@ -6,6 +6,7 @@ import { Session } from 'meteor/session';
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
 import Like from './like_button';
+import ChefAvatar from './chef_avatar';
 
 // App component - represents the whole app
 export default class DishCarousel extends Component {
@@ -207,7 +208,10 @@ export default class DishCarousel extends Component {
                 <span className="fa fa-times close-modal" onClick={ this.closeModal }></span>
                 <div className="row dish-preview-navigation">
                     <div className="row">
-                        <div className="col l12 s12 m12">
+                        <div className="col l1 s2 m2" style={{ position: 'relative' }}>
+                            <ChefAvatar userId={Session.get('selectedMenu').user_id} />
+                        </div>
+                        <div className="col l10 s10 m10">
                             <h1 className="title">{ Session.get('selectedMenu').menu_name }</h1>
                         </div>
                         <div className="col l4 s12 m4 m-visible">
