@@ -11,7 +11,7 @@ import Like from './like_button';
 import { navbar_find_by } from './../../../imports/functions/find_by';
 
 // App component - represents the whole app
-class MenuList extends Component {
+class SelfMenuList extends Component {
 
   constructor(props) {
     super(props);
@@ -22,9 +22,13 @@ class MenuList extends Component {
   }
 
   handleClick = (item) => {
-    Session.set('selectedMenu', item);
-    Session.set('selectedItem', 'menu');
-    this.props.popup(item);
+    if (item.user_id == Meteor.userId()){
+      FlowRouter.go('/cooking/menus');
+    } else {
+      Session.set('selectedMenu', item);
+      Session.set('selectedItem', 'menu');
+      this.props.popup(item);
+    }
   }
 
   componentDidUpdate = () => {
@@ -46,7 +50,7 @@ class MenuList extends Component {
       let images = { origin: dish[0].meta.origin, small: dish[0].meta.small };
       listImages.push(images);
     })
-
+    
     if (listImages.length > 1) {
       return listImages.map((item, index) => {
         if (item) {
@@ -80,7 +84,11 @@ class MenuList extends Component {
       return (
         <div key={index} className="col xl3 l3 m4 s6 s12 modal-trigger menu-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style={{ height: '150px' }}>
-            <Like type="menu" id={item._id} />
+            {
+              (item.user_id !== Meteor.userId()) ?
+                <Like type="menu" id={item._id} />
+              : ''
+            }
             <div className="slider">
               { this.renderListCarousel(index) }
             </div>
@@ -134,17 +142,9 @@ class MenuList extends Component {
 
 export default withTracker(props => {
   const handle = Meteor.subscribe('theMenu');
-  navbar_find_by("Kitchen_details");
-  var kitchen_info = Session.get('searched_result');
-  var kitchen_id = [];
-  if (kitchen_info) {
-    for (i = 0; i < kitchen_info.length; i++) {
-      kitchen_id[i] = kitchen_info[i]._id;
-    }
-  }
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      menus: Menu.find({ kitchen_id: {$in: kitchen_id}, deleted: false, online_status: true }, { limit: 4 }).fetch(),
+      menus: Menu.find({ user_id: Meteor.userId(), deleted: false, online_status: true }).fetch(),
   };
-})(MenuList);
+})(SelfMenuList);

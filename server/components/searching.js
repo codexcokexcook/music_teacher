@@ -15,8 +15,10 @@ Meteor.methods({
         let searchingQuery = []
         let radius = 1 / 6378.1
         let baseOnLocation = false
-        let from = limit.from
-        let to = limit.to
+
+        //- limit records
+        let from = 0
+        let to = 1
 
         //- limit must be positive
         if(to <= 0)
@@ -156,11 +158,11 @@ Meteor.methods({
     
                 //     }
                 // }
-                {
-                    $skip: from
-                }, {
-                    $limit: to
-                }
+                // {
+                //     $skip: from
+                // }, {
+                //     $limit: to
+                // }
             ])
 
             //- show results
@@ -241,11 +243,11 @@ Meteor.methods({
                         average_rating: -1
                     }
                 },
-                {
-                    $skip: from
-                }, {
-                    $limit: to
-                }
+                // {
+                //     $skip: from
+                // }, {
+                //     $limit: to
+                // }
                 // {
                 //     $group:{
 
