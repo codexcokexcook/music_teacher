@@ -6,6 +6,7 @@ import { Session } from 'meteor/session';
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
 import DishCarousel from './dish_carousel';
+import Like from './like_button';
 
 // App component - represents the whole app
 export default class DishModal extends Component {
@@ -333,6 +334,7 @@ export default class DishModal extends Component {
         return (
             <div className="row no-margin">
                 <div className="col l4 m4 s12 dish-preview-banner no-padding" style={{backgroundImage: "url(" + this.state.origin + ")"}}>
+                    <Like type="dish" id={this.state.item._id} />
                 </div>
 
                 <div className="col l8 m8 s12 dish-preview-content">
