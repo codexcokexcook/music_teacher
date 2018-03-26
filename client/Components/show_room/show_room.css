@@ -158,6 +158,12 @@
   padding-right: 35%;
 }
 
+.dish-title.full {
+  font-size: 15px;
+  margin: 10px 0px;
+  padding: 0px;
+}
+
 .dish-price {
   color: #56AACD;
   font-size: 18px;

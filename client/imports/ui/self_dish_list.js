@@ -6,7 +6,6 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
-import ChefAvatar from './chef_avatar';
 
 // App component - represents the whole app
 class SelfDishList extends Component {
@@ -58,8 +57,7 @@ class SelfDishList extends Component {
             }
           </div>
           <div className="row no-margin text-left" style={{ position: 'relative' }}>
-            <h5 className="dish-title">{ item.dish_name }</h5>
-            <ChefAvatar userId={item.user_id} />
+            <h5 className="dish-title full">{ item.dish_name }</h5>
           </div>
           <div className="row no-margin">
             <div className="col l12 m12 dish-rating no-padding text-left">
