@@ -301,6 +301,9 @@ class TopNavigation extends Component {
             value: this.state.address,
             onChange: this.onChange,
         }
+        var curr = new Date();
+        curr.setDate(curr.getDate());
+        var date = curr.toISOString().substr(0,10);
         return (
             <div className="search-page-container">
                 <span className="fa fa-times close-modal" onClick={ () =>  { this.setState({ search: false }); $('html').css('overflow', 'auto')} }></span>
@@ -316,7 +319,7 @@ class TopNavigation extends Component {
                                 }
                             </div>
                             <div className="input-field col s12">
-                                <input id="date" type="date" placeholder="date"/>
+                                <input defaultValue={ date } id="date" type="date" placeholder="date"/>
                             </div>
                             <div className="input-field col s12">
                                 <TimePicker
