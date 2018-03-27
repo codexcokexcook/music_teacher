@@ -211,7 +211,7 @@ Template.edit_homecook_profile.onRendered(function() {
  this.$('#kitchen_speciality').material_chip({data:get_homecook_profile.kitchen_speciality});
  this.$('#kitchen_tags').material_chip({data:get_homecook_profile.kitchen_tags});
 
-}, 300);
+}, 800);
 
 
 
