@@ -18,7 +18,7 @@ Menu.deny({
 });
 
 Meteor.methods({
-  'menu.insert' (menu_name, menu_description, user_id, kitchen_id, menu_selling_price, min_order, lead_hours, lead_days, serving_option, dishes_id, image_id) {
+  'menu.insert' (menu_name, menu_description, user_id, kitchen_id, menu_selling_price, min_order, lead_hours, lead_days, serving_option, dishes_id, image_id, menu_tags) {
     check(menu_name, String);
     check(menu_description, String);
     check(user_id, String);
@@ -30,6 +30,7 @@ Meteor.methods({
     check(serving_option, Match.Any);
     check(dishes_id, Match.Any);
     check(image_id, Match.Any);
+    check(menu_tags, Match.Any);
 
     Menu.insert({
       menu_name: menu_name,
@@ -44,6 +45,7 @@ Meteor.methods({
       serving_option: serving_option,
       dishes_id: dishes_id,
       image_id: image_id,
+      menu_tags: menu_tags,
       updatedAt: new Date(),
       order_count: 0,
       average_rating: 0,
@@ -51,7 +53,7 @@ Meteor.methods({
       like: []
     });
   },
-  'menu.update' (menu_id, menu_name, menu_description,  menu_selling_price, min_order, lead_hours, lead_days, serving_option, dishes_id, image_id) {
+  'menu.update' (menu_id, menu_name, menu_description,  menu_selling_price, min_order, lead_hours, lead_days, serving_option, dishes_id, image_id, menu_tags) {
     check(menu_id, String);
     check(menu_name, String);
     check(menu_selling_price, Match.Any);
@@ -61,6 +63,7 @@ Meteor.methods({
     check(serving_option, Match.Any);
     check(dishes_id, Match.Any);
     check(image_id, Match.Any);
+    check(menu_tags, Match.Any);
 
     Menu.update({
       _id: menu_id
@@ -75,6 +78,7 @@ Meteor.methods({
         serving_option: serving_option,
         dishes_id: dishes_id,
         image_id: image_id,
+        menu_tags: menu_tags,
         updatedAt: new Date()
       }
     });
