@@ -489,7 +489,7 @@ Template.create_dishes_form.events({
     Session.keys = {}
     Session.set('ingredient_temp', []);
     Session.set('tempImages', []);
-    $('.chips-placeholder').material_chip({
+    $('#dish_tags').material_chip({
       data: [],
     });
     $('.modal').modal('close');
