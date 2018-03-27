@@ -1,19 +1,16 @@
 import {
     Meteor
 } from 'meteor/meteor';
+import {
+    HTTP
+} from 'meteor/http'
 
 import {
     HTTP
 } from 'meteor/http'
 
 Meteor.methods({
-    'searching' (location, service, date, time) {
-        HTTP.call( 'GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='+location+'&key=AIzaSyBxRWAwnS9h8pP1mF6sAa4ZnkqGYUPBGac', function( error, response ) {
-            // Handle the error or response here.
-            if (error) {
-                console.log(error);
-            } else {
-                console.log(response);
+
     'searching'(lat, lng, serving_option, date, time)
     {
         // check(limit, Object)
@@ -37,7 +34,7 @@ Meteor.methods({
         if(serving_option.length > 0)
         {
             console.log('serving options > 0')
-            searchingQuery.push({serving_option: serving_option});    
+            searchingQuery.push({serving_option: serving_option});
         }
         console.log('searching query', searchingQuery);
 
@@ -47,7 +44,7 @@ Meteor.methods({
             console.log('has date')
             let datetime = stringToDate(date, "yyyy-mm-dd", "-");
             let dateTimeBetween = getDateTimeBetweenTwoDateTimes(new Date(), datetime) //- minutes or hours + minutes
-    
+
             //- convert to minutes
             let minutes = (dateTimeBetween.hours * 60) + dateTimeBetween.minutes;
             if(minutes > 0)
@@ -61,7 +58,7 @@ Meteor.methods({
                         '$lte': down  //- trễ hơn 30 phút
                     }
                 }).fetch();
-                
+
                 //- add to kitchen id array
                 kitchen_id = saveToArr(kitchen_id, dish_search.map(a=>a.kitchen_id));
 
@@ -69,9 +66,7 @@ Meteor.methods({
                 dish_id = saveToArr(dish_id, dish_search.map(a=>a._id));
 
             }
-        });
-    }
-});            // console.log(datetime)
+            // console.log(datetime)
 
         }
 
@@ -102,7 +97,7 @@ Meteor.methods({
                 console.log('dish id',dish_id)
                 //- add to kitchen id
                 kitchen_id = saveToArr(kitchen_id, dish_search.map(a=>a.kitchen_id));
-                
+
             }
         }
 
@@ -111,8 +106,8 @@ Meteor.methods({
         //- remove other dish in kitchen return
         //- dish_id
         let find_kitchen_id = Kitchen_details.find({
-            '_id': { 
-                '$in': kitchen_id 
+            '_id': {
+                '$in': kitchen_id
             },
 
             // kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[lng, lat], radius]}},
@@ -125,7 +120,7 @@ Meteor.methods({
         {
             console.log('here')
             baseOnLocation = true;
-            
+
             searchingQuery.push({kitchen_address_conversion: {"$geoWithin": {"$centerSphere": [[lng, lat], radius]}}});
 
             //- final search depends on location
@@ -138,7 +133,7 @@ Meteor.methods({
                             {$or: searchingQuery}
                         ]
                     },
-                    
+
                 },
                 {
                     $lookup:
@@ -165,7 +160,7 @@ Meteor.methods({
                 },
                 // {
                 //     $group:{
-    
+
                 //     }
                 // }
                 // {
@@ -212,7 +207,7 @@ Meteor.methods({
             //     console.log('search value ' + i, searched_results[i]);
             // }
 
-            
+
 
         }
 
@@ -228,7 +223,7 @@ Meteor.methods({
                     $match: {
                         $or: searchingQuery
                     },
-                    
+
                 },
                 {
                     $lookup:
@@ -280,11 +275,11 @@ let getDateTimeBetweenTwoDateTimes = function (currentDate, futureDate)
     let returned_data = {};
     let milliBetween = futureDate - currentDate;
     // console.log('millisecond between: ', milliBetween)
-    
+
     let dayBetween = Math.floor(milliBetween / 86400000); // days
     let hourBetween = Math.floor((milliBetween % 86400000) / 3600000); // hours
     let minuteBetween = Math.round(((milliBetween % 86400000) % 3600000) / 60000)
-    
+
     //- add to object to return
     returned_data.days = dayBetween
     returned_data.hours = hourBetween
@@ -293,14 +288,14 @@ let getDateTimeBetweenTwoDateTimes = function (currentDate, futureDate)
     return returned_data;
 }
 
-let currentDateAndTime = function () 
+let currentDateAndTime = function ()
 {
     let returned_data = {};
     let currDateTime = new Date().toLocaleString(); //- "09/08/2014, 2:35:56 AM"
     //- get date
     let currDate = currDateTime.split(' ')[0].slice(0, - 1)
     //- get time
-    let currTime = currDateTime.split(' ')[1]; 
+    let currTime = currDateTime.split(' ')[1];
 
     //- add to object
     returned_data.date = currDate;
