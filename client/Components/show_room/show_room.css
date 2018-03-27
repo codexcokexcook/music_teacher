@@ -158,6 +158,12 @@
   padding-right: 35%;
 }
 
+.dish-title.full {
+  font-size: 15px;
+  margin: 10px 0px;
+  padding: 0px;
+}
+
 .dish-price {
   color: #56AACD;
   font-size: 18px;
@@ -273,10 +279,6 @@
 
 .dish-preview-navigation .rating-container {
   margin-left: 40px;
-}
-
-.show_room_wrapper {
-  margin-top: 50px;
 }
 
 .dish-preview-navigation .rating-container .fa-star {
@@ -600,10 +602,6 @@
   width: 100%;
   background: url(https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/clock-icon.svg);
   background-repeat: no-repeat; 
-}
-
-.show_room_wrapper {
-  margin-top: 60px!important;
 }
 
 .like-container {
