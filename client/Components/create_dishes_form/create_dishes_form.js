@@ -403,10 +403,7 @@ Template.dietary_preferences.events({
 
 
 Template.tagging.onRendered(function() {
-  $('.chips-placeholder').material_chip({
-    placeholder: 'Add your tag by typing in a keyword, then press enter',
-    secondaryPlaceholder: 'Add your tag by typing in a keyword, then press enter',
-  });
+  $('#dish_tags').material_chip();
 });
 
 Template.create_dishes_form.onCreated( function(){
