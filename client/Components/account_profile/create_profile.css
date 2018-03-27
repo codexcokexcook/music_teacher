@@ -16,8 +16,14 @@
 .profile_banner_upload {
   display: inline;
   position: absolute;
-  right: 5vw;
-  top: 320px;
+  right: 4.5vw;
+  top: 370px;
+}
+
+@media (min-height: 830px) {
+  .profile_banner_upload {
+    top: 44.5vh;
+  }
 }
 
 .profile_upload_wrapper {
@@ -56,7 +62,7 @@
   z-index: 10;
   background:rgba(0,0,0,0.6);
   opacity: 0.6;
-  transition: all 0.3s;
+  transition: all 0.8s;
   -webkit-transition: all 0.8s;
 }
 
