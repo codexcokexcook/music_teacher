@@ -5,9 +5,6 @@ import {
     HTTP
 } from 'meteor/http'
 
-import {
-    HTTP
-} from 'meteor/http'
 
 Meteor.methods({
 
