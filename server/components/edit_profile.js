@@ -156,8 +156,8 @@ Meteor.methods({
     check(bank_address_country, Match.Any);
     check(bank_address, Match.Any);
 **/
-    console.log('is banner empty? ', _.isEmpty(bannerKitchenImg));
-    if(!_.isEmpty(bannerKitchenImg)) //- if chef change banner's images
+    console.log('is banner empty? ', _.isEmpty(bannerProfileImg));
+    if(!_.isEmpty(bannerProfileImg)) //- if chef change banner's images
     {
       Kitchen_details.update({
         user_id: Meteor.userId()
