@@ -108,6 +108,7 @@ class TopNavigation extends Component {
             (localStorage.getItem('userMode') == 'foodie') ?
                 <ul className="sidebar-container">
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg"/></li>
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
                         <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
                     <li className="divider"></li>
@@ -117,6 +118,7 @@ class TopNavigation extends Component {
                     <li>
                         <span>Notification</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/notification.svg"/></li>
                     <li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/wish-list'); }) } }>
                         <span>Wishlist</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Heart.svg"/></li>
                     <li>
                         <span>Order Status</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/OrderStatus.svg"/></li>
@@ -134,6 +136,7 @@ class TopNavigation extends Component {
             :
                 <ul className="sidebar-container">
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="/navbar/profile-icon.svg"/></li>
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/profile'); }) } } ><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg"/></li>
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
                         <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
                     <li className="divider"></li>
@@ -209,6 +212,12 @@ class TopNavigation extends Component {
     handleSearch = () => {
         var self = this;
         let service = [];
+        
+        //- limit the records
+        let limit = {}
+        limit.from = 0
+        limit.to = 2
+
         self.state.multiSelect.map((item, index) => {
             if (item.value !== false) {
                 service.push(item.value);
@@ -225,9 +234,11 @@ class TopNavigation extends Component {
                 },() => {
                     // debugger
                     Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, (error, result) => {
+                    Meteor.call('searching', self.state.lat, self.state.lng, service, date, this.state.time, limit, (error, result) => {
                         if (!error) {
                             console.log(result);
                         } else {
+                            console.log('location found')
                             Materialize.toast("Error! " + error, "rounded bp-green");
                         }
                     });
@@ -242,6 +253,47 @@ class TopNavigation extends Component {
                     Materialize.toast("Error! " + error, "rounded bp-green");
                 }
             });
+            if ("geolocation" in navigator) {
+
+                var etimeout = setTimeout(() => {
+                    // when user not enter location, block geolocation
+                    clearTimeout(etimeout);
+                    Meteor.call('searching', null, null, service, date, this.state.time, (error, result) => {
+                        if (!error) {
+                            console.log(result);
+                        } else {
+                            Materialize.toast("Error! " + error, "rounded bp-green");
+                        }
+                    });
+                }, 8000);
+
+                navigator.geolocation.getCurrentPosition((position) => {
+                    // when user not enter location, allow geolocation
+                    clearTimeout(etimeout);
+                    Meteor.call('searching', position.coords.latitude, position.coords.longitude, service, date, this.state.time, (error, result) => {
+                        if (!error) {
+                            console.log(result);
+                        } else {
+                            Materialize.toast("Error! " + error, "rounded bp-green");
+                        }
+                    });
+                }, () => {
+                    // when user not enter location, block geolocation
+                    clearTimeout(etimeout);
+                    Meteor.call('searching', null, null, service, date, this.state.time, (error, result) => {
+                        if (!error) {
+                            console.log(result);
+                        } else {
+                            Materialize.toast("Error! " + error, "rounded bp-green");
+                        }
+                    });
+                }, {timeout:5000});
+                
+            } else {
+                // when browser not support geolocation
+                Materialize.toast("Geolocation is not supported by this browser.", "rounded bp-green");
+                debugger
+            }
         }
     }
 
@@ -311,6 +363,7 @@ class TopNavigation extends Component {
                         <nav className = "z-depth-0">
                             <div className="nav-wrapper white z-depth-0">
                                 <a href="" onClick={ () => this.toggle() } className="nav_brand_logo left" data-activates="side_nav"><img src="/navbar/BPLogo_sysmbol.svg" className="navbar_logo" height="40" width="40" /></a>
+                                <a href="" onClick={ () => this.toggle() } className="nav_brand_logo left" data-activates="side_nav"><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/BPLogo_sysmbol.svg" className="navbar_logo" height="40" width="40" /></a>
                                 <ul className="right">
                                     <li className="icon" onClick={ () => this.openProfile() } >
                                         <img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/profile-icon.svg" />
