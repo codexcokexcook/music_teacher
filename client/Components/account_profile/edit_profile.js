@@ -76,7 +76,7 @@ Template.edit_foodie_profile.onRendered(function() {
   Session.set('office_address_conversion', get_profile.office_address_conversion)
   /*checkboxes_recall(get_profile.serving_option_tags)*/
 
-}, 500);
+}, 800);
 
 
 
@@ -211,7 +211,7 @@ Template.edit_homecook_profile.onRendered(function() {
  this.$('#kitchen_speciality').material_chip({data:get_homecook_profile.kitchen_speciality});
  this.$('#kitchen_tags').material_chip({data:get_homecook_profile.kitchen_tags});
 
-}, 800);
+}, 1000);
 
 
 
