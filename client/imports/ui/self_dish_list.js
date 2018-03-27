@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Mongo } from 'meteor/mongo';
 import { Session } from 'meteor/session';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
 import ChefAvatar from './chef_avatar';
-import Like from './like_button';
-
-import { navbar_find_by } from './../../../imports/functions/find_by';
 
 // App component - represents the whole app
-class DishList extends Component {
+class SelfDishList extends Component {
 
   constructor(props) {
     super(props);
@@ -22,14 +20,18 @@ class DishList extends Component {
   }
 
   handleClick = (item) => {
-    Session.set('selectedDish', item);
-    Session.set('selectedItem', 'dish');
-    this.props.popup(item);
+    if (item.user_id == Meteor.userId()){
+      FlowRouter.go('/cooking/dishes');
+    } else {
+      Session.set('selectedDish', item);
+      Session.set('selectedItem', 'dish');
+      this.props.popup(item);
+    }
   }
 
   renderList = () => {
     if (this.props.dishes.length == 0) {
-      return <p>Has no dishes to be displayed</p>
+      return <p>Has no dishes to displayed</p>
     }
     let hasThumbnail;
     return this.props.dishes.map((item, index) => {
@@ -41,7 +43,11 @@ class DishList extends Component {
       return (
         <div key={index} className="col xl2 l2 m3 s6 modal-trigger dish-wrapper" onClick={ () => this.handleClick(item) }>
           <div className="images-thumbnail" style =  {{ background: '#ccc' }}>
-            <Like type="dish" id={item._id} />
+            {
+              (item.user_id !== Meteor.userId()) ?
+                <Like type="dish" id={item._id} />
+              : ''
+            }
             {
               (hasThumbnail) ?
                 <ProgressiveImages
@@ -100,17 +106,9 @@ class DishList extends Component {
 
 export default withTracker(props => {
   const handle = Meteor.subscribe('theDishes');
-  navbar_find_by("Kitchen_details");
-  var kitchen_info = Session.get('searched_result');
-  var kitchen_id = [];
-  if (kitchen_info) {
-    for (i = 0; i < kitchen_info.length; i++) {
-      kitchen_id[i] = kitchen_info[i]._id;
-    }
-  }
   return {
       currentUser: Meteor.user(),
       listLoading: !handle.ready(),
-      dishes: Dishes.find({ kitchen_id: {$in: kitchen_id}, deleted: false, online_status: true }, { limit: 6 }).fetch(),
+      dishes: Dishes.find({ user_id: Meteor.userId(), deleted: false, online_status: true }).fetch(),
   };
-})(DishList);
+})(SelfDishList);

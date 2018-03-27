@@ -262,7 +262,9 @@ Meteor.methods({
     online_status,
     deleted,
     //- insert the image different sizes
-    imgMeta
+    imgMeta,
+    //- set init like number
+    like
   ) {
     console.log('image meta data', imgMeta);
     // check it before insert
@@ -325,6 +327,7 @@ Meteor.methods({
       deleted: false,
       //- insert meta data for image sizes
       meta: imgMeta,
+      like: like
     });
   }
 });
