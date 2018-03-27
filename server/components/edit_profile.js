@@ -40,7 +40,7 @@ Meteor.methods({
     about_myself,
     allergy_tags,
     dietary_tags,
-    // profileImg,
+    profileImg,
     bannerProfileImg
   ) {
 /**
@@ -90,7 +90,7 @@ Meteor.methods({
           allergy_tags:allergy_tags,
           dietary_tags:dietary_tags,
           updatedAt: new Date(),
-          // profileImg: profileImg,
+          profileImg: profileImg,
           bannerProfileImg: bannerProfileImg
         }
       })
@@ -137,8 +137,8 @@ Meteor.methods({
     kitchen_speciality,
     kitchen_tags,
     house_rule,
-    // kitchenImg,
-    bannerKitchenImg
+    profileImg,
+    bannerProfileImg
   ) {
 /**
     check(kitchen_profile_id, String);
@@ -177,8 +177,8 @@ Meteor.methods({
           kitchen_tags:kitchen_tags,
           house_rule:house_rule,
           updatedAt: new Date(),
-          // kitchenImg: kitchenImg,
-          bannerKitchenImg: bannerKitchenImg
+          profileImg: profileImg,
+          bannerProfileImg: bannerProfileImg
         }
       })
     }else{

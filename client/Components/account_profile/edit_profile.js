@@ -267,7 +267,8 @@ Template.edit_homecook_profile.events({
     kitchen_speciality,
     kitchen_tags,
     house_rule,
-    Session.get('bannerKitchenImg'),
+    Session.get('profileImg'),
+    Session.get('bannerProfileImg'),
 
     function(err) {
       if (err) Materialize.toast('Oops! ' + err.message + ' Please try again.', 4000, 'rounded red lighten-2');
