@@ -76,13 +76,15 @@ Template.uploadForm.events({
             alert('Error during upload: ' + error.message);
           } else {
             Meteor.setTimeout(function() {
-              var dish_url = Images.meta.base64;
+              Session.set('tempImages', Images.meta.base64);
+              var dish_url = Session.get('tempImages');
               $(".circle_base").css("background-image", "url(" + dish_url + ")");
             }, 500);
             Session.set('image_id', Images._id);
             /** above is the line that prevents meteor from reloading **/
 
             //- meteor call
+            debugger
             Meteor.call('saveToKraken', Images.name, Images.path, (error, result)=>{
               if(error) console.log('kraken errors', error);
               console.log(result);
@@ -970,6 +972,7 @@ Template.create_dishes_form.events({
     var dish_selling_price = event.target.dish_selling_price.value;
     if (dish_name.trim().length == "" || dish_cost.trim().length == "" || dish_selling_price.trim().length == "") {
       Materialize.toast("Sorry we can't save your dish. We need to have at least your dish name, dish cost and selling price to save", 6000, 'rounded bp-green');
+      return false;
     } else {
       var dish_description = event.target.dish_description.value;
       var days = event.target.days.value;
@@ -1032,6 +1035,7 @@ Template.create_dishes_form.events({
     Session.set('image_id',null);
     Session.keys = {}
     Session.set('ingredient_temp', []);
+    Session.set('tempImages', []);
   },
   'click .update_dish_submit_btn': function(event) {
     event.preventDefault();

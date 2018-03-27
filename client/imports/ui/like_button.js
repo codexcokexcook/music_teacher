@@ -52,6 +52,33 @@ export default class Like extends Component {
         }
     }
 
+    componentWillReceiveProps = () => {
+        var self = this;
+        if (this.props.type == 'dish') {
+            let count = Dishes.find( { _id: this.props.id , like: { $in : [ Meteor.userId() ]} }).count();
+            if (count > 0) {
+                self.setState({
+                    like: true
+                })
+            } else {
+                self.setState({
+                    like: false
+                })
+            }
+        } else {
+            let count = Menu.find( { _id: this.props.id , like: { $in : [ Meteor.userId() ]} }).count();
+            if (count > 0) {
+                self.setState({
+                    like: true
+                })
+            } else {
+                self.setState({
+                    like: false
+                })
+            }
+        }
+    }
+
     componentDidMount = () => {
         var self = this;
         if (this.props.type == 'dish') {
@@ -59,6 +86,21 @@ export default class Like extends Component {
             if (count > 0) {
                 self.setState({
                     like: true
+                })
+            } else {
+                self.setState({
+                    like: false
+                })
+            }
+        } else {
+            let count = Menu.find( { _id: this.props.id , like: { $in : [ Meteor.userId() ]} }).count();
+            if (count > 0) {
+                self.setState({
+                    like: true
+                })
+            } else {
+                self.setState({
+                    like: false
                 })
             }
         }

@@ -39,7 +39,7 @@ Meteor.methods({
     check(dish_name, String);
     check(dish_description, String);
     check(serving_option, Match.Any);
-    check(cooking_time, String);
+    check(cooking_time, Match.Any);
     check(dish_cost, String);
     check(dish_selling_price, String);
     check(dish_profit, Number);
