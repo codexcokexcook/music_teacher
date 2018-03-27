@@ -5,7 +5,6 @@ import { Session } from 'meteor/session';
 
 import Rating from './rating';
 import ProgressiveImages from './progressive_image';
-import ChefAvatar from './chef_avatar';
 import Like from './like_button';
 
 import { navbar_find_by } from './../../../imports/functions/find_by';
@@ -95,8 +94,7 @@ class SelfMenuList extends Component {
             </div>
           </div>
           <div className="row no-margin text-left" style={{ position: 'relative' }}>
-            <h5 className="dish-title">{ item.menu_name }</h5>
-            <ChefAvatar userId={item.user_id} />
+            <h5 className="dish-title full">{ item.menu_name }</h5>
           </div>
           <div className="row no-margin">
             <div className="col l12 m12 dish-rating no-padding text-left">

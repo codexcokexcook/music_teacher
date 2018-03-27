@@ -124,7 +124,9 @@ class TopNavigation extends Component {
                     <li>
                         <span>Order Status</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/OrderStatus.svg"/></li>
                     <li className="divider"></li>
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'chef') } } >
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'chef'); setTimeout(() => {
+                        this.setState({ sidebarOpen: true });
+                    }, 300); } } >
                         <span>Switch to cooking</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
                     <li className="divider"></li>
                     <li>
@@ -141,7 +143,9 @@ class TopNavigation extends Component {
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/main'); }) } }>
                         <span>Search food</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/search-icon.svg"/></li>
                     <li className="divider"></li>
-                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'foodie') } } >
+                    <li onClick={ () => { this.setState({ sidebarOpen: false }); localStorage.setItem('userMode', 'foodie'); setTimeout(() => {
+                        this.setState({ sidebarOpen: true });
+                    }, 300); } } >
                         <span>Switch to foodie</span><img src="https://s3-ap-southeast-1.amazonaws.com/blueplate-images/icons/Switch.svg"/></li>
                     <li className="divider"></li>
                     <li onClick={ () => { this.setState({ sidebarOpen: false }, () => { FlowRouter.go('/cooking/dashboard'); }) } }>
@@ -305,6 +309,9 @@ class TopNavigation extends Component {
             value: this.state.address,
             onChange: this.onChange,
         }
+        var curr = new Date();
+        curr.setDate(curr.getDate());
+        var date = curr.toISOString().substr(0,10);
         return (
             <div className="search-page-container">
                 <span className="fa fa-times close-modal" onClick={ () =>  { this.setState({ search: false }); $('html').css('overflow', 'auto')} }></span>
@@ -320,7 +327,7 @@ class TopNavigation extends Component {
                                 }
                             </div>
                             <div className="input-field col s12">
-                                <input id="date" type="date" placeholder="date"/>
+                                <input defaultValue={ date } id="date" type="date" placeholder="date"/>
                             </div>
                             <div className="input-field col s12">
                                 <TimePicker
